@@ -9,8 +9,11 @@ class TabsComponent extends React.Component {
   }
 
   onLike () {
-    let newLikesCount = this.state.likesCount + 1;
-    this.setState({likesCount: newLikesCount});
+    // let newLikesCount = this.state.likesCount + 1;
+    // this.setState({likesCount: newLikesCount});
+    chrome.tabs.create({'url': chrome.extension.getURL('views/popup.html')}, function(tab){
+
+    });
   }
 
   render() {
