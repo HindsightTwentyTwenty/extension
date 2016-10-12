@@ -11,7 +11,7 @@ class Popup extends React.Component {
   onLike () {
     // let newLikesCount = this.state.likesCount + 1;
     // this.setState({likesCount: newLikesCount});
-    chrome.tabs.create({'url': chrome.extension.getURL('views/popup.html')}, function(tab){
+    chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
 
     });
   }
@@ -27,4 +27,4 @@ class Popup extends React.Component {
 
 }
 
-export default popup;
+export default Popup;

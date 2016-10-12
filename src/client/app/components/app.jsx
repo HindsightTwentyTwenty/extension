@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {render} from 'react-dom';
-import TabsComponent from './TabsComponent.jsx';
 
-class App extends React.Component {
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    // init component state here
+    this.state = {}
+  }
+
   render () {
     return (
       <div>
-        <p> Hello React! hi grace! what what </p>
-        <TabsComponent />
+        {this.props.children}
       </div>
     )
-
   }
 }
 
-render(<App/>, document.getElementById('hindsite'));
+export default App;
