@@ -1,17 +1,10 @@
 import React from 'react';
-import {render} from 'react-dom';
-import TabsComponent from './TabsComponent.jsx';
+import ReactDOM from 'react-dom';
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <p> Hello React! hi grace! what what </p>
-        <TabsComponent />
-      </div>
-    )
+import { Router, browserHistory } from 'react-router';
+import routes from './routes.jsx';
 
-  }
-}
-
-render(<App/>, document.getElementById('app'));
+ReactDOM.render(
+  <Router history={browserHistory} routes={routes} />,
+  document.getElementById('hindsite')
+);
