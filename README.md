@@ -1,4 +1,4 @@
-# hindshite
+# hindsite
 ##coding practices
 * use camelcase for function names
 * use underscore_case for variable names
