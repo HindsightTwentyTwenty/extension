@@ -12,4 +12,5 @@
 * three branches: master, staging, develop
 * create branches off of develop with "initials/githubIssueNumber"
 * when submitting the pull request comment "[ref#31] restoftexteetcetc"
+* one person must review your pull request before merging
 
