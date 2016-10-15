@@ -4,13 +4,13 @@ hindsite is a Chrome extension that more actively monitors users as they travers
 TODO: some sample screenshots or mockups
 
 ##Coding Practices
-* use camelcase for function names
+* use camelCase for function names
 * use underscore_case for variable names
 
 ##Weekly Schedule
-* Tuesday --> Sunday make new feature
-* Sunday --> Monday Testing and bug fixes
-* Monday --> push to master, plan the next week coding assignments
+* Tuesday --> Sunday: make new features
+* Sunday --> Monday: testing and bug fixes
+* Monday --> Tuesday: push to master, create plan for the coming week's features
 
 ##git flow
 * three branches: master, staging, develop
@@ -31,10 +31,10 @@ TODO: how to get the project dev environment up and running, npm install etc
 TODO: how to deploy the project
 
 ## Authors
-Wanda Czerwinski
-Shelley Garg
-Tommy Kiernan
-Grace Miller
-Zachary Tannenbaum
+* Wanda Czerwinski
+* Shelley Garg
+* Tommy Kiernan
+* Grace Miller
+* Zachary Tannenbaum
 
 ## Acknowledgments
