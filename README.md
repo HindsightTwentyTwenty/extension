@@ -1,7 +1,7 @@
 # hindsite
 hindsite is a Chrome extension that more actively monitors users as they traverse the web and presents their history information in a graphical, multi-dimensional way. 
 
-TODO: some sample screenshots or mockups
+See github wiki for mockups and examples.
 
 ##Coding Practices
 * use camelCase for function names
