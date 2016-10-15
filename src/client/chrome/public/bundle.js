@@ -57,6 +57,12 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _redux = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"redux\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _rootReducer = __webpack_require__(/*! ./reducers/rootReducer */ 240);
+	
+	var _rootReducer2 = _interopRequireDefault(_rootReducer);
+	
 	var _reactRouter = __webpack_require__(/*! react-router */ 172);
 	
 	var _routes = __webpack_require__(/*! ./routes.jsx */ 235);
@@ -65,7 +71,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default }), document.getElementById('hindsite'));
+	var store = (0, _redux.createStore)(_rootReducer2.default);
+	
+	_reactDom2.default.render(_react2.default.createElement(
+	  _redux.Provider,
+	  { store: store },
+	  _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
+	), document.getElementById('hindsite'));
 
 /***/ },
 /* 1 */
@@ -27823,10 +27835,10 @@
 	
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Router,
-	  { history: _reactRouter.browserHistory },
+	  { history: _reactRouter.hashHistory },
 	  _react2.default.createElement(
 	    _reactRouter.Route,
-	    { path: '/app.html', component: _App2.default },
+	    { path: '/popup.html', component: _App2.default },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Popup2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/app/main.html', component: _Tab2.default })
 	  )
@@ -27915,6 +27927,10 @@
 	
 	var _TabsComponent2 = _interopRequireDefault(_TabsComponent);
 	
+	var _tabActions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./actions/tabActions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _tabActions2 = _interopRequireDefault(_tabActions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27933,11 +27949,18 @@
 	  }
 	
 	  _createClass(Tab, [{
+	    key: 'getTabs',
+	    value: function getTabs() {
+	      this.props.this.props.tabActions;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        this.props.tabs,
+	        this.getTabs(),
 	        _react2.default.createElement(
 	          'p',
 	          null,
@@ -27951,7 +27974,19 @@
 	  return Tab;
 	}(_react2.default.Component);
 	
-	exports.default = Tab;
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    tabs: state.tabs
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps() {
+	  return {
+	    newtab: _tabActions2.default.newtab
+	  };
+	};
+	
+	exports.default = connect(mapStateToProps, mapDispatchToProps)(Tab);
 	//render(<Tab/>, document.getElementById('hindsite'));
 
 /***/ },
@@ -28021,7 +28056,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            { onClick: this.onLike },
-	            'Like Me'
+	            'Hello'
 	          )
 	        )
 	      );
@@ -28109,6 +28144,21 @@
 	}(_react2.default.Component);
 	
 	exports.default = Popup;
+
+/***/ },
+/* 240 */
+/*!************************************************!*\
+  !*** ./src/client/app/reducers/rootReducer.js ***!
+  \************************************************/
+/***/ function(module, exports) {
+
+	import {combineReducers} from 'redux'
+	import tabReducer from './tabReducer'
+	
+	export default combineReducers({
+	  tab: tabReducer
+	})
+
 
 /***/ }
 /******/ ]);
