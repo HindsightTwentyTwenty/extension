@@ -19,9 +19,11 @@ function pageReducer(state = {pages: [] }, action){
     case types.ADD_PAGE:
         //new object with title and url in it, and then override url key
         //could use spread to append to string
-        return {pages: [...state, page(undefined, action)]}
-    case default:
+        return {pages: [...state, page(undefined, action)]};
+    default:
         return state;
   }
 
 }
+
+export default pageReducer;

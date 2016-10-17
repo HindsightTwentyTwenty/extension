@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react'
 
-class TabsComponent extends React.Component {
+export default class TabsComponent extends Component {
 
   constructor(props) {
     super(props);
@@ -26,5 +26,3 @@ class TabsComponent extends React.Component {
   }
 
 }
-
-export default TabsComponent;
