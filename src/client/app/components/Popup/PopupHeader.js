@@ -24,4 +24,12 @@ class PopupHeader extends React.Component {
   }
 }
 
-export default PopupHeader;
+let mapStateToProps = (state) => ({
+    pages : state.pages
+})
+
+let mapDispatchToProps = (dispatch) => ({
+    popup_actions: bindActionCreators(PopupActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopupHeader);

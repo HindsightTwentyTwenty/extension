@@ -28,8 +28,11 @@ class PopupBody extends React.Component {
         <br/>
         <hr/>
         <CategoryEntry/>
-        <button onClick={this.savePage.bind(this)}>lookback</button>
-        
+        <button onClick={this.savePage.bind(this)}>save</button>
+        <br/>
+        <p>These are our categories: </p>
+        {this.props.categories}
+
       </div>
     )
   }
@@ -37,7 +40,8 @@ class PopupBody extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    pages : state.pages
+    pages : state.pages,
+    categories: state.categories
   }
 }
 

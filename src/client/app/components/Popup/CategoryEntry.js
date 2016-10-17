@@ -4,18 +4,28 @@ import PopupActions from './actions/Popup/PopupActions.js';
 
 class CategoryEntry extends React.Component {
 
-  addCategory() {
-
+  addCategory(event) {
+    this.props.popup_actions.addCategory(event.newCategory.value);
   }
 
   render () {
     return (
       <div>
-        <input type="text" placeholder="other..."/>
-        <button onClick={this.addCategory.bind(this)}>"+"</button>
+        <form action={this.addCategory.bind(this)}>
+          <input name="newCategory" type="text" placeholder="other..."/>
+          <input type="submit" value="save">
+        </form>
       </div>
     )
   }
 }
+
+let mapStateToProps = (state) => ({
+    categories : state.categories
+})
+
+let mapDispatchToProps = (dispatch) => ({
+    popup_actions: bindActionCreators(PopupActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryEntry);
