@@ -1,9 +1,9 @@
 import React from 'react';
 import { Router, Route, IndexRoute , hashHistory} from 'react-router';
 
-import App from './components/App.jsx';
-import Tab from './components/Tab.jsx'
-import Popup from './components/Popup.jsx';
+import App from './components/app.js';
+import Tab from './components/Tab/Tab.js'
+import Popup from './components/Popup/Popup.js';
 
 export default(
   <Router history={hashHistory}>

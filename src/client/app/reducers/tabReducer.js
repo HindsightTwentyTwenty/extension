@@ -1,3 +1,4 @@
+/*
 function tabReducer(state = {title:"", url:"" }, action){
   switch(action.type){
     case "tab_added":
@@ -9,3 +10,4 @@ function tabReducer(state = {title:"", url:"" }, action){
   }
 
 }
+*/
