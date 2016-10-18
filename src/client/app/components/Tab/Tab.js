@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux'
 import { bindActionCreators} from 'redux'
 import TabsComponent from './TabsComponent.js';
-import tabActions from '../../actions/Tab/tabActions';
+// import { tabActions } from '../../actions/Tab/tabActions';
 
 class Tab extends Component {
   getTabs(){

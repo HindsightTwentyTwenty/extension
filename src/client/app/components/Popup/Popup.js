@@ -7,7 +7,7 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-    this.onLike = this.onLike.bind(this);
+    // this.onLike = this.onLike.bind(this);
   }
 
   /*
