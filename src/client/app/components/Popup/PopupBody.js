@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react'
 import {render} from 'react-dom';
-import PopupActions from './actions/Popup/PopupActions.js';
+import {connect} from 'react-redux';
+import { bindActionCreators} from 'redux';
+import PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 
 
-class PopupBody extends React.Component {
+class PopupBody extends Component {
   constructor(props) {
     super(props);
   }
@@ -51,5 +53,4 @@ let mapDispatchToProps = () => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tab);
-//render(<Tab/>, document.getElementById('hindsite'));
+export default connect(mapStateToProps, mapDispatchToProps)(PopupBody);

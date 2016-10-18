@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
+import Popup from './Popup/Popup.js';
+
 
 
 class App extends Component {
@@ -13,7 +15,7 @@ class App extends Component {
   render () {
     return (
       <div>
-        {this.props.children}
+        <Popup/>
       </div>
     )
   }

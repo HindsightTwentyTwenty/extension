@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react'
 import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
 
 
-class Popup extends React.Component {
+class Popup extends Component {
 
   constructor(props) {
     super(props);

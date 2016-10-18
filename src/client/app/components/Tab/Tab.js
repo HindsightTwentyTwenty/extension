@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react'
 import {render} from 'react-dom';
-import TabsComponent from './TabsComponent.jsx';
-import tabActions from './actions/tabActions';
+import {connect} from 'react-redux'
+import { bindActionCreators} from 'redux'
+import TabsComponent from './TabsComponent.js';
+import tabActions from '../../actions/Tab/tabActions';
 
-class Tab extends React.Component {
+class Tab extends Component {
   getTabs(){
     this.props.
     this.props.tabActions
@@ -35,4 +37,3 @@ let mapDispatchToProps = () => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tab);
-//render(<Tab/>, document.getElementById('hindsite'));

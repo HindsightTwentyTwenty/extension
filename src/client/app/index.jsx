@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore , Provider} from 'redux';
-import rootReducer from './reducers/RootReducer';
+import rootReducer from './reducers/rootReducer.js';
 
 import { Router, browserHistory } from 'react-router';
 import routes from './routes.js';
