@@ -16,9 +16,11 @@ function categoryReducer(state = {categories: [] }, action){
     case types.ADD_CATEGORY:
         //new object with title and url in it, and then override url key
         //could use spread to append to string
-        return {categories: [...state, category(undefined, action)]}
-    case default:
+        return {categories: [...state, category(undefined, action)]};
+    default:
         return state;
   }
 
 }
+
+export default categoryReducer;

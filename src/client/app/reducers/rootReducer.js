@@ -1,11 +1,11 @@
-import {combineReducers} from 'redux'
-import tabReducer from './TabReducer'
-import pageReducer from './PageReducer'
-import categoryReducer from './CategoryReducer'
+import {combineReducers} from 'redux';
+import tabReducer from './TabReducer.js';
+import pageReducer from './PageReducer.js';
+import categoryReducer from './CategoryReducer.js';
 
-
-export default combineReducers({
-  tab: tabReducer,
+const rootReducer = combineReducers({
   page: pageReducer,
   category: categoryReducer
-})
+});
+
+export default rootReducer;

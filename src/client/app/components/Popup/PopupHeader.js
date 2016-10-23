@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react'
 import {render} from 'react-dom';
-import PopupActions from './actions/Popup/PopupActions.js';
+import {connect} from 'react-redux';
+import { bindActionCreators} from 'redux';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
 
-class PopupHeader extends React.Component {
+class PopupHeader extends Component {
   constructor(props) {
     super(props);
 

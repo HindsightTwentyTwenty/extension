@@ -4,6 +4,8 @@ node_modules
 npm-debug.log
 .DS_Store
 
+# Builds
+src/client/chrome/public
 
 ### Git ###
 .git

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react'
+import {connect} from 'react-redux';
+import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import PopupActions from './actions/Popup/PopupActions.js';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
 
-class CategoryEntry extends React.Component {
+
+class CategoryEntry extends Component {
 
   addCategory(event) {
     this.props.popup_actions.addCategory(event.newCategory.value);
@@ -13,7 +16,7 @@ class CategoryEntry extends React.Component {
       <div>
         <form action={this.addCategory.bind(this)}>
           <input name="newCategory" type="text" placeholder="other..."/>
-          <input type="submit" value="save">
+          <input type="submit" value="save"/>
         </form>
       </div>
     )
