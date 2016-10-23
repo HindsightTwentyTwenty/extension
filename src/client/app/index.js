@@ -9,7 +9,7 @@ import routes from './routes';
 
 import App from './components/app';
 
-let store = createStore(rootReducer);
+let store = createStore(rootReducer, {categories:[]});
 
 ReactDOM.render(
   <Provider store={store}>
