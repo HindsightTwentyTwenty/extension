@@ -10,6 +10,7 @@ class PopupBody extends Component {
   constructor(props) {
     super(props);
     console.log("this.props: " + this.props);
+    this.props.fetchCategories();
   }
 
 
@@ -40,7 +41,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = () => {
   return {
-    addPage : PopupActions.addPage
+    addPage : PopupActions.addPage,
+    fetchCategories: PopupActions.fetchCategories
   }
 }
 

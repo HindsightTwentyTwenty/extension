@@ -13,6 +13,12 @@ const category = (state, action) => {
 
 function categoryReducer(state = [], action){
   switch(action.type){
+    case types.RECEIVE_CATEGORIES:
+      return Object.assign({}, state, {
+        action.categories
+      });
+    case types.REQUEST_CATEGORIES:
+      return Object.assign({}, state, {});
     case types.ADD_CATEGORY:
         for (var i = 0; i < state.length; i++) {
           if (state[i].title == action.title) {
