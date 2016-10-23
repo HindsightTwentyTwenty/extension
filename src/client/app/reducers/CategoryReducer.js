@@ -4,19 +4,23 @@ const category = (state, action) => {
   switch (action.type) {
     case types.ADD_CATEGORY:
       return {
-        category_title: action.category_title
+        title: action.title
       }
     default:
       return state
   }
 }
 
-function categoryReducer(state = {categories: [] }, action){
+function categoryReducer(state = [], action){
   switch(action.type){
     case types.ADD_CATEGORY:
-        //new object with title and url in it, and then override url key
-        //could use spread to append to string
-        return {categories: [...state, category(undefined, action)]};
+        for (var i = 0; i < state.length; i++) {
+          if (state[i].title == action.title) {
+            console.log("Category already exists.");
+            return [...state];
+          }
+        }
+        return [...state, category(undefined, action)];
     default:
         return state;
   }

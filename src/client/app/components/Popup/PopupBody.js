@@ -9,32 +9,24 @@ import CategoryEntry from './CategoryEntry.js';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-  }
-
-
-  getTabs(){
-    this.props.
-    this.props.tabActions
-  }
-
-
-  savePage() {
-    this.props.addPage()
+    console.log("this.props: " + this.props);
   }
 
 
   render () {
     return (
       <div>
-        <p>categorize this page: </p>
+        <p>Categorize this page!</p>
         <br/>
         <hr/>
         <CategoryEntry/>
-        <button onClick={this.savePage.bind(this)}>save</button>
         <br/>
-        <p>These are our categories: </p>
-        {this.props.categories}
-
+        <p>These are your categories:</p>
+        <ul>
+          {this.props.categories.map(category =>
+            <li key={category.title}>{category.title}</li>
+          )}
+        </ul>
       </div>
     )
   }
@@ -42,7 +34,6 @@ class PopupBody extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    pages : state.pages,
     categories: state.categories
   }
 }
