@@ -14,7 +14,7 @@ class CategoryEntry extends Component {
           this.input = node;
         }} />
         <button onClick={() => {
-          this.props.popup_actions.addCategory(this.input.value);
+          this.props.popup_actions.pushCategory(this.input.value);
           this.input.value = '';
         }}>
           Add Category
