@@ -15,18 +15,36 @@ class PopupBody extends Component {
 
   render () {
     return (
-      <div>
-        <p>Categorize this page!</p>
-        <br/>
-        <hr/>
-        <CategoryEntry/>
-        <br/>
-        <p>These are your categories:</p>
-        <ul>
-          {this.props.categories.map(category =>
-            <li key={category.title}>{category.title}</li>
-          )}
-        </ul>
+      <div className="container popup-body">
+        <div className="row">
+          <div className="col-xs-10">
+            <h2>Title</h2>
+          </div>
+          <div className="col-xs-2">
+            <p>STAR</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <h3>categorize this page:</h3>
+          </div>
+        </div>
+        <div className="row">
+          <hr/>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <p>These are your categories:</p>
+            <ul>
+              {this.props.categories.map(category =>
+                <li key={category.title}>{category.title}</li>
+              )}
+            </ul>
+          </div>
+        </div>
+        <div className="row">
+            <CategoryEntry/>
+        </div>
       </div>
     )
   }

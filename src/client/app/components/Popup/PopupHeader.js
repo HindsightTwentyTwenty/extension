@@ -18,9 +18,15 @@ class PopupHeader extends Component {
 
   render () {
     return (
-      <div>
-        <h1>hindsite</h1>
-        <div><button onClick={this.openTab.bind(this)}>lookback</button></div>
+      <div className="container">
+        <div className="row popup-header">
+          <div className="col-xs-8">
+            <h1 className="popup-header-text">hindsite</h1>
+          </div>
+          <div className="col-xs-4 btn-wrapper">
+            <div><button className="btn btn-sm lookback-btn" onClick={this.openTab.bind(this)}>lookback</button></div>
+          </div>
+        </div>
       </div>
     )
   }
