@@ -15,7 +15,10 @@
    "48": "assets/img/icon-48.png",
    "128": "assets/img/icon-128.png"
  },
- "permissions": [ "tabs" ],
+ "permissions": [
+   "tabs",
+   "http://127.0.0.1:8000/*"
+ ],
  "background": {
    "scripts": ["scripts/background.js"]
  }

@@ -6,7 +6,6 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 
 
 class CategoryEntry extends Component {
-
   render () {
     return (
       <div className="container">
