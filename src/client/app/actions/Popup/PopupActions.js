@@ -12,14 +12,6 @@ export function addPage(ptitle, purl, pstarred, pcategories){
   }
 }
 
-// export function addCategory(ctitle){
-//   return {
-//     type: types.ADD_CATEGORY,
-//     title: ctitle
-//   }
-// }
-//
-
 export function receiveCategories(json) {
   console.log(json);
   return {
@@ -71,7 +63,7 @@ export function pushCategory(category){
              method: "POST",
              body: JSON.stringify({title: category})
            }
-        
+
       )
       .then(response => response.json())
       .then(json => dispatch(receivePushCategory(json)))

@@ -9,7 +9,8 @@ export default(
   <Router history={hashHistory}>
     <Route path="/popup.html" component={App}>
       <IndexRoute component={Popup}/>
-      <Route path="/app/main.html" component={Tab}/>
     </Route>
+    <Route path="/app/main.html" component={Tab}/>
+
   </Router>
 );
