@@ -7,7 +7,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   console.log("TAB");
   console.log(tab);
   if(tab.status == 'complete' && changeInfo.title){
-    console.log("-----PUTTING IN---------");
+    console.log("-------PUTTING IN---------");
 
     fetch('http://127.0.0.1:8000/pages/', {
       headers: {
@@ -20,6 +20,16 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }else{
     // console.log("else");
   }
+
+});
+
+chrome.tabs.onActivated.addListener(function (activeInfo){
+  console.log("onActivated");
+  chrome.windows.get(activeInfo.windowId, function (window) {
+    console.log("callback")
+    console.log(chrome.tabs);
+  });
+
 
 });
 
