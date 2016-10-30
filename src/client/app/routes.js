@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute , hashHistory} from 'react-router';
 
 import App from './components/app.js';
-import Tab from './components/Tab/Tab.js'
+import BaseApp from './components/App/App.js'
 import Popup from './components/Popup/Popup.js';
 
 export default(
@@ -10,7 +10,7 @@ export default(
     <Route path="/popup.html" component={App}>
       <IndexRoute component={Popup}/>
     </Route>
-    <Route path="/app/main.html" component={Tab}/>
+    <Route path="/app/main.html" component={BaseApp}/>
 
   </Router>
 );

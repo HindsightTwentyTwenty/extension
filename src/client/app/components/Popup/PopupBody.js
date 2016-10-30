@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
@@ -14,6 +14,14 @@ class PopupBody extends Component {
 
 
   render () {
+    if (this.props.categories) {
+      var categoryList =
+        <ul>
+          {this.props.categories.map(category =>
+            <li key={category.title}>{category.title}</li>
+          )}
+        </ul>
+      };
     return (
       <div>
         <p>Categorize this page!</p>
@@ -24,14 +32,10 @@ class PopupBody extends Component {
         <hr/>
         <button onClick={() => {
           this.props.popup_actions.fetchCategories();
-        }}>
+          }}>
         Get All Entries</button>
         <p>These are your categories:</p>
-        <ul>
-          {this.props.categories.map(category =>
-            <li key={category.title}>{category.title}</li>
-          )}
-        </ul>
+        <div>{categoryList}</div>
       </div>
     )
   }

@@ -7,7 +7,6 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 class PopupHeader extends Component {
   constructor(props) {
     super(props);
-
   }
 
   openTab () {
