@@ -29,21 +29,33 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 //listens when tab is removed
 chrome.tabs.onRemoved.addListener(function( tabId,  removeInfo) {
-  fetch(BASE_URL + 'closetab/', {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify({"tab":tabId})
-  });
+  if(tab.url != 'chrome://newtab/'){
+    fetch(BASE_URL + 'closetab/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"tab":tabId})
+    });
+  }
 });
 
 
 chrome.tabs.onActivated.addListener(function (activeInfo){
   console.log("onActivated");
-  chrome.windows.get(activeInfo.windowId, function (window) {
+  // chrome.windows.get(activeInfo.windowId, function (window) {
+    if(tab.url != 'chrome://newtab/'){
+      fetch(BASE_URL + 'active/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({"tab":tabId})
+      });
+    }
     console.log("callback")
     console.log(chrome.tabs);
-  });
+  // });
 });
