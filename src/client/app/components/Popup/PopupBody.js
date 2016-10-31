@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
+import Star from '../Star/Star.js';
 
 
 class PopupBody extends Component {
@@ -27,6 +28,7 @@ class PopupBody extends Component {
         <p>Categorize this page!</p>
         <br/>
         <hr/>
+        <Star/>
         <CategoryEntry/>
         <br/>
         <hr/>
