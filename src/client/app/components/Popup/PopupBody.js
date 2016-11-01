@@ -9,7 +9,7 @@ import CategoryEntry from './CategoryEntry.js';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-    console.log("this.props: " + this.props);
+    this.props.popup_actions.fetchCategories();
   }
 
 
@@ -33,6 +33,12 @@ class PopupBody extends Component {
           <hr/>
         </div>
         <div className="row">
+          <button onClick={() => {
+            this.props.popup_actions.fetchCategories();
+          }}>
+          Get All Entries</button>
+        </div>
+        <div className="row">
           <div className="col-xs-12">
             <p>These are your categories:</p>
             <ul>
@@ -50,15 +56,13 @@ class PopupBody extends Component {
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
-    categories: state.categories
-  }
-}
+let mapStateToProps = (state) => ({
+    categories : state.categories
+})
 
-let mapDispatchToProps = () => {
+let mapDispatchToProps = (dispatch) => {
   return {
-    addPage : PopupActions.addPage
+    popup_actions: bindActionCreators(PopupActions, dispatch)
   }
 }
 
