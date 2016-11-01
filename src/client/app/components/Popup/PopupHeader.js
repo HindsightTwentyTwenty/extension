@@ -7,7 +7,6 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 class PopupHeader extends Component {
   constructor(props) {
     super(props);
-
   }
 
   openTab () {
@@ -24,7 +23,7 @@ class PopupHeader extends Component {
             <h1 className="popup-header-text">hindsite</h1>
           </div>
           <div className="col-xs-4 btn-wrapper">
-            <div><button className="btn btn-sm lookback-btn" onClick={this.openTab.bind(this)}>lookback</button></div>
+            <div><img src="../../assets/img/icon-48.png" onClick={this.openTab.bind(this)}></div>
           </div>
         </div>
       </div>

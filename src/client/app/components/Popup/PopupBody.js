@@ -1,9 +1,10 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
+import Star from '../Star/Star.js';
 
 
 class PopupBody extends Component {
@@ -14,6 +15,14 @@ class PopupBody extends Component {
 
 
   render () {
+    if (this.props.categories) {
+      var categoryList =
+        <ul>
+          {this.props.categories.map(category =>
+            <li key={category.title}>{category.title}</li>
+          )}
+        </ul>
+      };
     return (
       <div className="container popup-body">
         <div className="row">
@@ -41,11 +50,7 @@ class PopupBody extends Component {
         <div className="row">
           <div className="col-xs-12">
             <p>These are your categories:</p>
-            <ul>
-              {this.props.categories.map(category =>
-                <li key={category.title}>{category.title}</li>
-              )}
-            </ul>
+            <div>{categoryList}</div>
           </div>
         </div>
         <div className="row">
