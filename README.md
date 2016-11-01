@@ -33,6 +33,10 @@ TODO: how to get the project dev environment up and running, npm install etc
 
 TODO: how to deploy the project
 
+start the backend server using the virtual env (detailed in the readme of the backend)
+open a new tab in terminal and go to the frontend directory
+run `npm run dev`
+
 ## Authors
 * Wanda Czerwinski
 * Shelley Garg
