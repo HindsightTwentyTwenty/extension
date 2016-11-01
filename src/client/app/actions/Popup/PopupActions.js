@@ -2,7 +2,8 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
-const categoriesEndpoint = urls.BASE_URL + "categories/";
+const allCategoriesEndpoint = urls.BASE_URL + "categories/";
+const pageCategoriesEndpoint = urls.BASE_URL + "checkcategories/";
 
 export function addPage(ptitle, purl, pstarred, pcategories){
 
@@ -16,15 +17,23 @@ export function addPage(ptitle, purl, pstarred, pcategories){
 }
 
 export function receiveCategories(json) {
-  console.log(json);
   return {
     type: types.RECEIVE_CATEGORIES,
     categories: json
   }
 }
 
+export function receivePageCategories(json) {
+  console.log("WANDA WANDA WANDA", json);
+  return {
+    type: types.RECEIVE_PAGE_CATEGORIES,
+    categories: json.categories,
+    url: json.url,
+    star: json.star
+  }
+}
+
 export function receivePushCategory(json) {
-  console.log(json);
   return {
     type: types.RECEIVE_PUSH_CATEGORY,
     category_added: json
@@ -44,11 +53,26 @@ export function requestPushCategory() {
   }
 }
 
+export function getPageCategories(url){
+  return dispatch => {
+    return fetch(pageCategoriesEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json'
+           },
+           method: "POST",
+           body: JSON.stringify({url: url})
+         }
+       )
+      .then(response => response.json())
+      .then(json => dispatch(receivePageCategories(json)))
+  }
+}
+
 export function fetchCategories(){
   return dispatch => {
     dispatch(requestCategories())
-    // TODO: change from local host
-    return fetch(categoriesEndpoint)
+    return fetch(allCategoriesEndpoint)
       .then(response => response.json())
       .then(json => dispatch(receiveCategories(json)))
   }
@@ -57,8 +81,7 @@ export function fetchCategories(){
 export function pushCategory(category){
   return dispatch => {
     dispatch(requestPushCategory())
-    // TODO: change from local host
-    return fetch(categoriesEndpoint, {
+    return fetch(allCategoriesEndpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json'
@@ -66,7 +89,6 @@ export function pushCategory(category){
              method: "POST",
              body: JSON.stringify({title: category})
            }
-
       )
       .then(response => response.json())
       .then(json => dispatch(receivePushCategory(json)))
