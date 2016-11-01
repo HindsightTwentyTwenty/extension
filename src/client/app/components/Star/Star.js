@@ -9,17 +9,12 @@ class Star extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      currentUrl : ""
-    };
   }
 
   componentDidMount() {
-    var url;
-    chrome.extension.sendMessage({greeting: "GetURL"}, function (response) {
-        url = response.navURL;
+    chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+      state.currentUrl = tabs[0].url;
     });
-    console.log("currentURL in did mount: ", this.state.currentUrl);
   }
 
   render () {
@@ -29,7 +24,7 @@ class Star extends Component {
             this.input = node;
           }}
           onChange={() => {
-            this.props.star_actions.toggleStar( this.state.currentUrl, this.input.checked);
+            this.props.star_actions.toggleStar( state.currentUrl, this.input.checked);
           }}
         />
         <label>Star</label>

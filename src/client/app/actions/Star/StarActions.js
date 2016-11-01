@@ -1,6 +1,8 @@
 import * as types from '../../constants/ActionTypes';
-import BASE_URL from '../../constants/GlobalConstants';
+import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
+
+const updateStarEndpoint = urls.BASE_URL + "updatestar/";
 
 export function requestStar() {
   return {
@@ -19,7 +21,7 @@ export function receiveStar(json) {
 export function toggleStar(url, star){
   return dispatch => {
     dispatch(requestStar())
-    return fetch(BASE_URL + 'updatestar/', {
+    return fetch(updateStarEndpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json'

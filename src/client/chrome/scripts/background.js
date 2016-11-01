@@ -55,19 +55,3 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
     console.log(chrome.tabs);
   });
 });
-
-chrome.extension.onMessage.addListener( function(request, sender, sendResponse) {
-  console.log("Got a message in background.js");
-  if( request.greeting === "GetURL" )
-  {
-      var tabURL = "Not set yet";
-      chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-          if(tabs.length === 0) {
-              sendResponse({});
-              return;
-          }
-          tabURL = tabs[0].url;
-          sendResponse( {navURL:tabURL} );
-      });
-  }
-});
