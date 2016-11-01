@@ -1,5 +1,8 @@
 import * as types from '../../constants/ActionTypes';
+import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
+
+const categoriesEndpoint = urls.BASE_URL + "categories/";
 
 export function addPage(ptitle, purl, pstarred, pcategories){
 
@@ -45,7 +48,7 @@ export function fetchCategories(){
   return dispatch => {
     dispatch(requestCategories())
     // TODO: change from local host
-    return fetch('http://127.0.0.1:8000/categories/')
+    return fetch(categoriesEndpoint)
       .then(response => response.json())
       .then(json => dispatch(receiveCategories(json)))
   }
@@ -55,7 +58,7 @@ export function pushCategory(category){
   return dispatch => {
     dispatch(requestPushCategory())
     // TODO: change from local host
-    return fetch('http://127.0.0.1:8000/categories/', {
+    return fetch(categoriesEndpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json'

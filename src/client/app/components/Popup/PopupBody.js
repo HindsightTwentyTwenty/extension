@@ -6,6 +6,7 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
 
+var state = {};
 
 class PopupBody extends Component {
   constructor(props) {
@@ -13,6 +14,11 @@ class PopupBody extends Component {
     this.props.popup_actions.fetchCategories();
   }
 
+  componentDidMount() {
+    chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+      state.currentUrl = tabs[0].url;
+    });
+  }
 
   render () {
     if (this.props.categories) {
@@ -25,10 +31,11 @@ class PopupBody extends Component {
       };
     return (
       <div>
+        <p>Current url: {state.currentUrl}</p>
         <p>Categorize this page!</p>
         <br/>
         <hr/>
-        <Star/>
+        <Star currentUrl={state.currentUrl}/>
         <CategoryEntry/>
         <br/>
         <hr/>

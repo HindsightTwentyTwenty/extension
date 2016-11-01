@@ -4,17 +4,10 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as StarActions from '../../actions/Star/StarActions.js';
 
-var state = {};
 class Star extends Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-      state.currentUrl = tabs[0].url;
-    });
   }
 
   render () {
@@ -24,7 +17,7 @@ class Star extends Component {
             this.input = node;
           }}
           onChange={() => {
-            this.props.star_actions.toggleStar( state.currentUrl, this.input.checked);
+            this.props.star_actions.toggleStar( this.props.currentUrl, this.input.checked);
           }}
         />
         <label>Star</label>
