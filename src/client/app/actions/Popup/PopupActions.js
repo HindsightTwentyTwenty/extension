@@ -3,7 +3,7 @@ import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
 const allCategoriesEndpoint = urls.BASE_URL + "categories/";
-const pageCategoriesEndpoint = urls.BASE_URL + "checkcategories/";
+const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 
 export function addPage(ptitle, purl, pstarred, pcategories){
 
@@ -23,10 +23,10 @@ export function receiveCategories(json) {
   }
 }
 
-export function receivePageCategories(json) {
+export function receivePageInfo(json) {
   console.log("WANDA WANDA WANDA", json);
   return {
-    type: types.RECEIVE_PAGE_CATEGORIES,
+    type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
     url: json.url,
     star: json.star
@@ -53,9 +53,10 @@ export function requestPushCategory() {
   }
 }
 
-export function getPageCategories(url){
+export function getPageInfo(url){
+  console.log("url in getPageInfo", url);
   return dispatch => {
-    return fetch(pageCategoriesEndpoint, {
+    return fetch(pageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json'
@@ -65,7 +66,7 @@ export function getPageCategories(url){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(receivePageCategories(json)))
+      .then(json => dispatch(receivePageInfo(json)))
   }
 }
 

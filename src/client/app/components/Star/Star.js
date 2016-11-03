@@ -8,16 +8,18 @@ class Star extends Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props);
   }
 
   render () {
+    var checkedVal = this.props.currentPage.star;
     return (
       <div>
-        <input type="checkbox" id="star" ref={node => {
+        <input type="checkbox" id="star" checked={checkedVal} ref={node => {
             this.input = node;
           }}
           onChange={() => {
-            this.props.star_actions.toggleStar( this.props.currentUrl, this.input.checked);
+            this.props.star_actions.toggleStar( this.props.currentPage.url, this.input.checked);
           }}
         />
         <label>Star</label>
@@ -26,8 +28,12 @@ class Star extends Component {
   }
 }
 
+let mapStateToProps = (state) => ({
+    currentPage : state.currentPage
+})
+
 let mapDispatchToProps = (dispatch) => ({
     star_actions: bindActionCreators(StarActions, dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(Star);
+export default connect(mapStateToProps, mapDispatchToProps)(Star);

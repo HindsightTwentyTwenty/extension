@@ -11,16 +11,10 @@ class PopupBody extends Component {
   constructor(props) {
     super(props);
     var _this = this;
-    this.state = {};
-    this.props.popup_actions.fetchCategories();
-
-
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-      _this.state.currentUrl = tabs[0].url;
-      _this.state.currentTitle = tabs[0].title;
-      _this.state.urlInfo = _this.props.popup_actions.getPageCategories(_this.state.currentUrl);
-      console.log("my categories: ", _this.state.urlInfo);
+      _this.props.popup_actions.getPageInfo(tabs[0].url);
     });
+    this.props.popup_actions.fetchCategories();
   }
 
   render () {
@@ -34,11 +28,11 @@ class PopupBody extends Component {
       };
     return (
       <div>
-        <p>Current Page: {this.state.currentTitle}</p>
+        <p>Current Page: Working on it</p>
         <p>Categorize this page!</p>
         <br/>
         <hr/>
-        <Star currentUrl={this.state.currentUrl}/>
+        <Star/>
         <CategoryEntry/>
         <br/>
         <hr/>
@@ -54,7 +48,7 @@ class PopupBody extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    categories : state.categories
+    currentPage : state.currentPage
 })
 
 let mapDispatchToProps = (dispatch) => {
