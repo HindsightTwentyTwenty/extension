@@ -27,33 +27,45 @@ class PopupBody extends Component {
         </ul>
       };
     return (
-      <div>
-        <p>Current Page: {this.props.currentPage.title}</p>
-        <p>Categorize this page!</p>
-        <br/>
-        <hr/>
-        <Star/>
-        <CategoryEntry/>
-        <br/>
-        <hr/>
-        <button onClick={() => {
-          this.props.popup_actions.fetchCategories();
-          }}>
-        Get All Entries</button>
-        <p>These are your categories:</p>
-        <div>{categoryList}</div>
+      <div className="container popup-body">
+        <div className="row">
+          <div className="col-xs-10">
+            <h3>{this.props.currentPage.title}</h3>
+          </div>
+          <div className="col-xs-2">
+            <Star/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <h4>categorize this page:</h4>
+          </div>
+        </div>
+        <div className="row">
+          <hr/>
+        </div>
+        <div className="row">
+            <CategoryEntry/>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <p>These are your categories:</p>
+            <div>{categoryList}</div>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage
+    currentPage : state.currentPage,
+    categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    popup_actions: bindActionCreators(PopupActions, dispatch)
+    popup_actions : bindActionCreators(PopupActions, dispatch)
   }
 }
 

@@ -21,7 +21,7 @@ class Star extends Component {
             this.props.star_actions.toggleStar( this.props.currentPage.url, this.input.checked);
           }}
         />
-        <label>Star</label>
+        <label htmlFor="star"></label>
       </div>
     )
   }
