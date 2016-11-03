@@ -27,34 +27,28 @@ class PopupBody extends Component {
       <div className="container popup-body">
         <div className="row">
           <div className="col-xs-10">
-            <h2>Title</h2>
+            <h3>Title</h3>
           </div>
           <div className="col-xs-2">
-            <p>STAR</p>
+            <Star/>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <h3>categorize this page:</h3>
+            <h4>categorize this page:</h4>
           </div>
         </div>
         <div className="row">
           <hr/>
         </div>
         <div className="row">
-          <button onClick={() => {
-            this.props.popup_actions.fetchCategories();
-          }}>
-          Get All Entries</button>
+            <CategoryEntry/>
         </div>
         <div className="row">
           <div className="col-xs-12">
             <p>These are your categories:</p>
             <div>{categoryList}</div>
           </div>
-        </div>
-        <div className="row">
-            <CategoryEntry/>
         </div>
       </div>
     )

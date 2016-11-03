@@ -17,7 +17,7 @@ class CategoryEntry extends Component {
                 this.input = node;
               }} />
               <span className="input-group-btn">
-                <button className="btn btn-primary" type="button" onClick={() => {
+                <button className="btn btn-primary add-category-btn" type="button" onClick={() => {
                   this.props.popup_actions.pushCategory(this.input.value);
                   this.input.value = '';
                 }}>+</button>

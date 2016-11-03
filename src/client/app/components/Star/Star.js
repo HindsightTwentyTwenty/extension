@@ -20,14 +20,14 @@ class Star extends Component {
   render () {
     return (
       <div>
-        <input type="checkbox" id="star" ref={node => {
+        <input type="checkbox" id="star" name="star" ref={node => {
             this.input = node;
           }}
           onChange={() => {
             this.props.star_actions.toggleStar( state.currentUrl, this.input.checked);
           }}
         />
-        <label>Star</label>
+        <label htmlFor="star"></label>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import * as types from '../../constants/ActionTypes';
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
 
 export function addPage(ptitle, purl, pstarred, pcategories){
 

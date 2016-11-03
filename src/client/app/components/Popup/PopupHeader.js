@@ -19,11 +19,11 @@ class PopupHeader extends Component {
     return (
       <div className="container">
         <div className="row popup-header">
-          <div className="col-xs-8">
+          <div className="col-xs-10">
             <h1 className="popup-header-text">hindsite</h1>
           </div>
-          <div className="col-xs-4 btn-wrapper">
-            <div><img src="../../assets/img/icon-48.png" onClick={this.openTab.bind(this)}></div>
+          <div className="col-xs-2 btn-wrapper">
+            <div><img className="lookback-btn" src="../../assets/img/icon-48.png" onClick={this.openTab.bind(this)}/></div>
           </div>
         </div>
       </div>
