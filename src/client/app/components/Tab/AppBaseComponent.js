@@ -8,7 +8,6 @@ class TabsComponent extends Component {
 
   constructor(props) {
     super(props);
-    console.log("pages: ", this.props.pages);
     this.props.lookback_actions.fetchPages();
   }
 

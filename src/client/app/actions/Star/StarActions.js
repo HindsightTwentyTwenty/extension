@@ -12,7 +12,6 @@ export function updateStar(newStarVal) {
 }
 
 export function receiveStar(json) {
-  console.log(json);
   return {
     type: types.RECEIVE_STAR,
     category_added: json
@@ -20,7 +19,6 @@ export function receiveStar(json) {
 }
 
 export function toggleStar(url, star){
-  console.log(url, star);
   return dispatch => {
     dispatch(updateStar(star))
     return fetch(updateStarEndpoint, {

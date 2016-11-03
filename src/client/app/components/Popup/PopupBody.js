@@ -28,7 +28,7 @@ class PopupBody extends Component {
       };
     return (
       <div>
-        <p>Current Page: Working on it</p>
+        <p>Current Page: {this.props.currentPage.title}</p>
         <p>Categorize this page!</p>
         <br/>
         <hr/>

@@ -14,7 +14,6 @@ const category = (state, action) => {
 function categoryReducer(state = [], action){
   switch(action.type){
     case types.RECEIVE_CATEGORIES:
-      console.log(action.categories);
       return action.categories;
     case types.REQUEST_CATEGORIES:
     //TODO: Remove empty object source??

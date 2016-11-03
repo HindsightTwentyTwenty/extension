@@ -15,7 +15,7 @@ let store = createStore(
   {categories:[],
     currentPage: {
       url: "",
-      // title: "",
+      title: "",
       categories: [],
       star: false
     }

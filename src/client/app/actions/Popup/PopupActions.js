@@ -24,12 +24,12 @@ export function receiveCategories(json) {
 }
 
 export function receivePageInfo(json) {
-  console.log("WANDA WANDA WANDA", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
     url: json.url,
-    star: json.star
+    star: json.star,
+    title: json.title
   }
 }
 
@@ -54,7 +54,6 @@ export function requestPushCategory() {
 }
 
 export function getPageInfo(url){
-  console.log("url in getPageInfo", url);
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
