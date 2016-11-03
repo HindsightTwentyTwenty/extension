@@ -11,13 +11,6 @@ export function updateStar(newStarVal) {
   }
 }
 
-export function receiveStar(json) {
-  return {
-    type: types.RECEIVE_STAR,
-    category_added: json
-  }
-}
-
 export function toggleStar(url, star){
   return dispatch => {
     dispatch(updateStar(star))
@@ -31,6 +24,5 @@ export function toggleStar(url, star){
            }
       )
       .then(response => response.json())
-      .then(json => dispatch(receiveStar(json)))
   }
 }

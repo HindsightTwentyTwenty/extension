@@ -90,3 +90,23 @@ body {
 .add-category-btn:hover{
   background-color: #006C84;
 }
+
+.category-bar{
+  width: 75px;
+  margin: 5px;
+  border-style: solid; 
+  border-width: 1px;
+  border-color: #6eb5c0;
+  color: #263238;
+  text-align: center;
+}
+
+.category-bar.checked{
+  background-color: #6eb5c0;
+}
+
+.hideoverflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
