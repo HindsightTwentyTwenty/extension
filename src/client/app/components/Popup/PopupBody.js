@@ -10,7 +10,7 @@ import Star from '../Star/Star.js';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-    this.props.popup_actions.fetchCategories();
+    console.log("this.props: " + this.props);
   }
 
 
@@ -55,13 +55,15 @@ class PopupBody extends Component {
   }
 }
 
-let mapStateToProps = (state) => ({
-    categories : state.categories
-})
-
-let mapDispatchToProps = (dispatch) => {
+let mapStateToProps = (state) => {
   return {
-    popup_actions: bindActionCreators(PopupActions, dispatch)
+    categories: state.categories
+  }
+}
+
+let mapDispatchToProps = () => {
+  return {
+    addPage : PopupActions.addPage
   }
 }
 
