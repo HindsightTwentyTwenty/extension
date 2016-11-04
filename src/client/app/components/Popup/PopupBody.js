@@ -5,36 +5,30 @@ import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
-
+import CategoriesContainer from './CategoriesContainer';
 
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-    var _this = this;
-    chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-      _this.props.popup_actions.getPageInfo(tabs[0].url);
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      this.props.popup_actions.getPageInfo(tabs[0].url);
     });
     this.props.popup_actions.fetchCategories();
   }
 
   render () {
-    if (this.props.categories) {
-      var categoryList =
-        <ul>
-          {this.props.categories.map(category =>
-            <li key={category.title}>{category.title}</li>
-          )}
-        </ul>
-      };
     return (
       <div className="container popup-body">
         <div className="row">
-          <div className="col-xs-10">
+          <div className="col-xs-10 hideoverflow">
             <h3>{this.props.currentPage.title}</h3>
           </div>
           <div className="col-xs-2">
             <Star/>
           </div>
+        </div>
+        <div className="row">
+          <CategoriesContainer all={false}/>
         </div>
         <div className="row">
           <div className="col-xs-12">
@@ -49,8 +43,7 @@ class PopupBody extends Component {
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <p>These are your categories:</p>
-            <div>{categoryList}</div>
+            <CategoriesContainer all={true}/>
           </div>
         </div>
       </div>
