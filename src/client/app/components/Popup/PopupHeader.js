@@ -11,7 +11,6 @@ class PopupHeader extends Component {
 
   openTab () {
     chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
-
     });
   }
 

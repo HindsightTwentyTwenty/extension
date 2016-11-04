@@ -1,12 +1,11 @@
 import * as types from '../../constants/ActionTypes';
 import fetch from 'isomorphic-fetch'
-import BASE_URL from '../../constants/GlobalConstants'; 
+import BASE_URL from '../../constants/GlobalConstants';
 
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
 export function receivePages(json) {
-  console.log(json);
   return {
     type: types.RECEIVE_PAGES,
     categories: json

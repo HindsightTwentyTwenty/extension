@@ -90,3 +90,34 @@ body {
 .add-category-btn:hover{
   background-color: #006C84;
 }
+
+.category-bar{
+  width: 75px;
+  margin: 5px;
+  display: block;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #6eb5c0;
+  color: #263238;
+  text-align: center;
+}
+
+.hideoverflow{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-bar.checked{
+  background-color: #6eb5c0;
+}
+
+.categories-container{
+  border-style: solid;
+  border-width: 1px;
+  border-color: #6eb5c0;
+  padding: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 6px;
+}

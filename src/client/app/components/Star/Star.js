@@ -4,27 +4,21 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as StarActions from '../../actions/Star/StarActions.js';
 
-var state = {};
 class Star extends Component {
 
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-      state.currentUrl = tabs[0].url;
-    });
-  }
-
   render () {
+    var checkedVal = this.props.currentPage.star;
     return (
       <div>
-        <input type="checkbox" id="star" name="star" ref={node => {
+        <input type="checkbox" id="star" checked={checkedVal} ref={node => {
             this.input = node;
           }}
           onChange={() => {
-            this.props.star_actions.toggleStar( state.currentUrl, this.input.checked);
+            this.props.star_actions.toggleStar( this.props.currentPage.url, this.input.checked);
           }}
         />
         <label htmlFor="star"></label>
@@ -33,8 +27,12 @@ class Star extends Component {
   }
 }
 
+let mapStateToProps = (state) => ({
+    currentPage : state.currentPage
+})
+
 let mapDispatchToProps = (dispatch) => ({
     star_actions: bindActionCreators(StarActions, dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(Star);
+export default connect(mapStateToProps, mapDispatchToProps)(Star);
