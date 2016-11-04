@@ -5,7 +5,7 @@ import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
-import CategoryContainer from './CategoryContainer';
+import CategoriesContainer from './CategoriesContainer';
 
 class PopupBody extends Component {
   constructor(props) {
@@ -28,6 +28,9 @@ class PopupBody extends Component {
           </div>
         </div>
         <div className="row">
+          <CategoriesContainer all={false}/>
+        </div>
+        <div className="row">
           <div className="col-xs-12">
             <h4>categorize this page:</h4>
           </div>
@@ -40,7 +43,7 @@ class PopupBody extends Component {
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <CategoryContainer/>
+            <CategoriesContainer all={true}/>
           </div>
         </div>
       </div>

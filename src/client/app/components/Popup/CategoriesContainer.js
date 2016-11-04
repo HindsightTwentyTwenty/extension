@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import CategoryBar from '../Bars/CategoryBar';
+import SelectedCategoryBar from '../Bars/SelectedCategoryBar';
 
-class CategoryContainer extends Component {
+class CategoriesContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -20,7 +21,7 @@ class CategoryContainer extends Component {
     return <CategoryBar categoryInfo={category} checked={false} key={category.title}/>;
   }
 
-  getCategoryList() {
+  getCategories() {
     if (Object.keys(this.props.categories).length) {
       let result = []
       for (let cat in this.props.categories) {
@@ -30,10 +31,23 @@ class CategoryContainer extends Component {
     }
   }
 
+  getSelectedCategories() {
+    if (Object.keys(this.props.currentPage.categories).length) {
+      let result = []
+      for (let cat in this.props.currentPage.categories) {
+        result.push(<SelectedCategoryBar categoryInfo={this.props.currentPage.categories[cat]} checked={false}
+          key={this.props.currentPage.categories[cat].title}/>)
+      }
+      return result
+    }
+  }
+
   render() {
-    var categoryList = this.getCategoryList();
+    var categories = this.props.all ? this.getCategories() : this.getSelectedCategories();
     return (
-      <div>{categoryList}</div>
+      <div className="categories-container">
+        {categories}
+      </div>
     )
   };
 }
@@ -43,4 +57,4 @@ let mapStateToProps = (state) => ({
     categories: state.categories
 })
 
-export default connect(mapStateToProps, null)(CategoryContainer);
+export default connect(mapStateToProps, null)(CategoriesContainer);
