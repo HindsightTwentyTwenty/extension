@@ -9,16 +9,22 @@ class CategoryEntry extends Component {
 
   render () {
     return (
-      <div>
-        <input ref={node => {
-          this.input = node;
-        }} />
-        <button onClick={() => {
-          this.props.popup_actions.pushCategory(this.input.value);
-          this.input.value = '';
-        }}>
-          Add Category
-        </button>
+      <div className="container">
+        <div className ="row">
+          <div className="col-xs-12">
+            <div className="input-group">
+              <input type="text" className="form-control" placeholder="New Category..." ref={node => {
+                this.input = node;
+              }} />
+              <span className="input-group-btn">
+                <button className="btn btn-primary add-category-btn" type="button" onClick={() => {
+                  this.props.popup_actions.pushCategory(this.input.value);
+                  this.input.value = '';
+                }}>+</button>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
