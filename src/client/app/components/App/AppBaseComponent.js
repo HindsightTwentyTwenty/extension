@@ -29,20 +29,13 @@ class AppBaseComponent extends Component {
           );
       });
     }
-    // <button onClick={() => {
-    //   this.props.lookback_actions.fetchPages();
-    //   }}>
-    // Get All Entries</button>
-    // <div className="pageList">
-    //   {pages}
-    // </div>
+
     return (
       <div>
         <p>These are your tabs:</p>
         <button onClick={this.get_all_tabs.bind(this)}>
           Get All Tabs</button>
         <div>
-          {tabs}
         </div>
       </div>
 
