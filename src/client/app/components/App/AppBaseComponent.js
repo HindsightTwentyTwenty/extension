@@ -25,7 +25,7 @@ class AppBaseComponent extends Component {
     if (this.props.tabs) {
       tabs = this.props.tabs.map(function (tab){
           return (
-            <div key={tab.fields.created} >{tab.fields.domains[0]}</div>
+            <div key={tab.fields.created} >{tab.fields.domains[0].fields.base_url}</div>
           );
       });
     }
