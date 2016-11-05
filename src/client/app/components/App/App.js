@@ -3,6 +3,8 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux'
 import { bindActionCreators} from 'redux'
 import AppBaseComponent from './AppBaseComponent.js';
+import LookBack from './LookBack.js';
+
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 
 class App extends Component {
@@ -18,6 +20,7 @@ class App extends Component {
       <div>
         <p> TODO : Replace with domain specific component </p>
         <AppBaseComponent />
+        <LookBack />
       </div>
     )
   }
