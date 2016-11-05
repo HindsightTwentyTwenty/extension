@@ -44,8 +44,10 @@ class CategoriesContainer extends Component {
 
   render() {
     var categories = this.props.all ? this.getCategories() : this.getSelectedCategories();
+    var className = this.props.all ? "categories-container" : "categories-container selected";
+
     return (
-      <div className="categories-container">
+      <div className={className}>
         {categories}
       </div>
     )

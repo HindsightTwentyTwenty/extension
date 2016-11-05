@@ -20,15 +20,17 @@ class PopupBody extends Component {
     return (
       <div className="container popup-body">
         <div className="row">
-          <div className="col-xs-10 hideoverflow">
-            <h3>{this.props.currentPage.title}</h3>
+          <div className="col-xs-10">
+            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
           </div>
           <div className="col-xs-2">
             <Star/>
           </div>
         </div>
         <div className="row">
-          <CategoriesContainer all={false}/>
+          <div className="col-xs-12">
+            <CategoriesContainer all={false}/>
+          </div>
         </div>
         <div className="row">
           <div className="col-xs-12">

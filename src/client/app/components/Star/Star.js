@@ -13,7 +13,7 @@ class Star extends Component {
   render () {
     var checkedVal = this.props.currentPage.star;
     return (
-      <div>
+      <div className="star-div">
         <input type="checkbox" id="star" checked={checkedVal} ref={node => {
             this.input = node;
           }}
