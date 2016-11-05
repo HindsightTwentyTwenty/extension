@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
-import DomainBar from '../Bars/DomainBar.js';
+import TabComponent from './TabComponent.js';
 
 class LookBack extends Component {
 
@@ -22,40 +22,37 @@ class LookBack extends Component {
   }
 
 
-  getDomainBar(title, width) {
-    var bar_style = {"width" : width}
-    return <DomainBar title={title} width={width} style={bar_style}/>;
+  getTabComponent(index) {
+    return <TabComponent curr_index={index}/>;
   }
 
-  getDomains(index) {
+  getTabs(){
     if (Object.keys(this.props.tabs).length) {
       let results = []
-      let domains = this.props.tabs[index].fields.domains;
-      var numDomains = Object.keys(domains).length;
-      console.log("numDomains: ", numDomains);
-      var width = Math.floor((1/numDomains) * 100) -3;
-      console.log("width: ", width);
-      width += "%";
+      let curr_tabs = this.props.tabs;
+      let numTabs = curr_tabs.length;
+      console.log("number of tabs: ", numTabs);
 
-      if (this.props.tabs[index]) {
-          for (let dIndex in domains) {
-            results.push(this.getDomainBar(domains[dIndex].fields.title, width))
-          }
-        return results;
+      for (let tIndex in curr_tabs) {
+        results.push(this.getTabComponent(tIndex))
       }
+      return results;
     }
   }
 
 
+
+
+
   render() {
-    var domains = this.getDomains(9);
+    var tabs = this.getTabs();
     return (
       <div className="lookback-graph-container">
         <div className="horizontal-axis-label">Times</div>
         <div className="vertical-axis-label">Tabs</div>
 
         <div className="lookback-container">
-            {domains}
+            {tabs}
         </div>
       </div>
 

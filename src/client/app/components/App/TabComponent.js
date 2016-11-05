@@ -2,36 +2,60 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as TabActions from '../../actions/Tabs/TabActions.js';
+import DomainBar from '../Bars/DomainBar.js';
 
 class TabComponent extends Component {
 
   constructor(props) {
     super(props);
-    //TODO: favicon
+  }
+
+  getDomainBar(title, width) {
+    var bar_style = {"width" : width}
+    return <DomainBar title={title} width={width} style={bar_style}/>;
+  }
+
+  getDomains() {
+    if(this.props.curr_index){
+      var index = this.props.curr_index
+      if (Object.keys(this.props.tabs).length) {
+        let results = []
+        let domains = this.props.tabs[index].fields.domains;
+        var numDomains = Object.keys(domains).length;
+        console.log("numDomains: ", numDomains);
+        var width = Math.floor((1/numDomains) * 100) -3;
+        console.log("width: ", width);
+        width += "%";
+
+        if (this.props.tabs[index]) {
+            for (let dIndex in domains) {
+              results.push(this.getDomainBar(domains[dIndex].fields.title, width))
+            }
+          return results;
+        }
+      }
+    }
   }
 
   render() {
+    var domains = this.getDomains();
     return (
-      <div
-        className="domain-bar"
-        style= {this.props.style}
-        width = {this.props.width}
-        onMouseOver={() => {
-          console.log("hovering on bar with title", this.props.title);
-        }}>
-        <label htmlFor='domainBar'> {this.props.title} </label>
+      <div>
+        {domains}
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage
+    tabs : state.currentTabs
 })
 
-let mapDispatchToProps = (dispatch) => ({
-  category_actions: bindActionCreators(CategoryActions, dispatch)
-})
+let mapDispatchToProps = (dispatch) => {
+  return {
+    tab_actions: bindActionCreators(TabActions, dispatch)
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabComponent);
