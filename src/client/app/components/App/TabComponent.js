@@ -4,7 +4,7 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
-class DomainBar extends Component {
+class TabComponent extends Component {
 
   constructor(props) {
     super(props);
@@ -34,4 +34,4 @@ let mapDispatchToProps = (dispatch) => ({
   category_actions: bindActionCreators(CategoryActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DomainBar);
+export default connect(mapStateToProps, mapDispatchToProps)(TabComponent);

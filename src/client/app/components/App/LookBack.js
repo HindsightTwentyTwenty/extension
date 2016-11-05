@@ -23,7 +23,8 @@ class LookBack extends Component {
 
 
   getDomainBar(title, width) {
-    return <DomainBar title={title} width={width}/>;
+    var bar_style = {"width" : width}
+    return <DomainBar title={title} width={width} style={bar_style}/>;
   }
 
   getDomains(index) {
@@ -32,7 +33,8 @@ class LookBack extends Component {
       let domains = this.props.tabs[index].fields.domains;
       var numDomains = Object.keys(domains).length;
       console.log("numDomains: ", numDomains);
-      var width = (1/numDomains) * 100;
+      var width = Math.floor((1/numDomains) * 100) -3;
+      console.log("width: ", width);
       width += "%";
 
       if (this.props.tabs[index]) {
@@ -46,10 +48,15 @@ class LookBack extends Component {
 
 
   render() {
-    var domains = this.getDomains(0);
+    var domains = this.getDomains(9);
     return (
-      <div className="lookback-container">
-          {domains}
+      <div className="lookback-graph-container">
+        <div className="horizontal-axis-label">Times</div>
+        <div className="vertical-axis-label">Tabs</div>
+
+        <div className="lookback-container">
+            {domains}
+        </div>
       </div>
 
     );
