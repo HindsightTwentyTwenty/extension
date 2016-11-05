@@ -5,6 +5,11 @@ body {
    color: #6eb5c0;
 }
 
+p.normal {
+    font-style: normal;
+    font-family: 'Raleway', sans-serif;
+}
+
 
 .lookback-graph-container{
   width: auto;
@@ -63,6 +68,7 @@ body {
 .horizontal-axis-label{
   text-align: center;
   font-size: 20;
+  font-family: 'Raleway', sans-serif;
 }
 
 .vertical-axis-label {
@@ -70,6 +76,7 @@ body {
 	transform-origin: left top 0;
   float: left;
   font-size: 20;
+  font-family: 'Raleway', sans-serif;
 
   margin-top: 40%;
   margin-bottom: 60%;
@@ -77,4 +84,11 @@ body {
   padding-top: 6px;
   padding-left: 6px;
 
+}
+
+.site-title{
+  font-family: 'Amatica SC', cursive;
+  font-size: 50px;
+  color: #57559A;
+  font-weight: bold;
 }

@@ -18,6 +18,7 @@ class App extends Component {
   render () {
     return (
       <div>
+        <div className="site-title">hindsite</div>
         <p> TODO : Replace with domain specific component </p>
         <AppBaseComponent />
         <LookBack />
