@@ -5,10 +5,12 @@ body {
    color: #6eb5c0;
 }
 
-.narrow-row{
-  margin: 0px;
-  height: 50px;
+.hide-overflow{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 }
@@ -42,6 +44,12 @@ body {
 
 .popup-body h4{
   font-size: medium;
+}
+
+.popup-body h5{
+  font-size: small;
+  margin-bottom: 0px;
+  font-weight: normal;
 }
 
 .popup-body hr{
@@ -97,23 +105,18 @@ body {
 }
 
 .category-bar{
-  width: 75px;
+  width: 80px;
   margin: 5px;
-  height: 30px;
+  height: 35px;
   display: block;
   border-style: solid;
   border-width: 1px;
   border-color: #6eb5c0;
   color: #263238;
   text-align: center;
-  line-height: 25px;
-  padding: 0;
-}
-
-.hide-overflow{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 32px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .category-bar.checked{
@@ -127,9 +130,8 @@ body {
   padding: 3px;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 6px;
-  align: center;
-  float:left;
+  margin: 10px 0px;
+  margin-top: 0px;
 }
 
 .categories-container.selected{
@@ -142,16 +144,24 @@ body {
   float:right;
   border: none;
   border-left: #6eb5c0;
-  padding-bottom: 1px;
   background-color: #e2e8e4;
+  font-size: large;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  vertical-align: middle;
 }
 
 .category-bar.selected{
   width:100px;
+  padding-right: 0px;
 }
 
-.category-bar-selected-label{
-  width:70px;
+.category-bar-label{
+  font-weight: normal;;
+}
+
+.category-bar-label.selected{
+  width:70%;
 }
 
 .star-div{

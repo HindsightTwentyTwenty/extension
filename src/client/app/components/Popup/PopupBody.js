@@ -45,6 +45,11 @@ class PopupBody extends Component {
         </div>
         <div className="row">
           <div className="col-xs-12">
+            <h5>recent</h5>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
             <CategoriesContainer all={true}/>
           </div>
         </div>
