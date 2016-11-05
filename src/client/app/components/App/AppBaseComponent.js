@@ -2,46 +2,62 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as TabActions from '../../actions/Tabs/TabActions.js';
 
 class AppBaseComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.props.lookback_actions.fetchPages();
+  }
+
+  get_all_tabs(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.props.tab_actions.getAllTabs(mm, dd, yyyy);
+
   }
 
   render() {
-    if (this.props.pages) {
-      var pages = this.props.pages.map(function (page){
+    var tabs = ""
+    if (this.props.tabs) {
+      tabs = this.props.tabs.map(function (tab){
           return (
-            <div>{page.url}</div>
+            <div key={tab.fields.created} >{tab.fields.domains[0]}</div>
           );
       });
     }
+    // <button onClick={() => {
+    //   this.props.lookback_actions.fetchPages();
+    //   }}>
+    // Get All Entries</button>
+    // <div className="pageList">
+    //   {pages}
+    // </div>
     return (
       <div>
-        <p>These are your pages:</p>
-        <button onClick={() => {
-          this.props.lookback_actions.fetchPages();
-          }}>
-        Get All Entries</button>
-        <div className="pageList">
-          {pages}
+        <p>These are your tabs:</p>
+        <button onClick={this.get_all_tabs.bind(this)}>
+          Get All Tabs</button>
+        <div>
+          {tabs}
         </div>
       </div>
+
     );
   }
 
 }
 
 let mapStateToProps = (state) => ({
-    pages : state.pages
+    tabs : state.currentTabs
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    lookback_actions: bindActionCreators(LookbackActions, dispatch)
+    tab_actions: bindActionCreators(TabActions, dispatch)
   }
 }
 

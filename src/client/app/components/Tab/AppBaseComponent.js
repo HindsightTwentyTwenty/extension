@@ -10,25 +10,18 @@ class TabsComponent extends Component {
     super(props);
     this.props.lookback_actions.fetchPages();
   }
+  // <button onClick={() => {
+  //   this.props.lookback_actions.fetchPages();
+  //   }}>
+  // Get All Entries</button>
+  
 
   render() {
-    if (this.props.pages) {
-      var pages = this.props.pages.map(function (page){
-          return (
-            <div>{page.url}</div>
-          );
-      });
-    }
     return (
       <div>
+        <h1>HI GUYS </h1>
+
         <p>These are your pages:</p>
-        <button onClick={() => {
-          this.props.lookback_actions.fetchPages();
-          }}>
-        Get All Entries</button>
-        <div className="pageList">
-          {pages}
-        </div>
       </div>
     );
   }

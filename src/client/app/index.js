@@ -12,13 +12,14 @@ import App from './components/app';
 
 let store = createStore(
   rootReducer,
-  {categories:[],
+  { categories:[],
     currentPage: {
       url: "",
       title: "",
       categories: [],
       star: false
-    }
+    },
+    currentTabs:[],
   },
   applyMiddleware(
     thunkMiddleware
