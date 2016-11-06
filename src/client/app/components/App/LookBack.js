@@ -11,15 +11,7 @@ class LookBack extends Component {
     super(props);
   }
 
-  get_all_tabs(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
 
-    this.props.tab_actions.getAllTabs(mm, dd, yyyy);
-
-  }
 
 
   getTabComponent(index) {
@@ -27,6 +19,9 @@ class LookBack extends Component {
   }
 
   getTabs(){
+    console.log("start date: ", this.props.start_date);
+    console.log("end date: ",this.props.end_date);
+
     if (Object.keys(this.props.tabs).length) {
       let results = []
       let curr_tabs = this.props.tabs;
@@ -46,10 +41,14 @@ class LookBack extends Component {
 
   render() {
     var tabs = this.getTabs();
+
     return (
       <div className="lookback-graph-container">
         <div className="horizontal-axis-label">Times</div>
         <div className="vertical-axis-label">Tabs</div>
+        <div className="start-time-label">{this.props.start_date}</div>
+        <div className="end-time-label">{this.props.end_date}</div>
+
 
         <div className="lookback-container">
             {tabs}
@@ -62,7 +61,9 @@ class LookBack extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    tabs : state.currentTabs
+    tabs : state.currentTabs,
+    start_date: state.start_date,
+    end_date:state.end_date
 })
 
 let mapDispatchToProps = (dispatch) => {

@@ -17,11 +17,11 @@ class TabComponent extends Component {
   }
 
   getDomains() {
-    if(this.props.curr_index){
+    if(this.props){
       var index = this.props.curr_index
       if (Object.keys(this.props.tabs).length) {
         let results = []
-        let domains = this.props.tabs[index].fields.domains;
+        let domains = this.props.tabs[index].domains;
         var numDomains = Object.keys(domains).length;
         console.log("numDomains: ", numDomains);
         var width = Math.floor((1/numDomains) * 100) -3;
@@ -30,7 +30,7 @@ class TabComponent extends Component {
 
         if (this.props.tabs[index]) {
             for (let dIndex in domains) {
-              results.push(this.getDomainBar(domains[dIndex].fields.title, width))
+              results.push(this.getDomainBar(domains[dIndex].title, width))
             }
           return results;
         }

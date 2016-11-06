@@ -20,6 +20,10 @@ let store = createStore(
       star: false
     },
     currentTabs:[],
+    currentTime:{
+      start_date:"test",
+      end_date:"test"
+    }
   },
   applyMiddleware(
     thunkMiddleware

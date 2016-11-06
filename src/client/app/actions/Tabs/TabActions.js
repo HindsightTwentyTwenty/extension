@@ -20,7 +20,25 @@ export function requestTabs() {
 }
 
 
-export function getAllTabs(p_month, p_day, p_year){
+// export function getAllTabs(p_month, p_day, p_year){
+//
+//   return dispatch => {
+//     dispatch(requestTabs())
+//     return fetch(getTabsEndpoint, {
+//             headers: {
+//                'Accept': 'application/json',
+//                'Content-Type': 'application/json'
+//              },
+//              method: "POST",
+//              body: JSON.stringify({month: p_month, day: p_day, year:p_year})
+//            }
+//       )
+//       .then(response => response.json())
+//       .then(json => dispatch(receiveTabs(json)))
+//   }
+// }
+
+export function getAllTabs(start_date, end_date){
 
   return dispatch => {
     dispatch(requestTabs())
@@ -30,7 +48,7 @@ export function getAllTabs(p_month, p_day, p_year){
                'Content-Type': 'application/json'
              },
              method: "POST",
-             body: JSON.stringify({month: p_month, day: p_day, year:p_year})
+             body: JSON.stringify({"start": start_date, "end": end_date})
            }
       )
       .then(response => response.json())

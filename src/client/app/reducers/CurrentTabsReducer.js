@@ -10,7 +10,7 @@ const tab = (state, action) => {
 function currentTabsReducer(state = [], action){
   switch(action.type){
     case types.RECEIVE_TABS:
-      return action.tabs;
+      return action.tabs.tabs;
     default:
         return state;
   }

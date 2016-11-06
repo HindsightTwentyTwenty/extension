@@ -3,6 +3,8 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
+import * as LookbackActions from '../../actions/App/LookbackActions.js';
+
 
 class AppBaseComponent extends Component {
 
@@ -10,22 +12,26 @@ class AppBaseComponent extends Component {
     super(props);
   }
 
+
   get_all_tabs(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
+    var end_date = new Date();
+    var start_date = new Date();
+    start_date.setDate(end_date.getDate() - 1);
+    console.log("TODAY ", end_date.toJSON());
+    console.log("YESTERDAY ", start_date.toJSON());
 
-    this.props.tab_actions.getAllTabs(mm, dd, yyyy);
-
+    this.props.lookback_actions.changeTimeframe(start_date, end_date);
+    this.props.tab_actions.getAllTabs(start_date.toJSON(), end_date.toJSON());
   }
+
+
 
   render() {
     var tabs = ""
     if (this.props.tabs) {
       tabs = this.props.tabs.map(function (tab){
           return (
-            <div key={tab.fields.created} >{tab.fields.domains[0].fields.base_url}</div>
+            <div key={tab.created} >{tab.domains[0].base_url}</div>
           );
       });
     }
@@ -45,12 +51,16 @@ class AppBaseComponent extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    tabs : state.currentTabs
+    tabs : state.currentTabs,
+    start_date : state.start_date,
+    end_date : state.end_date
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    tab_actions: bindActionCreators(TabActions, dispatch)
+    tab_actions: bindActionCreators(TabActions, dispatch),
+    lookback_actions: bindActionCreators(LookbackActions, dispatch)
+
   }
 }
 
