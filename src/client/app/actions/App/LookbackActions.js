@@ -28,3 +28,27 @@ export function fetchPages(){
       .then(json => dispatch(receivePages(json)))
   }
 }
+
+
+export function changeStartDate(new_start_date) {
+  return {
+    type: types.UPDATE_START_DATE,
+    start_date: new_start_date
+  }
+}
+
+export function changeEndDate(new_end_date) {
+  return {
+    type: types.UPDATE_END_DATE,
+    end_date: new_end_date
+  }
+}
+
+export function changeTimeframe(new_start_date, new_end_date) {
+  return {
+    type: types.UPDATE_TIMEFRAME,
+    start_date: new_start_date,
+    end_date: new_end_date
+
+  }
+}

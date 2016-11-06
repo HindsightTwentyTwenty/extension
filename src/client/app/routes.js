@@ -7,10 +7,11 @@ import Popup from './components/Popup/Popup.js';
 
 export default(
   <Router history={hashHistory}>
+    <Route path="/app/main.html" component={BaseApp}/>
+
     <Route path="/popup.html" component={App}>
       <IndexRoute component={Popup}/>
     </Route>
-    <Route path="/app/main.html" component={BaseApp}/>
 
   </Router>
 );

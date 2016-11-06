@@ -12,12 +12,17 @@ import App from './components/app';
 
 let store = createStore(
   rootReducer,
-  {categories:[],
+  { categories:[],
     currentPage: {
       url: "",
       title: "",
       categories: [],
       star: false
+    },
+    currentTabs:[],
+    currentTime:{
+      start_date:"test",
+      end_date:"test"
     }
   },
   applyMiddleware(
