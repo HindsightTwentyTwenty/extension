@@ -12,7 +12,7 @@ class CategoryBar extends Component {
   }
 
   render() {
-    var className = this.props.checked ? 'category-bar checked hideoverflow' : 'category-bar hideoverflow';
+    var className = this.props.checked ? 'category-bar checked' : 'category-bar';
     return (
       <div
         className={className}
@@ -20,7 +20,7 @@ class CategoryBar extends Component {
           this.props.category_actions.toggleCategory( this.props.currentPage.url,
             this.props.categoryInfo, !this.props.checked);
         }}>
-        <label htmlFor='categoryContainer'> {this.props.categoryInfo.title} </label>
+        <label htmlFor='categoryBar' className='category-bar-label hide-overflow'> {this.props.categoryInfo.title} </label>
       </div>
     )
   }
