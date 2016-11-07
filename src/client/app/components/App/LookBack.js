@@ -97,7 +97,8 @@ class LookBack extends Component {
         <div className="vertical-axis-label">Tabs</div>
 
         <div className="time-labels">
-          <div className="end-time-label">{this.state.start_date_formatted}</div><div className="start-time-label">{this.state.end_date_formatted}</div>
+          <div className="start-time-label">{this.state.start_date_formatted}</div>
+          <div className="end-time-label">{this.state.end_date_formatted}</div>
         </div>
         <div className="lookback-container">
             {tabs}
