@@ -16,6 +16,21 @@ class TabComponent extends Component {
     return <DomainBar title={title} width={width} style={bar_style}/>;
   }
 
+  calculateDomainWidth(){
+    var start_date = new Date(this.props.start_date);
+    var end_date = new Date(this.props.end_date);
+
+    var time_elapsed = end_date - start_date;
+    console.log("time_elapsed: ", time_elapsed);
+
+
+  }
+
+  // calculateBasicWith(){
+  //   var width = Math.floor((1/numDomains) * 100) -3;
+  //
+  // }
+
   getDomains() {
     if(this.props){
       var index = this.props.curr_index
@@ -23,7 +38,7 @@ class TabComponent extends Component {
         let results = []
         let domains = this.props.tabs[index].domains;
         var numDomains = Object.keys(domains).length;
-        console.log("numDomains: ", numDomains);
+
         var width = Math.floor((1/numDomains) * 100) -3;
         console.log("width: ", width);
         width += "%";
@@ -49,7 +64,9 @@ class TabComponent extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    tabs : state.currentTabs
+    tabs : state.currentTabs,
+    start_date: state.currentTime.start_date,
+    end_date:state.currentTime.end_date
 })
 
 let mapDispatchToProps = (dispatch) => {

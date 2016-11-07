@@ -21,8 +21,8 @@ let store = createStore(
     },
     currentTabs:[],
     currentTime:{
-      start_date:"test",
-      end_date:"test"
+      start_date:"",
+      end_date:""
     }
   },
   applyMiddleware(
