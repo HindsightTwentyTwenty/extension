@@ -5,6 +5,12 @@ body {
    color: #6eb5c0;
 }
 
+.hide-overflow{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 }
@@ -33,10 +39,17 @@ body {
 .popup-body h3{
   margin-top: 10px;
   color: #263238;
+  font-size: large;
 }
 
 .popup-body h4{
   font-size: medium;
+}
+
+.popup-body h5{
+  font-size: small;
+  margin-bottom: 0px;
+  font-weight: normal;
 }
 
 .popup-body hr{
@@ -92,20 +105,18 @@ body {
 }
 
 .category-bar{
-  width: 75px;
+  width: 80px;
   margin: 5px;
+  height: 35px;
   display: block;
   border-style: solid;
   border-width: 1px;
   border-color: #6eb5c0;
   color: #263238;
   text-align: center;
-}
-
-.hideoverflow{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 32px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .category-bar.checked{
@@ -114,10 +125,45 @@ body {
 
 .categories-container{
   border-style: solid;
-  border-width: 1px;
+  border-width: 2px;
   border-color: #6eb5c0;
   padding: 3px;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 6px;
+  margin: 10px 0px;
+  margin-top: 0px;
+}
+
+.categories-container.selected{
+  border:none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.category-remove-btn{
+  float:right;
+  border: none;
+  border-left: #6eb5c0;
+  background-color: #e2e8e4;
+  font-size: large;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  vertical-align: middle;
+}
+
+.category-bar.selected{
+  width:100px;
+  padding-right: 0px;
+}
+
+.category-bar-label{
+  font-weight: normal;;
+}
+
+.category-bar-label.selected{
+  width:70%;
+}
+
+.star-div{
+  height:45px;
 }
