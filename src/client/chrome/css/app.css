@@ -27,6 +27,7 @@ p.normal {
   background-color: #FAFAFA;
   margin-left: 35px;
   margin-right: 2%;
+  margin-top: 20px;
 
 
   border-left:solid #303638;
@@ -91,4 +92,24 @@ p.normal {
   font-size: 50px;
   color: #57559A;
   font-weight: bold;
+}
+
+.time-labels{
+  display: inline;
+}
+
+.start-time-label .end-time-label{
+  font-size: 15;
+  font-family: 'Raleway', sans-serif;
+  color: #57559A;
+  width: auto;
+}
+
+.start-time-label{
+  float: left;
+}
+.end-time-label{
+  float: right;
+  padding-right: 3%;
+
 }
