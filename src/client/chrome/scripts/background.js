@@ -2,12 +2,8 @@ var currentTabId = 0;
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-    console.log(tabs[0].url);
-  });
   var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
   if(changeInfo.status == 'complete' && tab.title){
-    console.log('+++++++++++')
       if(tab.url != 'chrome://newtab/'){
 
         fetch('http://127.0.0.1:8000/newpage/', {
@@ -44,7 +40,6 @@ chrome.tabs.onRemoved.addListener(function( tabId, removeInfo) {
 
 
 chrome.tabs.onActivated.addListener(function (activeInfo){
-  console.log('on actived');
   chrome.windows.get(activeInfo.windowId, function (window) {
     fetch('http://127.0.0.1:8000/active/', {
       headers: {
