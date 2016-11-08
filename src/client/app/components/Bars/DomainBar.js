@@ -18,7 +18,7 @@ class DomainBar extends Component {
         style= {this.props.style}
         width = {this.props.width}
         onMouseOver={() => {
-          console.log("hovering on bar with title", this.props.title);
+
         }}>
         <label htmlFor='domainBar'> {this.props.title} </label>
       </div>
