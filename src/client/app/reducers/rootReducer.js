@@ -4,6 +4,7 @@ import currentPageReducer from './CurrentPageReducer.js';
 import categoryReducer from './CategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
 import timeReducer from './TimeReducer.js';
+import lookBackReducer from './LookBackReducer.js';
 
 
 
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   categories: categoryReducer,
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
-  currentTime: timeReducer
+  currentTime: timeReducer,
+  currentLookBackSelection: lookBackReducer
 });
 
 export default rootReducer;
