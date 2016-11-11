@@ -15,16 +15,11 @@ class LookBackDetails extends Component {
     return (
       <div className="lookback-details-container">
         <div className="row">
-          <div className="col-xs-6">
             <DomainDetails/>
-          </div>
-          <div className="col-xs-6">
-          </div>
         </div>
       </div>
     )
   }
-
 }
 
 

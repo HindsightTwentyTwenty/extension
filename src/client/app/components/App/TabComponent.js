@@ -15,9 +15,9 @@ class TabComponent extends Component {
     var bar_style = {"width" : width}
     return <DomainBar domain={domain} style={bar_style}/>;
   }
-  getFirstDomainBar(title, width, margin) {
+  getFirstDomainBar(domain, width, margin) {
     var bar_style = {"width" : width, "margin-left": margin}
-    return <DomainBar title={title} style={bar_style}/>;
+    return <DomainBar domain={domain} style={bar_style}/>;
   }
 
   calculateDomainWidth(time_elapsed, created, closed){

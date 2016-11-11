@@ -12,13 +12,19 @@ class DomainDetails extends Component {
   render() {
     var currentDomain = this.props.currentDomain;
     if(currentDomain.base_url === ""){
-      return(<div></div>)
+      return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
     } else{
       return (
           <div className="lookback-details-container">
-            <h3>{currentDomain.title}</h3>
-            <p>pages visited: {currentDomain.pages}</p>
-            <p>minutes active: {currentDomain.minutes_active}</p>
+            <div className="row">
+            <div className="col-xs-6">
+            </div>
+            <div className="col-xs-6">
+              <h3>{currentDomain.title}</h3>
+              <p>pages visited: {currentDomain.pages}</p>
+              <p>minutes active: {currentDomain.minutes_active}</p>
+            </div>
+          </div>
           </div>
       )
     }
