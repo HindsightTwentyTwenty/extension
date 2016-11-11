@@ -1,8 +1,7 @@
-var currentTabId = 0;
-
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+
   if(changeInfo.status == 'complete' && tab.title){
       if(tab.url != 'chrome://newtab/'){
 
@@ -12,14 +11,11 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             'Content-Type': 'application/json'
           },
           method: "POST",
-          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId":currentTabId})
+          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId})
         }
 
 
       );
-      if(tab.active == 'true'){
-        currentTabId = tab.id;
-      }
     }
   }
 });
@@ -49,7 +45,5 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
       method: "POST",
       body: JSON.stringify({"tab": activeInfo.tabId})
     });
-
-    currentTabId = activeInfo.tabId;
   });
 });
