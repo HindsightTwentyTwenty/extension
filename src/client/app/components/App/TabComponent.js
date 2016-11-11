@@ -24,6 +24,8 @@ class TabComponent extends Component {
 
     var d_created_date = new Date(created);
     var d_closed_date = new Date(closed);
+    console.log("created date tab: ", d_created_date);
+    console.log("closed date tab: ", d_closed_date);
 
     var domain_time_elapsed = d_closed_date.getTime() - d_created_date.getTime();
 
@@ -70,6 +72,7 @@ class TabComponent extends Component {
         var start_date = new Date(this.props.start_date);
         var end_date = new Date(this.props.end_date);
         var time_elapsed = end_date.getTime() - start_date.getTime();
+        console.log("time elapsed: ", time_elapsed);
 
 
         if (this.props.tabs[index]) {

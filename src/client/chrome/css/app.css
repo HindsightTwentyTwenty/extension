@@ -27,7 +27,7 @@ p.normal {
   background-color: #FAFAFA;
   margin-left: 35px;
   margin-right: 2%;
-  margin-top: 20px;
+  margin-top: 25px;
 
 
   border-left:solid #303638;
@@ -113,4 +113,24 @@ p.normal {
   float: right;
   padding-right: 3%;
 
+}
+
+/*BUTTONS*/
+#back-button{
+  border: 0;
+  background: #57559A;
+  border-radius: 4px;
+  color: #FAFAFA;
+  font-size: 15;
+  font-family: 'Raleway', sans-serif;
+  transition-duration: 0.4s;
+  margin-right: 5px;
+  margin-left: 5px;
+
+
+}
+
+#back-botton:hover {
+    background: #FAFAFA; /* Green */
+    color: #57559A;
 }

@@ -16,7 +16,10 @@ class AppBaseComponent extends Component {
   get_all_tabs(){
     var end_date = new Date();
     var start_date = new Date();
-    start_date.setDate(end_date.getDate() - 1);
+    var four_hours_ago = end_date.getHours() - 1;
+    // start_date.setDate(end_date.getDate() - 1);
+    start_date.setHours(four_hours_ago);
+
     console.log("TODAY ", end_date.toJSON());
     console.log("YESTERDAY ", start_date.toJSON());
 
