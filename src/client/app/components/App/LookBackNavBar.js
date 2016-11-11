@@ -17,11 +17,8 @@ class LookBackNavBar extends Component {
       }
   }
 
-
-
   render() {
     console.log(this.props);
-
     return (
       <div className="container">
         <div className ="row">
@@ -48,14 +45,9 @@ class LookBackNavBar extends Component {
           </div>
         </div>
       </div>
-
     );
   }
-
 }
-
-
-
 
 let mapStateToProps = (state) => ({
   currentLookBackSelection: state.currentLookBackSelection

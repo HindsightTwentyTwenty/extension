@@ -28,14 +28,24 @@ p.normal {
   margin-left: 35px;
   margin-right: 2%;
   margin-top: 25px;
-
-
   border-left:solid #303638;
   border-top: solid #303638;
+}
 
+.side-bar-title{
+  text-align: center;
+  padding-top: 10px;
+}
 
+.side-bar-category {
+  text-align: center;
+}
 
-
+.side-bar-container{
+  margin-top: 5px;
+  width: 200px;
+  height: 100%;
+  background-color: #FAFAFA;
 }
 
 .domain-bar{
@@ -53,14 +63,9 @@ p.normal {
   margin-left: 2px;
   margin-top: 4px;
   margin-bottom: 4px;
-
   border-radius: 5px;
-
   padding-left: 4px;
   padding-right: 4px;
-
-
-
 }
 
 .domain-bar:hover {
@@ -126,8 +131,6 @@ p.normal {
   transition-duration: 0.4s;
   margin-right: 5px;
   margin-left: 5px;
-
-
 }
 
 #back-botton:hover {
