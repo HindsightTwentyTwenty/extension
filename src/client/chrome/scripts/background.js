@@ -11,7 +11,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             'Content-Type': 'application/json'
           },
           method: "POST",
-          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active", tab.active})
+          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
         }
 
 
