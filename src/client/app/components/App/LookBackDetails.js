@@ -10,7 +10,6 @@ class LookBackDetails extends Component {
     super(props);
   }
 
-
   render() {
     return (
       <div className="lookback-details-container">
@@ -21,7 +20,6 @@ class LookBackDetails extends Component {
     )
   }
 }
-
 
 
 
