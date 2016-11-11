@@ -1,7 +1,9 @@
+var closed = false
+
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-
+  closed = false
   if(changeInfo.status == 'complete' && tab.title){
       if(tab.url != 'chrome://newtab/'){
 
@@ -23,6 +25,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 //listens when tab is removed
 chrome.tabs.onRemoved.addListener(function( tabId, removeInfo) {
   chrome.windows.get(removeInfo.windowId, function (window) {
+    closed = true
     fetch('http://127.0.0.1:8000/closetab/', {
       headers: {
         'Accept': 'application/json',
@@ -43,7 +46,8 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
         'Content-Type': 'application/json'
       },
       method: "POST",
-      body: JSON.stringify({"tab": activeInfo.tabId})
+      body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed})
     });
+    closed = false
   });
 });
