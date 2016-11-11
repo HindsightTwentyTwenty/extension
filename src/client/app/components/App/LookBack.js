@@ -3,6 +3,8 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
+import * as LookbackActions from '../../actions/App/LookbackActions.js';
+
 import TabComponent from './TabComponent.js';
 
 function getState() {
@@ -22,9 +24,33 @@ class LookBack extends Component {
     this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
   }
 
+
+
   getTabComponent(index) {
     return <TabComponent curr_index={index}/>;
   }
+
+	getPrevPage(){
+		var new_start_hour = new Date(this.props.start_date).getHours() - 1;
+		var new_start_date = new Date(this.props.start_date).setHours(new_start_hour);
+
+		var new_end_hour = new Date(this.props.end_date).getHours() - 1;
+		var new_end_date = new Date(this.props.end_date).setHours(new_end_hour);
+		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+		// this.props.start_date = new_start_date;
+	}
+
+	getNextPage(){
+		console.log("NEXT");
+		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
+		var new_start_date = new Date(this.props.start_date).setHours(new_start_hour);
+
+		var new_end_hour = new Date(this.props.end_date).getHours() + 1;
+		var new_end_date = new Date(this.props.end_date).setHours(new_end_hour);
+		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+		// this.props.start_date = new_start_date;
+	}
+
 
   getFormattedTime(date_string){
     if(date_string){
@@ -34,8 +60,7 @@ class LookBack extends Component {
       var period = date.getHours() >= 12 ? 'PM' : 'AM';
       var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
-      var datetext = (hour + 2 + ':' + minutes + ' ' +period);
-
+      var datetext = (hour +  ':' + minutes + ' ' +period);
       return datetext;
     }else{return "";}
 
@@ -88,18 +113,28 @@ class LookBack extends Component {
     var tabs = this.getTabs();
 
     return (
-	      <div className="lookback-graph-container">
-	        <div className="horizontal-axis-label">Times</div>
-	        <div className="vertical-axis-label">Tabs</div>
+      <div className="lookback-graph-container">
+        <div className="horizontal-axis-label">Times</div>
+        <div className="vertical-axis-label">Tabs</div>
 
-	        <div className="time-labels">
-	          <div className="start-time-label">{this.state.start_date_formatted}</div>
-	          <div className="end-time-label">{this.state.end_date_formatted}</div>
-	        </div>
-	        <div className="lookback-container">
-	            {tabs}
-	        </div>
-	      </div>
+        <div className="time-labels">
+          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
+							<button id="back-button">
+								back
+							</button>
+							{this.state.start_date_formatted}
+					</div>
+          <div className="end-time-label">
+							{this.state.end_date_formatted}
+							<button id="back-button" onClick={this.getNextPage.bind(this)}>
+								next
+							</button>
+					</div>
+        </div>
+        <div className="lookback-container">
+            {tabs}
+        </div>
+      </div>
     );
   }
 }
@@ -112,7 +147,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    tab_actions: bindActionCreators(TabActions, dispatch)
+    tab_actions: bindActionCreators(TabActions, dispatch),
+		lookback_actions: bindActionCreators(LookbackActions, dispatch)
   }
 }
 
