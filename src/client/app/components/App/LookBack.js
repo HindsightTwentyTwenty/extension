@@ -17,8 +17,6 @@ class LookBack extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
-
   }
   componentWillReceiveProps(props) {
     this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
@@ -86,28 +84,24 @@ class LookBack extends Component {
   }
 
 
-
-
   render() {
     var tabs = this.getTabs();
 
     return (
-      <div className="lookback-graph-container">
-        <div className="horizontal-axis-label">Times</div>
-        <div className="vertical-axis-label">Tabs</div>
+	      <div className="lookback-graph-container">
+	        <div className="horizontal-axis-label">Times</div>
+	        <div className="vertical-axis-label">Tabs</div>
 
-        <div className="time-labels">
-          <div className="start-time-label">{this.state.start_date_formatted}</div>
-          <div className="end-time-label">{this.state.end_date_formatted}</div>
-        </div>
-        <div className="lookback-container">
-            {tabs}
-        </div>
-      </div>
-
+	        <div className="time-labels">
+	          <div className="start-time-label">{this.state.start_date_formatted}</div>
+	          <div className="end-time-label">{this.state.end_date_formatted}</div>
+	        </div>
+	        <div className="lookback-container">
+	            {tabs}
+	        </div>
+	      </div>
     );
   }
-
 }
 
 let mapStateToProps = (state) => ({

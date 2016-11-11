@@ -11,9 +11,9 @@ class TabComponent extends Component {
     super(props);
   }
 
-  getDomainBar(title, width) {
+  getDomainBar(domain, width) {
     var bar_style = {"width" : width}
-    return <DomainBar title={title} style={bar_style}/>;
+    return <DomainBar domain={domain} style={bar_style}/>;
   }
 
   calculateDomainWidth(created, closed){
@@ -65,7 +65,7 @@ class TabComponent extends Component {
               width += "%";
 
               console.log("width: ", width);
-              results.push(this.getDomainBar(domains[dIndex].title, width))
+              results.push(this.getDomainBar(domains[dIndex], width))
             }
           return results;
         }
