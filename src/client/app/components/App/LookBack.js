@@ -19,8 +19,6 @@ class LookBack extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
-
   }
   componentWillReceiveProps(props) {
     this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
@@ -111,8 +109,6 @@ class LookBack extends Component {
   }
 
 
-
-
   render() {
     var tabs = this.getTabs();
 
@@ -139,10 +135,8 @@ class LookBack extends Component {
             {tabs}
         </div>
       </div>
-
     );
   }
-
 }
 
 let mapStateToProps = (state) => ({

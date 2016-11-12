@@ -11,13 +11,13 @@ class TabComponent extends Component {
     super(props);
   }
 
-  getDomainBar(title, width) {
+  getDomainBar(domain, width) {
     var bar_style = {"width" : width}
-    return <DomainBar title={title} style={bar_style}/>;
+    return <DomainBar domain={domain} style={bar_style}/>;
   }
-  getFirstDomainBar(title, width, margin) {
+  getFirstDomainBar(domain, width, margin) {
     var bar_style = {"width" : width, "margin-left": margin}
-    return <DomainBar title={title} style={bar_style}/>;
+    return <DomainBar domain={domain} style={bar_style}/>;
   }
 
   calculateDomainWidth(time_elapsed, created, closed){
@@ -90,14 +90,14 @@ class TabComponent extends Component {
                 var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
                 margin += "%";
                 console.log("margin: ", margin);
-                results.push(this.getFirstDomainBar(domains[dIndex].title, width, margin))
+                results.push(this.getFirstDomainBar(domains[dIndex], width, margin))
               }
 
               // var margin = this.calculateLeftMargin(time_elapsed, prev_closed, created);
               // margin += "%";
               // console.log("margin: ", margin);
               else{
-                results.push(this.getDomainBar(domains[dIndex].title, width))
+                results.push(this.getDomainBar(domains[dIndex], width))
               }
             }
           return results;
