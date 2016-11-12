@@ -10,7 +10,10 @@ import TabComponent from './TabComponent.js';
 function getState() {
 	return {
     start_date_formatted: "",
-    end_date_formatted:""
+    end_date_formatted:"",
+		first_time_break_formatted:"",
+		second_time_break_formatted:"",
+		tabs:""
 	}
 }
 
@@ -20,10 +23,20 @@ class LookBack extends Component {
     super(props);
     this.state = getState();
 
-
   }
+
+
+
   componentWillReceiveProps(props) {
     this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
+		this.getFormattedTimeBreaks(this.props.start_date, this.props.end_date);
+
+		console.log("PROPS in recieve", props);
+		var curr_tabs =  this.getTabs(props);
+		this.setState({
+			tabs: curr_tabs
+		});
+
   }
 
 
@@ -34,22 +47,33 @@ class LookBack extends Component {
 
 	getPrevPage(){
 		var new_start_hour = new Date(this.props.start_date).getHours() - 1;
-		var new_start_date = new Date(this.props.start_date).setHours(new_start_hour);
+		var new_start_date = new Date(this.props.start_date);
+		new_start_date.setHours(new_start_hour);
 
 		var new_end_hour = new Date(this.props.end_date).getHours() - 1;
-		var new_end_date = new Date(this.props.end_date).setHours(new_end_hour);
+		var new_end_date = new Date(this.props.end_date);
+		new_end_date.setHours(new_end_hour);
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+		console.log("start date not JSON: ", new_start_date.toDateString());
+
+		console.log("start date: ", new_start_date.toJSON());
+		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
+
 		// this.props.start_date = new_start_date;
 	}
 
 	getNextPage(){
 		console.log("NEXT");
 		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
-		var new_start_date = new Date(this.props.start_date).setHours(new_start_hour);
+		var new_start_date = new Date(this.props.start_date);
+		new_start_date.setHours(new_start_hour);
 
 		var new_end_hour = new Date(this.props.end_date).getHours() + 1;
-		var new_end_date = new Date(this.props.end_date).setHours(new_end_hour);
+		var new_end_date = new Date(this.props.end_date)
+		new_end_date.setHours(new_end_hour);
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
+
 		// this.props.start_date = new_start_date;
 	}
 
@@ -58,10 +82,11 @@ class LookBack extends Component {
     if(date_string){
       var date = new Date(date_string);
 
-      var hour = date.getHours() - (date.getHours() >= 12 ? 12 : 0);
+      var hour = date.getHours() - (date.getHours() >= 13 ? 12 : 0);
       var period = date.getHours() >= 12 ? 'PM' : 'AM';
       var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
+			console.log("HOUR: ", hour);
       var datetext = (hour +  ':' + minutes + ' ' +period);
       return datetext;
     }else{return "";}
@@ -90,16 +115,34 @@ class LookBack extends Component {
       });
   }
 
-  getTabs(){
-    console.log("this.props: ", this.props);
-    console.log("start date: ", this.props.start_date);
-    console.log("end date: ",this.props.end_date);
-    console.log("difference: ", (this.props.end_date - this.props.start_date));
+
+  getFormattedTimeBreaks(s_date_string, e_date_string){
+		var second_break_minute = new Date(e_date_string).getMinutes() - 20;
+		var first_break_minute = second_break_minute - 20;
+
+		var first_break = new Date(e_date_string).setMinutes(first_break_minute);
+		var second_break = new Date(e_date_string).setMinutes(second_break_minute);
 
 
-    if (Object.keys(this.props.tabs).length) {
+    var formatted_first = this.getFormattedTime(first_break);
+		var formatted_second = this.getFormattedTime(second_break);
+
+    this.setState({
+        first_time_break_formatted: formatted_first,
+        second_time_break_formatted: formatted_second
+      });
+  }
+
+  getTabs(currProps){
+    console.log("this.props: ", currProps);
+    console.log("start date: ", currProps.start_date);
+    console.log("end date: ",currProps.end_date);
+    console.log("difference: ", (currProps.end_date - currProps.start_date));
+
+
+    if (Object.keys(currProps.tabs).length) {
       let results = []
-      let curr_tabs = this.props.tabs;
+      let curr_tabs = currProps.tabs;
       let numTabs = curr_tabs.length;
       console.log("number of tabs: ", numTabs);
 
@@ -114,30 +157,43 @@ class LookBack extends Component {
 
 
   render() {
-    var tabs = this.getTabs();
+    // var tabs = this.getTabs();
+
 
     return (
       <div className="lookback-graph-container">
         <div className="horizontal-axis-label">Times</div>
         <div className="vertical-axis-label">Tabs</div>
 
-        <div className="time-labels">
-          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
-							<button id="back-button">
-								back
-							</button>
-							{this.state.start_date_formatted}
-					</div>
-          <div className="end-time-label">
-							{this.state.end_date_formatted}
-							<button id="back-button" onClick={this.getNextPage.bind(this)}>
-								next
-							</button>
-					</div>
-        </div>
+		        <div className="time-labels">
+		          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
+									<button id="back-button">
+										back
+									</button>
+									{this.state.start_date_formatted}
+
+							</div>
+		          <div className="end-time-label">
+									{this.state.end_date_formatted}
+									<button id="back-button" onClick={this.getNextPage.bind(this)}>
+										next
+									</button>
+							</div>
+		        </div>
+						<br/>
+						<br/>
+						<div className="time-break-labels">
+							<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+							<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+						</div>
+
         <div className="lookback-container">
-            {tabs}
+						<div className="time-break-line" id="first-time-break"></div>
+						<div className="time-break-line" id="second-time-break"></div>
+
+            {this.state.tabs}
         </div>
+
       </div>
 
     );
