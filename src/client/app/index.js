@@ -33,7 +33,8 @@ let store = createStore(
       pages: "",
       title: ""
     },
-    currentSearchCategories:[]
+    // categoriesAndPages:[],
+    currentSearchCategories: []
   },
   applyMiddleware(
     thunkMiddleware

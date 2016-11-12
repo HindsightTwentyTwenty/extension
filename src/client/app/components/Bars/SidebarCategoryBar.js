@@ -12,8 +12,14 @@ class SidebarCategoryBar extends Component {
   }
 
   render() {
+    var className = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
     return (
-      <div className={'side-bar-category'}>
+      <div className={className}
+        onClick={() => {
+          this.props.category_actions.addSearchCategory(
+            this.props.categoryInfo.title, !this.props.checked);
+        }}
+      >
         {this.props.categoryInfo.title}
       </div>
     )

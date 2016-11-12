@@ -19,7 +19,7 @@ function categoryReducer(state = [], action){
     //TODO: Remove empty object source??
       return Object.assign({}, state, {});
     case types.RECEIVE_PUSH_CATEGORY:
-        return [...state, category(undefined, action)];
+      return [...state, category(undefined, action)];
     default:
         return state;
   }

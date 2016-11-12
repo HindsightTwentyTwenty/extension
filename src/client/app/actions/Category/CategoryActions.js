@@ -22,8 +22,22 @@ export function updatePageCategory(category, addOrDelete) {
   }
 }
 
+export function updateSearchCategory(categoryTitle, addOrDelete) {
+  if (addOrDelete) {
+    return {
+      type: types.ADD_SEARCH_CATEGORY,
+      categoryTitle: categoryTitle,
+    }
+  } else {
+    return {
+      type: types.REMOVE_SEARCH_CATEGORY,
+      categoryTitle: categoryTitle
+    }
+  }
+}
+
 export function receiveCategories(json) {
-  console.log("RECEIVING CATEGORIES"); 
+  console.log("RECEIVING CATEGORIES");
   return {
     type: types.RECEIVE_CATEGORIES,
     categories: json
@@ -60,5 +74,11 @@ export function toggleCategory(pageUrl, category, addOrDelete){
            }
       )
       .then(response => response.json())
+  }
+}
+
+export function addSearchCategory(categoryTitle, addOrDelete) {
+  return dispatch => {
+    dispatch(updateSearchCategory(categoryTitle, addOrDelete))
   }
 }

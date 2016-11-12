@@ -129,7 +129,7 @@ start-time-label .end-time-label{
 
 .lookback-details-container{
   min-height: 150px;
-  width: 100%;
+  width: auto;
   text-align: center;
   background-color: #FAFAFA;
   margin:auto;
@@ -195,4 +195,12 @@ start-time-label .end-time-label{
 
 .time-container{
   display: list-item;
+}
+
+.side-bar-category {
+
+}
+
+.side-bar-category.checked {
+  background-color: #57559A;
 }
