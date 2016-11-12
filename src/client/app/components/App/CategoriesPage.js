@@ -14,7 +14,7 @@ class CategoriesPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="categories-page">
         <SidebarComponent title={"Categories"} allCategories={this.props.categories}/>
         <div className="search-results-container">
           <p>Search for categories here</p>

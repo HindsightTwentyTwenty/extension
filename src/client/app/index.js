@@ -32,7 +32,8 @@ let store = createStore(
       minutes_active: "",
       pages: "",
       title: ""
-    }
+    },
+    currentSearchCategories:[]
   },
   applyMiddleware(
     thunkMiddleware

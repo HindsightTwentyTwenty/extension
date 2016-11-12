@@ -30,21 +30,15 @@ class App extends Component {
         );
       case LookBackSections.Categories:
         return (
-          <div>
-           <CategoriesPage />
-          </div>
+          <CategoriesPage />
         );
       case LookBackSections.Manage:
         return (
-          <div>
-           <Manage />
-          </div>
+          <Manage />
         );
       case LookBackSections.Find:
         return (
-          <div>
-           <Find />
-          </div>
+          <Find />
         );
       default:
         return (
