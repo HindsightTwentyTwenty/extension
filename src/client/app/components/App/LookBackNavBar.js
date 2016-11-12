@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as LookBackActions from '../../actions/LookBack/LookBackActions.js';
+import * as LookBackNavActions from '../../actions/LookBackNav/LookBackNavActions.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
 
 class LookBackNavBar extends Component {
@@ -13,7 +13,7 @@ class LookBackNavBar extends Component {
 
   switchLookBackSelection(newLookBackSelection){
       if(newLookBackSelection != this.props.currentLookBackSelection){
-        this.props.lookback_actions.switchLookBackSelection(newLookBackSelection)
+        this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection)
       }
   }
 
@@ -63,7 +63,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    lookback_actions: bindActionCreators(LookBackActions, dispatch)
+    lookback_nav_actions: bindActionCreators(LookBackNavActions, dispatch)
   }
 }
 

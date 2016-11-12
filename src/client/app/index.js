@@ -23,6 +23,15 @@ let store = createStore(
     currentTime:{
       start_date:"",
       end_date:""
+    },
+    currentDomain:{
+      base_url: "",
+      closed: "",
+      created: "",
+      favicon: "",
+      minutes_active: "",
+      pages: "",
+      title: ""
     }
   },
   applyMiddleware(

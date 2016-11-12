@@ -49,6 +49,12 @@ export function changeTimeframe(new_start_date, new_end_date) {
     type: types.UPDATE_TIMEFRAME,
     start_date: new_start_date,
     end_date: new_end_date
+  }
+}
 
+export function updateDomainDetailsDisplay(domain) {
+  return {
+    type: types.UPDATE_DOMAIN_DETAILS_DISPLAY,
+    domain: domain,
   }
 }

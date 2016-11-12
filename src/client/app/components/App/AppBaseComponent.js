@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import LookBackDetails from './LookBackDetails.js';
 
 
 class AppBaseComponent extends Component {
@@ -34,7 +35,7 @@ class AppBaseComponent extends Component {
     if (this.props.tabs) {
       tabs = this.props.tabs.map(function (tab){
           return (
-            <div key={tab.created} >{tab.domains[0].base_url}</div>
+            <div key={tab.created}>{tab.domains[0].base_url}</div>
           );
       });
     }
@@ -44,8 +45,7 @@ class AppBaseComponent extends Component {
         <p>These are your tabs:</p>
         <button onClick={this.get_all_tabs.bind(this)}>
           Get All Tabs</button>
-        <div>
-        </div>
+        <LookBackDetails/>
       </div>
 
     );
@@ -63,7 +63,6 @@ let mapDispatchToProps = (dispatch) => {
   return {
     tab_actions: bindActionCreators(TabActions, dispatch),
     lookback_actions: bindActionCreators(LookbackActions, dispatch)
-
   }
 }
 
