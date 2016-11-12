@@ -14,8 +14,13 @@ class CategoriesPage extends Component {
 
   render() {
     return (
-      <div className="container popup-body">
-        <SidebarComponent title={"Categories"} allCategories={this.props.categories}/>
+      <div>
+        <div className="container popup-body">
+          <SidebarComponent title={"Categories"} allCategories={this.props.categories}/>
+        </div>
+        <div className="search-results-container">
+          <p>"Search for categories here"</p>
+        </div>
       </div>
     )
   }
