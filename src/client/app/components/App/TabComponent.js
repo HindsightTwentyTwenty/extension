@@ -25,8 +25,8 @@ class TabComponent extends Component {
   }
 
   getActiveTimesStyle(domain){
-    var active_color = "#001257";
-    var non_active_color = "#34aada";
+    var active_color = "#2b616d";
+    var non_active_color = "#b2dbd5";
     var base = "linear-gradient(to right, " + non_active_color + " 0%";
 
     var time_opened = (new Date(domain.created)).getTime();
