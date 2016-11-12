@@ -154,8 +154,6 @@ class LookBack extends Component {
   }
 
 
-
-
   render() {
     // var tabs = this.getTabs();
 
@@ -195,10 +193,8 @@ class LookBack extends Component {
         </div>
 
       </div>
-
     );
   }
-
 }
 
 let mapStateToProps = (state) => ({
