@@ -13,7 +13,7 @@ p.normal {
 
 .lookback-graph-container{
   width: auto;
-  height: 98%;
+  height: auto;
   min-width: 335px;
   background-color: #FAFAFA;
   padding-top: 10px;
@@ -49,8 +49,7 @@ p.normal {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: 2px;
-  margin-left: 2px;
+  margin-right: 1%;
   margin-top: 4px;
   margin-bottom: 4px;
 
@@ -125,7 +124,7 @@ p.normal {
   height: 100%;
   position: absolute;
   z-index: 1;
-  border-right: 1px solid red;
+  border-right: 1px solid #57559A;
 }
 
 
