@@ -20,6 +20,7 @@ class DomainBar extends Component {
         onMouseOver={() => {
 
         }}>
+        <img id="domain-favicon" src={this.props.favicon_url}/>
         <label htmlFor='domainBar'> {this.props.title} </label>
       </div>
     )

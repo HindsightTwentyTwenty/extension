@@ -17,11 +17,7 @@ class AppBaseComponent extends Component {
     var end_date = new Date();
     var start_date = new Date();
     var four_hours_ago = end_date.getHours() - 1;
-    // start_date.setDate(end_date.getDate() - 1);
     start_date.setHours(four_hours_ago);
-
-    console.log("TODAY ", end_date.toJSON());
-    console.log("YESTERDAY ", start_date.toJSON());
 
     this.props.lookback_actions.changeTimeframe(start_date, end_date);
     this.props.tab_actions.getAllTabs(start_date.toJSON(), end_date.toJSON());

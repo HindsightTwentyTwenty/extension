@@ -39,7 +39,7 @@ p.normal {
 }
 
 .domain-bar{
-  height: 20px;
+  height: 22px;
   border-style: solid;
   border-width: 1px;
   border-color: #6eb5c0;
@@ -62,8 +62,14 @@ p.normal {
   position:relative;
   z-index: 1;
 
+  min-width: 24px;
+}
 
-
+#domain-favicon{
+  width: 15px;
+  height: 15px;
+  margin-bottom: 4px;
+  margin-right: 8px;
 }
 
 
