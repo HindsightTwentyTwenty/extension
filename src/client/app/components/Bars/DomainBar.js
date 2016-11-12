@@ -26,7 +26,9 @@ class DomainBar extends Component {
         onMouseOver={() => {
           this.displayDetails();
         }}>
-        <label htmlFor='domainBar'>{this.props.domain.title}</label>
+        <img id="domain-favicon" src={this.props.favicon_url}/>
+        <label htmlFor='domainBar'> {this.props.domain.title} </label>
+
       </div>
     )
   }
