@@ -11,14 +11,48 @@ class TabComponent extends Component {
     super(props);
   }
 
-
   getDomainBar(domain, width, favicon_url) {
-    var bar_style = {"width" : width}
+    var width_style = width;
+    var active_times_style = this.getActiveTimesStyle(domain);
+    var bar_style = {"width" : width_style, "background" : active_times_style}
     return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url}/>;
   }
   getFirstDomainBar(domain, width, margin, favicon_url) {
-    var bar_style = {"width" : width, "margin-left": margin}
+    var width_style = width;
+    var active_times_style = this.getActiveTimesStyle(domain);
+    var bar_style = {"width" : width_style, "marginLeft": margin, "background" : active_times_style}
     return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url}/>;
+  }
+
+  getActiveTimesStyle(domain){
+    var active_color = "#001257";
+    var non_active_color = "#34aada";
+    var base = "linear-gradient(to right, " + non_active_color + " 0%";
+
+    var time_opened = (new Date(domain.created)).getTime();
+    if(domain.closed){
+      var time_closed = (new Date(domain.closed)).getTime();
+    } else {
+      /* If domain is still open used tabs end date to get current time */
+      var time_closed = (new Date(this.props.end_date)).getTime();
+    }
+
+    for(var i=0; i<domain.active_times.length; i++){
+      var interval_start = (new Date(domain.active_times[i].start)).getTime();
+      var interval_end = (new Date(domain.active_times[i].end)).getTime();
+
+      /* Round to 2 decimal places and make percentage */
+      var start_percent = Math.round(((interval_start - time_opened) / (time_closed - time_opened)) * 10000) / 100;
+      var end_percent = Math.round(((interval_end - time_opened) / (time_closed - time_opened)) * 10000) / 100;
+
+      base += ", " + non_active_color + " " + start_percent + "%, ";
+      base += active_color + " " + start_percent + "%, " + active_color + " " + end_percent + "%"
+      base += ", " + non_active_color + " " + end_percent + "%";
+    }
+    base += ", " + non_active_color + " 100%)";
+    console.log(base);
+
+    return base;
   }
 
   calculateDomainWidth(time_elapsed, created, closed){
