@@ -2,6 +2,7 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
+const categoriesAndPagesEndpoint = urls.BASE_URL + "getcategories/";
 const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
@@ -44,10 +45,25 @@ export function receiveCategories(json) {
   }
 }
 
+export function receiveCategoriesAndPages(json) {
+  console.log("RECEIVING CATEGORIES AND PAGES");
+  return {
+    type: types.RECEIVE_CATEGORIES_AND_PAGES,
+    categories: json
+  }
+}
+
 // TODO: add requests for specific users
 export function requestCategories() {
   return {
     type: types.REQUEST_CATEGORIES
+  }
+}
+
+export function requestCategoriesAndPages() {
+  console.log("REQUEST_CATEGORIES_AND_PAGES");
+  return {
+    type: types.REQUEST_CATEGORIES_AND_PAGES
   }
 }
 
@@ -57,6 +73,15 @@ export function fetchCategories(){
     return fetch(allCategoriesEndpoint)
       .then(response => response.json())
       .then(json => dispatch(receiveCategories(json)))
+  }
+}
+
+export function fetchCategoriesAndPages(){
+  return dispatch => {
+    dispatch(requestCategoriesAndPages())
+    return fetch(categoriesAndPagesEndpoint)
+      .then(response => response.json())
+      .then(json => dispatch(receiveCategoriesAndPages(json)))
   }
 }
 

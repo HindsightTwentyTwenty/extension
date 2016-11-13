@@ -10,6 +10,19 @@ p.normal {
     font-family: 'Raleway', sans-serif;
 }
 
+.url-bar {
+  height: 22px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #6eb5c0;
+  color:#FAFAFA;
+  background-color: #3463CC;
+}
+
+.url-bar.starred {
+  background-color: #6eb5c0;
+}
+
 .lookback-container{
   width: auto;
   height: 90%;

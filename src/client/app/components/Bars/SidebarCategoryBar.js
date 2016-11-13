@@ -27,11 +27,10 @@ class SidebarCategoryBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage
 })
 
 let mapDispatchToProps = (dispatch) => ({
   category_actions: bindActionCreators(CategoryActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarCategoryBar);
+export default connect(null, mapDispatchToProps)(SidebarCategoryBar);
