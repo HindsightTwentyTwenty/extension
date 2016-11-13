@@ -13,7 +13,7 @@ class PageUrlBar extends Component {
     var className = this.props.page.star ? 'url-bar starred' : 'url-bar';
     return (
       <div className={className}>
-        <a href={this.props.page.url}>{this.props.page.title}</a>
+        <a target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
       </div>
     )
   }

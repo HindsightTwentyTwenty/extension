@@ -38,7 +38,6 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
 }
 
 export function receiveCategories(json) {
-  console.log("RECEIVING CATEGORIES");
   return {
     type: types.RECEIVE_CATEGORIES,
     categories: json
@@ -46,7 +45,6 @@ export function receiveCategories(json) {
 }
 
 export function receiveCategoriesAndPages(json) {
-  console.log("RECEIVING CATEGORIES AND PAGES");
   return {
     type: types.RECEIVE_CATEGORIES_AND_PAGES,
     categories: json
@@ -61,7 +59,6 @@ export function requestCategories() {
 }
 
 export function requestCategoriesAndPages() {
-  console.log("REQUEST_CATEGORIES_AND_PAGES");
   return {
     type: types.REQUEST_CATEGORIES_AND_PAGES
   }

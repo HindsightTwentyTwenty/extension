@@ -34,11 +34,25 @@ class SidebarComponent extends Component {
     }
   }
 
+  getButton() {
+    if (this.props.button) {
+      return (<div className="control-buttons">
+        <div className="radio-button">OR
+          <input type="radio" id="radio-or" name="andOR"/>
+        </div>
+        <div className="radio-button">AND
+          <input type="radio" id="radio-and" name="andOR"/>
+        </div>
+      </div>)
+    }
+  }
+
   render() {
     var categories = this.getCategories();
     return (
       <div className="side-bar-container">
         <div className="side-bar-title">{this.title}</div>
+        {this.getButton()}
         <div className="all-categories">{categories}</div>
       </div>
     )

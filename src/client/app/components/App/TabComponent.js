@@ -50,7 +50,6 @@ class TabComponent extends Component {
       base += ", " + non_active_color + " " + end_percent + "%";
     }
     base += ", " + non_active_color + " 100%)";
-    console.log(base);
 
     return base;
   }
@@ -59,11 +58,7 @@ class TabComponent extends Component {
 
     var d_created_date = new Date(created);
     var d_closed_date = new Date(closed);
-    console.log("created date tab: ", d_created_date);
-    console.log("started section: ", this.props.start_date);
 
-    console.log("closed date tab: ", d_closed_date);
-    console.log("ended section: ", this.props.end_date);
     if(d_created_date < this.props.start_date){
       d_created_date = this.props.start_date;
     }
@@ -107,7 +102,6 @@ class TabComponent extends Component {
 
         if (this.props.tabs[index]) {
             for (let dIndex in domains) {
-              console.log("TITLE OF DOMAIN: ", domains[dIndex].title);
 
               var created = domains[dIndex].created;
               var closed = domains[dIndex].closed;
