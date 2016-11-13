@@ -231,3 +231,23 @@ start-time-label .end-time-label{
 .side-bar-category.checked {
   background-color: #57559A;
 }
+
+#navBar {
+  display: inline;
+}
+
+.nav-bar-button {
+  background-color: #b2dbd5;
+  border-color: #2b616d;
+}
+.nav-bar-button:hover {
+  background-color: #fa8d62 !important;
+  color: #000000 !important;
+}
+.nav-bar-button-selected {
+  background-color: #2b616d !important;
+  color: #ffffff !important;
+}
+.btn-default:active,.btn-default:focus {
+  outline: none !important;
+}
