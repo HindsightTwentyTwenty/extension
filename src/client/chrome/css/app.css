@@ -13,7 +13,7 @@ p.normal {
 
 .lookback-graph-container{
   width: auto;
-  height: 100%;
+  height: auto;
   min-width: 335px;
   background-color: #FAFAFA;
   padding-top: 10px;
@@ -22,24 +22,28 @@ p.normal {
 
 .lookback-container{
   width: auto;
-  height: 98%;
+  height: 100%;
   min-width: 335px;
   background-color: #FAFAFA;
   margin-left: 35px;
   margin-right: 2%;
-  margin-top: 25px;
+  margin-top: 30px;
 
 
   border-left:solid #303638;
   border-top: solid #303638;
+}
 
-
-
-
+.lookback-details-container{
+  min-height: 150px;
+  width: 95%;
+  text-align: center;
+  background-color: #FAFAFA;
+  margin:auto;
 }
 
 .domain-bar{
-  height: 20px;
+  height: 22px;
   border-style: solid;
   border-width: 1px;
   border-color: #6eb5c0;
@@ -49,8 +53,7 @@ p.normal {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: 2px;
-  margin-left: 2px;
+  margin-right: 1%;
   margin-top: 4px;
   margin-bottom: 4px;
 
@@ -59,12 +62,40 @@ p.normal {
   padding-left: 4px;
   padding-right: 4px;
 
+  padding-top: 2px;
+  padding-bottom: 2px;
 
+   /*keep it on top of the vertical lines*/
+  position:relative;
+  z-index: 1;
 
+  min-width: 24px;
 }
 
+#domain-favicon{
+  width: 15px;
+  height: 15px;
+  margin-bottom: 4px;
+  margin-right: 8px;
+}
+
+
 .domain-bar:hover {
-  background-color: #34AFCC;
+  border-color: #fa8d62;
+  border-width: 3px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.previousPath {
+  border-color: #ebe80f;
+  border-width: 3px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .horizontal-axis-label{
@@ -115,6 +146,40 @@ p.normal {
 
 }
 
+.time-break-line{
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  border-right: 1px solid #57559A;
+}
+
+
+
+
+#first-time-break{
+  width: 33%;
+  float:left;
+
+}
+#second-time-break{
+  width: 66%;
+  float: right;
+
+}
+
+.time-break-labels{
+  display: inline;
+}
+#time-break-line-label1{
+  margin-left: 33%;
+
+}
+#time-break-line-label2{
+  margin-left: 66%;
+
+
+}
+
 /*BUTTONS*/
 #back-button{
   border: 0;
@@ -133,4 +198,8 @@ p.normal {
 #back-botton:hover {
     background: #FAFAFA; /* Green */
     color: #57559A;
+}
+
+.time-container{
+  display: list-item;
 }
