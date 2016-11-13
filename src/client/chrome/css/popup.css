@@ -167,3 +167,10 @@ body {
 .star-div{
   height:45px;
 }
+
+.error-message{
+  text-align: center;
+  margin-top: 80px;
+  color: #263238;
+  font-weight: normal;
+}

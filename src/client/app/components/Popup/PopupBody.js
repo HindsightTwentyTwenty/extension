@@ -18,44 +18,55 @@ class PopupBody extends Component {
   }
 
   render () {
-    return (
-      <div className="container popup-body">
-        <div className="row">
-          <div className="col-xs-10">
-            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
-          </div>
-          <div className="col-xs-2">
-            <Star/>
+    if(!this.props.currentPage.url){
+      return(
+        <div className="container popup-body">
+          <div className="row error-message">
+            <h4> Navigate to a different page to use hindsite.</h4>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <CategoriesContainer all={false}/>
+      )
+    } else {
+      return (
+        <div className="container popup-body">
+          <div className="row">
+            <div className="col-xs-10">
+              <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
+            </div>
+            <div className="col-xs-2">
+              <Star/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <CategoriesContainer all={false}/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <h4>categorize this page:</h4>
+            </div>
+          </div>
+          <div className="row">
+            <hr/>
+          </div>
+          <div className="row">
+              <CategoryEntry/>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <h5>recent</h5>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <CategoriesContainer all={true}/>
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <h4>categorize this page:</h4>
-          </div>
-        </div>
-        <div className="row">
-          <hr/>
-        </div>
-        <div className="row">
-            <CategoryEntry/>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <h5>recent</h5>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <CategoriesContainer all={true}/>
-          </div>
-        </div>
-      </div>
-    )
+      )
+    }
+
   }
 }
 

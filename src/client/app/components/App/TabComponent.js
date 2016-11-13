@@ -11,17 +11,17 @@ class TabComponent extends Component {
     super(props);
   }
 
-  getDomainBar(domain, width, favicon_url) {
+  getDomainBar(domain, width, favicon_url, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"width" : width_style, "background" : active_times_style}
-    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url}/>;
+    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url} tab_id={tab_id}/>;
   }
-  getFirstDomainBar(domain, width, margin, favicon_url) {
+  getFirstDomainBar(domain, width, margin, favicon_url, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"width" : width_style, "marginLeft": margin, "background" : active_times_style}
-    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url}/>;
+    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url} tab_id={tab_id}/>;
   }
 
   getActiveTimesStyle(domain){
@@ -120,10 +120,10 @@ class TabComponent extends Component {
                 margin += "%";
                 console.log("margin: ", margin);
 
-                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, favicon_url))
+                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, favicon_url, this.props.tabs[index].tab_id))
               }
               else{
-                results.push(this.getDomainBar(domains[dIndex], width, favicon_url))
+                results.push(this.getDomainBar(domains[dIndex], width, favicon_url, this.props.tabs[index].tab_id))
               }
             }
           return results;

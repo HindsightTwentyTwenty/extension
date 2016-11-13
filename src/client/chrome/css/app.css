@@ -117,7 +117,21 @@ p.normal {
 }
 
 .domain-bar:hover {
-  background-color: #34AFCC;
+  border-color: #fa8d62;
+  border-width: 3px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.previousPath {
+  border-color: #ebe80f;
+  border-width: 3px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 start-time-label .end-time-label{
