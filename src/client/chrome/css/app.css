@@ -198,9 +198,11 @@ p.normal {
 }
 .nav-bar-button:hover {
   background-color: #fa8d62 !important;
+  color: #000000 !important;
 }
 .nav-bar-button-selected {
   background-color: #2b616d !important;
+  color: #ffffff !important;
 }
 .btn-default:active,.btn-default:focus {
   outline: none !important;
