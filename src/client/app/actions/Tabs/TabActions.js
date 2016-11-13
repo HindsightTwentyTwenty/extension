@@ -5,7 +5,6 @@ import fetch from 'isomorphic-fetch'
 const getTabsEndpoint = urls.BASE_URL + "tabinfo/";
 
 export function receiveTabs(json) {
-  console.log("TABS RECEIVE", json);
   return {
     type: types.RECEIVE_TABS,
     tabs: json

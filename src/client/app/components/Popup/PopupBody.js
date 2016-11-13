@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
@@ -13,7 +14,7 @@ class PopupBody extends Component {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       this.props.popup_actions.getPageInfo(tabs[0].url);
     });
-    this.props.popup_actions.fetchCategories();
+    this.props.category_actions.fetchCategories();
   }
 
   render () {
@@ -76,7 +77,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    popup_actions : bindActionCreators(PopupActions, dispatch)
+    popup_actions : bindActionCreators(PopupActions, dispatch),
+    category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

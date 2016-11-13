@@ -5,7 +5,7 @@ import { bindActionCreators} from 'redux'
 import AppBaseComponent from './AppBaseComponent.js';
 import LookBack from './LookBack.js';
 import LookBackNavBar from './LookBackNavBar.js';
-import Categories from './Categories.js';
+import CategoriesPage from './CategoriesPage.js';
 import Manage from './Manage.js';
 import Find from './Find.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
@@ -30,21 +30,15 @@ class App extends Component {
         );
       case LookBackSections.Categories:
         return (
-          <div>
-           <Categories />
-          </div>
+          <CategoriesPage />
         );
       case LookBackSections.Manage:
         return (
-          <div>
-           <Manage />
-          </div>
+          <Manage />
         );
       case LookBackSections.Find:
         return (
-          <div>
-           <Find />
-          </div>
+          <Find />
         );
       default:
         return (
@@ -62,9 +56,7 @@ class App extends Component {
       <div>
         <div className="site-title">hindsite</div>
         <LookBackNavBar />
-
         { this.renderContent() }
-
       </div>
     )
   }
