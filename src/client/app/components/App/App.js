@@ -60,8 +60,16 @@ class App extends Component {
   render () {
     return (
       <div>
-        <div className="site-title">hindsite</div>
-        <LookBackNavBar />
+        <div id="here" className="container">
+          <div className ="row">
+            <div className="col-xs-2">
+              <div className="site-title">hindsite</div>
+            </div>
+            <div className="col-xs-10">
+              <LookBackNavBar />
+            </div>
+          </div>
+        </div>
 
         { this.renderContent() }
 

@@ -11,6 +11,7 @@ class AppBaseComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.get_all_tabs();
   }
 
 
@@ -38,9 +39,6 @@ class AppBaseComponent extends Component {
 
     return (
       <div>
-        <p>These are your tabs:</p>
-        <button onClick={this.get_all_tabs.bind(this)}>
-          Get All Tabs</button>
         <LookBackDetails/>
       </div>
 

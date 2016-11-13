@@ -187,3 +187,21 @@ p.normal {
 .time-container{
   display: list-item;
 }
+
+#navBar {
+  display: inline;
+}
+
+.nav-bar-button {
+  background-color: #b2dbd5;
+  border-color: #2b616d;
+}
+.nav-bar-button:hover {
+  background-color: #fa8d62 !important;
+}
+.nav-bar-button-selected {
+  background-color: #2b616d !important;
+}
+.btn-default:active,.btn-default:focus {
+  outline: none !important;
+}
