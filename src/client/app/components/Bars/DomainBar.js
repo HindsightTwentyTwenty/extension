@@ -13,7 +13,6 @@ class DomainBar extends Component {
   }
 
   displayDetails(){
-    console.log(this.props.domain);
     this.props.lookback_actions.updateDomainDetailsDisplay(this.props.domain);
   }
 

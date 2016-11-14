@@ -54,16 +54,13 @@ class LookBack extends Component {
 		var new_end_date = new Date(this.props.end_date);
 		new_end_date.setHours(new_end_hour);
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-		console.log("start date not JSON: ", new_start_date.toDateString());
 
-		console.log("start date: ", new_start_date.toJSON());
 		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
 
 		// this.props.start_date = new_start_date;
 	}
 
 	getNextPage(){
-		console.log("NEXT");
 		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
 		var new_start_date = new Date(this.props.start_date);
 		new_start_date.setHours(new_start_hour);
@@ -134,17 +131,11 @@ class LookBack extends Component {
   }
 
   getTabs(currProps){
-    console.log("this.props: ", currProps);
-    console.log("start date: ", currProps.start_date);
-    console.log("end date: ",currProps.end_date);
-    console.log("difference: ", (currProps.end_date - currProps.start_date));
-
 
     if (Object.keys(currProps.tabs).length) {
       let results = []
       let curr_tabs = currProps.tabs;
       let numTabs = curr_tabs.length;
-      console.log("number of tabs: ", numTabs);
 
       for (let tIndex in curr_tabs) {
         results.push(this.getTabComponent(tIndex))
@@ -155,36 +146,26 @@ class LookBack extends Component {
 
 
   render() {
-    // var tabs = this.getTabs();
-
-
     return (
       <div className="lookback-graph-container">
-        <div className="horizontal-axis-label">Times</div>
         <div className="vertical-axis-label">Tabs</div>
+	        <div className="time-labels">
+	          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
+								<button id="back-button">
+									back
+								</button>
+								{this.state.start_date_formatted}
 
-		        <div className="time-labels">
-		          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
-									<button id="back-button">
-										back
-									</button>
-									{this.state.start_date_formatted}
-
-							</div>
-		          <div className="end-time-label">
-									{this.state.end_date_formatted}
-									<button id="back-button" onClick={this.getNextPage.bind(this)}>
-										next
-									</button>
-							</div>
-		        </div>
-						<br/>
-						<br/>
-						<div className="time-break-labels">
-							<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
-							<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
 						</div>
-
+						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+	          <div className="end-time-label">
+								{this.state.end_date_formatted}
+								<button id="back-button" onClick={this.getNextPage.bind(this)}>
+									next
+								</button>
+						</div>
+	        </div>
         <div className="lookback-container">
 						<div className="time-break-line" id="first-time-break"></div>
 						<div className="time-break-line" id="second-time-break"></div>

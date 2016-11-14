@@ -11,8 +11,8 @@ class AppBaseComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.get_all_tabs();
   }
-
 
   get_all_tabs(){
     var end_date = new Date();
@@ -23,8 +23,6 @@ class AppBaseComponent extends Component {
     this.props.lookback_actions.changeTimeframe(start_date, end_date);
     this.props.tab_actions.getAllTabs(start_date.toJSON(), end_date.toJSON());
   }
-
-
 
   render() {
     var tabs = ""
@@ -37,16 +35,9 @@ class AppBaseComponent extends Component {
     }
 
     return (
-      <div>
-        <p>These are your tabs:</p>
-        <button onClick={this.get_all_tabs.bind(this)}>
-          Get All Tabs</button>
-        <LookBackDetails/>
-      </div>
-
+      <LookBackDetails/>
     );
   }
-
 }
 
 let mapStateToProps = (state) => ({
