@@ -152,15 +152,14 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
-  width: auto;
-  height: 100%;
+  width: calc(100% - 200px);
+  height: calc(100% - 46px);
   display: inline-block;
-  margin-left: 10px;
   position: absolute;
 }
 
 .categories-page {
-  height: 100%;
+  height: calc(100% - 46px);
 }
 
 .vertical-axis-label {
@@ -268,8 +267,14 @@ start-time-label .end-time-label{
   border: none;
   min-width: 200px;
 }
+.blacklist-text-entry {
+  margin: 3px 5px;
+  border-radius: 4px;
+  border: none;
+  width: 98%;
+}
 
-.search-results-title {
+.section-title {
   font-size: 20px;
   margin: 10px;
   color: #fa8d62;
