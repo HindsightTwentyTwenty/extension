@@ -55,14 +55,13 @@ class TabComponent extends Component {
   }
 
   calculateDomainWidth(time_elapsed, created, closed){
-
     var d_created_date = new Date(created);
     var d_closed_date = new Date(closed);
 
     if(d_created_date < this.props.start_date){
       d_created_date = this.props.start_date;
     }
-    if(d_closed_date > this.props.end_date){
+    if(d_closed_date > this.props.end_date || d_closed_date == null){
       d_closed_date = this.props.end_date;
     }
 
@@ -77,8 +76,13 @@ class TabComponent extends Component {
   }
 
   calculateLeftMargin(time_elapsed, created, start_date){
+
     var start_date = new Date(start_date);
     var created_date = new Date(created);
+    if(created_date < start_date){
+      return 0;
+    }
+
     var time_between = created_date.getTime() - start_date.getTime();
 
     if(((time_between/time_elapsed)*100) > 5){
@@ -97,7 +101,12 @@ class TabComponent extends Component {
         var numDomains = Object.keys(domains).length;
 
         var start_date = new Date(this.props.start_date);
-        var end_date = new Date(this.props.end_date);
+        var end_date;
+        if(this.props.end_date != null){
+          end_date = new Date(this.props.end_date);
+        }else{
+          end_date == null;
+        }
         var time_elapsed = end_date.getTime() - start_date.getTime();
 
         if (this.props.tabs[index]) {
@@ -109,8 +118,6 @@ class TabComponent extends Component {
               if (closed == null){
                 closed = end_date;
               }
-              console.log("created: ", created);
-              console.log("closed: ", closed);
               var width = this.calculateDomainWidth(time_elapsed, created, closed);
               width += "%";
               console.log("width: ", width);

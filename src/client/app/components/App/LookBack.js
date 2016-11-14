@@ -57,10 +57,11 @@ class LookBack extends Component {
 
 		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
 
-		// this.props.start_date = new_start_date;
 	}
 
 	getNextPage(){
+		var curr_Date = new Date();
+
 		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
 		var new_start_date = new Date(this.props.start_date);
 		new_start_date.setHours(new_start_hour);
@@ -68,10 +69,14 @@ class LookBack extends Component {
 		var new_end_hour = new Date(this.props.end_date).getHours() + 1;
 		var new_end_date = new Date(this.props.end_date)
 		new_end_date.setHours(new_end_hour);
+
+		if(new_end_date > curr_Date){
+			return;
+		}
+
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
 		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
 
-		// this.props.start_date = new_start_date;
 	}
 
 
@@ -83,7 +88,6 @@ class LookBack extends Component {
       var period = date.getHours() >= 12 ? 'PM' : 'AM';
       var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
-			console.log("HOUR: ", hour);
       var datetext = (hour +  ':' + minutes + ' ' +period);
       return datetext;
     }else{return "";}
