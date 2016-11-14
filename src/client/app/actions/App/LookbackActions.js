@@ -1,7 +1,8 @@
 import * as types from '../../constants/ActionTypes';
 import fetch from 'isomorphic-fetch'
-import BASE_URL from '../../constants/GlobalConstants';
+import * as urls from '../../constants/GlobalConstants';
 
+const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
@@ -56,5 +57,37 @@ export function updateDomainDetailsDisplay(domain) {
   return {
     type: types.UPDATE_DOMAIN_DETAILS_DISPLAY,
     domain: domain,
+  }
+}
+
+export function getDomain(pk){
+  return dispatch => {
+    return fetch(domainInfoEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json'
+           },
+           method: "POST",
+           body: JSON.stringify({pk: pk})
+         }
+       )
+      .then(response => response.json())
+      .then(json => dispatch(receiveDomainInfo(json)))
+  }
+}
+
+export function receiveDomainInfo(json) {
+  console.log(json);
+  return {
+    active_times: json.active_times,
+    base_url: json.base_url,
+    closed: json.closed,
+    created: json.created,
+    favicon: json.favicon,
+    minutes_active: json.minutes_active,
+    pages: json.pages,
+    pagevisits: json.pagevisits,
+    pk: json.ps,
+    title: json.title,
   }
 }

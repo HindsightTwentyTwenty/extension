@@ -9,13 +9,15 @@ class DomainBar extends Component {
 
   constructor(props) {
     super(props);
-    //TODO: favicon
+    this.props.lookback_actions.getDomain(this.props.domain.pk);
   }
 
   displayDetails(){
     console.log(this.props.domain);
     this.props.lookback_actions.updateDomainDetailsDisplay(this.props.domain);
   }
+
+
 
   render() {
     var id_code = this.props.tab_id + "-" + this.props.domain.pk;
