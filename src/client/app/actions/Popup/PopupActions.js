@@ -2,7 +2,7 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
-const allCategoriesEndpoint = urls.BASE_URL + "categories/";
+const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 
 export function addPage(ptitle, purl, pstarred, pcategories){
@@ -58,13 +58,13 @@ export function getPageInfo(url){
 export function pushCategory(category){
   return dispatch => {
     dispatch(requestPushCategory())
-    return fetch(allCategoriesEndpoint, {
+    return fetch(addCategoryEndpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json'
              },
              method: "POST",
-             body: JSON.stringify({title: category})
+             body: JSON.stringify({category: category})
            }
       )
       .then(response => response.json())

@@ -6,7 +6,6 @@ const categoriesAndPagesEndpoint = urls.BASE_URL + "getcategories/";
 const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
-const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
 
 export function updatePageCategory(category, addOrDelete) {
