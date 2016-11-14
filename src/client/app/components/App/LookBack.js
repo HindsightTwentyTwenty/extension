@@ -148,31 +148,24 @@ class LookBack extends Component {
   render() {
     return (
       <div className="lookback-graph-container">
-        <div className="horizontal-axis-label">Times</div>
         <div className="vertical-axis-label">Tabs</div>
+	        <div className="time-labels">
+	          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
+								<button id="back-button">
+									back
+								</button>
+								{this.state.start_date_formatted}
 
-		        <div className="time-labels">
-		          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
-									<button id="back-button">
-										back
-									</button>
-									{this.state.start_date_formatted}
-
-							</div>
-		          <div className="end-time-label">
-									{this.state.end_date_formatted}
-									<button id="back-button" onClick={this.getNextPage.bind(this)}>
-										next
-									</button>
-							</div>
-		        </div>
-						<br/>
-						<br/>
-						<div className="time-break-labels">
-							<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
-							<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
 						</div>
-
+						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+	          <div className="end-time-label">
+								{this.state.end_date_formatted}
+								<button id="back-button" onClick={this.getNextPage.bind(this)}>
+									next
+								</button>
+						</div>
+	        </div>
         <div className="lookback-container">
 						<div className="time-break-line" id="first-time-break"></div>
 						<div className="time-break-line" id="second-time-break"></div>

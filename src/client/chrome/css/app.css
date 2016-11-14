@@ -24,22 +24,17 @@ p.normal {
 }
 
 .lookback-container{
-  width: auto;
+  width: 95%;
   height: 90%;
-  min-width: 335px;
   background-color: #FAFAFA;
-  margin-left: 35px;
-  margin-right: 2%;
-  margin-top: 25px;
-  border-left:solid #303638;
-  border-top: solid #303638;
+  margin: 30px;
+  border:solid #303638;
 }
 
 .lookback-graph-container{
   width: auto;
   height: auto;
-  min-width: 335px;
-  background-color: #FAFAFA;
+  min-width: 800px;
   padding-top: 10px;
 }
 
@@ -59,10 +54,6 @@ p.normal {
 #back-botton:hover {
     background: #FAFAFA; /* Green */
     color: #57559A;
-}
-
-.time-labels{
-  display: inline;
 }
 
 .side-bar-title{
@@ -102,8 +93,7 @@ p.normal {
   margin-top: 4px;
   margin-bottom: 4px;
   border-radius: 5px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 0 4px;
   position:relative;
   z-index: 1;
   min-width: 24px;
@@ -148,12 +138,6 @@ start-time-label .end-time-label{
   font-weight: bold;
 }
 
-.horizontal-axis-label{
-  text-align: center;
-  font-size: 20;
-  font-family: 'Raleway', sans-serif;
-}
-
 .lookback-details-container{
   min-height: 150px;
   width: auto;
@@ -180,7 +164,11 @@ start-time-label .end-time-label{
   font-size: 20;
   font-family: 'Raleway', sans-serif;
   position: absolute;
-  top: 700px;
+  top: 600px;
+}
+.time-labels{
+  padding-left: 30px;
+  padding-right: 15px;
 }
 
 .start-time-label{
@@ -188,7 +176,6 @@ start-time-label .end-time-label{
 }
 .end-time-label{
   float: right;
-  padding-right: 3%;
 }
 
 .time-break-line{
@@ -208,16 +195,13 @@ start-time-label .end-time-label{
   float: right;
 }
 
-.time-break-labels{
-  display: inline;
-}
 #time-break-line-label1{
-  float: left;
-  margin-left: 33%;
+  margin-left: 30%;
+  position: absolute;
 }
 #time-break-line-label2{
-  float: right;
-  margin-right: 27%;
+  margin-left: 63%;
+  position: absolute;
 }
 
 .time-container{
@@ -225,7 +209,7 @@ start-time-label .end-time-label{
 }
 
 .side-bar-category {
-
+  overflow: hidden; 
 }
 
 .side-bar-category.checked {
@@ -250,4 +234,9 @@ start-time-label .end-time-label{
 }
 .btn-default:active,.btn-default:focus {
   outline: none !important;
+}
+
+.control-buttons{
+  display: flex;
+  justify-content: space-around;
 }
