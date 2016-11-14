@@ -37,6 +37,7 @@ class PopupBody extends Component {
               <Star/>
             </div>
           </div>
+
           <div className="row">
             <div className="col-xs-12">
               <CategoriesContainer all={false}/>

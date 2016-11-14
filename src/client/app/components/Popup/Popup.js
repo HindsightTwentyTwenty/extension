@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react'
 import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
+import LoginPage from './LoginPage.js';
+
 
 class Popup extends Component {
 
@@ -8,11 +10,18 @@ class Popup extends Component {
     super(props);
   }
 
+  // render() {
+  //   return (
+  //     <div>
+  //       <PopupHeader/>
+  //       <PopupBody/>
+  //     </div>
+  //   );
+  // }
   render() {
     return (
       <div>
-        <PopupHeader/>
-        <PopupBody/>
+        <LoginPage/>
       </div>
     );
   }
