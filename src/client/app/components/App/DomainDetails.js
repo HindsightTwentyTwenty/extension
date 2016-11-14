@@ -16,15 +16,9 @@ class DomainDetails extends Component {
     } else{
       return (
           <div className="lookback-details-container">
-            <div className="row">
-            <div className="col-xs-6">
-            </div>
-            <div className="col-xs-6">
-              <h3>{currentDomain.title}</h3>
-              <p>pages visited: {currentDomain.pages}</p>
-              <p>minutes active: {currentDomain.minutes_active}</p>
-            </div>
-          </div>
+            <h3>{currentDomain.title}</h3>
+            <p>pages visited: {currentDomain.pages}</p>
+            <p>minutes active: {currentDomain.minutes_active}</p>
           </div>
       )
     }

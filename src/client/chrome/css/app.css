@@ -133,17 +133,20 @@ start-time-label .end-time-label{
 
 .site-title{
   font-family: 'Amatica SC', cursive;
-  font-size: 50px;
-  color: #57559A;
+  font-size: 30px;
+  margin: 2px 10px;
+  color: #fafafa;
   font-weight: bold;
 }
 
 .lookback-details-container{
-  min-height: 150px;
-  width: auto;
+  min-height: 160px;
   text-align: center;
-  background-color: #FAFAFA;
-  margin:auto;
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  background-color: #fafafa;
+  color: #fa8d62;
 }
 
 .search-results-container {
@@ -209,34 +212,46 @@ start-time-label .end-time-label{
 }
 
 .side-bar-category {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .side-bar-category.checked {
   background-color: #57559A;
 }
 
-#navBar {
-  display: inline;
-}
-
 .nav-bar-button {
-  background-color: #b2dbd5;
-  border-color: #2b616d;
+  border: none;
+  background-color: #2b616d;
+  margin: 10px 4px;
 }
 .nav-bar-button:hover {
-  background-color: #fa8d62 !important;
-  color: #000000 !important;
+  color: #fa8d62 !important;
 }
 .nav-bar-button-selected {
-  background-color: #2b616d !important;
   color: #ffffff !important;
-}
-.btn-default:active,.btn-default:focus {
   outline: none !important;
 }
 
 .control-buttons{
   display: flex;
   justify-content: space-around;
+}
+
+.nav-bar-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #2b616d;
+}
+
+.nav-menu-bar {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.search-bar {
+  margin: 7px 10px;
+  border-radius: 10px;
+  border: none;
+  min-width: 200px;
 }
