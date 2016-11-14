@@ -140,11 +140,13 @@ start-time-label .end-time-label{
 }
 
 .lookback-details-container{
-  min-height: 150px;
-  width: auto;
+  min-height: 160px;
   text-align: center;
-  background-color: #FAFAFA;
-  margin:auto;
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  background-color: #fafafa;
+  color: #fa8d62;
 }
 
 .search-results-container {

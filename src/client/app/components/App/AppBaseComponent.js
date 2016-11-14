@@ -35,9 +35,7 @@ class AppBaseComponent extends Component {
     }
 
     return (
-      <div>
-        <LookBackDetails/>
-      </div>
+      <LookBackDetails/>
     );
   }
 }
