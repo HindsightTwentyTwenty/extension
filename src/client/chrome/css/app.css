@@ -209,7 +209,7 @@ start-time-label .end-time-label{
 }
 
 .side-bar-category {
-
+  overflow: hidden; 
 }
 
 .side-bar-category.checked {
@@ -234,4 +234,9 @@ start-time-label .end-time-label{
 }
 .btn-default:active,.btn-default:focus {
   outline: none !important;
+}
+
+.control-buttons{
+  display: flex;
+  justify-content: space-around;
 }
