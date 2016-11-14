@@ -71,7 +71,7 @@ class CategoriesPage extends Component {
       <div className="categories-page">
         <SidebarComponent title={"Categories"} button={true} allCategories={this.props.categories}/>
         <div className="search-results-container">
-          <p>Search Results</p>
+          <div className="search-results-title">Search Results</div>
           {searchResults}
         </div>
       </div>
