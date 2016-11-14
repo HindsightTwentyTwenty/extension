@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
+import Preferences from  './Preferences.js';
+import Blacklist from  './Blacklist.js';
 
 class Manage extends Component {
 
@@ -9,25 +11,15 @@ class Manage extends Component {
     super(props);
   }
 
-
   render() {
     return (
-      <p>Manage Page Placeholder</p>
+      <div>
+        <Blacklist></Blacklist>
+        <Preferences></Preferences>
+      </div>
     )
   }
 
 }
 
-
-
-
-let mapStateToProps = (state) => ({
-
-})
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Manage);
+export default connect(null, null)(Manage);
