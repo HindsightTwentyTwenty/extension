@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 
 import TabComponent from './TabComponent.js';
 
@@ -25,13 +26,9 @@ class LookBack extends Component {
 
   }
 
-
-
   componentWillReceiveProps(props) {
     this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
 		this.getFormattedTimeBreaks(this.props.start_date, this.props.end_date);
-
-		console.log("PROPS in recieve", props);
 		var curr_tabs =  this.getTabs(props);
 		this.setState({
 			tabs: curr_tabs
@@ -39,10 +36,8 @@ class LookBack extends Component {
 
   }
 
-
-
   getTabComponent(index) {
-    return <TabComponent curr_index={index}/>;
+    return <TabComponent key={index} curr_index={index}/>;
   }
 
 	getPrevPage(){
@@ -150,6 +145,19 @@ class LookBack extends Component {
 
 
   render() {
+		if(this.props.currentDomainDisplayed.clicked){
+			return(
+				<div className="domainBar-zoom-container">
+					<div className="row">
+					<button className='close-detail-view-btn' onClick={() => {
+						this.props.lookback_actions.toggleDomainClicked();}}>X</button>
+					</div>
+					<div className="row">
+						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
+					</div>
+				</div>
+			)
+		}
     return (
       <div className="lookback-graph-container">
         <div className="vertical-axis-label">Tabs</div>
@@ -185,7 +193,8 @@ class LookBack extends Component {
 let mapStateToProps = (state) => ({
     tabs : state.currentTabs,
     start_date: state.currentTime.start_date,
-    end_date:state.currentTime.end_date
+    end_date:state.currentTime.end_date,
+		currentDomainDisplayed: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {

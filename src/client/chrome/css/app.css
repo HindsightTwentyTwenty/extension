@@ -279,3 +279,27 @@ start-time-label .end-time-label{
   margin: 10px;
   color: #fa8d62;
 }
+
+.selected-domain-bar {
+  margin-top: 10%;
+  width: 95%;
+  border: #3463CC solid;
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  height: 15%;
+  border-radius: 5px;
+}
+
+.page-bar{
+  border-left: solid #3463CC;
+  border-right: solid #3463CC;
+  height:100%;
+  display:inline-block;
+}
+
+.close-detail-view-btn{
+  float: right;
+  margin-top: 10px;
+  margin-right: 20px;
+}

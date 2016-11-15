@@ -11,17 +11,12 @@ class DomainBar extends Component {
   }
 
   getSelectedDomain(clicked){
-    if(this.props.domain.pk !== this.props.currentDomainDisplayed){
+    if(clicked){
+      this.props.lookback_actions.toggleDomainClicked(this.props.domain.pk);
+    } else{
       this.props.lookback_actions.getDomain(this.props.domain.pk, clicked);
     }
-    else{
-      console.log("already the currentDOMAIN!!");
-      if(clicked){
-        this.props.lookback_actions.toggleClicked(this.props.domain.pk);
-      }
-    }
   }
-
 
   render() {
     var id_code = this.props.tab_id + "-" + this.props.domain.pk;
@@ -29,7 +24,7 @@ class DomainBar extends Component {
       <div
         id = {id_code}
         className="domain-bar"
-        style= {this.props.style}
+        style = {this.props.style}
         width = {this.props.width}
         onMouseDown={()=>{
           this.getSelectedDomain(true);
@@ -41,7 +36,7 @@ class DomainBar extends Component {
         onMouseLeave={() => {
           this.unhighlight_previous();
         }}>
-        <img id="domain-favicon" src={this.props.favicon_url}/>
+        <img id="domain-favicon" src={this.props.domain.favicon}/>
         <label htmlFor='domainBar'>{this.props.domain.title}</label>
       </div>
     )
@@ -60,8 +55,6 @@ class DomainBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage,
-    domainDetails: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => ({

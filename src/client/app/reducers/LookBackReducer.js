@@ -3,8 +3,8 @@ import * as types from '../constants/ActionTypes';
 const domainInfo = (state, action) => {
   switch (action.type) {
     case types.TOGGLE_DOMAIN_CLICKED:
-        return Object.assign({}, state, {clicked: !state.star});
-    case types.UPDATE_CURRENT_DOMAIN:
+        return Object.assign({}, state, {clicked: !state.clicked});
+    case types.UPDATE_DISPLAY_DOMAIN:
       return {
         active_times: action.json.active_times,
         base_url: action.json.base_url,
@@ -25,7 +25,7 @@ function lookBackReducer(state = {active_times:[], base_url: "", closed: "", cre
   switch(action.type){
     case types.TOGGLE_DOMAIN_CLICKED:
       return Object.assign({}, domainInfo(state, action));
-    case types.UPDATE_CURRENT_DOMAIN:
+    case types.UPDATE_DISPLAY_DOMAIN:
       return Object.assign({}, domainInfo(state, action));
     default:
       return state;

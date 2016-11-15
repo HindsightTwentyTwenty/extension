@@ -53,9 +53,16 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function updateCurrentDomain(json, clicked) {
+export function updateDisplayPage(page) {
   return {
-    type: types.UPDATE_CURRENT_DOMAIN,
+    type: types.UPDATE_DISPLAY_PAGE,
+    page: page
+  }
+}
+
+export function updateDisplayDomain(json, clicked) {
+  return {
+    type: types.UPDATE_DISPLAY_DOMAIN,
     json: json,
     clicked: clicked
   }
@@ -66,6 +73,7 @@ export function toggleDomainClicked() {
     type: types.TOGGLE_DOMAIN_CLICKED
   }
 }
+
 
 export function getDomain(pk, clicked){
   return dispatch => {
@@ -79,6 +87,6 @@ export function getDomain(pk, clicked){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(updateCurrentDomain(json, clicked)))
+      .then(json => dispatch(updateDisplayDomain(json, clicked)))
   }
 }

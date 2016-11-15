@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 
-class DomainDetails extends Component {
+class DisplayDetails extends Component {
 
   constructor(props) {
     super(props);
@@ -11,10 +11,23 @@ class DomainDetails extends Component {
 
   render() {
     var currentDomain = this.props.currentDomainDisplayed;
-    if(currentDomain.base_url === ""){
+    if(currentDomain.clicked == undefined){
       return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
-    } else {
-      console.log(this.props.currentDomainDisplayed.clicked);
+    } else if(currentDomain.clicked){
+      if(this.props.displayPage.url == undefined){
+        return(<div className="lookback-details-container"><h3>Hover over domain for detailed page information.</h3></div>)
+      }else{
+        return(
+          <div className="lookback-details-container">
+            <h3>{this.props.displayPage.title}</h3>
+            <p>{this.props.displayPage.url}</p>
+            <p>CATEGORIES</p>
+            <p>STAR</p>
+          </div>
+        )
+      }
+    }
+    else {
       return (
           <div className="lookback-details-container">
             <h3>{currentDomain.title}</h3>
@@ -31,7 +44,8 @@ class DomainDetails extends Component {
 
 
 let mapStateToProps = (state) => ({
-  currentDomainDisplayed: state.currentDomainDisplayed
+  currentDomainDisplayed: state.currentDomainDisplayed,
+  displayPage: state.currentPageDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {
@@ -39,4 +53,4 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DomainDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayDetails);
