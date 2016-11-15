@@ -120,12 +120,12 @@ class TabComponent extends Component {
               }
               var width = this.calculateDomainWidth(time_elapsed, created, closed);
               width += "%";
-              console.log("width: ", width);
+              // console.log("width: ", width);
 
               if(dIndex == 0){
                 var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
                 margin += "%";
-                console.log("margin: ", margin);
+                // console.log("margin: ", margin);
 
                 results.push(this.getFirstDomainBar(domains[dIndex], width, margin, favicon_url, this.props.tabs[index].tab_id))
               }
