@@ -53,14 +53,21 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function updateDomainDetailsDisplay(domain) {
+export function updateCurrentDomain(json, clicked) {
   return {
-    type: types.UPDATE_DOMAIN_DETAILS_DISPLAY,
-    domain: domain,
+    type: types.UPDATE_CURRENT_DOMAIN,
+    json: json,
+    clicked: clicked
   }
 }
 
-export function getDomain(pk){
+export function toggleDomainClicked() {
+  return {
+    type: types.TOGGLE_DOMAIN_CLICKED
+  }
+}
+
+export function getDomain(pk, clicked){
   return dispatch => {
     return fetch(domainInfoEndpoint, {
           headers: {
@@ -72,22 +79,6 @@ export function getDomain(pk){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(receiveDomainInfo(json)))
-  }
-}
-
-export function receiveDomainInfo(json) {
-  console.log(json);
-  return {
-    active_times: json.active_times,
-    base_url: json.base_url,
-    closed: json.closed,
-    created: json.created,
-    favicon: json.favicon,
-    minutes_active: json.minutes_active,
-    pages: json.pages,
-    pagevisits: json.pagevisits,
-    pk: json.ps,
-    title: json.title,
+      .then(json => dispatch(updateCurrentDomain(json, clicked)))
   }
 }

@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
   currentLookBackSelection: lookBackNavReducer,
-  currentDomain: lookBackReducer,
+  currentDomainDisplayed: lookBackReducer,
   categoriesAndPages: categoryPagesReducer
 });
 

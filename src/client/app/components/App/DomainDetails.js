@@ -10,10 +10,11 @@ class DomainDetails extends Component {
   }
 
   render() {
-    var currentDomain = this.props.currentDomain;
+    var currentDomain = this.props.currentDomainDisplayed;
     if(currentDomain.base_url === ""){
       return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
-    } else{
+    } else {
+      console.log(this.props.currentDomainDisplayed.clicked);
       return (
           <div className="lookback-details-container">
             <h3>{currentDomain.title}</h3>
@@ -30,7 +31,7 @@ class DomainDetails extends Component {
 
 
 let mapStateToProps = (state) => ({
-  currentDomain: state.currentDomain
+  currentDomainDisplayed: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {
