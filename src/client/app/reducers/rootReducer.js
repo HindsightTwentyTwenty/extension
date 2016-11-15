@@ -8,6 +8,7 @@ import lookBackNavReducer from './LookBackNavReducer.js';
 import lookBackReducer from './lookBackReducer.js';
 import searchCategoryReducer from './searchCategoryReducer.js';
 import categoryPagesReducer from './categoryPagesReducer.js';
+import pageDisplayReducer from './pageDisplayReducer.js';
 
 const rootReducer = combineReducers({
   pages: pageReducer,
@@ -17,8 +18,8 @@ const rootReducer = combineReducers({
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
   currentLookBackSelection: lookBackNavReducer,
-  currentDomain: lookBackReducer,
-  categoriesAndPages: categoryPagesReducer
+  currentDomainDisplayed: lookBackReducer,
+  categoriesAndPages: categoryPagesReducer,
 });
 
 export default rootReducer;

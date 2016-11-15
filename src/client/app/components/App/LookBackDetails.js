@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import DomainDetails from './DomainDetails.js';
+import DisplayDetails from './DisplayDetails.js';
 
 class LookBackDetails extends Component {
 
@@ -13,7 +13,7 @@ class LookBackDetails extends Component {
   render() {
     return (
       <div className="lookback-details-container">
-        <DomainDetails/>
+        <DisplayDetails/>
       </div>
     )
   }
@@ -22,7 +22,7 @@ class LookBackDetails extends Component {
 
 
 let mapStateToProps = (state) => ({
-  currentDomain: state.currentDomain
+  currentDomainDisplayed: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {

@@ -24,6 +24,24 @@ const pageInfo = (state, action) => {
         }
       }
       return Object.assign({}, state, {categories: newCategoryList});
+    case types.SET_CURRENT_PAGE:
+      if(action.save == false){
+        return {
+          url: "",
+          categories: [],
+          star: false,
+          title: ""
+        }
+      }
+      if(action.page.page.star == undefined){
+        action.page.page.star = false;
+      }
+      return {
+        title: action.page.page.title,
+        url: action.page.page.url,
+        star: action.page.page.star,
+        categories: action.page.page.categories
+      }
     default:
       return state
   }
@@ -39,6 +57,8 @@ function currentPageReducer(state = { url: "", categories: [], star: false, titl
     case types.ADD_PAGE_CATEGORY:
       return Object.assign({}, pageInfo(state, action));
     case types.DELETE_PAGE_CATEGORY:
+      return Object.assign({}, pageInfo(state, action));
+    case types.SET_CURRENT_PAGE:
       return Object.assign({}, pageInfo(state, action));
     default:
         return state;

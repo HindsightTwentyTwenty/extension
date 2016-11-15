@@ -6,14 +6,17 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 
 class DomainBar extends Component {
-
   constructor(props) {
     super(props);
-    //TODO: favicon
   }
 
-  displayDetails(){
-    this.props.lookback_actions.updateDomainDetailsDisplay(this.props.domain);
+  getSelectedDomain(clicked){
+    if(clicked){
+      this.props.lookback_actions.toggleDomainClicked(this.props.domain.pk);
+      this.props.lookback_actions.setCurrentPage({}, false);
+    } else{
+      this.props.lookback_actions.getDomain(this.props.domain.pk, clicked);
+    }
   }
 
   render() {
@@ -22,18 +25,20 @@ class DomainBar extends Component {
       <div
         id = {id_code}
         className="domain-bar"
-        style= {this.props.style}
+        style = {this.props.style}
         width = {this.props.width}
+        onMouseDown={()=>{
+          this.getSelectedDomain(true);
+        }}
         onMouseOver={() => {
-          this.displayDetails();
+          this.getSelectedDomain(false);
           this.highlight_previous();
         }}
         onMouseLeave={() => {
           this.unhighlight_previous();
         }}>
-        <img id="domain-favicon" src={this.props.favicon_url}/>
-        <label htmlFor='domainBar'> {this.props.domain.title} </label>
-
+        <img id="domain-favicon" src={this.props.domain.favicon}/>
+        <label htmlFor='domainBar'>{this.props.domain.title}</label>
       </div>
     )
   }
@@ -51,8 +56,6 @@ class DomainBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage,
-    domainDetails: state.domainDetails
 })
 
 let mapDispatchToProps = (dispatch) => ({
