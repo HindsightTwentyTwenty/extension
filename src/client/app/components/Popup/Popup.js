@@ -3,7 +3,6 @@ import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
 
 class Popup extends Component {
-
   constructor(props) {
     super(props);
   }

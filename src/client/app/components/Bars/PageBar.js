@@ -8,6 +8,7 @@ import * as LookbackActions from '../../actions/App/LookbackActions.js';
 class PageBar extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props.page);
   }
 
   render() {
@@ -16,8 +17,13 @@ class PageBar extends Component {
         className="page-bar"
         style={this.props.style}
         onMouseOver={() => {
-          console.log(this.props.page);
-          this.props.lookback_actions.updateDisplayPage(this.props.page);
+          this.props.lookback_actions.updateDisplayPage(this.props.page, true);
+        }}
+        onMouseLeave={() => {
+          this.props.lookback_actions.updateDisplayPage(this.props.page, false);
+        }}
+        onMouseDonw={() => {
+          this.props.lookback_actions.updateDisplayPage(this.props.page, true);
         }}>
       </div>
     )

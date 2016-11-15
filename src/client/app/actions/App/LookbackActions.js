@@ -53,10 +53,11 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function updateDisplayPage(page) {
+export function updateDisplayPage(page, save) {
   return {
     type: types.UPDATE_DISPLAY_PAGE,
-    page: page
+    page: page,
+    save: save
   }
 }
 

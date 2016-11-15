@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
+import CategoriesDisplay from './CategoriesDisplay.js'
+import Star from '../Star/Star.js';
 
 class DisplayDetails extends Component {
 
@@ -13,29 +15,28 @@ class DisplayDetails extends Component {
     var currentDomain = this.props.currentDomainDisplayed;
     if(currentDomain.clicked == undefined){
       return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
-    } else if(currentDomain.clicked){
-      if(this.props.displayPage.url == undefined){
-        return(<div className="lookback-details-container"><h3>Hover over domain for detailed page information.</h3></div>)
-      }else{
+    } else if(currentDomain.clicked && this.props.displayPage.url != undefined){
+      var categories = <div></div>;
+      if(this.props.displayPage.categories.length > 0){
+        categories =  <CategoriesDisplay categories={this.props.displayPage.categories}/>
+      }
         return(
           <div className="lookback-details-container">
-            <h3>{this.props.displayPage.title}</h3>
-            <p>{this.props.displayPage.url}</p>
-            <p>CATEGORIES</p>
-            <p>STAR</p>
+            <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
+            {categories}
+            <Star/>
           </div>
         )
+    }
+      else {
+        return (
+            <div className="lookback-details-container">
+              <h3>{currentDomain.title}</h3>
+              <p>pages visited: {currentDomain.pages}</p>
+              <p>minutes active: {currentDomain.minutes_active}</p>
+            </div>
+        )
       }
-    }
-    else {
-      return (
-          <div className="lookback-details-container">
-            <h3>{currentDomain.title}</h3>
-            <p>pages visited: {currentDomain.pages}</p>
-            <p>minutes active: {currentDomain.minutes_active}</p>
-          </div>
-      )
-    }
   }
 
 }

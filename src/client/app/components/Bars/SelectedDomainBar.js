@@ -11,9 +11,9 @@ class SelectedDomainBar extends Component {
     super(props);
   }
 
-  getPageBar(pageVisit, width){
+  getPageBar(pageVisit, width, key){
     var barStyle = {"width" : width, "margin": '0'};
-    return <PageBar page={pageVisit} style={barStyle}/>;
+    return <PageBar page={pageVisit} style={barStyle} key={key}/>;
   }
 
   getPageBars(){
@@ -23,7 +23,7 @@ class SelectedDomainBar extends Component {
     var pageBars = [];
     var pageVisits = this.props.domain.pagevisits;
     for(var i = 0; i < numPages; i++ ){
-      var pageBar = this.getPageBar(pageVisits[i], equalDivide);
+      var pageBar = this.getPageBar(pageVisits[i], equalDivide, i);
       pageBars.push(pageBar);
     }
     return pageBars;

@@ -13,6 +13,7 @@ class DomainBar extends Component {
   getSelectedDomain(clicked){
     if(clicked){
       this.props.lookback_actions.toggleDomainClicked(this.props.domain.pk);
+      this.props.lookback_actions.updateDisplayPage({}, false);
     } else{
       this.props.lookback_actions.getDomain(this.props.domain.pk, clicked);
     }
