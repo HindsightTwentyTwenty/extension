@@ -53,9 +53,9 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function updateDisplayPage(page, save) {
+export function setCurrentPage(page, save) {
   return {
-    type: types.UPDATE_DISPLAY_PAGE,
+    type: types.SET_CURRENT_PAGE,
     page: page,
     save: save
   }

@@ -9,7 +9,6 @@ class CategoriesDisplay extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.categories);
   }
 
   getCategoryBar(category) {
@@ -24,13 +23,13 @@ class CategoriesDisplay extends Component {
         result.push(<SelectedCategoryBar categoryInfo={this.props.categories[cat]} checked={false}
           key={this.props.categories[cat].title}/>)
       }
-      return result
+      return result;
     }
   }
 
   render() {
     var categories = this.getCategories();
-    var className = "categories-container";
+    var className = "categories-display hide-overflow";
 
     return (
       <div className={className}>
@@ -41,7 +40,7 @@ class CategoriesDisplay extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    displayPage: state.currentPageDisplayed,
+    currentPage: state.currentPage,
 })
 
 export default connect(mapStateToProps, null)(CategoriesDisplay);

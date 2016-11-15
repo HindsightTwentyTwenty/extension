@@ -20,7 +20,6 @@ const rootReducer = combineReducers({
   currentLookBackSelection: lookBackNavReducer,
   currentDomainDisplayed: lookBackReducer,
   categoriesAndPages: categoryPagesReducer,
-  currentPageDisplayed: pageDisplayReducer,
 });
 
 export default rootReducer;

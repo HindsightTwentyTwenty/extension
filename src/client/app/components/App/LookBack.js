@@ -150,7 +150,9 @@ class LookBack extends Component {
 				<div className="domainBar-zoom-container">
 					<div className="row">
 					<button className='close-detail-view-btn' onClick={() => {
-						this.props.lookback_actions.toggleDomainClicked();}}>X</button>
+						this.props.lookback_actions.toggleDomainClicked();
+						this.props.lookback_actions.setCurrentPage({}, false);
+					}}>X</button>
 					</div>
 					<div className="row">
 						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>

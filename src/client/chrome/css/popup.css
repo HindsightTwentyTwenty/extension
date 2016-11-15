@@ -5,12 +5,6 @@ body {
    color: #6eb5c0;
 }
 
-.hide-overflow{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 }

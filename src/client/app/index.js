@@ -26,8 +26,6 @@ let store = createStore(
     },
     currentDomainDisplayed:{
     },
-    currentPageDisplayed:{
-    },
     categoriesAndPages:[],
     currentSearchCategories: []
   },

@@ -21,8 +21,11 @@ class CategoryEntry extends Component {
 
 
   render () {
+    if(!this.props.popup){
+      var lookBackStyle = {width: '50%'};
+    }
     return (
-      <div className="container">
+      <div className="container" style={lookBackStyle}>
         <div className ="row">
           <div className="col-xs-12">
             <div className="input-group">
