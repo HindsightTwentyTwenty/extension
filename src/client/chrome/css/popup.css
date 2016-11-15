@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'CaviarDreams';
+  src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/CavierDreams.ttf');
+}
+
+
 body {
    width:400px;
    height:300px;
@@ -16,17 +22,17 @@ body {
 }
 
 .popup-header {
-  background-color: #006C84;
+  background-color: #2b616d;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 .popup-header h1 {
   margin: auto;
-  color: white;
+  color: #FAFAFA;
   font-weight: normal;
-  font-size: x-large;
-  font-family: sans-serif;
+  font-size: 30px;
+  font-family: CaviarDreams;
   vertical-align: middle;
 }
 

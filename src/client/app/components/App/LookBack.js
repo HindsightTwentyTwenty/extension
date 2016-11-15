@@ -85,6 +85,9 @@ class LookBack extends Component {
       var date = new Date(date_string);
 
       var hour = date.getHours() - (date.getHours() >= 13 ? 12 : 0);
+			if(hour == 0){
+				hour = 12;
+			}
       var period = date.getHours() >= 12 ? 'PM' : 'AM';
       var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
@@ -142,7 +145,10 @@ class LookBack extends Component {
       let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
-        results.push(this.getTabComponent(tIndex))
+				if(tIndex < 23){
+					results.push(this.getTabComponent(tIndex))
+
+				}
       }
       return results;
     }
