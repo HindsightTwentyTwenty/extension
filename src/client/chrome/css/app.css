@@ -12,11 +12,11 @@ p.normal {
 
 .url-bar {
   height: 22px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #6eb5c0;
-  color:#FAFAFA;
-  background-color: #3463CC;
+  margin: 5px;
+  border-radius: 3px;
+  width: auto;
+  background-color: #fafafa;
+  padding: 0px 6px;
 }
 
 .url-bar.starred {
@@ -58,7 +58,9 @@ p.normal {
 
 .side-bar-title{
   text-align: center;
-  padding-top: 10px;
+  padding: 10px;
+  font-weight: bold;
+  color: #fa8d62;
 }
 
 .side-bar-category {
@@ -71,11 +73,11 @@ p.normal {
 
 .side-bar-container{
   display: inline-block;
-  margin-top: 5px;
   width: 200px;
   height: 100%;
   overflow: auto;
   background-color: #FAFAFA;
+  border: solid 1px #6eb5c0;
 }
 
 .domain-bar{
@@ -150,15 +152,14 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
-  width: auto;
-  height: 100%;
+  width: calc(100% - 200px);
+  height: calc(100% - 46px);
   display: inline-block;
-  margin-left: 10px;
   position: absolute;
 }
 
 .categories-page {
-  height: 100%;
+  height: calc(100% - 46px);
 }
 
 .vertical-axis-label {
@@ -216,7 +217,8 @@ start-time-label .end-time-label{
 }
 
 .side-bar-category.checked {
-  background-color: #57559A;
+  background-color: #fa8d62;
+  color: #fafafa;
 }
 
 .nav-bar-button {
@@ -235,6 +237,16 @@ start-time-label .end-time-label{
 .control-buttons{
   display: flex;
   justify-content: space-around;
+  padding: 0px 5px 10px 5px;
+  color: #fa8d62;
+  font-weight: bold;
+}
+
+#radio-and {
+  margin-left: 6px;
+}
+#radio-or {
+  margin-left: 6px;
 }
 
 .nav-bar-container {
@@ -254,4 +266,16 @@ start-time-label .end-time-label{
   border-radius: 10px;
   border: none;
   min-width: 200px;
+}
+.blacklist-text-entry {
+  margin: 3px 5px;
+  border-radius: 4px;
+  border: none;
+  width: 98%;
+}
+
+.section-title {
+  font-size: 20px;
+  margin: 10px;
+  color: #fa8d62;
 }
