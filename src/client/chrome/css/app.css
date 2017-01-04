@@ -21,6 +21,7 @@
 body {
    width:auto;
    height:auto;
+   overflow: hidden; 
    background-color: #e2e8e4;
    color: #6eb5c0;
 }
@@ -46,6 +47,7 @@ p.normal {
 .lookback-container{
   width: 95%;
   height: 90%;
+  overflow: auto;
   background-color: #FAFAFA;
   margin: 30px;
   border:solid #303638;
@@ -53,7 +55,7 @@ p.normal {
 
 .lookback-graph-container{
   width: auto;
-  height: auto;
+  height: calc(100% - 235px);
   min-width: 800px;
   padding-top: 10px;
 }
@@ -207,7 +209,7 @@ start-time-label .end-time-label{
 }
 
 .time-break-line{
-  height: 89%;
+  height: calc(92% - 240px);
   position: absolute;
   z-index: 1;
   border-right: 1px solid #57559A;

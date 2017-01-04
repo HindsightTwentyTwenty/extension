@@ -140,10 +140,10 @@ class LookBack extends Component {
       let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
-				if(tIndex < 23){
+				// if(tIndex < 23){
 					results.push(this.getTabComponent(tIndex))
 
-				}
+				// }
       }
       return results;
     }

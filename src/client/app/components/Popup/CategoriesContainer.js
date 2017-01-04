@@ -30,7 +30,9 @@ class CategoriesContainer extends Component {
         maxCategories = MAXDISPLAYCATEGORIES;
       }
       for (var i = this.props.categories.length - 1; i >= this.props.categories.length - maxCategories - 1; i--) {
-        result.push(this.getCategoryBar(this.props.categories[i]))
+        if(this.props.categories[i]){
+          result.push(this.getCategoryBar(this.props.categories[i]))
+        }
       }
       return result
     }
