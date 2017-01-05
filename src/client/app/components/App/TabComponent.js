@@ -11,17 +11,17 @@ class TabComponent extends Component {
     super(props);
   }
 
-  getDomainBar(domain, width, favicon_url, tab_id) {
+  getDomainBar(domain, width, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"width" : width_style, "background" : active_times_style}
-    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url} tab_id={tab_id}/>;
+    return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
-  getFirstDomainBar(domain, width, margin, favicon_url, tab_id) {
+  getFirstDomainBar(domain, width, margin, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"width" : width_style, "marginLeft": margin, "background" : active_times_style}
-    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url} tab_id={tab_id}/>;
+    return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
 
   getActiveTimesStyle(domain){
@@ -55,14 +55,13 @@ class TabComponent extends Component {
   }
 
   calculateDomainWidth(time_elapsed, created, closed){
-
     var d_created_date = new Date(created);
     var d_closed_date = new Date(closed);
 
     if(d_created_date < this.props.start_date){
       d_created_date = this.props.start_date;
     }
-    if(d_closed_date > this.props.end_date){
+    if(d_closed_date > this.props.end_date || d_closed_date == null){
       d_closed_date = this.props.end_date;
     }
 
@@ -77,8 +76,13 @@ class TabComponent extends Component {
   }
 
   calculateLeftMargin(time_elapsed, created, start_date){
+
     var start_date = new Date(start_date);
     var created_date = new Date(created);
+    if(created_date < start_date){
+      return 0;
+    }
+
     var time_between = created_date.getTime() - start_date.getTime();
 
     if(((time_between/time_elapsed)*100) > 5){
@@ -97,7 +101,12 @@ class TabComponent extends Component {
         var numDomains = Object.keys(domains).length;
 
         var start_date = new Date(this.props.start_date);
-        var end_date = new Date(this.props.end_date);
+        var end_date;
+        if(this.props.end_date != null){
+          end_date = new Date(this.props.end_date);
+        }else{
+          end_date == null;
+        }
         var time_elapsed = end_date.getTime() - start_date.getTime();
 
         if (this.props.tabs[index]) {
@@ -105,25 +114,23 @@ class TabComponent extends Component {
 
               var created = domains[dIndex].created;
               var closed = domains[dIndex].closed;
-              var favicon_url = domains[dIndex].favicon;
               if (closed == null){
                 closed = end_date;
               }
-              console.log("created: ", created);
-              console.log("closed: ", closed);
+
               var width = this.calculateDomainWidth(time_elapsed, created, closed);
               width += "%";
-              console.log("width: ", width);
+              // console.log("width: ", width);
 
               if(dIndex == 0){
                 var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
                 margin += "%";
-                console.log("margin: ", margin);
+                // console.log("margin: ", margin);
 
-                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, favicon_url, this.props.tabs[index].tab_id))
+                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, this.props.tabs[index].tab_id))
               }
               else{
-                results.push(this.getDomainBar(domains[dIndex], width, favicon_url, this.props.tabs[index].tab_id))
+                results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id))
               }
             }
           return results;

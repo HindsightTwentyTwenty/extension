@@ -5,7 +5,6 @@ import LoginPage from './LoginPage.js';
 
 
 class Popup extends Component {
-
   constructor(props) {
     super(props);
   }

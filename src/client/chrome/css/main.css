@@ -1,73 +1,9 @@
-@font-face {
-  font-family: 'CaviarDreams';
-  src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/CavierDreams.ttf');
+.hide-overflow{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-
-body {
-   width:400px;
-   height:300px;
-   background-color: #e2e8e4;
-   color: #6eb5c0;
-}
-
-.btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: 0 none;
-}
-
-.popup-header {
-  background-color: #2b616d;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.popup-header h1 {
-  margin: auto;
-  color: #FAFAFA;
-  font-weight: normal;
-  font-size: 30px;
-  font-family: CaviarDreams;
-  vertical-align: middle;
-}
-
-.lookback-btn {
-  float: right;
-  width: 30px;
-  height: 30px;
-}
-
-.popup-body h3{
-  margin-top: 10px;
-  color: #263238;
-  font-size: large;
-}
-
-.popup-body h4{
-  font-size: medium;
-}
-
-.popup-body h5{
-  font-size: small;
-  margin-bottom: 0px;
-  font-weight: normal;
-}
-
-.popup-body hr{
-  margin-top: 0px;
-  margin-bottom:10px;
-  border-color: inherit;
-  width: 380px;
-  margin-left: 12px;
-  float:middle;
-}
-
-.form-control:focus, .form-control:focus{
-    border-color:#6eb5c0;
-    box-shadow:none;
-}
-.form-control{
-  border: none;
-}
 #star {
   display: none;
 }
@@ -162,15 +98,4 @@ body {
 
 .category-bar-label.selected{
   width:70%;
-}
-
-.star-div{
-  height:45px;
-}
-
-.error-message{
-  text-align: center;
-  margin-top: 80px;
-  color: #263238;
-  font-weight: normal;
 }

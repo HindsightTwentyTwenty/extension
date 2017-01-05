@@ -9,7 +9,7 @@ import lookBackReducer from './lookBackReducer.js';
 import searchCategoryReducer from './searchCategoryReducer.js';
 import categoryPagesReducer from './categoryPagesReducer.js';
 import userReducer from './userReducer.js';
-
+import pageDisplayReducer from './pageDisplayReducer.js';
 
 const rootReducer = combineReducers({
   pages: pageReducer,
@@ -22,6 +22,7 @@ const rootReducer = combineReducers({
   currentDomain: lookBackReducer,
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
+  currentDomainDisplayed: lookBackReducer,
 });
 
 export default rootReducer;

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 
 import TabComponent from './TabComponent.js';
 
@@ -25,13 +26,9 @@ class LookBack extends Component {
 
   }
 
-
-
   componentWillReceiveProps(props) {
     this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
 		this.getFormattedTimeBreaks(this.props.start_date, this.props.end_date);
-
-		console.log("PROPS in recieve", props);
 		var curr_tabs =  this.getTabs(props);
 		this.setState({
 			tabs: curr_tabs
@@ -39,10 +36,8 @@ class LookBack extends Component {
 
   }
 
-
-
   getTabComponent(index) {
-    return <TabComponent curr_index={index}/>;
+    return <TabComponent key={index} curr_index={index}/>;
   }
 
 	getPrevPage(){
@@ -57,10 +52,11 @@ class LookBack extends Component {
 
 		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
 
-		// this.props.start_date = new_start_date;
 	}
 
 	getNextPage(){
+		var curr_Date = new Date();
+
 		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
 		var new_start_date = new Date(this.props.start_date);
 		new_start_date.setHours(new_start_hour);
@@ -68,10 +64,14 @@ class LookBack extends Component {
 		var new_end_hour = new Date(this.props.end_date).getHours() + 1;
 		var new_end_date = new Date(this.props.end_date)
 		new_end_date.setHours(new_end_hour);
+
+		if(new_end_date > curr_Date){
+			return;
+		}
+
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
 		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
 
-		// this.props.start_date = new_start_date;
 	}
 
 
@@ -80,10 +80,12 @@ class LookBack extends Component {
       var date = new Date(date_string);
 
       var hour = date.getHours() - (date.getHours() >= 13 ? 12 : 0);
+			if(hour == 0){
+				hour = 12;
+			}
       var period = date.getHours() >= 12 ? 'PM' : 'AM';
       var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
-			console.log("HOUR: ", hour);
       var datetext = (hour +  ':' + minutes + ' ' +period);
       return datetext;
     }else{return "";}
@@ -138,7 +140,10 @@ class LookBack extends Component {
       let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
-        results.push(this.getTabComponent(tIndex))
+				// if(tIndex < 23){
+					results.push(this.getTabComponent(tIndex))
+
+				// }
       }
       return results;
     }
@@ -146,6 +151,21 @@ class LookBack extends Component {
 
 
   render() {
+		if(this.props.currentDomainDisplayed.clicked){
+			return(
+				<div className="domainBar-zoom-container">
+					<div className="row">
+					<button className='close-detail-view-btn' onClick={() => {
+						this.props.lookback_actions.toggleDomainClicked();
+						this.props.lookback_actions.setCurrentPage({}, false);
+					}}>X</button>
+					</div>
+					<div className="row">
+						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
+					</div>
+				</div>
+			)
+		}
     return (
       <div className="lookback-graph-container">
         <div className="vertical-axis-label">Tabs</div>
@@ -181,7 +201,8 @@ class LookBack extends Component {
 let mapStateToProps = (state) => ({
     tabs : state.currentTabs,
     start_date: state.currentTime.start_date,
-    end_date:state.currentTime.end_date
+    end_date:state.currentTime.end_date,
+		currentDomainDisplayed: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {
