@@ -11,17 +11,17 @@ class TabComponent extends Component {
     super(props);
   }
 
-  getDomainBar(domain, width, favicon_url, tab_id) {
+  getDomainBar(domain, width, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"width" : width_style, "background" : active_times_style}
-    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url} tab_id={tab_id}/>;
+    return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
-  getFirstDomainBar(domain, width, margin, favicon_url, tab_id) {
+  getFirstDomainBar(domain, width, margin, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"width" : width_style, "marginLeft": margin, "background" : active_times_style}
-    return <DomainBar domain={domain} style={bar_style} favicon_url={favicon_url} tab_id={tab_id}/>;
+    return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
 
   getActiveTimesStyle(domain){
@@ -114,10 +114,10 @@ class TabComponent extends Component {
 
               var created = domains[dIndex].created;
               var closed = domains[dIndex].closed;
-              var favicon_url = domains[dIndex].favicon;
               if (closed == null){
                 closed = end_date;
               }
+
               var width = this.calculateDomainWidth(time_elapsed, created, closed);
               width += "%";
               // console.log("width: ", width);
@@ -127,10 +127,10 @@ class TabComponent extends Component {
                 margin += "%";
                 // console.log("margin: ", margin);
 
-                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, favicon_url, this.props.tabs[index].tab_id))
+                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, this.props.tabs[index].tab_id))
               }
               else{
-                results.push(this.getDomainBar(domains[dIndex], width, favicon_url, this.props.tabs[index].tab_id))
+                results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id))
               }
             }
           return results;

@@ -24,14 +24,7 @@ let store = createStore(
       start_date:"",
       end_date:""
     },
-    currentDomain:{
-      base_url: "",
-      closed: "",
-      created: "",
-      favicon: "",
-      minutes_active: "",
-      pages: "",
-      title: ""
+    currentDomainDisplayed:{
     },
     categoriesAndPages:[],
     currentSearchCategories: []

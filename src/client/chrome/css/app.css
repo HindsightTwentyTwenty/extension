@@ -21,6 +21,7 @@
 body {
    width:auto;
    height:auto;
+   overflow: hidden; 
    background-color: #e2e8e4;
    color: #6eb5c0;
 }
@@ -46,6 +47,7 @@ p.normal {
 .lookback-container{
   width: 95%;
   height: 90%;
+  overflow: auto;
   background-color: #FAFAFA;
   margin: 30px;
   border:solid #303638;
@@ -53,7 +55,7 @@ p.normal {
 
 .lookback-graph-container{
   width: auto;
-  height: auto;
+  height: calc(100% - 235px);
   min-width: 800px;
   padding-top: 10px;
 }
@@ -207,7 +209,7 @@ start-time-label .end-time-label{
 }
 
 .time-break-line{
-  height: 89%;
+  height: calc(92% - 240px);
   position: absolute;
   z-index: 1;
   border-right: 1px solid #57559A;
@@ -304,4 +306,54 @@ start-time-label .end-time-label{
   font-size: 20px;
   margin: 10px;
   color: #fa8d62;
+}
+
+.selected-domain-bar {
+  margin-top: 5%;
+  width: 95%;
+  border: #6eb5c0 solid;
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  height: 15%;
+  border-radius: 5px;
+}
+
+.page-bar{
+  border-left: solid #6eb5c0;
+  border-right: solid #6eb5c0;
+  height:100%;
+  display:inline-block;
+}
+
+.close-detail-view-btn{
+  float: right;
+  margin-top: 10px;
+  margin-right: 20px;
+  border: none;
+  border-left: #6eb5c0;
+  background-color: #e2e8e4;
+  font-size: x-large;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  vertical-align: middle;
+}
+
+.categories-display{
+  padding: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0px;
+  margin-top: 0px;
+  justify-content: center;
+}
+
+.category-entry-wrapper{
+  width: 50%;
+}
+
+.domainBar-zoom-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
