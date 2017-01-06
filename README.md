@@ -1,10 +1,5 @@
 # hindsite
 hindsite is a Chrome extension which helps users track and categorize their browser sessions as they traverse the web. 
-![Alt text](https://cloud.githubusercontent.com/assets/19778184/19412012/50a66544-92da-11e6-9ec0-5fd46331e4d2.png)
-![Alt text](https://cloud.githubusercontent.com/assets/19778184/19411644/68742cda-92d3-11e6-98d5-5f456220b73a.png)
-![Alt text](https://cloud.githubusercontent.com/assets/19778184/19411643/67895930-92d3-11e6-97f7-607ad7febc9e.png)
-![Alt text](https://cloud.githubusercontent.com/assets/19778184/19411641/6468ed2e-92d3-11e6-99b3-30f998979596.png)
-![Alt text](https://cloud.githubusercontent.com/assets/19778184/19411642/6671f0de-92d3-11e6-9652-75a382a8cb34.png)
 
 ##Coding Practices
 * use camelCase for function names
