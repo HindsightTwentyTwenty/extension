@@ -34,7 +34,7 @@ class SidebarComponent extends Component {
     }
   }
 
-  getButton() {
+  getRadioButtons() {
     if (this.props.button) {
       return (<div className="control-buttons">
         <div className="radio-button">OR
@@ -51,8 +51,10 @@ class SidebarComponent extends Component {
     var categories = this.getCategories();
     return (
       <div className="side-bar-container">
-        <div className="side-bar-title">{this.title}</div>
-        {this.getButton()}
+        <div className="side-bar-header">
+          <div className="side-bar-title">{this.title}</div>
+          {this.getRadioButtons()}
+        </div>
         <div className="all-categories">{categories}</div>
       </div>
     )

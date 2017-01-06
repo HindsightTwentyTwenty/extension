@@ -95,7 +95,6 @@ p.normal {
   display: inline-block;
   width: 200px;
   height: 100%;
-  overflow: auto;
   background-color: #FAFAFA;
   border: solid 1px #6eb5c0;
 }
@@ -177,13 +176,13 @@ start-time-label .end-time-label{
 
 .search-results-container {
   width: calc(100% - 200px);
-  height: calc(100% - 46px);
+  height: calc(100% - 50px);
   display: inline-block;
   position: absolute;
 }
 
 .categories-page {
-  height: calc(100% - 46px);
+  height: calc(100% - 50px);
 }
 
 .vertical-axis-label {
@@ -298,6 +297,10 @@ start-time-label .end-time-label{
   border-radius: 4px;
   border: none;
   width: 98%;
+}
+.all-categories {
+  overflow: auto;
+  height: calc(100% - 70px);
 }
 
 .section-title {
