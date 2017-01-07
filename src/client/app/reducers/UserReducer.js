@@ -2,6 +2,7 @@ import * as types from '../constants/ActionTypes';
 
 //if no valid username:
 function userReducer(state = {user_name:"", token:""}, action){
+  console.log("IN REDUCER WEEEE");
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
       chrome.storage.local.set({"hindsite-token": action.token});

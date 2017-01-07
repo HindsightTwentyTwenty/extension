@@ -1,6 +1,7 @@
 import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
+// import store from '../../index.js'
 
 
 
@@ -44,22 +45,24 @@ function checkStatus(response){
   }
 }
 
+export function userToken(token) {
+ console.log("userToken CALL TO REDUCER");
 
+ return {
+   type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+   token: token
+ }
+}
 
 export function receiveUserTokenFromChrome(token) {
-  console.log("RECEIVE USER TOKEN FROM CHROME: ", token);
+ console.log("RECEIVE USER TOKEN FROM CHROME: ", token);
 
-  dispatch({
-    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-    token: token
-  });
+
+ return dispatch => {
+   return dispatch(userToken(token))
+ }
 }
 
-export function getTokenFromLocalStorage(){
-  return dispatch => {
-    chrome.storage.local.get("hindsite-token", receiveUserTokenFromChrome);
-  }
-}
 
 export function loginUser(username, password){
   return dispatch => {

@@ -12,7 +12,8 @@ import * as LoginActions from '../../actions/Popup/LoginActions.js';
 class Popup extends Component {
   constructor(props) {
     super(props);
-    this.props.login_actions.getTokenFromLocalStorage();
+    // this.props.dispatch(this.props.login_actions.getTokenFromLocalStorage());
+    chrome.storage.local.get("hindsite-token", this.props.login_actions.receiveUserTokenFromChrome);
   }
 
   renderContentWrapper(){
