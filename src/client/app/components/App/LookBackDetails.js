@@ -22,7 +22,8 @@ class LookBackDetails extends Component {
 
 
 let mapStateToProps = (state) => ({
-  currentDomainDisplayed: state.currentDomainDisplayed
+  currentDomainDisplayed: state.currentDomainDisplayed,
+
 })
 
 let mapDispatchToProps = (dispatch) => {

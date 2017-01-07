@@ -41,6 +41,8 @@ class CategoriesDisplay extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage: state.currentPage,
+    currentUser : state.currentUser
+
 })
 
 export default connect(mapStateToProps, null)(CategoriesDisplay);

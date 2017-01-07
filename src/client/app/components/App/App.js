@@ -16,7 +16,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.props.lookback_actions.fetchPages();
+    this.props.lookback_actions.fetchPages(this.props.currentUser.token);
   }
 
   renderContent(){
@@ -65,7 +65,9 @@ class App extends Component {
 
 let mapStateToProps = (state) => ({
     pages : state.pages,
-    lookBackSelection : state.currentLookBackSelection
+    lookBackSelection : state.currentLookBackSelection,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

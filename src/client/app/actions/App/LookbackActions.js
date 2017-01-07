@@ -76,12 +76,13 @@ export function toggleDomainClicked() {
 }
 
 
-export function getDomain(pk, clicked){
+export function getDomain(pk, clicked, token){
   return dispatch => {
     return fetch(domainInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
-             'Content-Type': 'application/json'
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token['hindsite-token']
            },
            method: "POST",
            body: JSON.stringify({pk: pk})

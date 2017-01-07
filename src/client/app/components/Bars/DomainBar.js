@@ -15,7 +15,7 @@ class DomainBar extends Component {
       this.props.lookback_actions.toggleDomainClicked(this.props.domain.pk);
       this.props.lookback_actions.setCurrentPage({}, false);
     } else{
-      this.props.lookback_actions.getDomain(this.props.domain.pk, clicked);
+      this.props.lookback_actions.getDomain(this.props.domain.pk, clicked, this.props.currentUser.token);
     }
   }
 
@@ -56,6 +56,8 @@ class DomainBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
+  currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => ({

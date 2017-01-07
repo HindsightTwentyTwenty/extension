@@ -49,7 +49,9 @@ class LookBackNavBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  currentLookBackSelection: state.currentLookBackSelection
+  currentLookBackSelection: state.currentLookBackSelection,
+  currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

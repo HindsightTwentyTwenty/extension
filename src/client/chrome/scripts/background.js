@@ -1,4 +1,13 @@
 var closed = false
+var token = ""
+
+function get_token(token_return){
+  console.log("get token");
+  console.log(token_return);
+  token = token_return;
+}
+chrome.storage.local.get("hindsite-token", get_token);
+
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
@@ -10,7 +19,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         fetch('http://127.0.0.1:8000/newpage/', {
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token['hindsite-token']
+
           },
           method: "POST",
           body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
@@ -29,7 +40,9 @@ chrome.tabs.onRemoved.addListener(function( tabId, removeInfo) {
     fetch('http://127.0.0.1:8000/closetab/', {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token['hindsite-token']
+
       },
       method: "POST",
       body: JSON.stringify({"tab":tabId})
@@ -43,7 +56,9 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
     fetch('http://127.0.0.1:8000/active/', {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token['hindsite-token']
+
       },
       method: "POST",
       body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed})

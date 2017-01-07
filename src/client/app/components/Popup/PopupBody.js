@@ -12,9 +12,9 @@ class PopupBody extends Component {
   constructor(props) {
     super(props);
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      this.props.popup_actions.getPageInfo(tabs[0].url);
+      this.props.popup_actions.getPageInfo(tabs[0].url, this.props.currentUser.token);
     });
-    this.props.category_actions.fetchCategories();
+    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   render () {
@@ -73,7 +73,9 @@ class PopupBody extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
-    categories: state.categories
+    categories: state.categories,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {
