@@ -5,6 +5,7 @@ import { bindActionCreators} from 'redux'
 import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
 import LoginPage from './LoginPage.js';
+import ForgotMyPassword from './ForgotMyPassword.js';
 import * as LoginActions from '../../actions/Popup/LoginActions.js';
 
 
@@ -26,11 +27,19 @@ class Popup extends Component {
 
     console.log(this.props.currentUser.token);
     if(this.props.currentUser.token.length == 0){
-      return (
-        <div>
-          <LoginPage/>
-        </div>
-      );
+      if(this.props.currentUser.forgot == false){
+        return (
+          <div>
+            <LoginPage/>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <ForgotMyPassword/>
+          </div>
+        );
+      }
     }else{
       return (
         <div>

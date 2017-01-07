@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 
 //if no valid username:
-function userReducer(state = {user_name:"", token:""}, action){
+function userReducer(state = {user_name:"", token:"", forgot:false}, action){
   console.log("IN REDUCER WEEEE");
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
@@ -14,6 +14,9 @@ function userReducer(state = {user_name:"", token:""}, action){
     case types.RECEIVE_USER_TOKEN_FROM_CHROME:
       console.log("token from chrome IN REDUCER");
       return Object.assign({}, {user_name: state.user_name, token:action.token});
+    case types.FORGOT_MY_PASSWORD_PAGE:
+      console.log("forgot my password");
+      return [...state, forgot=action.forgot];
     default:
         return state;
   }

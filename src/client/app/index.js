@@ -30,7 +30,8 @@ let store = createStore(
     currentSearchCategories: [],
     currentUser: {
       user_name:"",
-      token:""
+      token:"",
+      forgot:false
     }
   },
   applyMiddleware(

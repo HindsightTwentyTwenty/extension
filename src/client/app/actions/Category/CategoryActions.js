@@ -88,8 +88,7 @@ export function toggleCategory(pageUrl, category, addOrDelete){
     return fetch(endpoint, {
             headers: {
                'Accept': 'application/json',
-               'Content-Type': 'application/json',
-              
+               'Content-Type': 'application/json'
              },
              method: "POST",
              body: JSON.stringify({url: pageUrl, category: category.title})

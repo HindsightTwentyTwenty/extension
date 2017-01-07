@@ -63,6 +63,25 @@ export function receiveUserTokenFromChrome(token) {
  }
 }
 
+export function clearStore(){
+  return {
+    type: types.USER_LOGOUT
+  }
+}
+
+export function logoutUser() {
+  return dispatch => {
+    return fetch('http://127.0.0.1:8000/logout/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+    })
+    .then(dispatch(clearStore()))
+  }
+}
+
 
 export function loginUser(username, password){
   return dispatch => {
@@ -78,5 +97,28 @@ export function loginUser(username, password){
       )
       .then(response => response.json())
       .then(json => dispatch(receiveUserToken(json, username)))
+  }
+}
+
+export function forgotMyPasswordEmailSubmit(email){
+  return dispatch => {
+    return fetch('http://127.0.0.1:8000/forgot/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"email": email})
+    })
+    .then(dispatch(clearStore()))
+  }
+}
+
+export function forgotMyPasswordPage(value){
+  return dispatch => {
+    return dispatch({
+      type: types.FORGOT_MY_PASSWORD_PAGE,
+      forgot: value
+    })
   }
 }

@@ -11,7 +11,15 @@ import categoryPagesReducer from './categoryPagesReducer.js';
 import userReducer from './userReducer.js';
 import pageDisplayReducer from './pageDisplayReducer.js';
 
-const rootReducer = combineReducers({
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
+
+const appReducer = combineReducers({
   pages: pageReducer,
   currentSearchCategories: searchCategoryReducer,
   categories: categoryReducer,
