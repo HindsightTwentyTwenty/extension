@@ -18,11 +18,11 @@ const rootReducer = combineReducers({
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
-  currentLookBackSelection: lookBackNavReducer,
   currentDomain: lookBackReducer,
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
+
 });
 
 export default rootReducer;
