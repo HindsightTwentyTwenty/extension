@@ -3,6 +3,7 @@ import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
 
+
 const loginUserEndpoint = urls.BASE_URL + "login/";
 var curr_token = ""
 // chrome.storage.local.get('hindsite-token')
@@ -43,6 +44,23 @@ function checkStatus(response){
   }
 }
 
+
+
+export function receiveUserTokenFromChrome(token) {
+  console.log("RECEIVE USER TOKEN FROM CHROME: ", token);
+
+  dispatch({
+    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+    token: token
+  });
+}
+
+export function getTokenFromLocalStorage(){
+  return dispatch => {
+    chrome.storage.local.get("hindsite-token", receiveUserTokenFromChrome);
+  }
+}
+
 export function loginUser(username, password){
   return dispatch => {
     dispatch(requestUserToken())
@@ -56,9 +74,6 @@ export function loginUser(username, password){
            }
       )
       .then(response => response.json())
-      // .then(if(!checkStatus(response)){
-      //     dispatch(receiveError("hi"))
-      // })
       .then(json => dispatch(receiveUserToken(json, username)))
   }
 }

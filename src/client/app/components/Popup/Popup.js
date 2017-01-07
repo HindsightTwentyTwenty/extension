@@ -1,16 +1,26 @@
 import React, { PropTypes, Component } from 'react';
 import {connect} from 'react-redux';
+import { bindActionCreators} from 'redux'
+
 import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
 import LoginPage from './LoginPage.js';
+import * as LoginActions from '../../actions/Popup/LoginActions.js';
+
 
 
 class Popup extends Component {
   constructor(props) {
     super(props);
+    this.props.login_actions.getTokenFromLocalStorage();
+  }
+
+  renderContentWrapper(){
+    this.props.login_actions.getTokenFromLocalStorage().then(renderContent);
   }
 
   renderContent(){
+    // this.props.login_actions.getTokenFromLocalStorage();
     console.log("token");
 
     console.log(this.props.currentUser.token);
@@ -47,6 +57,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    login_actions: bindActionCreators(LoginActions, dispatch)
+
   }
 }
 
