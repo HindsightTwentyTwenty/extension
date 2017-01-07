@@ -10,8 +10,8 @@ class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
-    this.props.category_actions.fetchCategories();
-    this.props.category_actions.fetchCategoriesAndPages();
+    this.props.category_actions.fetchCategories( this.props.currentUser.token);
+    this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
   }
 
   fetchPages() {
@@ -83,6 +83,8 @@ let mapStateToProps = (state) => ({
     categories: state.categories,
     categoriesAndPages: state.categoriesAndPages,
     currentSearchCategories : state.currentSearchCategories,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

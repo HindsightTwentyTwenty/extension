@@ -50,7 +50,7 @@ class LookBack extends Component {
 		new_end_date.setHours(new_end_hour);
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
 
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
+		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON() , this.props.currentUser.token);
 
 	}
 
@@ -70,7 +70,7 @@ class LookBack extends Component {
 		}
 
 		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON());
+		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
 
 	}
 
@@ -202,7 +202,9 @@ let mapStateToProps = (state) => ({
     tabs : state.currentTabs,
     start_date: state.currentTime.start_date,
     end_date:state.currentTime.end_date,
-		currentDomainDisplayed: state.currentDomainDisplayed
+		currentDomainDisplayed: state.currentDomainDisplayed,
+		currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

@@ -27,6 +27,8 @@ class PageBar extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage: state.currentPage,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => ({

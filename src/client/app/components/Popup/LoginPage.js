@@ -65,10 +65,11 @@ class LoginPage extends Component {
 }
 
 let mapStateToProps = (state) => ({
+	currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    popup_actions: bindActionCreators(PopupActions, dispatch),
     login_actions: bindActionCreators(LoginActions, dispatch)
 
 })

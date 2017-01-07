@@ -18,7 +18,7 @@ class Star extends Component {
             this.input = node;
           }}
           onChange={() => {
-            this.props.star_actions.toggleStar( this.props.currentPage.url, this.input.checked);
+            this.props.star_actions.toggleStar( this.props.currentPage.url, this.input.checked, this.props.currentUser.token);
           }}
         />
         <label htmlFor="star"></label>
@@ -28,7 +28,8 @@ class Star extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage
+    currentPage : state.currentPage,
+    currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => ({

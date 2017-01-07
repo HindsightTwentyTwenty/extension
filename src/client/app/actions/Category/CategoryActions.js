@@ -63,25 +63,40 @@ export function requestCategoriesAndPages() {
   }
 }
 
-export function fetchCategories(){
+export function fetchCategories(token){
+  console.log("Token " + token['hindsite-token']);
   return dispatch => {
     dispatch(requestCategories())
-    return fetch(allCategoriesEndpoint)
+    return fetch(allCategoriesEndpoint,{
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+         'Authorization': "Token " + token['hindsite-token']
+       },
+       method: "GET"
+    })
       .then(response => response.json())
       .then(json => dispatch(receiveCategories(json)))
   }
 }
 
-export function fetchCategoriesAndPages(){
+export function fetchCategoriesAndPages(token){
   return dispatch => {
     dispatch(requestCategoriesAndPages())
-    return fetch(categoriesAndPagesEndpoint)
+    return fetch(categoriesAndPagesEndpoint, {
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+         'Authorization': "Token " + token['hindsite-token']
+       },
+       method: "GET"
+    })
       .then(response => response.json())
       .then(json => dispatch(receiveCategoriesAndPages(json)))
   }
 }
 
-export function toggleCategory(pageUrl, category, addOrDelete){
+export function toggleCategory(pageUrl, category, addOrDelete, token){
   return dispatch => {
     dispatch(updatePageCategory(category, addOrDelete))
     var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;
@@ -89,7 +104,7 @@ export function toggleCategory(pageUrl, category, addOrDelete){
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-              
+               'Authorization': "Token " + token['hindsite-token']
              },
              method: "POST",
              body: JSON.stringify({url: pageUrl, category: category.title})

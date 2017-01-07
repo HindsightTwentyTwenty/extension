@@ -39,12 +39,13 @@ export function requestPushCategory() {
   }
 }
 
-export function getPageInfo(url){
+export function getPageInfo(url, token){
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
-             'Content-Type': 'application/json'
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token['hindsite-token']
            },
            method: "POST",
            body: JSON.stringify({url: url})
@@ -55,13 +56,14 @@ export function getPageInfo(url){
   }
 }
 
-export function pushCategory(category){
+export function pushCategory(category, token){
   return dispatch => {
     dispatch(requestPushCategory())
     return fetch(addCategoryEndpoint, {
             headers: {
                'Accept': 'application/json',
-               'Content-Type': 'application/json'
+               'Content-Type': 'application/json',
+               'Authorization': "Token " + token['hindsite-token']
              },
              method: "POST",
              body: JSON.stringify({category: category})

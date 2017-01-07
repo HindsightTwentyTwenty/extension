@@ -7,7 +7,6 @@ import fetch from 'isomorphic-fetch'
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 var curr_token = ""
-// chrome.storage.local.get('hindsite-token')
 
 export function receiveUserToken(json, username) {
   console.log("RECEIVE USER TOKEN: ", json.token);
@@ -46,8 +45,6 @@ function checkStatus(response){
 }
 
 export function userToken(token) {
- console.log("userToken CALL TO REDUCER");
-
  return {
    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
    token: token
@@ -55,8 +52,6 @@ export function userToken(token) {
 }
 
 export function receiveUserTokenFromChrome(token) {
- console.log("RECEIVE USER TOKEN FROM CHROME: ", token);
-
 
  return dispatch => {
    return dispatch(userToken(token))

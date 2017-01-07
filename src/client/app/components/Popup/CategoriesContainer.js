@@ -63,7 +63,8 @@ class CategoriesContainer extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
-    categories: state.categories
+    categories: state.categories,
+
 })
 
 export default connect(mapStateToProps, null)(CategoriesContainer);

@@ -18,7 +18,7 @@ class CategoryBar extends Component {
         className={className}
         onClick={() => {
           this.props.category_actions.toggleCategory( this.props.currentPage.url,
-            this.props.categoryInfo, !this.props.checked);
+            this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);
         }}>
         <label htmlFor='categoryBar' className='category-bar-label hide-overflow'> {this.props.categoryInfo.title} </label>
       </div>
@@ -27,7 +27,10 @@ class CategoryBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage
+    currentPage : state.currentPage,
+    currentUser : state.currentUser,
+
+
 })
 
 let mapDispatchToProps = (dispatch) => ({

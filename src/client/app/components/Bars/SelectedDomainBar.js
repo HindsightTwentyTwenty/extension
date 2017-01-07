@@ -42,11 +42,12 @@ class SelectedDomainBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentDomainDisplayed: state.currentDomainDisplayed
+    currentDomainDisplayed: state.currentDomainDisplayed,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  lookback_actions: bindActionCreators(LookbackActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedDomainBar);
