@@ -24,7 +24,7 @@ export function fetchPages(){
   return dispatch => {
     dispatch(requestPages())
     // TODO: change from local host
-    return fetch(urls.BASE_URL + '/pages/')
+    return fetch(urls.BASE_URL + 'pages/')
       .then(response => response.json())
       .then(json => dispatch(receivePages(json)))
   }
