@@ -9,7 +9,7 @@ import { Router, hashHistory, browserHistory } from 'react-router';
 import routes from './routes';
 
 import App from './components/app';
-import './../chrome/css/app.css'; 
+import './../chrome/css/app.css';
 
 let store = createStore(
   rootReducer,

@@ -1,7 +1,7 @@
 body {
    width:400px;
    height:300px;
-   background-color: $electric-blue;
+   background-color: $base-white;
    color: $electric-blue;
 }
 
@@ -10,19 +10,18 @@ body {
 }
 
 .popup-header {
-  background-color: #2b616d;
-  padding-top: 10px;
-  color: $electric-blue;
   background-color: $electric-blue;
+  padding-top: 10px;
+  color: $banana;
   padding-bottom: 10px;
 }
 
 .popup-header h1 {
   margin: auto;
-  color: #FAFAFA;
+  color: $base-white;
   font-weight: normal;
   font-size: 30px;
-  font-family: CaviarDreams;
+  font-family: 'Raleway';
   vertical-align: middle;
 }
 
