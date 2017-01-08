@@ -9,7 +9,9 @@ import { Router, hashHistory, browserHistory } from 'react-router';
 import routes from './routes';
 
 import App from './components/app';
-import './../chrome/css/app.css';
+require('./../chrome/css/app.css');
+require('./../chrome/css/main.css');
+require('./../chrome/css/popup.css');
 
 let store = createStore(
   rootReducer,

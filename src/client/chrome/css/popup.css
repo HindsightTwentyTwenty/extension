@@ -1,3 +1,8 @@
+$banana: #FFDB5C;
+$electric-blue: #4897D8;
+$watermelon: #FA6E59;
+$canteloupe: #F8A055;
+$base-white: #FAFAFA;
 body {
    width:400px;
    height:300px;
@@ -68,7 +73,6 @@ body {
 }
 
 #star + label{
-    background:url('../../assets/img/star_50.png') no-repeat;
     height: 50px;
     width: 50px;
     margin-top:5px;
@@ -79,7 +83,6 @@ body {
 }
 
 #star:checked + label{
-    background:url('../../assets/img/star_filled_50.png') no-repeat;
     height: 50px;
     width: 50px;
     margin-top:5px;
