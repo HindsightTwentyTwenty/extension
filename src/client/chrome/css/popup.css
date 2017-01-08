@@ -1,14 +1,8 @@
-@font-face {
-  font-family: 'CaviarDreams';
-  src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/CavierDreams.ttf');
-}
-
-
 body {
    width:400px;
    height:300px;
-   background-color: #e2e8e4;
-   color: #6eb5c0;
+   background-color: $electric-blue;
+   color: $electric-blue;
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
@@ -18,6 +12,8 @@ body {
 .popup-header {
   background-color: #2b616d;
   padding-top: 10px;
+  color: $electric-blue;
+  background-color: $electric-blue;
   padding-bottom: 10px;
 }
 
@@ -38,7 +34,7 @@ body {
 
 .popup-body h3{
   margin-top: 10px;
-  color: #263238;
+  color: $electric-blue;
   font-size: large;
 }
 

@@ -1,29 +1,26 @@
- @font-face {
-   font-family: 'Arual';
-   src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/Arual.tff') format('truetype');
- }
+@font-face {
+ font-family: 'Arual';
+ src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/Arual.tff') format('truetype');
+}
 
- @font-face {
-   font-family: 'Minimal';
-   src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/minimal.otf');
- }
+@font-face {
+ font-family: 'Minimal';
+ src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/minimal.otf');
+}
 
- @font-face {
-   font-family: 'LondonMM';
-   src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/LondonMM.ttf');
- }
+@font-face {
+ font-family: 'LondonMM';
+ src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/LondonMM.ttf');
+}
 
- @font-face {
-   font-family: 'CaviarDreams';
-   src: url('chrome-extension://haanjkjeepgofjjgjgiibaiigcjfobel/fonts/CavierDreams.ttf');
- }
+$electric-blue: #4897D8;
 
 body {
    width:auto;
    height:auto;
-   overflow: hidden; 
-   background-color: #e2e8e4;
-   color: #6eb5c0;
+   overflow: hidden;
+   background-color: $electric-blue;
+   color: $electric-blue;
 }
 
 p.normal {
@@ -36,21 +33,21 @@ p.normal {
   margin: 5px;
   border-radius: 3px;
   width: auto;
-  background-color: #fafafa;
+  background-color: $electric-blue;
   padding: 0px 6px;
 }
 
 .url-bar.starred {
-  background-color: #6eb5c0;
+  background-color: $electric-blue;
 }
 
 .lookback-container{
   width: 95%;
   height: 90%;
   overflow: auto;
-  background-color: #FAFAFA;
+  background-color: $electric-blue;
   margin: 30px;
-  border:solid #303638;
+  border:solid $electric-blue;
 }
 
 .lookback-graph-container{
@@ -63,9 +60,9 @@ p.normal {
 /*BUTTONS*/
 #back-button{
   border: 0;
-  background: #57559A;
+  background: $electric-blue;
   border-radius: 4px;
-  color: #FAFAFA;
+  color: $electric-blue;
   font-size: 15;
   font-family: 'Raleway', sans-serif;
   transition-duration: 0.4s;
@@ -74,22 +71,22 @@ p.normal {
 }
 
 #back-botton:hover {
-    background: #FAFAFA; /* Green */
-    color: #57559A;
+    background: $electric-blue;
+    color: $electric-blue;
 }
 
 .side-bar-title{
   text-align: center;
   padding: 10px;
   font-weight: bold;
-  color: #fa8d62;
+  color: $electric-blue;
 }
 
 .side-bar-category {
   text-align: center;
   border-style: solid;
   border-width: 1px;
-  border-color: #6eb5c0;
+  border-color: $electric-blue;
   padding: 5px 0px;
 }
 
@@ -97,17 +94,17 @@ p.normal {
   display: inline-block;
   width: 200px;
   height: 100%;
-  background-color: #FAFAFA;
-  border: solid 1px #6eb5c0;
+  background-color: $electric-blue;
+  border: solid 1px $electric-blue;
 }
 
 .domain-bar{
   height: 22px;
   border-style: solid;
   border-width: 1px;
-  border-color: #6eb5c0;
-  color:#FAFAFA;
-  background-color: #3463CC;
+  border-color: $electric-blue;
+  color: $electric-blue;
+  background-color: $electric-blue;
   display:inline-block;
   white-space: nowrap;
   overflow: hidden;
@@ -130,7 +127,7 @@ p.normal {
 }
 
 .domain-bar:hover {
-  border-color: #fa8d62;
+  border-color: $electric-blue;
   border-width: 3px;
   padding-left: 2px;
   padding-right: 2px;
@@ -139,7 +136,7 @@ p.normal {
 }
 
 .previousPath {
-  border-color: #FFEC86;
+  border-color: $electric-blue;
   border-width: 3px;
   padding-left: 2px;
   padding-right: 2px;
@@ -150,19 +147,18 @@ p.normal {
 start-time-label .end-time-label{
   font-size: 15;
   font-family: 'Raleway', sans-serif;
-  color: #57559A;
+  color: $electric-blue;
   width: auto;
 }
 
 .site-title{
   /*font-family: 'Arual';*/
-  /*font-family: Minimal;*/
-  font-family: CaviarDreams;
+  font-family: Minimal;
   /*font-family: LondonMM;*/
   font-size: 35px;
   /*margin-top: 4px;*/
   margin-right: 15px;
-  color: #fafafa;
+  color: $electric-blue;
   font-weight: bold;
 }
 

@@ -18,12 +18,13 @@ var config = {
         test: /\.jsx|\.js/ ,
         include: APP_DIR,
         loader: 'babel'
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css', 'sass']
       }
     ]
-  },
-  // plugins: [
-  //   new webpack.HotModuleReplacementPlugin()
-  // ]
+  }
 };
 
 module.exports = config;
