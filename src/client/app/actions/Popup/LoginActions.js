@@ -66,7 +66,7 @@ export function clearStore(){
 
 export function logoutUser() {
   return dispatch => {
-    return fetch('http://127.0.0.1:8000/logout/', {
+    return fetch(urls.BASE_URL + '/logout/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ export function loginUser(username, password){
 
 export function forgotMyPasswordEmailSubmit(email){
   return dispatch => {
-    return fetch('http://127.0.0.1:8000/forgot/', {
+    return fetch(urls.BASE_URL + '/forgot/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
