@@ -26,7 +26,7 @@ export function getAllTabs(start_date, end_date, token){
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': "Token " + token['hindsite-token']
+               'Authorization': "Token " + token
              },
              method: "POST",
              body: JSON.stringify({"start": start_date, "end": end_date})

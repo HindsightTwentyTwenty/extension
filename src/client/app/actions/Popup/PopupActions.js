@@ -17,6 +17,7 @@ export function addPage(ptitle, purl, pstarred, pcategories){
 }
 
 export function receivePageInfo(json) {
+  console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -45,7 +46,7 @@ export function getPageInfo(url, token){
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
-             'Authorization': "Token " + token['hindsite-token']
+             'Authorization': "Token " + token
            },
            method: "POST",
            body: JSON.stringify({url: url})
@@ -63,7 +64,7 @@ export function pushCategory(category, token){
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': "Token " + token['hindsite-token']
+               'Authorization': "Token " + token
              },
              method: "POST",
              body: JSON.stringify({category: category})

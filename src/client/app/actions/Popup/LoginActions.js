@@ -52,7 +52,6 @@ export function userToken(token) {
 }
 
 export function receiveUserTokenFromChrome(token) {
-
  return dispatch => {
    return dispatch(userToken(token))
  }

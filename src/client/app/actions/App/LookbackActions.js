@@ -82,7 +82,7 @@ export function getDomain(pk, clicked, token){
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
-             'Authorization': "Token " + token['hindsite-token']
+             'Authorization': "Token " + token
            },
            method: "POST",
            body: JSON.stringify({pk: pk})

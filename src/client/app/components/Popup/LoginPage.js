@@ -35,10 +35,11 @@ class LoginPage extends Component {
   }
 
 	forgotMyPassword(){
+		console.log("forgotMyPassword - in Login Page");
 		this.props.login_actions.forgotMyPasswordPage(true);
 	}
 
-  LoginUser(){
+  loginUser(){
     //password
     console.log("login user item: ", this.state.user_name);
     console.log("login password item: ", this.state.password);
@@ -59,15 +60,13 @@ class LoginPage extends Component {
             </div>
             <br/>
             <span className="input-group-btn">
-						<button className="btn btn-primary add-category-btn" type="button" onClick={() => {
-							this.forgotMyPassword();
-						}}>Submit</button>
+						<button className="btn btn-primary add-category-btn" type="button" onClick={this.loginUser.bind(this)}>Submit</button>
             </span>
           </div>
         </div>
 				<div className ="row">
           <div className="col-xs-12">
-					<button className="btn btn-primary" type="button" onClick={this.LoginUser.bind(this)}>forgot my password</button>
+					<button className="btn btn-primary" type="button" onClick={this.forgotMyPassword.bind(this)}>forgot my password</button>
 					</div>
 				</div>
       </div>

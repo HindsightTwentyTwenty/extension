@@ -16,17 +16,19 @@ class ForgotMyPassword extends Component {
 
   render() {
     return (
-      <div className="section-title">Enter the email to your account:</div>
-      <div className="input-group">
-        <input type="text" className="form-control" placeholder="tommy@hindsite.com" ref={node => {
-          this.input = node;
-        }} />
-        <span className="input-group-btn">
-          <button className="btn btn-primary add-category-btn" type="button" onClick={() => {
-            this.submit(this.input.value);
-            this.input.value = '';
-          }}>Submit</button>
-        </span>
+      <div>
+        <div className="section-title">Enter the email to your account:</div>
+        <div className="input-group">
+          <input type="text" className="form-control" placeholder="tommy@hindsite.com" ref={node => {
+            this.input = node;
+          }} />
+          <span className="input-group-btn">
+            <button className="btn btn-primary add-category-btn" type="button" onClick={() => {
+              this.submit(this.input.value);
+              this.input.value = '';
+            }}>Submit</button>
+          </span>
+        </div>
       </div>
     )
   }

@@ -49,7 +49,10 @@ const pageInfo = (state, action) => {
 
 function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
   // TODO: simplify switch statement cause they're all the same :(
+  console.log("currentPageReducer");
+  console.log(action);
   switch(action.type){
+
     case types.RECEIVE_PAGE_INFO:
       return Object.assign({}, pageInfo(state, action));
     case types.UPDATE_CURRENT_STAR:

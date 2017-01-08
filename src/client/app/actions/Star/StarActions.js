@@ -18,7 +18,7 @@ export function toggleStar(url, star, token){
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': "Token " + token['hindsite-token']
+               'Authorization': "Token " + token
              },
              method: "POST",
              body: JSON.stringify({url: url, star: star})

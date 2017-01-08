@@ -2,9 +2,9 @@ var closed = false
 var token = ""
 
 function get_token(token_return){
-  console.log("get token");
+  console.log("get token BACKGROUND");
   console.log(token_return);
-  token = token_return;
+  token = token_return['hindsite-token'];
 }
 chrome.storage.local.get("hindsite-token", get_token);
 
@@ -20,7 +20,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': "Token " + token['hindsite-token']
+            'Authorization': "Token " + token
 
           },
           method: "POST",
@@ -41,7 +41,7 @@ chrome.tabs.onRemoved.addListener(function( tabId, removeInfo) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': "Token " + token['hindsite-token']
+        'Authorization': "Token " + token
 
       },
       method: "POST",
@@ -57,7 +57,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': "Token " + token['hindsite-token']
+        'Authorization': "Token " + token
 
       },
       method: "POST",
