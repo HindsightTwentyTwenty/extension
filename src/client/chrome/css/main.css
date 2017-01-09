@@ -9,7 +9,6 @@
 }
 
 #star + label{
-    background:url('../../assets/img/star_50.png') no-repeat;
     height: 50px;
     width: 50px;
     margin-top:5px;
@@ -20,7 +19,6 @@
 }
 
 #star:checked + label{
-    background:url('../../assets/img/star_filled_50.png') no-repeat;
     height: 50px;
     width: 50px;
     margin-top:5px;
