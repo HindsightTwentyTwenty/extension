@@ -38,9 +38,7 @@ class PopupBody extends Component {
               <Star/>
             </div>
           </div>
-          <div className="row">
-            <hr/>
-          </div>
+          <hr/>
           <div className="row">
               <CategoryEntry popup={true}/>
           </div>
@@ -57,7 +55,6 @@ class PopupBody extends Component {
         </div>
       )
     }
-
   }
 }
 

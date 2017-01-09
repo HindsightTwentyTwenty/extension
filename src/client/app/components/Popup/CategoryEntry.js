@@ -29,13 +29,16 @@ class CategoryEntry extends Component {
         <div className ="row">
           <div className="col-xs-12">
             <div className="input-group">
-              <input type="text" className="form-control" placeholder="New Category..." ref={node => {
+              <input type="text" className="popup-form form-control" placeholder="New Category..." ref={node => {
                 this.input = node;
               }} />
               <span className="input-group-btn">
-                <button className="btn btn-primary add-category-btn" type="button" onClick={() => {
-                  this.addNewCategory(this.input.value);
-                  this.input.value = '';
+                <button className="btn add-category-btn" type="button" onClick={() => {
+                  // TODO: process input values (check for empties) on the backend?
+                  if (this.input.value !== '') {
+                    this.addNewCategory(this.input.value);
+                    this.input.value = '';
+                  }
                 }}>+</button>
               </span>
             </div>
