@@ -21,8 +21,9 @@ class PopupBody extends Component {
     if(!this.props.currentPage.url){
       return(
         <div className="container popup-body">
-          <div className="row error-message">
-            <h4> Navigate to a different page to use hindsite.</h4>
+          <div className="error-message">
+            <h4> Something went wrong!</h4>
+            <h4> Please navigate to a different page to use hindsite.</h4>
           </div>
         </div>
       )
@@ -38,16 +39,6 @@ class PopupBody extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-12">
-              <CategoriesContainer all={false}/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <h4>categorize this page:</h4>
-            </div>
-          </div>
-          <div className="row">
             <hr/>
           </div>
           <div className="row">
@@ -55,7 +46,7 @@ class PopupBody extends Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <h5>recent</h5>
+              <h4>recent categories</h4>
             </div>
           </div>
           <div className="row">

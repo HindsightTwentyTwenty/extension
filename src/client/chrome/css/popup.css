@@ -1,19 +1,21 @@
-body {
+$banana: #FFDB5C;
+$electric-blue: #4897D8;
+$watermelon: #FA6E59;
+$canteloupe: #F8A055;
+$base-white: #FAFAFA;
+
+.popup-body {
    width:400px;
    height:300px;
    background-color: $base-white;
+   font-family: 'Raleway';
    color: $electric-blue;
-}
-
-.btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: 0 none;
+   vertical-align: center;
 }
 
 .popup-header {
   background-color: $electric-blue;
-  padding-top: 10px;
-  color: $banana;
-  padding-bottom: 10px;
+  padding: 10px 0;
 }
 
 .popup-header h1 {
@@ -21,7 +23,6 @@ body {
   color: $base-white;
   font-weight: normal;
   font-size: 30px;
-  font-family: 'Raleway';
   vertical-align: middle;
 }
 
@@ -56,19 +57,11 @@ body {
   float:middle;
 }
 
-.form-control:focus, .form-control:focus{
-    border-color:#6eb5c0;
-    box-shadow:none;
-}
-.form-control{
-  border: none;
-}
 #star {
   display: none;
 }
 
 #star + label{
-    background:url('../../assets/img/star_50.png') no-repeat;
     height: 50px;
     width: 50px;
     margin-top:5px;
@@ -79,7 +72,6 @@ body {
 }
 
 #star:checked + label{
-    background:url('../../assets/img/star_filled_50.png') no-repeat;
     height: 50px;
     width: 50px;
     margin-top:5px;
@@ -103,47 +95,31 @@ body {
   width: 80px;
   margin: 5px;
   height: 35px;
-  display: block;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #6eb5c0;
-  color: #263238;
-  text-align: center;
+  border: solid 1px $electric-blue;
+  color: black;
   line-height: 32px;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding: 0 6px;
 }
 
 .category-bar.checked{
-  background-color: #6eb5c0;
+  background-color: $electric-blue;
+  color: $base-white;
 }
 
 .categories-container{
   border-style: solid;
-  border-width: 2px;
-  border-color: #6eb5c0;
+  border-width: 1px;
+  border-color: $watermelon;
   padding: 3px;
   display: flex;
   flex-wrap: wrap;
   margin: 10px 0px;
-  margin-top: 0px;
-}
-
-.categories-container.selected{
-  border:none;
-  margin: 0px;
-  padding: 0px;
 }
 
 .category-remove-btn{
-  float:right;
+  color: $electric-blue;
+  background-color: $base-white;
   border: none;
-  border-left: #6eb5c0;
-  background-color: #e2e8e4;
-  font-size: large;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  vertical-align: middle;
 }
 
 .category-bar.selected{
@@ -152,7 +128,7 @@ body {
 }
 
 .category-bar-label{
-  font-weight: normal;;
+  font-weight: normal;
 }
 
 .category-bar-label.selected{
@@ -164,8 +140,6 @@ body {
 }
 
 .error-message{
+  padding-top: 25%;
   text-align: center;
-  margin-top: 80px;
-  color: #263238;
-  font-weight: normal;
 }

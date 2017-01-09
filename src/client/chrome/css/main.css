@@ -76,17 +76,6 @@
   padding: 0px;
 }
 
-.category-remove-btn{
-  float:right;
-  border: none;
-  border-left: #6eb5c0;
-  background-color: #e2e8e4;
-  font-size: large;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  vertical-align: middle;
-}
-
 .category-bar.selected{
   width:100px;
   padding-right: 0px;

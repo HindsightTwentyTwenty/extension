@@ -10,6 +10,7 @@ import routes from './routes';
 
 import App from './components/app';
 import './../chrome/css/app.css';
+import './../chrome/css/popup.css';
 
 let store = createStore(
   rootReducer,
