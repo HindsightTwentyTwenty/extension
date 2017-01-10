@@ -40,12 +40,12 @@ class PopupBody extends Component {
           </div>
           <hr/>
           <div className="row">
-              <CategoryEntry popup={true}/>
-          </div>
-          <div className="row">
             <div className="col-xs-12">
               <h4>categories</h4>
             </div>
+          </div>
+          <div className="row">
+              <CategoryEntry popup={true}/>
           </div>
           <div className="row">
             <div className="col-xs-12">

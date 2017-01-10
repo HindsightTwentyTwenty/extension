@@ -34,12 +34,10 @@ class SidebarComponent extends Component {
     }
   }
 
-  getRadioButtons() {
+  getCheckBox() {
     if (this.props.button) {
       return (<div className="control-buttons">
-        <div className="radio-button">select multiple categories
-          <input type="radio" id="radio-or" name="andOR"/>
-        </div>
+        <label> <input type="checkbox" id="check-select" value="first_checkbox"/> select multiple </label>
       </div>)
     }
   }
@@ -50,7 +48,7 @@ class SidebarComponent extends Component {
       <div className="side-bar-container">
         <div className="side-bar-header">
           <div className="side-bar-title">{this.title}</div>
-          {this.getRadioButtons()}
+          {this.getCheckBox()}
         </div>
         <div className="all-categories">{categories}</div>
       </div>

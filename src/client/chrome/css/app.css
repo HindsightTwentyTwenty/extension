@@ -247,15 +247,8 @@ start-time-label .end-time-label{
   display: flex;
   justify-content: space-around;
   padding: 0px 5px 10px 5px;
-  color: #fa8d62;
+  color: $canteloupe;
   font-weight: bold;
-}
-
-#radio-and {
-  margin-left: 6px;
-}
-#radio-or {
-  margin-left: 6px;
 }
 
 .nav-bar-container {
