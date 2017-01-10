@@ -47,12 +47,15 @@ class LoginPage extends Component {
   }
 
   render () {
+		console.log("currentUser", this.props.currentUser);
+
     return (
       <div className="container">
         <br/>
         <p>Please Login to hindsite:</p>
         <div className ="row">
           <div className="col-xs-12">
+						<div className={this.props.currentUser.invalid_login ? '' : 'hidden'}> Invalid Username or Password </div>
             <div className="input-group">
               <input type="email" className="form-control" id="user_name" placeholder="username" onChange={this.updateUserName.bind(this)} />
               <input type="password" className="form-control" id="password" placeholder="password" onChange={this.updatePassword.bind(this)} />

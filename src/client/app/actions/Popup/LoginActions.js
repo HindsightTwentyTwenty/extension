@@ -30,6 +30,14 @@ export function receiveError(error) {
   }
 }
 
+export function receiveLoginError() {
+  console.log("Invalid login credentials");
+
+  return {
+    type: types.USER_ERROR
+  }
+}
+
 export function requestUserToken() {
   return {
     type: types.REQUEST_USER_TOKEN
@@ -89,8 +97,28 @@ export function loginUser(username, password){
              body: JSON.stringify({"email": username, "password": password})
            }
       )
-      .then(response => response.json())
-      .then(json => dispatch(receiveUserToken(json, username)))
+      .then(response =>
+        response.json().then(json => ({
+          status: response.status,
+          json
+        })
+      ))
+      .then(
+        ({ status, json }) => {
+          if(status == 401){
+            console.log("Invalid post caught");
+            dispatch(receiveLoginError());
+          } else {
+            console.log("valid post", json);
+            console.log("username", username);
+            dispatch(receiveUserToken(json, username))
+          }
+        }
+      )
+
+
+        //json => dispatch(receiveUserToken(json, username)))
+
   }
 }
 
