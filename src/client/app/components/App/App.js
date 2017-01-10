@@ -17,40 +17,41 @@ class App extends Component {
   constructor(props) {
     super(props);
     if(this.props.currentUser.token.length == 0){
+      console.log("fetching token from chrome");
       chrome.storage.local.get("hindsite-token", this.props.login_actions.receiveUserTokenFromChrome);
-    } else {
-      this.props.lookback_actions.fetchPages(this.props.currentUser.token);
     }
   }
 
   renderContent(){
-    switch(this.props.lookBackSelection){
-      case LookBackSections.LookBack:
-        return (
-          <div>
-           <AppBaseComponent />
-           <LookBack />
-          </div>
-        );
-      case LookBackSections.Categories:
-        return (
-          <CategoriesPage />
-        );
-      case LookBackSections.Manage:
-        return (
-          <Manage />
-        );
-      case LookBackSections.Find:
-        return (
-          <Find />
-        );
-      default:
-        return (
-          <div>
-           <AppBaseComponent />
-           <LookBack />
-          </div>
-        );
+    if(this.props.currentUser.token.length != 0){
+      switch(this.props.lookBackSelection){
+        case LookBackSections.LookBack:
+          return (
+            <div>
+            <AppBaseComponent />
+            <LookBack />
+            </div>
+          );
+        case LookBackSections.Categories:
+          return (
+            <CategoriesPage />
+          );
+        case LookBackSections.Manage:
+          return (
+            <Manage />
+          );
+        case LookBackSections.Find:
+          return (
+            <Find />
+          );
+        default:
+          return (
+            <div>
+            <AppBaseComponent />
+            <LookBack />
+            </div>
+          );
+      }
     }
   }
 
@@ -71,7 +72,6 @@ let mapStateToProps = (state) => ({
     pages : state.pages,
     lookBackSelection : state.currentLookBackSelection,
     currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => {

@@ -151,7 +151,6 @@ class LookBack extends Component {
 
 
   render() {
-		console.log("LOOKBACK TOKEN", this.props.currentUser);
 		if(this.props.currentDomainDisplayed.clicked){
 			return(
 				<div className="domainBar-zoom-container">

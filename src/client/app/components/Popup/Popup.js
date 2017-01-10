@@ -19,16 +19,9 @@ class Popup extends Component {
 
 
   renderContent(){
-
-    console.log("token");
-
-    console.log("token1", this.props.currentUser);
-    console.log("token 2", this.props.currentUser.token.length);
     // return (<div>stop</div>);
     if(this.props.currentUser.token.length == 0){
-      console.log("forgot? ", this.props.currentUser.forgot);
       if(this.props.currentUser.forgot == false){
-        console.log("login page display");
         return (
           <div>
             <LoginPage/>
@@ -42,7 +35,6 @@ class Popup extends Component {
         );
       }
     } else {
-      console.log("logged in");
       return (
         <div>
           <PopupHeader/>

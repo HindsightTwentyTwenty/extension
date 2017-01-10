@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch'
 import * as urls from '../../constants/GlobalConstants';
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
+const pagesEndpoint =  urls.BASE_URL + "pages/";
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
@@ -20,11 +21,18 @@ export function requestPages() {
   }
 }
 
-export function fetchPages(){
+export function fetchPages(token){
   return dispatch => {
     dispatch(requestPages())
-    // TODO: change from local host
-    return fetch(urls.BASE_URL + 'pages/')
+    return fetch(pagesEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token
+           },
+           method: "POST",
+         }
+       )
       .then(response => response.json())
       .then(json => dispatch(receivePages(json)))
   }

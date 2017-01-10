@@ -11,7 +11,6 @@ class Account extends Component {
   }
 
   logoutUser(){
-    console.log("logout");
     chrome.storage.local.remove("hindsite-token");
     this.props.login_actions.logoutUser();
     chrome.tabs.getCurrent(function(tab) {
@@ -23,7 +22,7 @@ class Account extends Component {
     return (
       <div>
         <div className="section-title">Account</div>
-        <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>submit</button>
+        <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
       </div>
     )
   }

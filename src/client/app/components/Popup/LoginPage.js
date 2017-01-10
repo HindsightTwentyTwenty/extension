@@ -21,21 +21,20 @@ class LoginPage extends Component {
   }
 
   updateUserName(event){
-    console.log("user name update: ", event.target.value);
+    //console.log("user name update: ", event.target.value);
     this.setState({
       user_name: event.target.value
     });
   }
 
   updatePassword(event){
-    console.log("user pass update: ", event.target.value);
+    //console.log("user pass update: ", event.target.value);
     this.setState({
       password: event.target.value
     });
   }
 
 	forgotMyPassword(){
-		console.log("forgotMyPassword - in Login Page");
 		this.props.login_actions.forgotMyPasswordPage(true);
 	}
 
