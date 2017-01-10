@@ -4,51 +4,9 @@
   text-overflow: ellipsis;
 }
 
-#star {
-  display: none;
-}
-
-#star + label{
-    height: 50px;
-    width: 50px;
-    margin-top:5px;
-    margin-left: 5px;
-    background-size: 32px 32px;
-    display:inline-block;
-    padding: 10 0 0 0;
-}
-
-#star:checked + label{
-    height: 50px;
-    width: 50px;
-    margin-top:5px;
-    margin-left: 5px;
-    background-size: 32px 32px;
-    display:inline-block;
-    padding: 0 0 0 0px;
-}
-
-.categories-container{
-  border-style: solid;
-  border-width: 2px;
-  border-color: #6eb5c0;
-  padding: 3px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0px;
-  margin-top: 0px;
-}
-
-.categories-container.selected{
-  border:none;
-  margin: 0px;
-  padding: 0px;
-}
-
 .category-bar-label{
-  font-weight: normal;;
-}
-
-.category-bar-label.selected{
+  font-weight: normal;
+  .selected{
   width:70%;
+  }
 }

@@ -62,6 +62,7 @@ $base-white: #FAFAFA;
   margin: 5px;
   height: 35px;
   border: solid 1px $canteloupe;
+  border-radius: 2px;
   color: $electric-blue;
   line-height: 32px;
   text-align: center;
@@ -82,7 +83,7 @@ $base-white: #FAFAFA;
 }
 
 .popup-form {
-  border: solid 1px $canteloupe; 
+  border: solid 1px $canteloupe;
 }
 
 .star-div{

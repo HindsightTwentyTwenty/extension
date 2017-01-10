@@ -8,7 +8,7 @@ body {
    width:auto;
    height:auto;
    overflow: hidden;
-   background-color: $electric-blue;
+   background-color: $base-white;
    color: $electric-blue;
 }
 
@@ -34,7 +34,7 @@ p.normal {
   width: 95%;
   height: 90%;
   overflow: auto;
-  background-color: $electric-blue;
+  background-color: $base-white;
   margin: 30px;
   border:solid $electric-blue;
 }
@@ -68,14 +68,14 @@ p.normal {
   text-align: center;
   padding: 10px;
   font-weight: bold;
-  color: $electric-blue;
+  color: $canteloupe;
 }
 
 .side-bar-category {
   text-align: center;
   border-style: solid;
   border-width: 1px;
-  border-color: $electric-blue;
+  border-color: $base-white;
   padding: 5px 0px;
 }
 
@@ -83,7 +83,7 @@ p.normal {
   display: inline-block;
   width: 200px;
   height: 100%;
-  background-color: $electric-blue;
+  background-color: $base-white;
   border: solid 1px $electric-blue;
 }
 

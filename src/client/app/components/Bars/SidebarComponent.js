@@ -37,11 +37,8 @@ class SidebarComponent extends Component {
   getRadioButtons() {
     if (this.props.button) {
       return (<div className="control-buttons">
-        <div className="radio-button">OR
+        <div className="radio-button">select multiple categories
           <input type="radio" id="radio-or" name="andOR"/>
-        </div>
-        <div className="radio-button">AND
-          <input type="radio" id="radio-and" name="andOR"/>
         </div>
       </div>)
     }
