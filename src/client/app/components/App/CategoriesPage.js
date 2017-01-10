@@ -29,6 +29,8 @@ class CategoriesPage extends Component {
             }
           }
         }
+      } else if (this.props.currentSearchCategories){
+
       }
       return result
     }

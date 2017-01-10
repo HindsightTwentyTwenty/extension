@@ -14,6 +14,7 @@ class SidebarComponent extends Component {
   }
 
   getCategories() {
+    var selectMultiple = document.getElementById("check-select") ? document.getElementById("check-select").checked : null;
     var currentSearchCategories = this.props.currentSearchCategories;
     if (Object.keys(this.props.allCategories).length) {
       let result = []
