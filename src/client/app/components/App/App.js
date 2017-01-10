@@ -9,14 +9,18 @@ import CategoriesPage from './CategoriesPage.js';
 import Manage from './Manage.js';
 import Find from './Find.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
-
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as LoginActions from '../../actions/Popup/LoginActions.js';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.props.lookback_actions.fetchPages(this.props.currentUser.token);
+    if(this.props.currentUser.token.length == 0){
+      chrome.storage.local.get("hindsite-token", this.props.login_actions.receiveUserTokenFromChrome);
+    } else {
+      this.props.lookback_actions.fetchPages(this.props.currentUser.token);
+    }
   }
 
   renderContent(){
@@ -72,7 +76,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    lookback_actions: bindActionCreators(LookbackActions, dispatch)
+    lookback_actions: bindActionCreators(LookbackActions, dispatch),
+    login_actions: bindActionCreators(LoginActions, dispatch)
   }
 }
 

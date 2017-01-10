@@ -13,6 +13,7 @@ class LookBackNavBar extends Component {
 
 
   switchLookBackSelection(newLookBackSelection){
+    console.log("nav-bar-button-" + this.props.currentLookBackSelection);
       if(newLookBackSelection != this.props.currentLookBackSelection){
         document.getElementById("nav-bar-button-" + this.props.currentLookBackSelection).classList.remove('nav-bar-button-selected');
         this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection)
@@ -20,7 +21,17 @@ class LookBackNavBar extends Component {
       }
   }
 
+  logoutUser(){
+    console.log("logout");
+    chrome.storage.local.remove("hindsite-token");
+    this.props.login_actions.logoutUser();
+    chrome.tabs.getCurrent(function(tab) {
+      chrome.tabs.remove(tab.id, function() { });
+    });
+  }
+
   render() {
+    console.log("currentLookBackSelection", this.props.currentLookBackSelection);
     return (
       <div id="navBar" className="nav-bar-container">
         <div className="nav-menu-bar">
@@ -40,6 +51,9 @@ class LookBackNavBar extends Component {
             <button id="nav-bar-button-3" className="nav-bar-button" type="button" onClick={() => {
               this.switchLookBackSelection(LookBackSections.Find);
             }}>find</button>
+            <button id="nav-bar-button-4" className="nav-bar-button" type="button" onClick={() => {
+              this.logoutUser.bind(this);
+            }}>LOGOUT</button>
           </div>
         </div>
         <div className="site-title">hindsite</div>

@@ -21,8 +21,10 @@ class Account extends Component {
 
   render() {
     return (
-      <div className="section-title">Account</div>
-      <button className="btn btn-primary" type="button" onClick={this.LoginUser.bind(this)}>submit</button>
+      <div>
+        <div className="section-title">Account</div>
+        <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>submit</button>
+      </div>
     )
   }
 
