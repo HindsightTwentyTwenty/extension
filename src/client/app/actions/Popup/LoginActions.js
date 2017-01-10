@@ -84,6 +84,46 @@ export function logoutUser() {
   }
 }
 
+// TODO Fix issue where current page is not sent on login
+// export function sendCurrentPage() {
+//   console.log("Send current Page triggered");
+//   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+//     console.log("TAB", tabs);
+//     tab = tabs[0];
+//     var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+//     closed = false
+//     if(changeInfo.status == 'complete' && tab.title){
+//         if(tab.url != 'chrome://newtab/'){
+//
+//           fetch('https://hindsite2020.herokuapp.com/newpage/', {
+//             headers: {
+//               'Accept': 'application/json',
+//               'Content-Type': 'application/json',
+//               'Authorization': "Token " + token
+//
+//             },
+//             method: "POST",
+//             body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
+//           }
+//         ).then(
+//           dispatch(getPageInfo(tab.url, token))
+//         )
+//       }
+//     }
+//   }
+// }
+
+export function receivePageInfo(json) {
+  console.log("receive page info", json);
+  return {
+    type: types.RECEIVE_PAGE_INFO,
+    categories: json.categories,
+    url: json.url,
+    star: json.star,
+    title: json.title
+  }
+}
+
 
 export function loginUser(username, password){
   return dispatch => {
@@ -112,6 +152,8 @@ export function loginUser(username, password){
             console.log("valid post", json);
             console.log("username", username);
             dispatch(receiveUserToken(json, username))
+            // TODO Fix issue where current page is not sent on login
+            //dispatch(sendCurrentPage())
           }
         }
       )

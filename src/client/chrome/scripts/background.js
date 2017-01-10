@@ -11,6 +11,7 @@ chrome.storage.local.get("hindsite-token", get_token);
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  console.log("tab opened");
   var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
   closed = false
   if(changeInfo.status == 'complete' && tab.title){
@@ -26,8 +27,6 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           method: "POST",
           body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
         }
-
-
       );
     }
   }
@@ -52,6 +51,7 @@ chrome.tabs.onRemoved.addListener(function( tabId, removeInfo) {
 
 
 chrome.tabs.onActivated.addListener(function (activeInfo){
+  console.log("tab activated");
   chrome.windows.get(activeInfo.windowId, function (window) {
     fetch('https://hindsite2020.herokuapp.com/active/', {
       headers: {
