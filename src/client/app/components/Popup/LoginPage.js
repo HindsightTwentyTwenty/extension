@@ -89,7 +89,6 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
     login_actions: bindActionCreators(LoginActions, dispatch)
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

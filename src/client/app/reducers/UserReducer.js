@@ -18,7 +18,7 @@ function userReducer(state = {user_name:"", token:"", forgot:false, invalid_logi
     case types.FORGOT_MY_PASSWORD_PAGE:
       return Object.assign({}, {user_name: state.user_name, token:state.token, forgot: action.forgot, invalid_login:false, create_user: false});
     case types.CREATE_NEW_USER:
-      return Object.assign({}, {user_name: state.user_name, token:state.token, forgot: action.forgot, invalid_login:false, create_user: action.create_user});
+      return Object.assign({}, {user_name: state.user_name, token:state.token, forgot: state.forgot, invalid_login:false, create_user: action.create_user});
       // return {...state, create_user: action.create_user}
     case types.TEST:
       console.log("TEST IN REDUCER");

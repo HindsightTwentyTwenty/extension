@@ -67,6 +67,7 @@ export function createNewUserPage(value) {
 }
 
 export function receiveUserTokenFromChrome(token) {
+  console.log("TOKEN: ", token);
   return dispatch => {
     dispatch(
       {
@@ -110,9 +111,8 @@ function receivePageInfo(json) {
     title: json.title
   }
 }
+
 function getPageInfo(url, token){
-  console.log("url", url);
-  console.log("token", token);
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
@@ -131,13 +131,10 @@ function getPageInfo(url, token){
 
 //TODO Fix issue where current page is not sent on login
 export function sendCurrentPage(token) {
-  console.log("Send current Page triggered json: ", token);
-
 
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      console.log("TAB", tabs);
       var tab = tabs[0];
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
@@ -197,9 +194,7 @@ export function loginUser(username, password){
             dispatch(receiveLoginError());
           } else {
             console.log("valid post", json);
-            console.log("username", username);
             dispatch(receiveUserToken(json, username))
-
             dispatch(sendCurrentPage(json['token']))
           }
         }
@@ -221,6 +216,26 @@ export function forgotMyPasswordEmailSubmit(email){
       body: JSON.stringify({"email": email})
     })
     .then(dispatch(clearStore()))
+  }
+}
+
+export function createNewUser(email, password_1, password_2, first_name, last_name){
+  return dispatch => {
+    return fetch(urls.BASE_URL + 'users/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"email": email,
+                            "password": password_1,
+                            "first_name": first_name,
+                            "last_name": last_name,
+                            "confirm_password": password_2
+                          })
+    })
+    .then(response => response.json())
+    .then(json => dispatch(receiveUserTokenFromChrome(json['token'])))
   }
 }
 
