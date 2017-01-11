@@ -21,14 +21,12 @@ class LoginPage extends Component {
   }
 
   updateUserName(event){
-    //console.log("user name update: ", event.target.value);
     this.setState({
       user_name: event.target.value
     });
   }
 
   updatePassword(event){
-    //console.log("user pass update: ", event.target.value);
     this.setState({
       password: event.target.value
     });
@@ -38,8 +36,11 @@ class LoginPage extends Component {
 		this.props.login_actions.forgotMyPasswordPage(true);
 	}
 
+	CreateUserAccount(){
+		this.props.login_actions.createNewUserPage(true);
+	}
+
   loginUser(){
-    //password
     console.log("login user item: ", this.state.user_name);
     console.log("login password item: ", this.state.password);
 
@@ -69,6 +70,11 @@ class LoginPage extends Component {
 				<div className ="row">
           <div className="col-xs-12">
 					<button className="btn btn-primary" type="button" onClick={this.forgotMyPassword.bind(this)}>forgot my password</button>
+					</div>
+				</div>
+				<div className ="row">
+					<div className="col-xs-12">
+					<button className="btn btn-primary" type="button" onClick={this.CreateUserAccount.bind(this)}>Create New Account</button>
 					</div>
 				</div>
       </div>

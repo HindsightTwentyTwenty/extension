@@ -49,10 +49,20 @@ function checkStatus(response){
 }
 
 export function userToken(token) {
-  dispatch()
   return {
    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
    token: token
+ }
+}
+
+export function createNewUserPage(value) {
+  return dispatch => {
+    dispatch(
+      {
+       type: types.CREATE_NEW_USER,
+       create_user: value
+     }
+   )
  }
 }
 
@@ -196,7 +206,6 @@ export function loginUser(username, password){
       )
 
 
-        //json => dispatch(receiveUserToken(json, username)))
 
   }
 }
