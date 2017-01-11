@@ -4,10 +4,17 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as LoginActions from '../../actions/Popup/LoginActions.js';
 
+function getState(){
+  return{
+    change_password: false
+  }
+}
+
 class Account extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState();
   }
 
   logoutUser(){
@@ -23,6 +30,7 @@ class Account extends Component {
       <div>
         <div className="section-title">Account</div>
         <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
+        {this.state.change_password ? <div>hi</div> : <div>hi2</div> }
       </div>
     )
   }
