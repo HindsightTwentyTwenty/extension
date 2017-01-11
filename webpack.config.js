@@ -2,14 +2,12 @@ var webpack = require('webpack');
 var path = require('path');
 
 var BUILD_DIR = path.resolve(__dirname, 'src/client/chrome/public');
-var APP_DIR = path.resolve(__dirname, 'src/client/app');
+var APP_DIR = path.resolve(__dirname, 'src/client/app/');
 
 var config = {
-  entry: [
-    // 'webpack-dev-server/client?http://0.0.0.0:3000',
-    // 'webpack/hot/only-dev-server',
-    APP_DIR + '/index.jsx'
-  ],
+  entry: {
+    app: APP_DIR + '/index.js'
+  },
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
@@ -17,7 +15,7 @@ var config = {
   module: {
     loaders: [
       {
-        test: /\.jsx/,
+        test: /\.jsx|\.js/ ,
         include: APP_DIR,
         loader: 'babel'
       }
