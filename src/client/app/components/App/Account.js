@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import ChangeMyPassword from './ChangeMyPassword.js';
 
 function getState(){
   return{
@@ -25,23 +26,35 @@ class Account extends Component {
     });
   }
 
+  changeMyPassword() {
+    console.log("setting to true");
+    this.setState({
+      change_password: true
+    });
+  }
+
   render() {
     return (
       <div>
-        <div className="section-title">Account</div>
-        <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
-        {this.state.change_password ? <div>hi</div> : <div>hi2</div> }
+        <div className="row">
+          <div className="col-xs-10">
+            <div className="section-title">Account</div>
+            <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
+            <button className="btn btn-primary" type="button" onClick={this.changeMyPassword.bind(this)}>Change Password</button>
+            {this.state.change_password ? <ChangeMyPassword/> : <div>hi2</div>}
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 
 }
 
-let mapStateToProps = (state) => ({
-})
 
-let mapDispatchToProps = (dispatch) => ({
-    login_actions: bindActionCreators(LoginActions, dispatch)
-})
+let mapDispatchToProps = (dispatch) => {
+  return {
+		login_actions: bindActionCreators(LoginActions, dispatch)
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default connect(null, mapDispatchToProps)(Account);
