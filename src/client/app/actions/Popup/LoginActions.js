@@ -83,7 +83,7 @@ export function logoutUser() {
     .then(dispatch(clearStore()))
   }
 }
-
+// TEST
 // TODO Fix issue where current page is not sent on login
 // export function sendCurrentPage() {
 //   console.log("Send current Page triggered");
@@ -153,7 +153,7 @@ export function loginUser(username, password){
             console.log("username", username);
             dispatch(receiveUserToken(json, username))
             // TODO Fix issue where current page is not sent on login
-            //dispatch(sendCurrentPage())
+            dispatch(sendCurrentPage())
           }
         }
       )
