@@ -34,14 +34,6 @@ export function receiveError(error) {
   }
 }
 
-export function receiveLoginError() {
-  console.log("Invalid login credentials");
-
-  return {
-    type: types.USER_ERROR
-  }
-}
-
 export function requestUserToken() {
   return {
     type: types.REQUEST_USER_TOKEN
@@ -57,17 +49,27 @@ function checkStatus(response){
 }
 
 export function userToken(token) {
- return {
+  dispatch()
+  return {
    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
    token: token
  }
 }
 
 export function receiveUserTokenFromChrome(token) {
+  return dispatch => {
+    dispatch(
+      {
+       type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+       token: token
+     }
+    )
+  }
  return dispatch => {
    return dispatch(userToken(token))
  }
 }
+
 
 export function clearStore(){
   return {
