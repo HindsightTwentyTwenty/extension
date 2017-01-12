@@ -21,7 +21,7 @@
 body {
    width:auto;
    height:auto;
-   overflow: hidden; 
+   overflow: hidden;
    background-color: #e2e8e4;
    color: #6eb5c0;
 }
@@ -357,3 +357,7 @@ start-time-label .end-time-label{
   flex-direction: column;
   justify-content: center;
 }
+
+.hidden { display:none; }
+
+.error_message { color: blue; }

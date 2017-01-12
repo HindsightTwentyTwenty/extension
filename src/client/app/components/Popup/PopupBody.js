@@ -11,13 +11,15 @@ import CategoriesContainer from './CategoriesContainer';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
+    console.log("prequery token check", this.props.currentUser);
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      this.props.popup_actions.getPageInfo(tabs[0].url);
+      this.props.popup_actions.getPageInfo(tabs[0].url, this.props.currentUser.token);
     });
-    this.props.category_actions.fetchCategories();
+    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   render () {
+    console.log(this.props.currentPage);
     if(!this.props.currentPage.url){
       return(
         <div className="container popup-body">
@@ -37,6 +39,7 @@ class PopupBody extends Component {
               <Star/>
             </div>
           </div>
+
           <div className="row">
             <div className="col-xs-12">
               <CategoriesContainer all={false}/>
@@ -72,7 +75,9 @@ class PopupBody extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
-    categories: state.categories
+    categories: state.categories,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

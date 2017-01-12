@@ -27,7 +27,13 @@ let store = createStore(
     currentDomainDisplayed:{
     },
     categoriesAndPages:[],
-    currentSearchCategories: []
+    currentSearchCategories: [],
+    currentUser: {
+      user_name:"",
+      token:"",
+      forgot:false,
+      invalid_login:false
+    }
   },
   applyMiddleware(
     thunkMiddleware
