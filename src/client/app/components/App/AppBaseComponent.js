@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
-import LookBackDetails from './LookBackDetails.js';
-
+import DisplayDetails from './DisplayDetails.js';
 
 class AppBaseComponent extends Component {
 
@@ -35,7 +34,7 @@ class AppBaseComponent extends Component {
     }
 
     return (
-      <LookBackDetails/>
+      <DisplayDetails/>
     );
   }
 }

@@ -98,6 +98,14 @@ export function toggleCategory(pageUrl, category, addOrDelete){
   }
 }
 
+export function clearSearchCategories() {
+  return dispatch => {
+    dispatch({
+      type: types.CLEAR_SEARCH_CATEGORIES
+    })
+  }
+}
+
 export function addSearchCategory(categoryTitle, addOrDelete) {
   return dispatch => {
     dispatch(updateSearchCategory(categoryTitle, addOrDelete))
