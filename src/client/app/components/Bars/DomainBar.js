@@ -57,7 +57,6 @@ class DomainBar extends Component {
 
 let mapStateToProps = (state) => ({
   currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => ({

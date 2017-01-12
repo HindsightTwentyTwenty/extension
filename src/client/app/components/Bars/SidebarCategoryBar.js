@@ -13,12 +13,20 @@ class SidebarCategoryBar extends Component {
 
   render() {
     var className = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
+    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
+    var multiSelect = this.props.currentSearchCategories.multiSelect;
     return (
       <div className={className}
         onClick={() => {
-          this.props.category_actions.addSearchCategory(
-            this.props.categoryInfo.title, !this.props.checked);
-        }}
+          if (!multiSelect) { // only choose one search category
+            this.props.category_actions.clearSearchCategories();
+            this.props.category_actions.addSearchCategory(
+              this.props.categoryInfo.title, true);
+          } else {
+            this.props.category_actions.addSearchCategory(
+              this.props.categoryInfo.title, !this.props.checked);
+          }}
+        }
       >
         {this.props.categoryInfo.title}
       </div>
@@ -27,12 +35,12 @@ class SidebarCategoryBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
+  currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => ({
   category_actions: bindActionCreators(CategoryActions, dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(SidebarCategoryBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarCategoryBar);

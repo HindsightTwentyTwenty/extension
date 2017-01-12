@@ -76,7 +76,10 @@ export function fetchCategories(token){
        method: "GET"
     })
       .then(response => response.json())
-      .then(json => dispatch(receiveCategories(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_CATEGORIES,
+        categories: json
+      }))
   }
 }
 
@@ -92,7 +95,10 @@ export function fetchCategoriesAndPages(token){
        method: "GET"
     })
       .then(response => response.json())
-      .then(json => dispatch(receiveCategoriesAndPages(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_CATEGORIES_AND_PAGES,
+        categories: json
+      }))
   }
 }
 
@@ -111,6 +117,22 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
            }
       )
       .then(response => response.json())
+  }
+}
+
+export function clearSearchCategories() {
+  return dispatch => {
+    dispatch({
+      type: types.CLEAR_SEARCH_CATEGORIES
+    })
+  }
+}
+
+export function toggleSearchSelector() {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_SEARCH_SELECTOR
+    })
   }
 }
 

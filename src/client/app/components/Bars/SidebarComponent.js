@@ -14,7 +14,7 @@ class SidebarComponent extends Component {
   }
 
   getCategories() {
-    var currentSearchCategories = this.props.currentSearchCategories;
+    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     if (Object.keys(this.props.allCategories).length) {
       let result = []
       for (var i = 0; i < this.props.allCategories.length; i++) {
@@ -34,15 +34,14 @@ class SidebarComponent extends Component {
     }
   }
 
-  getButton() {
+  getCheckBox() {
     if (this.props.button) {
       return (<div className="control-buttons">
-        <div className="radio-button">OR
-          <input type="radio" id="radio-or" name="andOR"/>
-        </div>
-        <div className="radio-button">AND
-          <input type="radio" id="radio-and" name="andOR"/>
-        </div>
+        <label> <input type="checkbox" id="check-select"
+          onChange={() => {
+            this.props.category_actions.toggleSearchSelector();
+          }}
+          value="first_checkbox"/> select multiple </label>
       </div>)
     }
   }
@@ -51,8 +50,10 @@ class SidebarComponent extends Component {
     var categories = this.getCategories();
     return (
       <div className="side-bar-container">
-        <div className="side-bar-title">{this.title}</div>
-        {this.getButton()}
+        <div className="side-bar-header">
+          <div className="side-bar-title">{this.title}</div>
+          {this.getCheckBox()}
+        </div>
         <div className="all-categories">{categories}</div>
       </div>
     )
@@ -67,6 +68,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 
