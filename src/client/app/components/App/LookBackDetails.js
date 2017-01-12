@@ -12,9 +12,7 @@ class LookBackDetails extends Component {
 
   render() {
     return (
-      <div className="lookback-details-container">
-        <DisplayDetails/>
-      </div>
+      <DisplayDetails/>
     )
   }
 }

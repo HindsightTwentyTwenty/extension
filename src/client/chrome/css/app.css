@@ -1,5 +1,6 @@
 $banana: #FFDB5C;
 $electric-blue: #4897D8;
+$light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
@@ -28,18 +29,27 @@ body {
 
 .lookback-container{
   width: 95%;
-  height: 90%;
-  overflow: auto;
+  height: 350px;
+  overflow: scroll;
   background-color: $base-white;
   margin: 30px;
   border:solid 1px $electric-blue;
 }
 
 .lookback-graph-container{
-  width: auto;
-  height: calc(100% - 235px);
+  height: auto;
   min-width: 800px;
   padding-top: 10px;
+}
+
+.lookback-details-container{
+  height: 120px;
+  text-align: center;
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  background-color: $base-white;
+  color: $canteloupe;
 }
 
 /*BUTTONS*/
@@ -123,16 +133,6 @@ start-time-label .end-time-label{
   margin-right: 15px;
   color: $base-white;
   font-weight: bold;
-}
-
-.lookback-details-container{
-  min-height: 160px;
-  text-align: center;
-  position: relative;
-  padding: 10px;
-  width: 100%;
-  background-color: $base-white;
-  color: $canteloupe;
 }
 
 .search-results-container {

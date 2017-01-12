@@ -41,11 +41,7 @@ class DisplayDetails extends Component {
         )
       }
   }
-
 }
-
-
-
 
 let mapStateToProps = (state) => ({
   currentDomainDisplayed: state.currentDomainDisplayed,
