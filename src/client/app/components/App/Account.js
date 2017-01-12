@@ -41,13 +41,12 @@ class Account extends Component {
             <div className="section-title">Account</div>
             <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
             <button className="btn btn-primary" type="button" onClick={this.changeMyPassword.bind(this)}>Change Password</button>
-            {this.state.change_password ? <ChangeMyPassword/> : <div>hi2</div>}
+            {this.state.change_password ? <ChangeMyPassword/> : <div></div>}
           </div>
         </div>
       </div>
     );
   }
-
 }
 
 
