@@ -68,6 +68,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

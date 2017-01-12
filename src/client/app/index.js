@@ -32,7 +32,7 @@ let store = createStore(
     currentSearchCategories: {
       multiSelect: false,
       searchCats: []
-    }
+    }, 
     currentUser: {
       user_name:"",
       token:"",
