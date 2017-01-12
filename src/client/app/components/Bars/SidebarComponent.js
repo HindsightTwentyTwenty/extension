@@ -39,16 +39,11 @@ class SidebarComponent extends Component {
       return (<div className="control-buttons">
         <label> <input type="checkbox" id="check-select"
           onChange={() => {
-            this.toggleCheckbox();
+            this.props.category_actions.toggleSearchSelector();
           }}
           value="first_checkbox"/> select multiple </label>
       </div>)
     }
-  }
-
-  toggleCheckbox() {
-    this.props.category_actions.toggleSearchSelector();
-    console.log("Toggled WC");
   }
 
   render() {

@@ -4,8 +4,12 @@ const searchCategory = (state, action) => {
   var stateMultiSelect = state.multiSelect;
   switch (action.type) {
     case types.TOGGLE_SEARCH_SELECTOR:
-      state.multiSelect = !stateMultiSelect;
-      return state;
+      var currentCategories = state.searchCats;
+      var newCategoryList = [];
+      for(var i = 0; i < currentCategories.length; i++) {
+        newCategoryList.push(currentCategories[i]);
+      }
+      return {multiSelect: !stateMultiSelect, searchCats: newCategoryList};
     case types.CLEAR_SEARCH_CATEGORIES:
       return {multiSelect: stateMultiSelect, searchCats: []};
     case types.ADD_SEARCH_CATEGORY:
@@ -13,7 +17,7 @@ const searchCategory = (state, action) => {
     case types.REMOVE_SEARCH_CATEGORY:
     // TODO: neater way to copy array and push on a single element, instead of pushing on all categories
       var newCategoryList = [];
-      var currentCategories = state;
+      var currentCategories = state.searchCats;
       for(var i = 0; i < currentCategories.length; i++) {
         if (currentCategories[i] !== action.categoryTitle) {
           newCategoryList.push(currentCategories[i]);

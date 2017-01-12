@@ -16,11 +16,10 @@ class CategoriesPage extends Component {
 
   fetchPages() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var selectMultiple = document.getElementById("check-select") ? document.getElementById("check-select").checked : null;
     var categoriesPages = this.props.categoriesAndPages;
     if (categoriesPages.categories && Object.keys(categoriesPages.categories).length) {
       let result = []
-      if (selectMultiple && currentSearchCategories.length) { //and
+      if (currentSearchCategories.length) {
         for (var j = 0; j < currentSearchCategories.length; j++) {
           for (var i = 0; i < categoriesPages.categories.length; i++) {
             if (currentSearchCategories[j] == categoriesPages.categories[i].title) {
@@ -30,8 +29,6 @@ class CategoriesPage extends Component {
             }
           }
         }
-      } else if (currentSearchCategories){
-
       }
       return result
     }
