@@ -36,12 +36,45 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
   }
 }
 
-export function fetchCategories(){
+export function receiveCategories(json) {
+  return {
+    type: types.RECEIVE_CATEGORIES,
+    categories: json
+  }
+}
+
+export function receiveCategoriesAndPages(json) {
+  return {
+    type: types.RECEIVE_CATEGORIES_AND_PAGES,
+    categories: json
+  }
+}
+
+// TODO: add requests for specific users
+export function requestCategories() {
+  return {
+    type: types.REQUEST_CATEGORIES
+  }
+}
+
+export function requestCategoriesAndPages() {
+  return {
+    type: types.REQUEST_CATEGORIES_AND_PAGES
+  }
+}
+
+export function fetchCategories(token){
+  console.log("Token " + token);
   return dispatch => {
-    dispatch({
-      type: types.REQUEST_CATEGORIES
+    dispatch(requestCategories())
+    return fetch(allCategoriesEndpoint,{
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+         'Authorization': "Token " + token
+       },
+       method: "GET"
     })
-    return fetch(allCategoriesEndpoint)
       .then(response => response.json())
       .then(json => dispatch({
         type: types.RECEIVE_CATEGORIES,
@@ -50,12 +83,17 @@ export function fetchCategories(){
   }
 }
 
-export function fetchCategoriesAndPages(){
+export function fetchCategoriesAndPages(token){
   return dispatch => {
-    dispatch({
-      type: types.REQUEST_CATEGORIES_AND_PAGES
+    dispatch(requestCategoriesAndPages())
+    return fetch(categoriesAndPagesEndpoint, {
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+         'Authorization': "Token " + token
+       },
+       method: "GET"
     })
-    return fetch(categoriesAndPagesEndpoint)
       .then(response => response.json())
       .then(json => dispatch({
         type: types.RECEIVE_CATEGORIES_AND_PAGES,
@@ -64,14 +102,15 @@ export function fetchCategoriesAndPages(){
   }
 }
 
-export function toggleCategory(pageUrl, category, addOrDelete){
+export function toggleCategory(pageUrl, category, addOrDelete, token){
   return dispatch => {
     dispatch(updatePageCategory(category, addOrDelete))
     var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;
     return fetch(endpoint, {
             headers: {
                'Accept': 'application/json',
-               'Content-Type': 'application/json'
+               'Content-Type': 'application/json',
+               'Authorization': "Token " + token
              },
              method: "POST",
              body: JSON.stringify({url: pageUrl, category: category.title})

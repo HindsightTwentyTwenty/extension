@@ -1,3 +1,4 @@
+
 import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
@@ -20,7 +21,7 @@ class AppBaseComponent extends Component {
     start_date.setHours(four_hours_ago);
 
     this.props.lookback_actions.changeTimeframe(start_date, end_date);
-    this.props.tab_actions.getAllTabs(start_date.toJSON(), end_date.toJSON());
+    this.props.tab_actions.getAllTabs(start_date.toJSON(), end_date.toJSON(), this.props.currentUser.token);
   }
 
   render() {
@@ -42,7 +43,9 @@ class AppBaseComponent extends Component {
 let mapStateToProps = (state) => ({
     tabs : state.currentTabs,
     start_date : state.start_date,
-    end_date : state.end_date
+    end_date : state.end_date,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

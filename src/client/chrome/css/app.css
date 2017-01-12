@@ -312,3 +312,7 @@ start-time-label .end-time-label{
   flex-direction: column;
   justify-content: center;
 }
+
+.hidden { display:none; }
+
+.error_message { color: blue; }

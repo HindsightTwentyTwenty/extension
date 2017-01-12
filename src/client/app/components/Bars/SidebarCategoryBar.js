@@ -36,6 +36,7 @@ class SidebarCategoryBar extends Component {
 
 let mapStateToProps = (state) => ({
   currentSearchCategories : state.currentSearchCategories
+  currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => ({

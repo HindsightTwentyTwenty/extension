@@ -31,11 +31,12 @@ class PopupHeader extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    pages : state.pages
+    pages : state.pages,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    popup_actions: bindActionCreators(PopupActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopupHeader);

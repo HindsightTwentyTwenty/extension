@@ -33,6 +33,12 @@ let store = createStore(
       multiSelect: false,
       searchCats: []
     }
+    currentUser: {
+      user_name:"",
+      token:"",
+      forgot:false,
+      invalid_login:false
+    }
   },
   applyMiddleware(
     thunkMiddleware

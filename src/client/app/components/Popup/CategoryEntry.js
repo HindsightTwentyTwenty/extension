@@ -7,7 +7,7 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
 class CategoryEntry extends Component {
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(categoryTitle).then(() => {
+      this.props.popup_actions.pushCategory(categoryTitle, this.props.currentUser.token).then(() => {
         var categoryObject;
         for(var i = this.props.categories.length-1; i >= 0; i--){
           if(this.props.categories[i].title == categoryTitle){
@@ -15,7 +15,7 @@ class CategoryEntry extends Component {
             break;
           }
         }
-        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject, true);
+        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject, true, this.props.currentUser.token);
     });
   }
 
@@ -51,7 +51,9 @@ class CategoryEntry extends Component {
 
 let mapStateToProps = (state) => ({
     categories : state.categories,
-    currentPage : state.currentPage
+    currentPage : state.currentPage,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => ({

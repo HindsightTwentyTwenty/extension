@@ -18,14 +18,15 @@ export function requestTabs() {
   }
 }
 
-export function getAllTabs(start_date, end_date){
+export function getAllTabs(start_date, end_date, token){
 
   return dispatch => {
     dispatch(requestTabs())
     return fetch(getTabsEndpoint, {
             headers: {
                'Accept': 'application/json',
-               'Content-Type': 'application/json'
+               'Content-Type': 'application/json',
+               'Authorization': "Token " + token
              },
              method: "POST",
              body: JSON.stringify({"start": start_date, "end": end_date})

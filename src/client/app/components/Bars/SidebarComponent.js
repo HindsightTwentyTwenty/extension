@@ -61,12 +61,13 @@ class SidebarComponent extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  currentSearchCategories : state.currentSearchCategories
+  currentSearchCategories : state.currentSearchCategories,
+  currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

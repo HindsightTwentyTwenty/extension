@@ -157,7 +157,6 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    tab_actions: bindActionCreators(TabActions, dispatch)
   }
 }
 
