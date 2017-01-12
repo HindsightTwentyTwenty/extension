@@ -36,48 +36,31 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
   }
 }
 
-export function receiveCategories(json) {
-  return {
-    type: types.RECEIVE_CATEGORIES,
-    categories: json
-  }
-}
-
-export function receiveCategoriesAndPages(json) {
-  return {
-    type: types.RECEIVE_CATEGORIES_AND_PAGES,
-    categories: json
-  }
-}
-
-// TODO: add requests for specific users
-export function requestCategories() {
-  return {
-    type: types.REQUEST_CATEGORIES
-  }
-}
-
-export function requestCategoriesAndPages() {
-  return {
-    type: types.REQUEST_CATEGORIES_AND_PAGES
-  }
-}
-
 export function fetchCategories(){
   return dispatch => {
-    dispatch(requestCategories())
+    dispatch({
+      type: types.REQUEST_CATEGORIES
+    })
     return fetch(allCategoriesEndpoint)
       .then(response => response.json())
-      .then(json => dispatch(receiveCategories(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_CATEGORIES,
+        categories: json
+      }))
   }
 }
 
 export function fetchCategoriesAndPages(){
   return dispatch => {
-    dispatch(requestCategoriesAndPages())
+    dispatch({
+      type: types.REQUEST_CATEGORIES_AND_PAGES
+    })
     return fetch(categoriesAndPagesEndpoint)
       .then(response => response.json())
-      .then(json => dispatch(receiveCategoriesAndPages(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_CATEGORIES_AND_PAGES,
+        categories: json
+      }))
   }
 }
 
@@ -102,6 +85,14 @@ export function clearSearchCategories() {
   return dispatch => {
     dispatch({
       type: types.CLEAR_SEARCH_CATEGORIES
+    })
+  }
+}
+
+export function toggleSearchSelector() {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_SEARCH_SELECTOR
     })
   }
 }

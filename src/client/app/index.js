@@ -29,7 +29,10 @@ let store = createStore(
     currentDomainDisplayed:{
     },
     categoriesAndPages:[],
-    currentSearchCategories: []
+    currentSearchCategories: {
+      multiSelect: false,
+      searchCats: []
+    }
   },
   applyMiddleware(
     thunkMiddleware

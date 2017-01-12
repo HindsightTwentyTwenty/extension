@@ -55,11 +55,8 @@ class DomainBar extends Component {
   }
 }
 
-let mapStateToProps = (state) => ({
-})
-
 let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DomainBar);
+export default connect(null, mapDispatchToProps)(DomainBar);

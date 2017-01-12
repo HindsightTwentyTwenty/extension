@@ -87,7 +87,7 @@ body {
 .side-bar-container{
   display: inline-block;
   width: 200px;
-  height: 100%;
+  height: calc(100% - 70px);
   background-color: $base-white;
   border: solid 1px $electric-blue;
 }
@@ -253,7 +253,7 @@ start-time-label .end-time-label{
   width: 98%;
 }
 .all-categories {
-  overflow: auto;
+  overflow: scroll;
   height: calc(100% - 70px);
 }
 

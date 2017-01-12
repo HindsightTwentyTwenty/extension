@@ -14,8 +14,7 @@ class SidebarComponent extends Component {
   }
 
   getCategories() {
-    var selectMultiple = document.getElementById("check-select") ? document.getElementById("check-select").checked : null;
-    var currentSearchCategories = this.props.currentSearchCategories;
+    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     if (Object.keys(this.props.allCategories).length) {
       let result = []
       for (var i = 0; i < this.props.allCategories.length; i++) {
@@ -38,9 +37,18 @@ class SidebarComponent extends Component {
   getCheckBox() {
     if (this.props.button) {
       return (<div className="control-buttons">
-        <label> <input type="checkbox" id="check-select" value="first_checkbox"/> select multiple </label>
+        <label> <input type="checkbox" id="check-select"
+          onChange={() => {
+            this.toggleCheckbox();
+          }}
+          value="first_checkbox"/> select multiple </label>
       </div>)
     }
+  }
+
+  toggleCheckbox() {
+    this.props.category_actions.toggleSearchSelector();
+    console.log("Toggled WC");
   }
 
   render() {

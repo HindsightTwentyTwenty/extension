@@ -15,21 +15,22 @@ class CategoriesPage extends Component {
   }
 
   fetchPages() {
+    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     var selectMultiple = document.getElementById("check-select") ? document.getElementById("check-select").checked : null;
     var categoriesPages = this.props.categoriesAndPages;
     if (categoriesPages.categories && Object.keys(categoriesPages.categories).length) {
       let result = []
-      if (selectMultiple && this.props.currentSearchCategories.length) { //and
-        for (var j = 0; j < this.props.currentSearchCategories.length; j++) {
+      if (selectMultiple && currentSearchCategories.length) { //and
+        for (var j = 0; j < currentSearchCategories.length; j++) {
           for (var i = 0; i < categoriesPages.categories.length; i++) {
-            if (this.props.currentSearchCategories[j] == categoriesPages.categories[i].title) {
+            if (currentSearchCategories[j] == categoriesPages.categories[i].title) {
               for (let page in categoriesPages.categories[i].pages) {
                 result.push(<PageUrlBar key={categoriesPages.categories[i].pages[page].pk} page ={categoriesPages.categories[i].pages[page]}/>)
               }
             }
           }
         }
-      } else if (this.props.currentSearchCategories){
+      } else if (currentSearchCategories){
 
       }
       return result
