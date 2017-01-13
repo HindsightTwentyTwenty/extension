@@ -15,21 +15,26 @@ class SidebarCategoryBar extends Component {
     var className = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     var multiSelect = this.props.currentSearchCategories.multiSelect;
+    var categoryTitle = this.props.categoryInfo.title;
     return (
       <div className={className}
         onClick={() => {
           if (!multiSelect) { // only choose one search category
             this.props.category_actions.clearSearchCategories();
-            this.props.category_actions.addSearchCategory(
-              this.props.categoryInfo.title, true);
+            this.props.category_actions.updateSearchCategory(
+              categoryTitle, true);
           } else {
-            this.props.category_actions.addSearchCategory(
-              this.props.categoryInfo.title, !this.props.checked);
+            this.props.category_actions.updateSearchCategory(
+              categoryTitle, !this.props.checked);
           }}
         }
       >
-        {this.props.categoryInfo.title}
+        {categoryTitle}
+        <div className='delete-category-button' onClick={() => {
+          console.log("HI WANDA");
+          this.props.category_actions.updateSearchCategory(categoryTitle, false); }}/>
       </div>
+        // this.props.category_actions.deleteCategory(categoryTitle)}/>
     )
   }
 }

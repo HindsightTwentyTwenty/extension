@@ -316,3 +316,9 @@ start-time-label .end-time-label{
 .hidden { display:none; }
 
 .error_message { color: blue; }
+
+.delete-category-button {
+  background-color: $canteloupe;
+  width: 15px;
+  height: 15px; 
+}
