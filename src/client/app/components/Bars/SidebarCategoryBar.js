@@ -34,18 +34,23 @@ class SidebarCategoryBar extends Component {
           }
         > {categoryTitle} </div>
         <div className={textEntryClass}>
-          <textarea rows="1" cols="40" defaultValue=""/>
+          <textarea rows="1" defaultValue=""/>
         </div>
         <div className='delete-category-button' onClick={() => {
           this.props.category_actions.updateSearchCategory(categoryTitle, false);
           this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
         <div className='edit-category-button' onClick={() => {
-          this.props.category_actions.toggleEditCategory(categoryTitle)}}/>
+          if (categoryTitle == editCategory) {
+            this.props.category_actions.editCategoryTitle(categoryTitle, "new ", userToken);
+            this.props.category_actions.toggleEditCategory('');
+          } else {
+            this.props.category_actions.toggleEditCategory(categoryTitle)
+          }
+        }}/>
       </div>
     )
   }
 }
-// this.props.category_actions.editCategoryTitle(categoryTitle, "new title", userToken); }}/>
 
 let mapStateToProps = (state) => ({
   categories : state.categories,

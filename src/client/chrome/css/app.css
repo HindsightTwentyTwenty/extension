@@ -328,5 +328,10 @@ start-time-label .end-time-label{
 }
 
 .edit-category-entry {
-  
+  textarea {
+    width: 150px;
+    border: none;
+    background-color: $light-blue;
+    text-align: center;
+  }
 }
