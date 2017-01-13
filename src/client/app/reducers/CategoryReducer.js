@@ -11,9 +11,10 @@ const category = (state, action) => {
   }
 }
 
-function categoryReducer(state = {cats: [], editCategory: false}, action){
+function categoryReducer(state = {cats: [], editCategory: ''}, action){
   switch(action.type){
     case types.TOGGLE_EDIT_CATEGORY:
+      return {cats: [...state.cats], editCategory: action.editCategory}
     case types.UPDATE_CATEGORY_TITLE:
       var newCategoryList = [];
       var currentCategories = state.cats;

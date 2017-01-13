@@ -120,6 +120,15 @@ export function editCategoryTitle(oldTitle, updatedTitle, token) {
   }
 }
 
+export function toggleEditCategory(categoryTitle) {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_EDIT_CATEGORY,
+      editCategory: categoryTitle
+    })
+  }
+}
+
 export function toggleSearchSelector() {
   return dispatch => {
     dispatch({

@@ -16,8 +16,9 @@ class SidebarCategoryBar extends Component {
     var multiSelect = this.props.currentSearchCategories.multiSelect;
     var categoryTitle = this.props.categoryInfo.title;
     var userToken = this.props.currentUser.token;
-    var textEntryClass = this.editText ? 'text-entry' : 'text-entry hidden';
-    var categoryTitleClass = this.editText ? 'category-title hidden' : 'category-title';
+    var editCategory = this.props.categories.editCategory;
+    var textEntryClass = editCategory == categoryTitle ? 'edit-category-entry' : 'edit-category-entry hidden';
+    var categoryTitleClass = editCategory == categoryTitle ? 'category-title hidden' : 'category-title';
     return (
       <div className={className}>
         <div className={categoryTitleClass}
@@ -39,7 +40,7 @@ class SidebarCategoryBar extends Component {
           this.props.category_actions.updateSearchCategory(categoryTitle, false);
           this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
         <div className='edit-category-button' onClick={() => {
-          }}/>
+          this.props.category_actions.toggleEditCategory(categoryTitle)}}/>
       </div>
     )
   }
