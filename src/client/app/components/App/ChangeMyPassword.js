@@ -21,8 +21,14 @@ class ChangeMyPassword extends Component {
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  createNewUser(){
+  changePassword(){
     console.log(this.state);
+    if(this.state.new_password == this.state.confirm_password){
+      console.log("passwords match");
+      this.props.login_actions.changeMyPassword(this.props.currentUser.email, this.state.current_password, this.state.new_password, this.props.currentUser.token);
+    } else {
+      console.log("passwords did not match");
+    }
 
   }
 
@@ -40,7 +46,7 @@ class ChangeMyPassword extends Component {
             </div>
             <br/>
             <span className="input-group-btn">
-            <button className="btn btn-primary add-category-btn" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>
+            <button className="btn btn-primary add-category-btn" type="button" onClick={this.changePassword.bind(this)}>Submit</button>
             </span>
           </div>
         </div>
@@ -49,8 +55,12 @@ class ChangeMyPassword extends Component {
   }
 }
 
+let mapStateToProps = (state) => ({
+  currentUser : state.currentUser
+})
+
 let mapDispatchToProps = (dispatch) => ({
     login_actions: bindActionCreators(LoginActions, dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(ChangeMyPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeMyPassword);

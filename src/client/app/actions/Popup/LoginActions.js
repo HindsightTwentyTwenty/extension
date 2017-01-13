@@ -9,6 +9,7 @@ import fetch from 'isomorphic-fetch'
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
+const changePasswordEndpoint = urls.BASE_URL + 'change/';
 
 var curr_token = ""
 
@@ -221,5 +222,43 @@ export function forgotMyPasswordPage(value){
       type: types.FORGOT_MY_PASSWORD_PAGE,
       forgot: value
     })
+  }
+}
+
+export function changeMyPassword(email, current_password, new_password, token){
+  return dispatch => {
+    return fetch(changePasswordEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "POST",
+      body: JSON.stringify({"email": email, "current_pw": current_password, "new_pw": new_password})
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+      })
+    ))
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          console.log("Invalid password for password change");
+          //dispatch(receiveLoginError());
+        } else {
+          console.log("valid post");
+          //dispatch(receiveUserToken(json, username))
+        }
+        dispatch(test())
+      }
+    )
+  }
+}
+
+export function test() {
+  return {
+    type: types.TEST
   }
 }
