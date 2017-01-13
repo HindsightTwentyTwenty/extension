@@ -90,7 +90,7 @@ export function clearStore(){
 
 export function logoutUser() {
   return dispatch => {
-    return fetch(urls.BASE_URL + '/logout/', {
+    return fetch(urls.BASE_URL + 'logout/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -207,7 +207,7 @@ export function loginUser(username, password){
 
 export function forgotMyPasswordEmailSubmit(email){
   return dispatch => {
-    return fetch(urls.BASE_URL + '/forgot/', {
+    return fetch(urls.BASE_URL + 'forgot/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
