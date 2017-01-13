@@ -16,6 +16,7 @@ class SidebarCategoryBar extends Component {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     var multiSelect = this.props.currentSearchCategories.multiSelect;
     var categoryTitle = this.props.categoryInfo.title;
+    var userToken = this.props.currentUser.token;
     return (
       <div className={className}>
         <div className='category-title'
@@ -32,7 +33,7 @@ class SidebarCategoryBar extends Component {
         > {categoryTitle} </div>
         <div className='delete-category-button' onClick={() => {
           this.props.category_actions.updateSearchCategory(categoryTitle, false);
-          this.props.category_actions.deleteCategory(categoryTitle); }}/>
+          this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
       </div>
     )
   }

@@ -15,7 +15,7 @@ const pageInfo = (state, action) => {
     case types.ADD_PAGE_CATEGORY:
       return Object.assign({}, state, {categories: state.categories.concat([action.category])});
     case types.DELETE_PAGE_CATEGORY:
-    // TODO: neater way to copy arrya and push on a single element, instead of pushing on all categories
+    // TODO: neater way to copy array and push on a single element, instead of pushing on all categories
       var newCategoryList = [];
       var currentCategories = state.categories;
       for(var i = 0; i < currentCategories.length; i++) {

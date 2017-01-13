@@ -8,20 +8,6 @@ const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
 
-export function receiveCategories(json) {
-  return {
-    type: types.RECEIVE_CATEGORIES,
-    categories: json
-  }
-}
-
-export function receiveCategoriesAndPages(json) {
-  return {
-    type: types.RECEIVE_CATEGORIES_AND_PAGES,
-    categories: json
-  }
-}
-
 export function fetchCategories(token){
   console.log("Token " + token);
   return dispatch => {
@@ -101,17 +87,16 @@ export function deleteCategory(title, token) {
       type: types.DELETE_CATEGORY,
       categoryTitle: title
     })
-    return fetch(deleteCategoryEndpoint,{
+    return fetch(deleteCategoryEndpoint, {
       headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
-         'Authorization': "Token " + token
-       },
-       method: "POST",
-       body: JSON.stringify({category: title})
-    })
-      .then(response => response.json())
-  }
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      method: "POST",
+      body: JSON.stringify({category: title})
+    }
+  )}
 }
 
 export function toggleSearchSelector() {
