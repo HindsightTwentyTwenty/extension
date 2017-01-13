@@ -7,8 +7,11 @@ import fetch from 'isomorphic-fetch'
 
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
+const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
+
+const unauthorizedCode = "403";
 
 var curr_token = ""
 
@@ -88,16 +91,30 @@ export function clearStore(){
   }
 }
 
-export function logoutUser() {
+export function _checkStatus(response){
+  console.log("checkStatus", response)
+  // return {response, response.sta}
+}
+
+export function logoutUser(token) {
   return dispatch => {
-    return fetch(urls.BASE_URL + 'logout/', {
+    return fetch(logoutEndpoint, {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
       },
       method: "POST",
     })
-    .then(dispatch(clearStore()))
+    .then(response => {
+      if (response['status'] != unauthorizedCode){
+        console.log("logout failure");
+        //TODO Implement user message warning of error on logout
+      } else {
+        console.log("succesful logout")
+        dispatch(clearStore())
+      }
+    })
   }
 }
 
@@ -129,7 +146,6 @@ function getPageInfo(url, token){
   }
 }
 
-//TODO Fix issue where current page is not sent on login
 export function sendCurrentPage(token) {
 
   return dispatch => {
