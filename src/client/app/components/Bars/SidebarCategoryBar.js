@@ -34,13 +34,15 @@ class SidebarCategoryBar extends Component {
         <div className='delete-category-button' onClick={() => {
           this.props.category_actions.updateSearchCategory(categoryTitle, false);
           this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
+        <div className='edit-category-button' onClick={() => {
+          this.props.category_actions.editCategoryTitle(categoryTitle, "new title", userToken); }}/>
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-  categories : state.categories, 
+  categories : state.categories,
   currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser
 })

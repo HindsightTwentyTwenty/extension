@@ -7,6 +7,7 @@ const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
+const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
 
 export function fetchCategories(token){
   console.log("Token " + token);
@@ -18,7 +19,7 @@ export function fetchCategories(token){
       headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-         'Authorization': "Token " + token
+         'Authorization': 'Token ' + token
        },
        method: "GET"
     })
@@ -39,7 +40,7 @@ export function fetchCategoriesAndPages(token){
       headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-         'Authorization': "Token " + token
+         'Authorization': 'Token ' + token
        },
        method: "GET"
     })
@@ -63,7 +64,7 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': "Token " + token
+               'Authorization': 'Token ' + token
              },
              method: "POST",
              body: JSON.stringify({url: pageUrl, category: category.title})
@@ -95,8 +96,27 @@ export function deleteCategory(title, token) {
       },
       method: "POST",
       body: JSON.stringify({category: title})
-    }
-  )}
+    })
+  }
+}
+
+export function editCategoryTitle(oldTitle, updatedTitle, token) {
+  return dispatch => {
+    dispatch({
+      type: types.UPDATE_CATEGORY_TITLE,
+      old: oldTitle,
+      updated: updatedTitle
+    })
+    return fetch(editCategoryTitleEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      method: "POST",
+      body: JSON.stringify({old: oldTitle, updated: updatedTitle})
+    })
+  }
 }
 
 export function toggleSearchSelector() {

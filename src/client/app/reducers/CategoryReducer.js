@@ -13,6 +13,16 @@ const category = (state, action) => {
 
 function categoryReducer(state = [], action){
   switch(action.type){
+    case types.UPDATE_CATEGORY_TITLE:
+      var newCategoryList = [];
+      var currentCategories = state;
+      for(var i = 0; i < currentCategories.length; i++) {
+        if (currentCategories[i].title === action.old) {
+          currentCategories[i].title = action.updated;
+        }
+        newCategoryList.push(currentCategories[i]);
+      }
+      return newCategoryList;
     case types.DELETE_CATEGORY:
       var newCategoryList = [];
       var currentCategories = state;
