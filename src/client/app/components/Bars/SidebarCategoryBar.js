@@ -17,21 +17,20 @@ class SidebarCategoryBar extends Component {
     var multiSelect = this.props.currentSearchCategories.multiSelect;
     var categoryTitle = this.props.categoryInfo.title;
     return (
-      <div className={className}
-        onClick={() => {
-          if (!multiSelect) { // only choose one search category
-            this.props.category_actions.clearSearchCategories();
-            this.props.category_actions.updateSearchCategory(
-              categoryTitle, true);
-          } else {
-            this.props.category_actions.updateSearchCategory(
-              categoryTitle, !this.props.checked);
-          }}
-        }
-      >
-        {categoryTitle}
+      <div className={className}>
+        <div className='category-title'
+          onClick={() => {
+            if (!multiSelect) { // only choose one search category
+              this.props.category_actions.clearSearchCategories();
+              this.props.category_actions.updateSearchCategory(
+                categoryTitle, true);
+            } else {
+              this.props.category_actions.updateSearchCategory(
+                categoryTitle, !this.props.checked);
+            }}
+          }
+        > {categoryTitle} </div>
         <div className='delete-category-button' onClick={() => {
-          console.log("HI WANDA");
           this.props.category_actions.updateSearchCategory(categoryTitle, false); }}/>
       </div>
         // this.props.category_actions.deleteCategory(categoryTitle)}/>
