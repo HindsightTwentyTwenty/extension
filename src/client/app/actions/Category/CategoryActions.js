@@ -8,65 +8,12 @@ const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
 
-export function updatePageCategory(category, addOrDelete) {
-  if (addOrDelete) {
-    return {
-      type: types.ADD_PAGE_CATEGORY,
-      category: category,
-    }
-  } else {
-    return {
-      type: types.DELETE_PAGE_CATEGORY,
-      categoryTitle: category.title
-    }
-  }
-}
-
-export function updateSearchCategory(categoryTitle, addOrDelete) {
-  if (addOrDelete) {
-    return {
-      type: types.ADD_SEARCH_CATEGORY,
-      categoryTitle: categoryTitle,
-    }
-  } else {
-    return {
-      type: types.REMOVE_SEARCH_CATEGORY,
-      categoryTitle: categoryTitle
-    }
-  }
-}
-
-export function receiveCategories(json) {
-  return {
-    type: types.RECEIVE_CATEGORIES,
-    categories: json
-  }
-}
-
-export function receiveCategoriesAndPages(json) {
-  return {
-    type: types.RECEIVE_CATEGORIES_AND_PAGES,
-    categories: json
-  }
-}
-
-// TODO: add requests for specific users
-export function requestCategories() {
-  return {
-    type: types.REQUEST_CATEGORIES
-  }
-}
-
-export function requestCategoriesAndPages() {
-  return {
-    type: types.REQUEST_CATEGORIES_AND_PAGES
-  }
-}
-
 export function fetchCategories(token){
   console.log("Token " + token);
   return dispatch => {
-    dispatch(requestCategories())
+    dispatch({
+      type: types.REQUEST_CATEGORIES
+    })
     return fetch(allCategoriesEndpoint,{
       headers: {
          'Accept': 'application/json',
@@ -85,7 +32,9 @@ export function fetchCategories(token){
 
 export function fetchCategoriesAndPages(token){
   return dispatch => {
-    dispatch(requestCategoriesAndPages())
+    dispatch({
+      type: types.REQUEST_CATEGORIES_AND_PAGES
+    })
     return fetch(categoriesAndPagesEndpoint, {
       headers: {
          'Accept': 'application/json',
@@ -103,8 +52,12 @@ export function fetchCategoriesAndPages(token){
 }
 
 export function toggleCategory(pageUrl, category, addOrDelete, token){
+  var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
-    dispatch(updatePageCategory(category, addOrDelete))
+    dispatch({
+      type: dispatchType,
+      category: category
+    })
     var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;
     return fetch(endpoint, {
             headers: {
@@ -128,6 +81,24 @@ export function clearSearchCategories() {
   }
 }
 
+export function deleteCategory(title, token) {
+  return dispatch => {
+    dispatch({
+      type: types.DELETE_CATEGORY,
+      categoryTitle: title
+    })
+    return fetch(deleteCategoryEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      method: "POST",
+      body: JSON.stringify({category: title})
+    }
+  )}
+}
+
 export function toggleSearchSelector() {
   return dispatch => {
     dispatch({
@@ -136,8 +107,12 @@ export function toggleSearchSelector() {
   }
 }
 
-export function addSearchCategory(categoryTitle, addOrDelete) {
+export function updateSearchCategory(categoryTitle, addOrDelete) {
+  var dispatchType = addOrDelete ? types.ADD_SEARCH_CATEGORY : types.REMOVE_SEARCH_CATEGORY;
   return dispatch => {
-    dispatch(updateSearchCategory(categoryTitle, addOrDelete))
+    dispatch({
+      type: dispatchType,
+      categoryTitle: categoryTitle,
+    })
   }
 }
