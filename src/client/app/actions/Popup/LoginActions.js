@@ -225,7 +225,7 @@ export function forgotMyPasswordPage(value){
   }
 }
 
-export function changeMyPassword(email, current_password, new_password, token){
+export function changeMyPassword(current_password, new_password, token){
   ;
   return dispatch => {
     return fetch(changePasswordEndpoint, {
@@ -235,27 +235,26 @@ export function changeMyPassword(email, current_password, new_password, token){
         'Authorization': "Token " + token
       },
       method: "POST",
-      body: JSON.stringify({"email": email, "current_pw": current_password, "new_pw": new_password})
+      body: JSON.stringify({"current_pw": current_password, "new_pw": new_password})
     })
-    .then(response => console.log(JSON.stringify({"current_pw": current_password, "new_pw": new_password, "email": email})))
-    // .then(response =>
-    //   response.json().then(json => ({
-    //     status: response.status,
-    //     json
-    //   })
-    // ))
-    // .then(
-    //   ({ status, json }) => {
-    //     if(status == 401){
-    //       console.log("Invalid password for password change");
-    //       //dispatch(receiveLoginError());
-    //     } else {
-    //       console.log("valid post");
-    //       //dispatch(receiveUserToken(json, username))
-    //     }
-    //     dispatch(test())
-    //   }
-    // )
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+      })
+    ))
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          console.log("Invalid password for password change");
+          //dispatch(receiveLoginError());
+        } else {
+          console.log("valid post");
+          //dispatch(receiveUserToken(json, username))
+        }
+        dispatch(test())
+      }
+    )
   }
 }
 

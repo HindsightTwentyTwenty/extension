@@ -23,10 +23,9 @@ class ChangeMyPassword extends Component {
 
   changePassword(){
     console.log(this.state);
-		console.log(this.props.currentUser);
     if(this.state.new_password == this.state.confirm_password){
       console.log("passwords match");
-      this.props.login_actions.changeMyPassword(this.props.currentUser.email, this.state.current_password, this.state.new_password, this.props.currentUser.token);
+      this.props.login_actions.changeMyPassword(this.state.current_password, this.state.new_password, this.props.currentUser.token);
     } else {
       console.log("passwords did not match");
     }
@@ -57,7 +56,6 @@ class ChangeMyPassword extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => ({
