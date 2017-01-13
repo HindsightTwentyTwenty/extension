@@ -40,7 +40,7 @@ class SidebarCategoryBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  categories : state.categories, 
+  categories : state.categories,
   currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser
 })
