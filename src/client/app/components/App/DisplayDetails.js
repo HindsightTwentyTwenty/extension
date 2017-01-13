@@ -32,13 +32,17 @@ class DisplayDetails extends Component {
           </div>
         )
     } else {
+      let closed = null;
+      if(currentDomain.closed != null){
+        closed = <p>closed: <Timestamp time={currentDomain.closed} format="full"/></p>;
+      }
         return (
             <div className="lookback-details-container">
               <h3>{currentDomain.title}</h3>
               <p>pages visited: {currentDomain.pages}</p>
               <p>minutes active: {currentDomain.minutes_active}</p>
               <p>created: <Timestamp time={currentDomain.created} format="full"/></p>
-              <p>closed: <Timestamp time={currentDomain.closed} format="full"/></p>
+              {closed}
             </div>
         )
       }
