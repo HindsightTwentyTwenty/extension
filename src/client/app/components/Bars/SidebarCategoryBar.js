@@ -8,7 +8,6 @@ class SidebarCategoryBar extends Component {
 
   constructor(props) {
     super(props);
-    this.categoryInfo = this.props.categoryInfo;
   }
 
   render() {
@@ -17,9 +16,11 @@ class SidebarCategoryBar extends Component {
     var multiSelect = this.props.currentSearchCategories.multiSelect;
     var categoryTitle = this.props.categoryInfo.title;
     var userToken = this.props.currentUser.token;
+    var textEntryClass = this.editText ? 'text-entry' : 'text-entry hidden';
+    var categoryTitleClass = this.editText ? 'category-title hidden' : 'category-title';
     return (
       <div className={className}>
-        <div className='category-title'
+        <div className={categoryTitleClass}
           onClick={() => {
             if (!multiSelect) { // only choose one search category
               this.props.category_actions.clearSearchCategories();
@@ -31,15 +32,19 @@ class SidebarCategoryBar extends Component {
             }}
           }
         > {categoryTitle} </div>
+        <div className={textEntryClass}>
+          <textarea rows="1" cols="40" defaultValue=""/>
+        </div>
         <div className='delete-category-button' onClick={() => {
           this.props.category_actions.updateSearchCategory(categoryTitle, false);
           this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
         <div className='edit-category-button' onClick={() => {
-          this.props.category_actions.editCategoryTitle(categoryTitle, "new title", userToken); }}/>
+          }}/>
       </div>
     )
   }
 }
+// this.props.category_actions.editCategoryTitle(categoryTitle, "new title", userToken); }}/>
 
 let mapStateToProps = (state) => ({
   categories : state.categories,

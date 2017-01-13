@@ -11,34 +11,35 @@ const category = (state, action) => {
   }
 }
 
-function categoryReducer(state = [], action){
+function categoryReducer(state = {cats: [], editCategory: false}, action){
   switch(action.type){
+    case types.TOGGLE_EDIT_CATEGORY:
     case types.UPDATE_CATEGORY_TITLE:
       var newCategoryList = [];
-      var currentCategories = state;
+      var currentCategories = state.cats;
       for(var i = 0; i < currentCategories.length; i++) {
         if (currentCategories[i].title === action.old) {
           currentCategories[i].title = action.updated;
         }
         newCategoryList.push(currentCategories[i]);
       }
-      return newCategoryList;
+      return {cats: newCategoryList, editCategory: state.editCategory};
     case types.DELETE_CATEGORY:
       var newCategoryList = [];
-      var currentCategories = state;
+      var currentCategories = state.cats;
       for(var i = 0; i < currentCategories.length; i++) {
         if (currentCategories[i].title !== action.categoryTitle) {
           newCategoryList.push(currentCategories[i]);
         }
       }
-      return newCategoryList;
+      return {cats: newCategoryList, editCategory: state.editCategory};
     case types.RECEIVE_CATEGORIES:
-      return action.categories;
+      return {cats: action.categories, editCategory: state.editCategory};
     case types.REQUEST_CATEGORIES:
     //TODO: Remove empty object source??
-      return Object.assign({}, state, {});
+      return {cats: [...state.cats], editCategory: state.editCategory};
     case types.RECEIVE_PUSH_CATEGORY:
-      return [...state, category(undefined, action)];
+      return {cats: [...state.cats, category(undefined, action)], editCategory: state.editCategory};
     default:
         return state;
   }

@@ -82,6 +82,7 @@ export function clearSearchCategories() {
   }
 }
 
+//TODO: WC talked with GM about receiving confirmation from backend before deleting from frontend
 export function deleteCategory(title, token) {
   return dispatch => {
     dispatch({

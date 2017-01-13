@@ -9,9 +9,10 @@ class CategoryEntry extends Component {
   addNewCategory(categoryTitle){
       this.props.popup_actions.pushCategory(categoryTitle, this.props.currentUser.token).then(() => {
         var categoryObject;
-        for(var i = this.props.categories.length-1; i >= 0; i--){
-          if(this.props.categories[i].title == categoryTitle){
-            categoryObject = this.props.categories[i];
+        var categories = this.props.categories.cats;
+        for(var i = categories.length-1; i >= 0; i--){
+          if(categories[i].title == categoryTitle){
+            categoryObject = categories[i];
             break;
           }
         }
