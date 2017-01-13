@@ -31,9 +31,9 @@ class SidebarCategoryBar extends Component {
           }
         > {categoryTitle} </div>
         <div className='delete-category-button' onClick={() => {
-          this.props.category_actions.updateSearchCategory(categoryTitle, false); }}/>
+          this.props.category_actions.updateSearchCategory(categoryTitle, false);
+          this.props.category_actions.deleteCategory(categoryTitle); }}/>
       </div>
-        // this.props.category_actions.deleteCategory(categoryTitle)}/>
     )
   }
 }

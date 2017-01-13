@@ -19,7 +19,7 @@ const pageInfo = (state, action) => {
       var newCategoryList = [];
       var currentCategories = state.categories;
       for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title !== action.categoryTitle) {
+        if (currentCategories[i].title !== action.category.title) {
           newCategoryList.push(currentCategories[i]);
         }
       }
@@ -48,18 +48,11 @@ const pageInfo = (state, action) => {
 }
 
 function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
-  // TODO: simplify switch statement cause they're all the same :(
-  
   switch(action.type){
-
     case types.RECEIVE_PAGE_INFO:
-      return Object.assign({}, pageInfo(state, action));
     case types.UPDATE_CURRENT_STAR:
-      return Object.assign({}, pageInfo(state, action));
     case types.ADD_PAGE_CATEGORY:
-      return Object.assign({}, pageInfo(state, action));
     case types.DELETE_PAGE_CATEGORY:
-      return Object.assign({}, pageInfo(state, action));
     case types.SET_CURRENT_PAGE:
       return Object.assign({}, pageInfo(state, action));
     default:
