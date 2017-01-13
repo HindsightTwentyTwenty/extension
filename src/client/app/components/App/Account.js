@@ -20,7 +20,7 @@ class Account extends Component {
 
   logoutUser(){
     chrome.storage.local.remove("hindsite-token");
-    this.props.login_actions.logoutUser();
+    this.props.login_actions.logoutUser(this.props.currentUser.token);
     chrome.tabs.getCurrent(function(tab) {
       chrome.tabs.remove(tab.id, function() { });
     });

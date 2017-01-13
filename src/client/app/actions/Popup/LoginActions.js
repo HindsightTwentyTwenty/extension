@@ -7,9 +7,12 @@ import fetch from 'isomorphic-fetch'
 
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
+const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
+
+const unauthorizedCode = "403";
 
 var curr_token = ""
 
@@ -50,14 +53,25 @@ function checkStatus(response){
 }
 
 export function userToken(token) {
-  dispatch()
   return {
    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
    token: token
  }
 }
 
+export function createNewUserPage(value) {
+  return dispatch => {
+    dispatch(
+      {
+       type: types.CREATE_NEW_USER,
+       create_user: value
+     }
+   )
+ }
+}
+
 export function receiveUserTokenFromChrome(token) {
+  console.log("TOKEN: ", token);
   return dispatch => {
     dispatch(
       {
@@ -78,16 +92,30 @@ export function clearStore(){
   }
 }
 
-export function logoutUser() {
+export function _checkStatus(response){
+  console.log("checkStatus", response)
+  // return {response, response.sta}
+}
+
+export function logoutUser(token) {
   return dispatch => {
-    return fetch(urls.BASE_URL + '/logout/', {
+    return fetch(logoutEndpoint, {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
       },
       method: "POST",
     })
-    .then(dispatch(clearStore()))
+    .then(response => {
+      if (response['status'] != unauthorizedCode){
+        console.log("logout failure");
+        //TODO Implement user message warning of error on logout
+      } else {
+        console.log("succesful logout")
+        dispatch(clearStore())
+      }
+    })
   }
 }
 
@@ -101,9 +129,8 @@ function receivePageInfo(json) {
     title: json.title
   }
 }
+
 function getPageInfo(url, token){
-  console.log("url", url);
-  console.log("token", token);
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
@@ -120,15 +147,11 @@ function getPageInfo(url, token){
   }
 }
 
-//TODO Fix issue where current page is not sent on login
 export function sendCurrentPage(token) {
-  console.log("Send current Page triggered json: ", token);
-
 
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      console.log("TAB", tabs);
       var tab = tabs[0];
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
@@ -188,23 +211,20 @@ export function loginUser(username, password){
             dispatch(receiveLoginError());
           } else {
             console.log("valid post", json);
-            console.log("username", username);
             dispatch(receiveUserToken(json, username))
-
             dispatch(sendCurrentPage(json['token']))
           }
         }
       )
 
 
-        //json => dispatch(receiveUserToken(json, username)))
 
   }
 }
 
 export function forgotMyPasswordEmailSubmit(email){
   return dispatch => {
-    return fetch(urls.BASE_URL + '/forgot/', {
+    return fetch(urls.BASE_URL + 'forgot/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -213,6 +233,26 @@ export function forgotMyPasswordEmailSubmit(email){
       body: JSON.stringify({"email": email})
     })
     .then(dispatch(clearStore()))
+  }
+}
+
+export function createNewUser(email, password_1, password_2, first_name, last_name){
+  return dispatch => {
+    return fetch(urls.BASE_URL + 'users/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"email": email,
+                            "password": password_1,
+                            "first_name": first_name,
+                            "last_name": last_name,
+                            "confirm_password": password_2
+                          })
+    })
+    .then(response => response.json())
+    .then(json => dispatch(receiveUserTokenFromChrome(json['token'])))
   }
 }
 

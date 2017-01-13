@@ -15,45 +15,14 @@ class CategoriesPage extends Component {
   }
 
   fetchPages() {
-    var andOrSelector = document.getElementById("radio-and") ? document.getElementById("radio-and").checked : null;
+    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     var categoriesPages = this.props.categoriesAndPages;
     if (categoriesPages.categories && Object.keys(categoriesPages.categories).length) {
       let result = []
-      if (andOrSelector && this.props.currentSearchCategories.length) { //and
-        let validPages = []
-        while (!validPages.length) {
-          for (let searchCat in this.props.currentSearchCategories) {
-            var foundMatch = false;
-            for (let cat in categoriesPages.categories) {
-              if (this.props.currentSearchCategories[searchCat] == categoriesPages.categories[cat].title) {
-                for (let page in categoriesPages.categories[cat].pages) {
-                  validPages.push(categoriesPages.categories[cat].pages[page]);
-                }
-                foundMatch = true;
-                break;
-              }
-            }
-            if (foundMatch) { break };
-          }
-        }
-        for (let validPage in validPages) {
-          var foundAllSearchCats = this.props.currentSearchCategories.length;
-          for (var searchCat = 0; searchCat < this.props.currentSearchCategories.length; searchCat++) {
-            for (let pageCat in validPages[validPage].categories) {
-              if (validPages[validPage].categories[pageCat].title == this.props.currentSearchCategories[searchCat]) {
-                foundAllSearchCats--;
-                break;
-              }
-            }
-          }
-          if (foundAllSearchCats == 0) {
-            result.push(<PageUrlBar key={validPages[validPage].pk} page ={validPages[validPage]}/>)
-          }
-        }
-      } else { //or
-        for (var j = 0; j < this.props.currentSearchCategories.length; j++) {
+      if (currentSearchCategories.length) {
+        for (var j = 0; j < currentSearchCategories.length; j++) {
           for (var i = 0; i < categoriesPages.categories.length; i++) {
-            if (this.props.currentSearchCategories[j] == categoriesPages.categories[i].title) {
+            if (currentSearchCategories[j] == categoriesPages.categories[i].title) {
               for (let page in categoriesPages.categories[i].pages) {
                 result.push(<PageUrlBar key={categoriesPages.categories[i].pages[page].pk} page ={categoriesPages.categories[i].pages[page]}/>)
               }

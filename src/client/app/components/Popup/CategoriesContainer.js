@@ -11,51 +11,51 @@ class CategoriesContainer extends Component {
     super(props);
   }
 
-  getCategoryBar(category) {
-    var currentPageCategories = this.props.currentPage.categories;
-    for (var i = 0; i < currentPageCategories.length; i++) {
-      if (currentPageCategories[i].title === category.title) {
-        return <CategoryBar categoryInfo={category} checked={true} key={category.title}/>;
-      }
+  getCategoryBar(category, checked) {
+    if (checked) {
+      return <CategoryBar categoryInfo={category} checked={true} key={category.title}/>;
+    } else {
+      return <CategoryBar categoryInfo={category} checked={false} key={category.title}/>;
     }
-    return <CategoryBar categoryInfo={category} checked={false} key={category.title}/>;
   }
 
   getCategories() {
     if (Object.keys(this.props.categories).length) {
       let result = []
+      var currentPageCategories = this.props.currentPage.categories;
       var MAXDISPLAYCATEGORIES = 12;
-      var maxCategories = this.props.categories.length - 1;
-      if(this.props.categories.length >= MAXDISPLAYCATEGORIES){
-        maxCategories = MAXDISPLAYCATEGORIES;
+      var numCheckedCategories = currentPageCategories.length <= MAXDISPLAYCATEGORIES ? currentPageCategories.length : MAXDISPLAYCATEGORIES;
+      for (var i = 0; i < numCheckedCategories; i++) {
+        result.push(this.getCategoryBar(currentPageCategories[i], true))
       }
-      for (var i = this.props.categories.length - 1; i >= this.props.categories.length - maxCategories - 1; i--) {
-        if(this.props.categories[i]){
-          result.push(this.getCategoryBar(this.props.categories[i]))
+      var numUncheckedCategories = MAXDISPLAYCATEGORIES <= this.props.categories.length ? MAXDISPLAYCATEGORIES - numCheckedCategories : this.props.categories.length - numCheckedCategories;
+      var uncheckedCount = 0;
+      while (uncheckedCount < numUncheckedCategories) {
+        for (var i = this.props.categories.length-1; i >= 0; i--) {
+          if(this.props.categories[i]){
+            var alreadyAdded = false;
+            for (var j = 0; j < currentPageCategories.length; j++) {
+              if (currentPageCategories[j].title === this.props.categories[i].title) {
+                alreadyAdded = true;
+                break;
+              }
+            }
+            if (!alreadyAdded) {
+              result.push(this.getCategoryBar(this.props.categories[i]), false)
+              uncheckedCount++;
+              if (uncheckedCount == numUncheckedCategories) break;
+            }
+          }
         }
       }
       return result
     }
   }
 
-  getSelectedCategories() {
-    if (Object.keys(this.props.currentPage.categories).length) {
-      let result = []
-      for (let cat in this.props.currentPage.categories) {
-        result.push(<SelectedCategoryBar categoryInfo={this.props.currentPage.categories[cat]} checked={false}
-          key={this.props.currentPage.categories[cat].title}/>)
-      }
-      return result
-    }
-  }
-
   render() {
-    var categories = this.props.all ? this.getCategories() : this.getSelectedCategories();
-    var className = this.props.all ? "categories-container" : "categories-container selected";
-
     return (
-      <div className={className}>
-        {categories}
+      <div className={"categories-container"}>
+        {this.getCategories()}
       </div>
     )
   };
