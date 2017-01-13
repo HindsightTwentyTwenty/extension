@@ -23,6 +23,7 @@ class ChangeMyPassword extends Component {
 
   changePassword(){
     console.log(this.state);
+		console.log(this.props.currentUser);
     if(this.state.new_password == this.state.confirm_password){
       console.log("passwords match");
       this.props.login_actions.changeMyPassword(this.props.currentUser.email, this.state.current_password, this.state.new_password, this.props.currentUser.token);
