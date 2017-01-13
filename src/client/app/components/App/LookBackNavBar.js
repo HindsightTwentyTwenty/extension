@@ -37,9 +37,6 @@ class LookBackNavBar extends Component {
             <button id="nav-bar-button-2" className="nav-bar-button" type="button" onClick={() => {
               this.switchLookBackSelection(LookBackSections.Manage);
             }}>manage</button>
-            <button id="nav-bar-button-3" className="nav-bar-button" type="button" onClick={() => {
-              this.switchLookBackSelection(LookBackSections.Find);
-            }}>find</button>
           </div>
         </div>
         <div className="site-title">hindsite</div>
