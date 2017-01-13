@@ -19,7 +19,7 @@ class PopupBody extends Component {
   }
 
   render () {
-    console.log(this.props.currentPage);
+    console.log("current page props", this.props.currentPage);
     if(!this.props.currentPage.url){
       return(
         <div className="container popup-body">

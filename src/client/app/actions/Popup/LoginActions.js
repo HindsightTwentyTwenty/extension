@@ -130,6 +130,9 @@ function receivePageInfo(json) {
 }
 
 function getPageInfo(url, token){
+  console.log("getPageInfo() url", url);
+  console.log("getPageInfo() token", token);
+
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
@@ -151,6 +154,7 @@ export function sendCurrentPage(token) {
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      console.log("page: ", tabs[0]);
       var tab = tabs[0];
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
@@ -186,6 +190,7 @@ export function receivePageInfo(json) {
 
 
 export function loginUser(username, password){
+  console.log("loginUser()");
   return dispatch => {
     dispatch(requestUserToken())
     return fetch(loginUserEndpoint, {

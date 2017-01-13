@@ -50,10 +50,12 @@ const pageInfo = (state, action) => {
 function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
   switch(action.type){
     case types.RECEIVE_PAGE_INFO:
+      console.log("in recieve page info");
     case types.UPDATE_CURRENT_STAR:
     case types.ADD_PAGE_CATEGORY:
     case types.DELETE_PAGE_CATEGORY:
     case types.SET_CURRENT_PAGE:
+      console.log("set current page");
       return Object.assign({}, pageInfo(state, action));
     default:
         return state;

@@ -5,6 +5,9 @@ import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
+import 'react-date-picker/index.css'
+import { DateField, TransitionView, Calendar } from 'react-date-picker'
+
 
 import TabComponent from './TabComponent.js';
 
@@ -95,9 +98,9 @@ class LookBack extends Component {
   getFormattedDate(date_string){
     if(date_string){
       var date = new Date(date_string);
-      var monthes = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-      var month = monthes[(date.getMonth() -1)];
+      var month = months[(date.getMonth())];
       var datetext = (month + " " + date.getDate());
 
       return datetext;
@@ -140,10 +143,7 @@ class LookBack extends Component {
       let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
-				// if(tIndex < 23){
 					results.push(this.getTabComponent(tIndex))
-
-				// }
       }
       return results;
     }
@@ -175,8 +175,16 @@ class LookBack extends Component {
 									back
 								</button>
 								{this.state.start_date_formatted}
-
 						</div>
+						<DateField
+							forceValidDate
+							defaultValue={"2016-05-30 15:23:34"}
+							dateFormat="YYYY-MM-DD HH:mm:ss"
+						>
+							<TransitionView>
+								<Calendar style={{padding: 10}}/>
+							</TransitionView>
+						</DateField>
 						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
 						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
 	          <div className="end-time-label">
