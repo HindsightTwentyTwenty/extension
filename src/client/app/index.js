@@ -16,7 +16,8 @@ let store = createStore(
   rootReducer,
   { categories: {
       cats: [],
-      editCategory: ""
+      editCategory: "",
+      newCategoryName: ""
     },
     currentPage: {
       url: "",

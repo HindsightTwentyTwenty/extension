@@ -11,10 +11,12 @@ const category = (state, action) => {
   }
 }
 
-function categoryReducer(state = {cats: [], editCategory: ''}, action){
+function categoryReducer(state = {cats: [], editCategory: '', newCategoryName: ''}, action){
   switch(action.type){
+    case types.UPDATE_CATEGORY_EDIT_FIELD:
+      return {cats: [...state.cats], editCategory: state.editCategory, newCategoryName: action.categoryTitle}
     case types.TOGGLE_EDIT_CATEGORY:
-      return {cats: [...state.cats], editCategory: action.editCategory}
+      return {cats: [...state.cats], editCategory: action.editCategory, newCategoryName: state.newCategoryName}
     case types.UPDATE_CATEGORY_TITLE:
       var newCategoryList = [];
       var currentCategories = state.cats;
@@ -24,7 +26,7 @@ function categoryReducer(state = {cats: [], editCategory: ''}, action){
         }
         newCategoryList.push(currentCategories[i]);
       }
-      return {cats: newCategoryList, editCategory: state.editCategory};
+      return {cats: newCategoryList, editCategory: state.editCategory, newCategoryName: state.newCategoryName};
     case types.DELETE_CATEGORY:
       var newCategoryList = [];
       var currentCategories = state.cats;
@@ -33,14 +35,14 @@ function categoryReducer(state = {cats: [], editCategory: ''}, action){
           newCategoryList.push(currentCategories[i]);
         }
       }
-      return {cats: newCategoryList, editCategory: state.editCategory};
+      return {cats: newCategoryList, editCategory: state.editCategory, newCategoryName: state.newCategoryName};
     case types.RECEIVE_CATEGORIES:
-      return {cats: action.categories, editCategory: state.editCategory};
+      return {cats: action.categories, editCategory: state.editCategory, newCategoryName: state.newCategoryName};
     case types.REQUEST_CATEGORIES:
     //TODO: Remove empty object source??
-      return {cats: [...state.cats], editCategory: state.editCategory};
+      return {cats: [...state.cats], editCategory: state.editCategory, newCategoryName: state.newCategoryName};
     case types.RECEIVE_PUSH_CATEGORY:
-      return {cats: [...state.cats, category(undefined, action)], editCategory: state.editCategory};
+      return {cats: [...state.cats, category(undefined, action)], editCategory: state.editCategory, newCategoryName: state.newCategoryName};
     default:
         return state;
   }

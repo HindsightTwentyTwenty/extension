@@ -146,3 +146,12 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
     })
   }
 }
+
+export function updateCategoryEditField(newCategoryTitle) {
+  return dispatch => {
+    dispatch({
+      type: types.UPDATE_CATEGORY_EDIT_FIELD,
+      categoryTitle: newCategoryTitle
+    })
+  }
+}
