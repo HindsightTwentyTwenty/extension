@@ -12,9 +12,6 @@ const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
 export function fetchCategories(token){
   console.log("Token " + token);
   return dispatch => {
-    dispatch({
-      type: types.REQUEST_CATEGORIES
-    })
     return fetch(allCategoriesEndpoint,{
       headers: {
          'Accept': 'application/json',
@@ -33,9 +30,6 @@ export function fetchCategories(token){
 
 export function fetchCategoriesAndPages(token){
   return dispatch => {
-    dispatch({
-      type: types.REQUEST_CATEGORIES_AND_PAGES
-    })
     return fetch(categoriesAndPagesEndpoint, {
       headers: {
          'Accept': 'application/json',
@@ -71,14 +65,6 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
            }
       )
       .then(response => response.json())
-  }
-}
-
-export function clearSearchCategories() {
-  return dispatch => {
-    dispatch({
-      type: types.CLEAR_SEARCH_CATEGORIES
-    })
   }
 }
 
@@ -133,6 +119,14 @@ export function toggleSearchSelector() {
   return dispatch => {
     dispatch({
       type: types.TOGGLE_SEARCH_SELECTOR
+    })
+  }
+}
+
+export function clearSearchCategories() {
+  return dispatch => {
+    dispatch({
+      type: types.CLEAR_SEARCH_CATEGORIES
     })
   }
 }
