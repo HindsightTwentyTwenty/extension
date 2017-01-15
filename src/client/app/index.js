@@ -14,7 +14,11 @@ import './../chrome/css/popup.css';
 
 let store = createStore(
   rootReducer,
-  { categories:[],
+  { categories: {
+      cats: [],
+      editCategory: "",
+      newCategoryName: ""
+    },
     currentPage: {
       url: "",
       title: "",
@@ -32,7 +36,7 @@ let store = createStore(
     currentSearchCategories: {
       multiSelect: false,
       searchCats: []
-    }, 
+    },
     currentUser: {
       user_name:"",
       token:"",
