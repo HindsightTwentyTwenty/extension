@@ -5,8 +5,6 @@ import * as PasswordConstants from '../../constants/PasswordConstants.js'
 // import getPageInfo from './PopupActions.js';
 // import store from '../../index.js'
 
-
-
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
