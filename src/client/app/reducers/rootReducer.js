@@ -6,10 +6,11 @@ import currentTabsReducer from './CurrentTabsReducer.js';
 import timeReducer from './TimeReducer.js';
 import lookBackNavReducer from './LookBackNavReducer.js';
 import lookBackReducer from './lookBackReducer.js';
-import searchCategoryReducer from './searchCategoryReducer.js';
-import categoryPagesReducer from './categoryPagesReducer.js';
-import userReducer from './userReducer.js';
-import pageDisplayReducer from './pageDisplayReducer.js';
+import searchCategoryReducer from './SearchCategoryReducer.js';
+import categoryPagesReducer from './CategoryPagesReducer.js';
+import userReducer from './UserReducer.js';
+import pageDisplayReducer from './PageDisplayReducer.js';
+import blacklistReducer from './BlacklistReducer.js';
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -20,6 +21,7 @@ const rootReducer = (state, action) => {
 }
 
 const appReducer = combineReducers({
+  blacklist: blacklistReducer,
   pages: pageReducer,
   currentSearchCategories: searchCategoryReducer,
   categories: categoryReducer,
