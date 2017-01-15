@@ -21,21 +21,23 @@ class DisplayDetails extends Component {
       if(this.props.displayPage.categories.length > 0){
         categories = <CategoriesDisplay categories={this.props.displayPage.categories}/>
       }
-        return(
-          <div className="lookback-details-container">
-            <div className="row">
-              <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
-              <Star/>
-            </div>
-            {categories}
-            <CategoryEntry popup={false}/>
+      return(
+        <div className="lookback-details-container">
+          <div className="row">
+            <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
+            <Star/>
+            <p>created: <Timestamp time={this.props.displayPage.created} format="full"/></p>
           </div>
-        )
+          {categories}
+          <CategoryEntry popup={false}/>
+        </div>
+      )
     } else {
       let closed = null;
       if(currentDomain.closed != null){
         closed = <p>closed: <Timestamp time={currentDomain.closed} format="full"/></p>;
       }
+      console.log(currentDomain);
         return (
             <div className="lookback-details-container">
               <h3>{currentDomain.title}</h3>

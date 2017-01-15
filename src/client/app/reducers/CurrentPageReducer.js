@@ -40,7 +40,8 @@ const pageInfo = (state, action) => {
         title: action.page.page.title,
         url: action.page.page.url,
         star: action.page.page.star,
-        categories: action.page.page.categories
+        categories: action.page.page.categories,
+        created: action.page.page.created
       }
     default:
       return state

@@ -51,7 +51,7 @@ export function toggleDomainClicked() {
 }
 
 
-export function getDomain(pk, clicked, token){
+export function getDomain(pk, token){
   return dispatch => {
     return fetch(domainInfoEndpoint, {
           headers: {
@@ -64,6 +64,6 @@ export function getDomain(pk, clicked, token){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(updateDisplayDomain(json, clicked)))
+      .then(json => dispatch(updateDisplayDomain(json, true)))
   }
 }
