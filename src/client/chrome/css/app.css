@@ -302,28 +302,50 @@ start-time-label .end-time-label{
 
 .delete-category-button {
   float: right;
-  /*background-color: $canteloupe;*/
+  color: $canteloupe;
   width: 15px;
   height: 25px;
   line-height: 25px;
 }
 
 
-.category-title {
-  float: left;
-  color: $electric-blue;
-  text-align: center;
-  width: 180px;
+.edit-category-button {
+  color: $canteloupe;
+  width: 15px;
+  height: 25px;
+  line-height: 25px;
 }
 
-.side-bar-category {
+.edit-category-input {
+  height: 20px;
+  width: 150px;
+}
+
+.category-title {
+  color: $electric-blue;
+  text-align: center;
+  width: 150px;
+}
+
+.side-bar-category{
   width: 100%;
   height: 25px;
+  display: flex;
   line-height: 25px;
   border-top-style: solid;
   border-top-width: thin;
+  justify-content: space-between;
 }
 
 .side-bar-category.checked {
   background-color: $banana;
+}
+
+.edit-category-entry {
+  textarea {
+    width: 150px;
+    border: none;
+    background-color: $light-blue;
+    text-align: center;
+  }
 }
