@@ -12,16 +12,17 @@ class CategoriesDisplay extends Component {
   }
 
   getCategoryBar(category) {
-    var currentPageCategories = this.props.categories;
+    var currentPageCategories = this.props.categories.cats;
     return <CategoryBar categoryInfo={category} checked={true} key={category.title}/>;
   }
 
   getCategories() {
-    if (Object.keys(this.props.categories).length) {
+    var currentPageCategories = this.props.categories.cats;
+    if (Object.keys(currentPageCategories).length) {
       let result = []
-      for (let cat in this.props.categories) {
-        result.push(<SelectedCategoryBar categoryInfo={this.props.categories[cat]} checked={false}
-          key={this.props.categories[cat].title}/>)
+      for (let cat in currentPageCategories) {
+        result.push(<SelectedCategoryBar categoryInfo={currentPageCategories[cat]} checked={false}
+          key={currentPageCategories[cat].title}/>)
       }
       return result;
     }

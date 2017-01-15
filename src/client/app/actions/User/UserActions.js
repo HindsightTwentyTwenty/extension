@@ -1,15 +1,15 @@
 import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
+import * as PasswordConstants from '../../constants/PasswordConstants.js'
 // import getPageInfo from './PopupActions.js';
 // import store from '../../index.js'
-
-
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
+const changePasswordEndpoint = urls.BASE_URL + 'change/';
 
 const unauthorizedCode = "403";
 
@@ -261,5 +261,53 @@ export function forgotMyPasswordPage(value){
       type: types.FORGOT_MY_PASSWORD_PAGE,
       forgot: value
     })
+  }
+}
+
+export function changeMyPassword(current_password, new_password, token){
+  ;
+  return dispatch => {
+    return fetch(changePasswordEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "POST",
+      body: JSON.stringify({"current_pw": current_password, "new_pw": new_password})
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+      })
+    ))
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          console.log("Invalid password for password change");
+          dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
+          //dispatch(receiveLoginError());
+        } else {
+          console.log("valid post");
+          dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))
+        }
+      }
+    )
+  }
+}
+
+export function changeMyPasswordToggle(value){
+  return dispatch => {
+    return dispatch ({
+      type: types.CHANGE_PASSWORD,
+      change_password: value
+    })
+  }
+}
+
+export function test() {
+  return {
+    type: types.TEST
   }
 }

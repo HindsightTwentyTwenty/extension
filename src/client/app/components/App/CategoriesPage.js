@@ -38,7 +38,7 @@ class CategoriesPage extends Component {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent title={"Categories"} button={true} allCategories={this.props.categories}/>
+        <SidebarComponent title={"Categories"} button={true} allCategories={this.props.categories.cats}/>
         <div className="search-results-container">
           <div className="section-title">Search Results</div>
           {searchResults}

@@ -14,9 +14,16 @@ class ForgotMyPassword extends Component {
     this.props.user_actions.forgotMyPasswordEmailSubmit(email);
   }
 
+  back() {
+    this.props.login_actions.forgotMyPasswordPage(false);
+  }
+
   render() {
     return (
       <div>
+        <button className="btn btn-primary" type="button" onClick={() => {
+          this.back();
+        }}>Back</button>
         <div className="section-title">Enter the email to your account:</div>
         <div className="input-group">
           <input type="text" className="form-control" placeholder="tommy@hindsite.com" ref={node => {

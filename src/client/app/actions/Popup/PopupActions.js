@@ -6,7 +6,6 @@ const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 
 export function addPage(ptitle, purl, pstarred, pcategories){
-
   return {
     type: types.ADD_PAGE,
     url: purl,
@@ -16,61 +15,47 @@ export function addPage(ptitle, purl, pstarred, pcategories){
   }
 }
 
-export function receivePageInfo(json) {
-  console.log("receive page info", json);
-  return {
-    type: types.RECEIVE_PAGE_INFO,
-    categories: json.categories,
-    url: json.url,
-    star: json.star,
-    title: json.title
-  }
-}
-
-export function receivePushCategory(json) {
-  return {
-    type: types.RECEIVE_PUSH_CATEGORY,
-    category_added: json
-  }
-}
-
-export function requestPushCategory() {
-  return {
-    type: types.REQUEST_PUSH_CATEGORY
-  }
-}
-
 export function getPageInfo(url, token){
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
-             'Authorization': "Token " + token
+             'Authorization': 'Token ' + token
            },
            method: "POST",
            body: JSON.stringify({url: url})
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(receivePageInfo(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_PAGE_INFO,
+        categories: json.categories,
+        url: json.url,
+        star: json.star,
+        title: json.title
+      })
+    )
   }
 }
 
 export function pushCategory(category, token){
   return dispatch => {
-    dispatch(requestPushCategory())
     return fetch(addCategoryEndpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': "Token " + token
+               'Authorization': 'Token ' + token
              },
              method: "POST",
              body: JSON.stringify({category: category})
            }
       )
       .then(response => response.json())
-      .then(json => dispatch(receivePushCategory(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_PUSH_CATEGORY,
+        category_added: json
+      })
+    )
   }
 }
