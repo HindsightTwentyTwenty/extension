@@ -9,6 +9,7 @@ function getState() {
     current_password: "",
     new_password: "",
     confirm_password: "",
+		done:false
 	}
 }
 
@@ -29,6 +30,7 @@ class ChangeMyPassword extends Component {
     } else {
       console.log("passwords did not match");
     }
+
 
   }
 
@@ -56,6 +58,7 @@ class ChangeMyPassword extends Component {
 }
 
 let mapStateToProps = (state) => ({
+	currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => ({

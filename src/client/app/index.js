@@ -32,12 +32,13 @@ let store = createStore(
     currentSearchCategories: {
       multiSelect: false,
       searchCats: []
-    }, 
+    },
     currentUser: {
       user_name:"",
       token:"",
       forgot:false,
-      invalid_login:false
+      invalid_login:false,
+      change_password:false
     }
   },
   applyMiddleware(

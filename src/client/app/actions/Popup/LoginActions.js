@@ -298,6 +298,15 @@ export function changeMyPassword(current_password, new_password, token){
   }
 }
 
+export function toggleChangeMyPasswordPage(value){
+  return dispatch => {
+    return dispatch ({
+      type: types.CHANGE_PASSWORD,
+      change_password: value
+    })
+  }
+}
+
 export function test() {
   return {
     type: types.TEST
