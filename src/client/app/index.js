@@ -41,7 +41,8 @@ let store = createStore(
       user_name:"",
       token:"",
       forgot:false,
-      invalid_login:false
+      invalid_login:false,
+      change_password:false
     }
   },
   applyMiddleware(
