@@ -20,7 +20,8 @@ class CategoriesContainer extends Component {
   }
 
   getCategories() {
-    if (Object.keys(this.props.categories).length) {
+    var categories = this.props.categories.cats;
+    if (Object.keys(categories).length) {
       let result = []
       var currentPageCategories = this.props.currentPage.categories;
       var MAXDISPLAYCATEGORIES = 12;
@@ -28,20 +29,20 @@ class CategoriesContainer extends Component {
       for (var i = 0; i < numCheckedCategories; i++) {
         result.push(this.getCategoryBar(currentPageCategories[i], true))
       }
-      var numUncheckedCategories = MAXDISPLAYCATEGORIES <= this.props.categories.length ? MAXDISPLAYCATEGORIES - numCheckedCategories : this.props.categories.length - numCheckedCategories;
+      var numUncheckedCategories = MAXDISPLAYCATEGORIES <= categories.length ? MAXDISPLAYCATEGORIES - numCheckedCategories : categories.length - numCheckedCategories;
       var uncheckedCount = 0;
       while (uncheckedCount < numUncheckedCategories) {
-        for (var i = this.props.categories.length-1; i >= 0; i--) {
-          if(this.props.categories[i]){
+        for (var i = categories.length-1; i >= 0; i--) {
+          if(categories[i]){
             var alreadyAdded = false;
             for (var j = 0; j < currentPageCategories.length; j++) {
-              if (currentPageCategories[j].title === this.props.categories[i].title) {
+              if (currentPageCategories[j].title === categories[i].title) {
                 alreadyAdded = true;
                 break;
               }
             }
             if (!alreadyAdded) {
-              result.push(this.getCategoryBar(this.props.categories[i]), false)
+              result.push(this.getCategoryBar(categories[i]), false)
               uncheckedCount++;
               if (uncheckedCount == numUncheckedCategories) break;
             }

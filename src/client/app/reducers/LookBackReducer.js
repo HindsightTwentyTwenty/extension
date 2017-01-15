@@ -24,7 +24,6 @@ const domainInfo = (state, action) => {
 function lookBackReducer(state = {active_times:[], base_url: "", closed: "", created: "", favicon: "", minutes_active: "", pages: "", pagevisits: [], pk: "", title: ""}, action){
   switch(action.type){
     case types.TOGGLE_DOMAIN_CLICKED:
-      return Object.assign({}, domainInfo(state, action));
     case types.UPDATE_DISPLAY_DOMAIN:
       return Object.assign({}, domainInfo(state, action));
     default:

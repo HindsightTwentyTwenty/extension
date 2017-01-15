@@ -4,24 +4,8 @@ import fetch from 'isomorphic-fetch'
 
 const getTabsEndpoint = urls.BASE_URL + "tabinfo/";
 
-export function receiveTabs(json) {
-  return {
-    type: types.RECEIVE_TABS,
-    tabs: json
-  }
-}
-
-// TODO: add requests for specific users
-export function requestTabs() {
-  return {
-    type: types.REQUEST_TABS
-  }
-}
-
 export function getAllTabs(start_date, end_date, token){
-
   return dispatch => {
-    dispatch(requestTabs())
     return fetch(getTabsEndpoint, {
             headers: {
                'Accept': 'application/json',
@@ -33,6 +17,10 @@ export function getAllTabs(start_date, end_date, token){
            }
       )
       .then(response => response.json())
-      .then(json => dispatch(receiveTabs(json)))
+      .then(json => dispatch({
+        type: types.RECEIVE_TABS,
+        tabs: json
+      }
+    ))
   }
 }
