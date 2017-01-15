@@ -7,6 +7,7 @@ const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
+const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
 
 export function fetchCategories(token){
   console.log("Token " + token);
@@ -18,7 +19,7 @@ export function fetchCategories(token){
       headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-         'Authorization': "Token " + token
+         'Authorization': 'Token ' + token
        },
        method: "GET"
     })
@@ -39,7 +40,7 @@ export function fetchCategoriesAndPages(token){
       headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-         'Authorization': "Token " + token
+         'Authorization': 'Token ' + token
        },
        method: "GET"
     })
@@ -63,7 +64,7 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': "Token " + token
+               'Authorization': 'Token ' + token
              },
              method: "POST",
              body: JSON.stringify({url: pageUrl, category: category.title})
@@ -81,6 +82,7 @@ export function clearSearchCategories() {
   }
 }
 
+//TODO: WC talked with GM about receiving confirmation from backend before deleting from frontend
 export function deleteCategory(title, token) {
   return dispatch => {
     dispatch({
@@ -95,8 +97,36 @@ export function deleteCategory(title, token) {
       },
       method: "POST",
       body: JSON.stringify({category: title})
-    }
-  )}
+    })
+  }
+}
+
+export function editCategoryTitle(oldTitle, updatedTitle, token) {
+  return dispatch => {
+    dispatch({
+      type: types.UPDATE_CATEGORY_TITLE,
+      old: oldTitle,
+      updated: updatedTitle
+    })
+    return fetch(editCategoryTitleEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      method: "POST",
+      body: JSON.stringify({old: oldTitle, updated: updatedTitle})
+    })
+  }
+}
+
+export function toggleEditCategory(categoryTitle) {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_EDIT_CATEGORY,
+      editCategory: categoryTitle
+    })
+  }
 }
 
 export function toggleSearchSelector() {
@@ -113,6 +143,15 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
     dispatch({
       type: dispatchType,
       categoryTitle: categoryTitle,
+    })
+  }
+}
+
+export function updateCategoryEditField(newCategoryTitle) {
+  return dispatch => {
+    dispatch({
+      type: types.UPDATE_CATEGORY_EDIT_FIELD,
+      categoryTitle: newCategoryTitle
     })
   }
 }
