@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 import ChangeMyPassword from './ChangeMyPassword.js';
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
 
@@ -14,14 +14,14 @@ class Account extends Component {
 
   logoutUser(){
     chrome.storage.local.remove("hindsite-token");
-    this.props.login_actions.logoutUser(this.props.currentUser.token);
+    this.props.user_actions.logoutUser(this.props.currentUser.token);
     chrome.tabs.getCurrent(function(tab) {
       chrome.tabs.remove(tab.id, function() { });
     });
   }
 
   changeMyPassword() {
-    this.props.login_actions.changeMyPasswordToggle(PasswordConstants.Open);
+    this.props.user_actions.changeMyPasswordToggle(PasswordConstants.Open);
   }
 
   changeMyPasswordFields() {
@@ -67,13 +67,11 @@ class Account extends Component {
 
 let mapStateToProps = (state) => ({
 	currentUser : state.currentUser
-
 })
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-		login_actions: bindActionCreators(LoginActions, dispatch)
-  }
-}
+
+let mapDispatchToProps = (dispatch) => ({
+    user_actions: bindActionCreators(UserActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account);
