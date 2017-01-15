@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as PasswordConstants from '../../constants/PasswordConstants.js'
 
 function getState() {
 	return {
@@ -23,17 +24,12 @@ class ChangeMyPassword extends Component {
   }
 
   changePassword(){
-    console.log(this.state);
     if(this.state.new_password == this.state.confirm_password){
-      console.log("passwords match");
       this.props.login_actions.changeMyPassword(this.state.current_password, this.state.new_password, this.props.currentUser.token);
     } else {
-      console.log("passwords did not match");
+      this.props.login_actions.changeMyPasswordToggle(PasswordConstants.Nonmatch);
     }
-
-
   }
-
 
   render () {
 

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as LoginActions from '../../actions/Popup/LoginActions.js';
 import ChangeMyPassword from './ChangeMyPassword.js';
+import * as PasswordConstants from '../../constants/PasswordConstants.js'
 
 class Account extends Component {
 
@@ -20,7 +21,32 @@ class Account extends Component {
   }
 
   changeMyPassword() {
-    this.props.login_actions.toggleChangeMyPasswordPage(!this.props.currentUser.change_password);
+    this.props.login_actions.changeMyPasswordToggle(PasswordConstants.Open);
+  }
+
+  changeMyPasswordFields() {
+    switch (this.props.currentUser.change_password) {
+      case PasswordConstants.Open:
+        return <ChangeMyPassword/>
+      case PasswordConstants.Close:
+        return <div></div>
+      case PasswordConstants.Succesful:
+        return <div className="change-password-response">Your Password Has Been Succesfully Changed!</div>
+      case PasswordConstants.Unsuccesful:
+        return (
+          <div>
+            <div className="change-password-response">Incorrect Password. Try Again.</div>
+            <ChangeMyPassword/>
+          </div>
+        )
+      case PasswordConstants.Nonmatch:
+        return (
+          <div>
+            <div className="change-password-response">The submitted passwords did not match</div>
+            <ChangeMyPassword/>
+          </div>
+        )
+    }
   }
 
   render() {
@@ -31,7 +57,7 @@ class Account extends Component {
             <div className="section-title">Account</div>
             <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
             <button className="btn btn-primary" type="button" onClick={this.changeMyPassword.bind(this)}>Change Password</button>
-            {this.props.currentUser.change_password ? <ChangeMyPassword/> : <div></div>}
+            { this.changeMyPasswordFields() }
           </div>
         </div>
       </div>

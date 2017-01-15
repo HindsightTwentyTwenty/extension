@@ -1,6 +1,7 @@
 import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
+import * as PasswordConstants from '../../constants/PasswordConstants.js'
 // import getPageInfo from './PopupActions.js';
 // import store from '../../index.js'
 
@@ -287,18 +288,18 @@ export function changeMyPassword(current_password, new_password, token){
       ({ status, json }) => {
         if(status == 401){
           console.log("Invalid password for password change");
+          dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
           //dispatch(receiveLoginError());
         } else {
           console.log("valid post");
-          //dispatch(receiveUserToken(json, username))
+          dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))
         }
-        dispatch(test())
       }
     )
   }
 }
 
-export function toggleChangeMyPasswordPage(value){
+export function changeMyPasswordToggle(value){
   return dispatch => {
     return dispatch ({
       type: types.CHANGE_PASSWORD,
