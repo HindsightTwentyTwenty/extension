@@ -8,7 +8,7 @@ import LoginPage from './LoginPage.js';
 import CreateUser from './CreateUser.js';
 
 import ForgotMyPassword from './ForgotMyPassword.js';
-import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 
 
 function getState() {
@@ -21,7 +21,7 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-    chrome.storage.local.get("hindsite-token", this.props.login_actions.receiveUserTokenFromChrome);
+    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
   }
 
 
@@ -74,7 +74,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    login_actions: bindActionCreators(LoginActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch)
 
   }
 }
