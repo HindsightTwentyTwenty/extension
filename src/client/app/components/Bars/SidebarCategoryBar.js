@@ -31,16 +31,19 @@ class SidebarCategoryBar extends Component {
             }}
           }
         > {categoryTitle} </div>
-        <div className='delete-category-button' onClick={() => {
-          this.props.category_actions.updateSearchCategory(categoryTitle, false);
-          this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
+        <a>
+          <i className='fa fa-close delete-category-button' onClick={() => {
+            this.props.category_actions.updateSearchCategory(categoryTitle, false);
+            this.props.category_actions.deleteCategory(categoryTitle, userToken); }}>
+          </i>
+        </a>
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-  categories : state.categories, 
+  categories : state.categories,
   currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser
 })

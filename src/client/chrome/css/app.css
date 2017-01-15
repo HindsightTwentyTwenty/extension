@@ -78,10 +78,12 @@ body {
 
 .side-bar-container{
   display: inline-block;
-  width: 200px;
+  width: 202px;
   height: calc(100% - 70px);
   background-color: $base-white;
-  border: solid 1px $electric-blue;
+  border-left: solid 3px $electric-blue;
+  border-right: solid 3px $electric-blue;
+  border-bottom: solid 3px $electric-blue;
 }
 
 .domain-bar{
@@ -300,10 +302,12 @@ start-time-label .end-time-label{
 
 .delete-category-button {
   float: right;
-  background-color: $canteloupe;
+  /*background-color: $canteloupe;*/
   width: 15px;
-  height: 15px;
+  height: 25px;
+  line-height: 25px;
 }
+
 
 .category-title {
   float: left;
@@ -315,6 +319,9 @@ start-time-label .end-time-label{
 .side-bar-category {
   width: 100%;
   height: 25px;
+  line-height: 25px;
+  border-top-style: solid;
+  border-top-width: thin;
 }
 
 .side-bar-category.checked {
