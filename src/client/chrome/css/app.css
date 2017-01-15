@@ -76,14 +76,6 @@ body {
   color: $canteloupe;
 }
 
-.side-bar-category {
-  text-align: center;
-  border-style: solid;
-  border-width: 1px;
-  border-color: $base-white;
-  padding: 5px 0px;
-}
-
 .side-bar-container{
   display: inline-block;
   width: 200px;
@@ -195,15 +187,6 @@ start-time-label .end-time-label{
   display: list-item;
 }
 
-.side-bar-category {
-  overflow: hidden;
-}
-
-.side-bar-category.checked {
-  background-color: $banana;
-  color: $base-white;
-}
-
 .nav-bar-button {
   border: none;
   background-color: $electric-blue;
@@ -222,7 +205,6 @@ start-time-label .end-time-label{
 .control-buttons{
   display: flex;
   justify-content: space-around;
-  padding: 0px 5px 10px 5px;
   color: $canteloupe;
   font-weight: bold;
 }
@@ -254,7 +236,6 @@ start-time-label .end-time-label{
 }
 .all-categories {
   overflow: scroll;
-  height: calc(100% - 70px);
 }
 
 .section-title {
@@ -316,3 +297,26 @@ start-time-label .end-time-label{
 .hidden { display:none; }
 
 .error_message { color: blue; }
+
+.delete-category-button {
+  float: right;
+  background-color: $canteloupe;
+  width: 15px;
+  height: 15px;
+}
+
+.category-title {
+  float: left;
+  color: $electric-blue;
+  text-align: center;
+  width: 180px;
+}
+
+.side-bar-category {
+  width: 100%;
+  height: 25px;
+}
+
+.side-bar-category.checked {
+  background-color: $banana;
+}

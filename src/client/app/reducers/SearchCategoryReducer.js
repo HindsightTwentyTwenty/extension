@@ -32,11 +32,8 @@ const searchCategory = (state, action) => {
 function searchCategoryReducer(state = {multiSelect: false, searchCats: []}, action){
   switch(action.type){
     case types.TOGGLE_SEARCH_SELECTOR:
-      return searchCategory(state, action);
     case types.CLEAR_SEARCH_CATEGORIES:
-      return searchCategory(state, action);
     case types.ADD_SEARCH_CATEGORY:
-      return searchCategory(state, action);
     case types.REMOVE_SEARCH_CATEGORY:
       return searchCategory(state, action);
     default:

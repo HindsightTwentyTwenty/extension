@@ -50,10 +50,8 @@ class SidebarComponent extends Component {
     var categories = this.getCategories();
     return (
       <div className="side-bar-container">
-        <div className="side-bar-header">
-          <div className="side-bar-title">{this.title}</div>
-          {this.getCheckBox()}
-        </div>
+        <div className="side-bar-title">{this.title}</div>
+        {this.getCheckBox()}
         <div className="all-categories">{categories}</div>
       </div>
     )
