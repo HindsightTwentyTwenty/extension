@@ -287,7 +287,6 @@ export function changeMyPassword(current_password, new_password, token){
         if(status == 401){
           console.log("Invalid password for password change");
           dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
-          //dispatch(receiveLoginError());
         } else {
           console.log("valid post");
           dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))

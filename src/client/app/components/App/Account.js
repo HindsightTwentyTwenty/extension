@@ -67,18 +67,11 @@ class Account extends Component {
 
 let mapStateToProps = (state) => ({
 	currentUser : state.currentUser
-
-<<<<<<< HEAD
-let mapDispatchToProps = (dispatch) => ({
-    user_actions: bindActionCreators(UserActions, dispatch)
-=======
->>>>>>> 60f3d73a2c8491a86d6e8a9ae5d9fdba56184069
 })
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-		login_actions: bindActionCreators(LoginActions, dispatch)
-  }
-}
+
+let mapDispatchToProps = (dispatch) => ({
+    user_actions: bindActionCreators(UserActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account);
