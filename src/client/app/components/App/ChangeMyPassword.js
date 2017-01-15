@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
 
 function getState() {
@@ -25,9 +25,9 @@ class ChangeMyPassword extends Component {
 
   changePassword(){
     if(this.state.new_password == this.state.confirm_password){
-      this.props.login_actions.changeMyPassword(this.state.current_password, this.state.new_password, this.props.currentUser.token);
+      this.props.user_actions.changeMyPassword(this.state.current_password, this.state.new_password, this.props.currentUser.token);
     } else {
-      this.props.login_actions.changeMyPasswordToggle(PasswordConstants.Nonmatch);
+      this.props.user_actions.changeMyPasswordToggle(PasswordConstants.Nonmatch);
     }
   }
 
@@ -58,7 +58,7 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    login_actions: bindActionCreators(LoginActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeMyPassword);
