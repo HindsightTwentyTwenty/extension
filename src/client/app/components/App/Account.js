@@ -21,7 +21,7 @@ class Account extends Component {
   }
 
   changeMyPassword() {
-    this.props.login_actions.changeMyPasswordToggle(PasswordConstants.Open);
+    this.props.user_actions.changeMyPasswordToggle(PasswordConstants.Open);
   }
 
   changeMyPasswordFields() {
