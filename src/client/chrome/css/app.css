@@ -255,6 +255,7 @@ start-time-label .end-time-label{
   height: 100px;
   border-radius: 5px;
   display:flex;
+  flex-flow: row nowrap;
 }
 
 .page-bar{

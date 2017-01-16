@@ -17,7 +17,6 @@ class SelectedDomainBar extends Component {
   }
 
   getPageBars(){
-    console.log(this.props.domain)
     var pageBars = [];
     var pageWidths = [];
 
@@ -29,15 +28,14 @@ class SelectedDomainBar extends Component {
 
     var minWidth = 100;
     for(var i = 0; i < pageVisits.length; i++){
-      var closed;
+      var pageOpenTime;
       if(i < pageVisits.length -1){
-        closed = pageVisits[i+1].page.created;
+        pageOpenTime = this.getTimeOpen(pageVisits[i].visited, pageVisits[i+1].visited);
       }else{
-        closed = this.props.domain.closed;
+        pageOpenTime = this.getTimeOpen(pageVisits[i].visited, this.props.domain.closed);
       }
-      var pageOpenTime = this.getTimeOpen(pageVisits[i].page.created, closed);
       var width = (pageOpenTime/domainOpenTime) * 100;
-      if(parseFloat(width) < parseFloat(minWidth) && parseFloat(width) > parseInt(0)){
+      if(width < minWidth && width > 0){
         minWidth = width;
       }
       pageWidths.push(width);
@@ -45,8 +43,8 @@ class SelectedDomainBar extends Component {
 
     //scale
     var scaleFactor = 1;
-    if(parseFloat(minWidth) < parseInt(2) && parseFloat(minWidth) > parseInt(0)){
-      scaleFactor = 2/minWidth;
+    if(minWidth < 7){
+      scaleFactor = 7/minWidth;
     }
 
     for(var i = 0; i < pageVisits.length; i++){
@@ -54,9 +52,8 @@ class SelectedDomainBar extends Component {
       if(adjWidth > 100){
         adjWidth = 100;
       }
-      if(adjWidth > 0){
-        var pageBar = this.getPageBar(pageVisits[i], adjWidth, i);
-      }
+
+      var pageBar = this.getPageBar(pageVisits[i], adjWidth, i);
       pageBars.push(pageBar);
     }
     return pageBars;
