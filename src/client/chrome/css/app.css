@@ -113,8 +113,8 @@ body {
 }
 
 .display-favicon {
-  width:45px;
-  height:45px;
+  width:25px;
+  height:25px;
   margin-right: 10px;
 }
 
@@ -293,12 +293,7 @@ start-time-label .end-time-label{
 }
 
 .categories-display{
-  padding: 3px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0px;
-  margin-top: 0px;
-  justify-content: center;
+  width: 50%;
 }
 
 .category-entry-wrapper{

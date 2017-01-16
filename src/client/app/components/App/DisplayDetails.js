@@ -2,14 +2,17 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import CategoriesDisplay from './CategoriesDisplay.js'
 import Star from '../Star/Star.js';
+import CategoriesContainer from '../Popup/CategoriesContainer';
 import CategoryEntry from '../Popup/CategoryEntry.js'
 const Timestamp = require('react-timestamp');
 class DisplayDetails extends Component {
 
   constructor(props) {
     super(props);
+    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   render() {
@@ -18,8 +21,8 @@ class DisplayDetails extends Component {
       return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
     }else if(currentDomain.clicked && this.props.displayPage.url != ""){
       var categories = <div></div>;
-      if(this.props.displayPage.categories.length > 0){
-        categories = <CategoriesDisplay categories={this.props.displayPage.categories}/>
+      if(this.props.categories.length > 0){
+        categories = <CategoriesContainer className={categories-display}/>;
       }
       return(
         <div className="lookback-details-container">
@@ -28,8 +31,9 @@ class DisplayDetails extends Component {
             <Star/>
             <p>opened: <Timestamp time={this.props.displayPage.created} format="full"/></p>
           </div>
-          {categories}
           <CategoryEntry popup={false}/>
+          {categories}
+          <CategoriesContainer className="categories-display"/>
         </div>
       )
     } else {
@@ -66,11 +70,14 @@ class DisplayDetails extends Component {
 
 let mapStateToProps = (state) => ({
   currentDomainDisplayed: state.currentDomainDisplayed,
-  displayPage: state.currentPage
+  displayPage: state.currentPage,
+  currentUser: state.currentUser,
+  categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
+      category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

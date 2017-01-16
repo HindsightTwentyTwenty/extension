@@ -10,3 +10,18 @@
   width:70%;
   }
 }
+
+.star-div{
+  height:45px;
+  width: 45px;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.star{
+  height: 45px;
+  line-height: 45px;
+  width: 45px;
+  text-align: center;
+  color: $watermelon;
+}

@@ -76,27 +76,16 @@ $base-white: #FAFAFA;
 
 .categories-container{
   border: solid 1px $canteloupe;
-  padding: 3px;
+  padding: 1%;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 0px;
+  margin: 0 auto;
+  margin-top: 1%;
+  justify-content: space-around;;
 }
 
 .popup-form {
   border: solid 1px $canteloupe;
-}
-
-.star-div{
-  height:45px;
-  width: 45px;
-}
-
-.star{
-  height: 45px;
-  line-height: 45px;
-  width: 45px;
-  text-align: center;
-  color: $watermelon;
 }
 
 .error-message{
