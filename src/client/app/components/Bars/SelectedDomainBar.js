@@ -11,9 +11,6 @@ class SelectedDomainBar extends Component {
     super(props);
   }
 
-  var pageBars = [];
-  var pageWidths = [];
-  
   getPageBar(pageVisit, width, key){
     var barStyle = {"width" : width + "%"};
     return <PageBar page={pageVisit.page} style={barStyle} key={key}/>;
@@ -21,6 +18,8 @@ class SelectedDomainBar extends Component {
 
   getPageBars(){
     console.log(this.props.domain)
+    var pageBars = [];
+    var pageWidths = [];
 
     var pageVisits = this.props.domain.pagevisits;
     if(this.props.domain.closed == null){
@@ -29,9 +28,9 @@ class SelectedDomainBar extends Component {
     var domainOpenTime = this.getTimeOpen(this.props.domain.created, this.props.domain.closed);
 
     var minWidth = 100;
-    for(var i = 0; i < this.props.domain.pageVisits; i++){
+    for(var i = 0; i < pageVisits.length; i++){
       var closed;
-      if(i < this.props.domain.pageVisits -1){
+      if(i < pageVisits.length -1){
         closed = pageVisits[i+1].page.created;
       }else{
         closed = this.props.domain.closed;
