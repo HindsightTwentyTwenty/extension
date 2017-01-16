@@ -26,7 +26,7 @@ class DisplayDetails extends Component {
           <div className="row">
             <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
             <Star/>
-            <p>created: <Timestamp time={this.props.displayPage.created} format="full"/></p>
+            <p>opened: <Timestamp time={this.props.displayPage.created} format="full"/></p>
           </div>
           {categories}
           <CategoryEntry popup={false}/>
@@ -44,7 +44,7 @@ class DisplayDetails extends Component {
             <h3>{currentDomain.title}</h3>
             <p>pages visited: {currentDomain.pages}</p>
             <p>minutes active: {currentDomain.minutes_active}</p>
-            <p>created: <Timestamp time={currentDomain.created} format="full"/></p>
+            <p>opened: <Timestamp time={currentDomain.created} format="full"/></p>
             {closed}
           </div>
       )
