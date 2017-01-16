@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import CategoryBar from '../Bars/CategoryBar';
 import SelectedCategoryBar from '../Bars/SelectedCategoryBar';
+var classNames = require('classnames');
 
 class CategoriesContainer extends Component {
 
@@ -21,7 +22,7 @@ class CategoriesContainer extends Component {
 
   getCategories() {
     var categories = this.props.categories.cats;
-    if (Object.keys(categories).length) {
+    if (categories != null && Object.keys(categories).length) {
       let result = []
       var currentPageCategories = this.props.currentPage.categories;
       var MAXDISPLAYCATEGORIES = 12;
@@ -54,8 +55,9 @@ class CategoriesContainer extends Component {
   }
 
   render() {
+    var classname = classNames('categories-container', this.props.className);
     return (
-      <div className={"categories-container"}>
+      <div className = {classname}>
         {this.getCategories()}
       </div>
     )
@@ -64,6 +66,7 @@ class CategoriesContainer extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
+    currentUser : state.currentUser,
     categories: state.categories,
 
 })

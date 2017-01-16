@@ -19,7 +19,6 @@ class PopupBody extends Component {
   }
 
   render () {
-    console.log(this.props.currentPage);
     if(!this.props.currentPage.url){
       return(
         <div className="container popup-body">
@@ -30,6 +29,10 @@ class PopupBody extends Component {
         </div>
       )
     } else {
+      var categories = <div></div>;
+      if(this.props.categories.cats.length > 0){
+        categories = <CategoriesContainer className={categories-display}/>;
+      }
       return (
         <div className="container popup-body">
           <div className="row">
@@ -51,7 +54,7 @@ class PopupBody extends Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <CategoriesContainer all={true}/>
+              {categories}
             </div>
           </div>
         </div>

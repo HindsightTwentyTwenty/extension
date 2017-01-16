@@ -43,10 +43,10 @@ body {
 }
 
 .lookback-details-container{
-  height: 120px;
+  height: 20%;
   text-align: center;
   position: relative;
-  padding: 10px;
+  padding: 2%;
   width: 100%;
   background-color: $base-white;
   color: $canteloupe;
@@ -105,13 +105,25 @@ body {
   }
 }
 
-#domain-favicon{
+.domain-favicon {
   width: 15px;
   height: 15px;
   margin-bottom: 4px;
   margin-right: 8px;
 }
 
+.display-favicon {
+  width:25px;
+  height:25px;
+  margin-right: 10px;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .previousPath {
   border-color: $banana;
 }
@@ -250,18 +262,21 @@ start-time-label .end-time-label{
   margin-top: 5%;
   width: 95%;
   border: $electric-blue solid;
+  border-left:none;
   float: none;
-  margin-left: auto;
-  margin-right: auto;
-  height: 15%;
+  margin-left: 2%;
+  margin-right: 2%;
+  height: 100px;
   border-radius: 5px;
+  display:flex;
+  flex-flow: row nowrap;
 }
 
 .page-bar{
   border-left: solid $electric-blue;
-  border-right: solid $electric-blue;
   height:100%;
   display:inline-block;
+  margin: 0;
 }
 
 .close-detail-view-btn{
@@ -278,12 +293,7 @@ start-time-label .end-time-label{
 }
 
 .categories-display{
-  padding: 3px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0px;
-  margin-top: 0px;
-  justify-content: center;
+  width: 50%;
 }
 
 .category-entry-wrapper{

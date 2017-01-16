@@ -9,7 +9,7 @@ const pageInfo = (state, action) => {
         star: action.star,
         title: action.title
       }
-    // TODO: change {star: !star} ?
+    // TODO: change {star: !star}
     case types.UPDATE_CURRENT_STAR:
       return Object.assign({}, state, {star: action.star});
     case types.ADD_PAGE_CATEGORY:
@@ -25,7 +25,7 @@ const pageInfo = (state, action) => {
       }
       return Object.assign({}, state, {categories: newCategoryList});
     case types.SET_CURRENT_PAGE:
-      if(action.save == false){
+      if(action.page.url == null){
         return {
           url: "",
           categories: [],
@@ -33,14 +33,16 @@ const pageInfo = (state, action) => {
           title: ""
         }
       }
-      if(action.page.page.star == undefined){
-        action.page.page.star = false;
+      if(action.page.star == undefined){
+        action.page.star = false;
       }
       return {
-        title: action.page.page.title,
-        url: action.page.page.url,
-        star: action.page.page.star,
-        categories: action.page.page.categories
+        title: action.page.title,
+        url: action.page.url,
+        star: action.page.star,
+        categories: action.page.categories,
+        created: action.page.created,
+        visited: action.visited
       }
     default:
       return state

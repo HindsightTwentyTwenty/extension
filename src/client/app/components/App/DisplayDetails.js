@@ -2,14 +2,17 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import CategoriesDisplay from './CategoriesDisplay.js'
 import Star from '../Star/Star.js';
+import CategoriesContainer from '../Popup/CategoriesContainer';
 import CategoryEntry from '../Popup/CategoryEntry.js'
-
+const Timestamp = require('react-timestamp');
 class DisplayDetails extends Component {
 
   constructor(props) {
     super(props);
+    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   render() {
@@ -18,38 +21,61 @@ class DisplayDetails extends Component {
       return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
     }else if(currentDomain.clicked && this.props.displayPage.url != ""){
       var categories = <div></div>;
-      if(this.props.displayPage.categories.length > 0){
-        categories = <CategoriesDisplay categories={this.props.displayPage.categories}/>
+      if(this.props.categories.cats.length > 0){
+        categories = <CategoriesContainer className={categories-display}/>;
       }
-        return(
-          <div className="lookback-details-container">
-            <div className="row">
-              <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
-              <Star/>
-            </div>
-            {categories}
-            <CategoryEntry popup={false}/>
+      return(
+        <div className="lookback-details-container">
+          <div className="row">
+            <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
+            <Star/>
+            <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
           </div>
-        )
+          <CategoryEntry popup={false}/>
+          {categories}
+        </div>
+      )
     } else {
-        return (
-            <div className="lookback-details-container">
-              <h3>{currentDomain.title}</h3>
-              <p>pages visited: {currentDomain.pages}</p>
-              <p>minutes active: {currentDomain.minutes_active}</p>
-            </div>
-        )
+      let closed = null;
+      if(currentDomain.closed != null){
+        closed = <p>closed: <Timestamp time={currentDomain.closed} format="full"/></p>;
+      }else{
+        closed = <p>closed: still open</p>;
+      }
+      let favicon = null;
+      if(currentDomain.favicon != ""){
+        favicon = <img className="display-favicon" src={currentDomain.favicon}/>
+      }
+      return (
+          <div className="lookback-details-container">
+              <div className="row flex-row">
+                <div>
+                  {favicon}
+                </div>
+                <h3>{currentDomain.title}</h3>
+              </div>
+              <div className="row">
+                <p>pages visited: {currentDomain.pages}</p>
+                <p>minutes active: {currentDomain.minutes_active}</p>
+                <p>opened: <Timestamp time={currentDomain.created} format="full"/></p>
+                {closed}
+              </div>
+          </div>
+      )
       }
   }
 }
 
 let mapStateToProps = (state) => ({
   currentDomainDisplayed: state.currentDomainDisplayed,
-  displayPage: state.currentPage
+  displayPage: state.currentPage,
+  currentUser: state.currentUser,
+  categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
+      category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

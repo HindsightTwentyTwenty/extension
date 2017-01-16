@@ -10,13 +10,12 @@ class DomainBar extends Component {
     super(props);
   }
 
-  getSelectedDomain(clicked){
-    if(clicked){
-      this.props.lookback_actions.toggleDomainClicked(this.props.domain.pk);
-      this.props.lookback_actions.setCurrentPage({}, false);
-    } else{
-      this.props.lookback_actions.getDomain(this.props.domain.pk, clicked, this.props.currentUser.token);
-    }
+  selectDomain(){
+    this.props.lookback_actions.getDomain(this.props.domain.pk, this.props.currentUser.token);
+  }
+
+  previewDomain(){
+    this.props.lookback_actions.updateDisplayDomain(this.props.domain, false);
   }
 
   render() {
@@ -28,16 +27,16 @@ class DomainBar extends Component {
         style = {this.props.style}
         width = {this.props.width}
         onMouseDown={()=>{
-          this.getSelectedDomain(true);
+          this.selectDomain();
         }}
         onMouseOver={() => {
-          this.getSelectedDomain(false);
+          this.previewDomain();
           this.highlight_previous();
         }}
         onMouseLeave={() => {
           this.unhighlight_previous();
         }}>
-        <img id="domain-favicon" src={this.props.domain.favicon}/>
+        <img className="domain-favicon" src={this.props.domain.favicon}/>
         <label htmlFor='domainBar'>{this.props.domain.title}</label>
       </div>
     )
