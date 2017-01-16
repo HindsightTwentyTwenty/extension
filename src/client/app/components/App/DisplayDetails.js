@@ -39,13 +39,25 @@ class DisplayDetails extends Component {
       }else{
         closed = <p>closed: still open</p>;
       }
+      let favicon = null;
+      console.log(currentDomain);
+      if(currentDomain.favicon != ""){
+        favicon = <img className="display-favicon" src={currentDomain.favicon}/>
+      }
       return (
           <div className="lookback-details-container">
-            <h3>{currentDomain.title}</h3>
-            <p>pages visited: {currentDomain.pages}</p>
-            <p>minutes active: {currentDomain.minutes_active}</p>
-            <p>opened: <Timestamp time={currentDomain.created} format="full"/></p>
-            {closed}
+              <div className="row flex-row">
+                <div>
+                  {favicon}
+                </div>
+                <h3>{currentDomain.title}</h3>
+              </div>
+              <div className="row">
+                <p>pages visited: {currentDomain.pages}</p>
+                <p>minutes active: {currentDomain.minutes_active}</p>
+                <p>opened: <Timestamp time={currentDomain.created} format="full"/></p>
+                {closed}
+              </div>
           </div>
       )
       }
