@@ -21,7 +21,7 @@ class DisplayDetails extends Component {
       return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information.</h3></div>)
     }else if(currentDomain.clicked && this.props.displayPage.url != ""){
       var categories = <div></div>;
-      if(this.props.categories.length > 0){
+      if(this.props.categories.cats.length > 0){
         categories = <CategoriesContainer className={categories-display}/>;
       }
       return(
@@ -29,11 +29,10 @@ class DisplayDetails extends Component {
           <div className="row">
             <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
             <Star/>
-            <p>opened: <Timestamp time={this.props.displayPage.created} format="full"/></p>
+            <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
           </div>
           <CategoryEntry popup={false}/>
           {categories}
-          <CategoriesContainer className="categories-display"/>
         </div>
       )
     } else {
@@ -44,7 +43,6 @@ class DisplayDetails extends Component {
         closed = <p>closed: still open</p>;
       }
       let favicon = null;
-      console.log(currentDomain);
       if(currentDomain.favicon != ""){
         favicon = <img className="display-favicon" src={currentDomain.favicon}/>
       }

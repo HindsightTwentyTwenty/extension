@@ -28,11 +28,11 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, save) {
+export function setCurrentPage(page, visited) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    save: save
+    visited: visited
   }
 }
 

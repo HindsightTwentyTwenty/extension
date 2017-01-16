@@ -17,7 +17,7 @@ class PageBar extends Component {
         style={this.props.style}
         onMouseOver={() => {
           if(this.props.currentPage == undefined || (this.props.page.url !== this.props.currentPage.url)){
-            this.props.lookback_actions.setCurrentPage(this.props.page, true);
+            this.props.lookback_actions.setCurrentPage(this.props.page, this.props.visited);
           }
         }}>
       </div>

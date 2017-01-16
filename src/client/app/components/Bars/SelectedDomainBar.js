@@ -13,7 +13,7 @@ class SelectedDomainBar extends Component {
 
   getPageBar(pageVisit, width, key){
     var barStyle = {"width" : width + "%"};
-    return <PageBar page={pageVisit.page} style={barStyle} key={key}/>;
+    return <PageBar page={pageVisit.page} visited={pageVisit.visited} style={barStyle} key={key}/>;
   }
 
   getPageBars(){
@@ -40,17 +40,18 @@ class SelectedDomainBar extends Component {
       }
       pageWidths.push(width);
     }
-
+    var MINWIDTH = 7;
+    var MAXWIDTH = 100;
     //scale
     var scaleFactor = 1;
-    if(minWidth < 7){
-      scaleFactor = 7/minWidth;
+    if(minWidth < MINWIDTH){
+      scaleFactor = MINWIDTH/minWidth;
     }
 
     for(var i = 0; i < pageVisits.length; i++){
       var adjWidth = pageWidths[i] * scaleFactor;
-      if(adjWidth > 100){
-        adjWidth = 100;
+      if(adjWidth > MAXWIDTH){
+        adjWidth = MAXWIDTH;
       }
 
       var pageBar = this.getPageBar(pageVisits[i], adjWidth, i);
