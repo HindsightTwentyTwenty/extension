@@ -8,6 +8,9 @@ function get_token(token_return){
 }
 chrome.storage.local.get("hindsite-token", get_token);
 
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  chrome.storage.local.get("hindsite-token", get_token);
+})
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
