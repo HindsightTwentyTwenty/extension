@@ -43,10 +43,10 @@ body {
 }
 
 .lookback-details-container{
-  height: 175px;
+  height: 20%;
   text-align: center;
   position: relative;
-  padding: 10px;
+  padding: 2%;
   width: 100%;
   background-color: $base-white;
   color: $canteloupe;
@@ -248,19 +248,20 @@ start-time-label .end-time-label{
   margin-top: 5%;
   width: 95%;
   border: $electric-blue solid;
-  border-left: none;
+  border-left:none;
   float: none;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 2%;
+  margin-right: 2%;
   height: 100px;
   border-radius: 5px;
-  overflow-x: scroll;
+  display:flex;
 }
 
 .page-bar{
   border-left: solid $electric-blue;
   height:100%;
   display:inline-block;
+  margin: 0;
 }
 
 .close-detail-view-btn{

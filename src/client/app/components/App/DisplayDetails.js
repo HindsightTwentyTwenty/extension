@@ -36,17 +36,18 @@ class DisplayDetails extends Component {
       let closed = null;
       if(currentDomain.closed != null){
         closed = <p>closed: <Timestamp time={currentDomain.closed} format="full"/></p>;
+      }else{
+        closed = <p>closed: still open</p>;
       }
-      console.log(currentDomain);
-        return (
-            <div className="lookback-details-container">
-              <h3>{currentDomain.title}</h3>
-              <p>pages visited: {currentDomain.pages}</p>
-              <p>minutes active: {currentDomain.minutes_active}</p>
-              <p>created: <Timestamp time={currentDomain.created} format="full"/></p>
-              {closed}
-            </div>
-        )
+      return (
+          <div className="lookback-details-container">
+            <h3>{currentDomain.title}</h3>
+            <p>pages visited: {currentDomain.pages}</p>
+            <p>minutes active: {currentDomain.minutes_active}</p>
+            <p>created: <Timestamp time={currentDomain.created} format="full"/></p>
+            {closed}
+          </div>
+      )
       }
   }
 }

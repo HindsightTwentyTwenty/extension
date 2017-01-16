@@ -9,13 +9,12 @@ class DomainBar extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   selectDomain(){
     this.props.lookback_actions.getDomain(this.props.domain.pk, this.props.currentUser.token);
   }
 
   previewDomain(){
-    console.log(this.props.domain);
     this.props.lookback_actions.updateDisplayDomain(this.props.domain, false);
   }
 

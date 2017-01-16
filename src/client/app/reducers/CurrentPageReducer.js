@@ -33,15 +33,15 @@ const pageInfo = (state, action) => {
           title: ""
         }
       }
-      if(action.page.page.star == undefined){
-        action.page.page.star = false;
+      if(action.page.star == undefined){
+        action.page.star = false;
       }
       return {
-        title: action.page.page.title,
-        url: action.page.page.url,
-        star: action.page.page.star,
-        categories: action.page.page.categories,
-        created: action.page.page.created
+        title: action.page.title,
+        url: action.page.url,
+        star: action.page.star,
+        categories: action.page.categories,
+        created: action.page.created
       }
     default:
       return state
