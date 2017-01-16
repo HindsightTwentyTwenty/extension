@@ -21,7 +21,6 @@ class Blacklist extends Component {
       </div>
     )
   }
-
 }
 
 export default connect(null, null)(Blacklist);
