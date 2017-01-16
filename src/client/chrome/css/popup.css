@@ -10,7 +10,7 @@ $base-white: #FAFAFA;
    background-color: $base-white;
    font-family: 'Raleway';
    color: $electric-blue;
-   vertical-align: center;
+   vertical-align: middle;
 }
 
 .popup-header {
@@ -88,7 +88,15 @@ $base-white: #FAFAFA;
 
 .star-div{
   height:45px;
-  background-color: $canteloupe;
+  width: 45px;
+}
+
+.star{
+  height: 45px;
+  line-height: 45px;
+  width: 45px;
+  text-align: center;
+  color: $watermelon;
 }
 
 .error-message{
