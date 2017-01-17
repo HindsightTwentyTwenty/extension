@@ -5,6 +5,8 @@ import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers/rootReducer';
 import thunkMiddleware from 'redux-thunk'
 
+import * as PopupConstants from './constants/PopupConstants.js'
+
 import { Router, hashHistory, browserHistory } from 'react-router';
 import routes from './routes';
 
@@ -42,7 +44,8 @@ let store = createStore(
       token:"",
       forgot:false,
       invalid_login:false,
-      change_password:false
+      change_password:false,
+      popup_status:PopupConstants.SignIn
     }
   },
   applyMiddleware(

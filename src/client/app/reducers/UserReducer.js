@@ -22,6 +22,9 @@ function userReducer(state = {user_name:"", token:"", forgot:false, invalid_logi
       return { ...state, invalid_login:false, create_user: action.create_user }
     case types.CHANGE_PASSWORD:
       return { ...state, change_password: action.change_password }
+    case types.TEST:
+      console.log("TEST IN REDUCER");
+      return { ...state }
     default:
         return state;
   }

@@ -78,10 +78,10 @@ export function receiveUserTokenFromChrome(token) {
        token: token
      }
     )
+    dispatch (
+
+    )
   }
- return dispatch => {
-   return dispatch(userToken(token))
- }
 }
 
 
@@ -165,11 +165,32 @@ export function sendCurrentPage(token) {
             method: "POST",
             body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
           }
-        ).then(
-          dispatch(getPageInfo(tab.url, token))
         )
+        .then(response => {
+          if (response['status'] == '200'){
+            console.log("login success");
+            dispatch(error(response));
+            return response
+            //TODO Implement user message warning of error on logout
+          } else {
+            console.log("logoin fail", response['status']);
+            return response;
+          }
+        })
+        .then(response => response.json())
+        .then(json => dispatch(receivePageInfo(json)))
+        // .then(
+        //   dispatch(getPageInfo(tab.url, token))
+        // )
       }
     });
+  }
+}
+
+export function error(response){
+  console.log("error", response.json());
+  return {
+    type: types.TEST
   }
 }
 
