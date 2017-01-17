@@ -22,7 +22,7 @@ class DisplayDetails extends Component {
     }else if(currentDomain.clicked && this.props.displayPage.url != ""){
       var categories = <div></div>;
       if(this.props.categories.cats.length > 0){
-        categories = <CategoriesContainer className={categories-display}/>;
+        categories = <CategoriesContainer className={'categories-display'}/>;
       }
       return(
         <div className="lookback-details-container">

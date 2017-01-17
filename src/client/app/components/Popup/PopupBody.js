@@ -31,7 +31,7 @@ class PopupBody extends Component {
     } else {
       var categories = <div></div>;
       if(this.props.categories.cats.length > 0){
-        categories = <CategoriesContainer className={categories-display}/>;
+        categories = <CategoriesContainer/>;
       }
       return (
         <div className="container popup-body">
