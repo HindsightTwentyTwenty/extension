@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import SidebarCategoryBar from './SidebarCategoryBar';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as CategoryPagesActions from '../../actions/Category/CategoryPagesActions.js';
 
 class SidebarComponent extends Component {
 
@@ -31,11 +32,20 @@ class SidebarComponent extends Component {
   getCheckBox() {
     if (this.props.button) {
       return (<div className="control-buttons">
-        <label> <input type="checkbox" id="check-select"
-          onChange={() => {
-            this.props.category_actions.toggleSearchSelector();
-          }}
-          value="first_checkbox"/> select multiple </label>
+        <div className = "checkbox">
+          <label> <input type="checkbox" id="check-select"
+            onChange={() => {
+              this.props.category_actions.toggleSearchSelector();
+            }}
+            value="first_checkbox"/> select multiple </label>
+        </div>
+        <div className = "checkbox">
+          <label> <input type="checkbox" id="check-select"
+            onChange={() => {
+              this.props.category_pages_actions.toggleShowStarred();
+            }}
+            value="second_checkbox"/> show starred </label>
+        </div>
       </div>)
     }
   }
@@ -44,7 +54,7 @@ class SidebarComponent extends Component {
     var categories = this.getCategories();
     return (
       <div className="side-bar-container">
-        <div className="side-bar-title">{this.title}</div>
+        <div className="side-bar-title">{this.props.title}</div>
         {this.getCheckBox()}
         <div className="all-categories">{categories}</div>
       </div>
@@ -55,12 +65,14 @@ class SidebarComponent extends Component {
 let mapStateToProps = (state) => ({
   currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser,
-  categories: state.categories
+  categories: state.categories,
+  categoriesAndPages: state.categoriesAndPages
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    category_actions: bindActionCreators(CategoryActions, dispatch)
+    category_actions: bindActionCreators(CategoryActions, dispatch),
+    category_pages_actions : bindActionCreators(CategoryPagesActions, dispatch)
   }
 }
 

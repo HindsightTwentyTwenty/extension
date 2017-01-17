@@ -6,7 +6,7 @@ const searchCategory = (state, action) => {
     case types.TOGGLE_SEARCH_SELECTOR:
       return {multiSelect: !stateMultiSelect, searchCats: [...state.searchCats]};
     case types.CLEAR_SEARCH_CATEGORIES:
-      return {multiSelect: stateMultiSelect, searchCats: ["starred"]};
+      return {multiSelect: stateMultiSelect, searchCats: []};
     case types.ADD_SEARCH_CATEGORY:
       return {multiSelect: stateMultiSelect, searchCats: state.searchCats.concat([action.categoryTitle])};
     case types.REMOVE_SEARCH_CATEGORY:
@@ -23,7 +23,7 @@ const searchCategory = (state, action) => {
   }
 }
 
-function searchCategoryReducer(state = {multiSelect: false, searchCats: ["starred"]}, action){
+function searchCategoryReducer(state = {multiSelect: false, searchCats: []}, action){
   return searchCategory(state, action);
 }
 

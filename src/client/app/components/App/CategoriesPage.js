@@ -16,14 +16,15 @@ class CategoriesPage extends Component {
 
   fetchPages() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var categoriesPages = this.props.categoriesAndPages;
-    if (categoriesPages.categories && Object.keys(categoriesPages.categories).length) {
+    var categoriesPages = this.props.categoriesAndPages.cats.categories;
+    var starred = this.props.categoriesAndPages.cats.starred;
+    if (categoriesPages && Object.keys(categoriesPages).length) {
       let result = [];
       let pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
       if (searchCatSet.size) {
-        for (var i = 0; i < categoriesPages.categories.length; i++) {
-          var searchCat = categoriesPages.categories[i];
+        for (var i = 0; i < categoriesPages.length; i++) {
+          var searchCat = categoriesPages[i];
           if (searchCatSet.has(searchCat.title)) {
             for (let page in searchCat.pages) {
               if (!pageSet.has(searchCat.pages[page].pk)) {

@@ -32,7 +32,10 @@ let store = createStore(
     },
     currentDomainDisplayed:{
     },
-    categoriesAndPages:[],
+    categoriesAndPages:{
+      cats:[],
+      showStarred: false
+    },
     currentSearchCategories: {
       multiSelect: false,
       searchCats: []
