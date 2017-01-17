@@ -166,7 +166,7 @@ start-time-label .end-time-label{
 }
 
 .categories-page {
-  height: calc(100% - 50px);
+  height: auto;
 }
 
 .vertical-axis-label {
@@ -236,10 +236,13 @@ start-time-label .end-time-label{
 }
 
 .control-buttons{
-  display: flex;
-  justify-content: space-around;
+  display: block;
   color: $canteloupe;
   font-weight: bold;
+}
+
+.checkbox {
+  text-align: center;
 }
 
 .nav-bar-container {
