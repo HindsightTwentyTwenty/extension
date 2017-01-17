@@ -33,7 +33,7 @@ body {
   color: $canteloupe;
 }
 
-.star {
+.star-categories {
   float: right;
   height: 40px;
   width: 40px;
