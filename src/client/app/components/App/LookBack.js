@@ -5,7 +5,8 @@ import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
-import 'react-date-picker/index.css'
+import 'react-date-picker/index.css';
+import Datetime from 'react-datetime';
 import { DateField, TransitionView, Calendar } from 'react-date-picker'
 
 
@@ -149,8 +150,23 @@ class LookBack extends Component {
     }
   }
 
+	changeStartTime(input){
+		var new_start_date = input['_d'];
+
+		var new_end_hour = new Date(new_start_date).getHours() + 1;
+		var new_end_date = new Date(new_start_date);
+		new_end_date.setHours(new_end_hour);
+
+		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
+
+
+	}
+
 
   render() {
+		var date = this.props.start_date;
+
 		if(this.props.currentDomainDisplayed.clicked){
 			return(
 				<div className="domainBar-zoom-container">
@@ -170,21 +186,17 @@ class LookBack extends Component {
       <div className="lookback-graph-container">
         <div className="vertical-axis-label">Tabs</div>
 	        <div className="time-labels">
-	          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
-								<button id="back-button">
+	          <div className="start-time-label" >
+								<button id="back-button" onClick={this.getPrevPage.bind(this)}>
 									back
 								</button>
-								{this.state.start_date_formatted}
+								<div className="date-picker" >
+									<Datetime
+										defaultValue={this.props.start_date}
+										onChange={this.changeStartTime.bind(this)}
+									/>
+								</div>
 						</div>
-						<DateField
-							forceValidDate
-							defaultValue={"2016-05-30 15:23:34"}
-							dateFormat="YYYY-MM-DD HH:mm:ss"
-						>
-							<TransitionView>
-								<Calendar style={{padding: 10}}/>
-							</TransitionView>
-						</DateField>
 						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
 						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
 	          <div className="end-time-label">
