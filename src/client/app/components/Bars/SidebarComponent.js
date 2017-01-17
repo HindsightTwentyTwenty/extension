@@ -13,7 +13,7 @@ class SidebarComponent extends Component {
 
   getCategories() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var allCategories = this.props.allCategories;
+    var allCategories = this.props.categories.cats;
     if (Object.keys(allCategories).length) {
       let result = [];
       let searchCategorySet = new Set(currentSearchCategories);
@@ -54,8 +54,8 @@ class SidebarComponent extends Component {
 
 let mapStateToProps = (state) => ({
   currentSearchCategories : state.currentSearchCategories,
-  currentUser : state.currentUser
-
+  currentUser : state.currentUser,
+  categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {

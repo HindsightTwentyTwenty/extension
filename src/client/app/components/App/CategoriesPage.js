@@ -20,15 +20,15 @@ class CategoriesPage extends Component {
     if (categoriesPages.categories && Object.keys(categoriesPages.categories).length) {
       let result = [];
       let pageSet = new Set();
-      if (currentSearchCategories.length) {
-        for (var j = 0; j < currentSearchCategories.length; j++) {
-          for (var i = 0; i < categoriesPages.categories.length; i++) {
-            if (currentSearchCategories[j] == categoriesPages.categories[i].title) {
-              for (let page in categoriesPages.categories[i].pages) {
-                if (!pageSet.has(categoriesPages.categories[i].pages[page].pk)) {
-                  result.push(<PageUrlBar key={categoriesPages.categories[i].pages[page].pk} page={categoriesPages.categories[i].pages[page]}/>)
-                  pageSet.add(categoriesPages.categories[i].pages[page].pk);
-                }
+      let searchCatSet = new Set(currentSearchCategories);
+      if (searchCatSet.size) {
+        for (var i = 0; i < categoriesPages.categories.length; i++) {
+          var searchCat = categoriesPages.categories[i];
+          if (searchCatSet.has(searchCat.title)) {
+            for (let page in searchCat.pages) {
+              if (!pageSet.has(searchCat.pages[page].pk)) {
+                result.push(<PageUrlBar key={searchCat.pages[page].pk} page={searchCat.pages[page]}/>)
+                pageSet.add(searchCat.pages[page].pk);
               }
             }
           }
@@ -42,7 +42,7 @@ class CategoriesPage extends Component {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent title={"Categories"} button={true} allCategories={this.props.categories.cats}/>
+        <SidebarComponent title={"Categories"} button={true}/>
         <div className="search-results-container">
           <div className="section-title">Search Results</div>
           {searchResults}
