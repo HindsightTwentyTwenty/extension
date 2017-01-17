@@ -3,41 +3,8 @@ import fetch from 'isomorphic-fetch'
 import * as urls from '../../constants/GlobalConstants';
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
-const pagesEndpoint =  urls.BASE_URL + "pages/";
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
-
-export function receivePages(json) {
-  return {
-    type: types.RECEIVE_PAGES,
-    categories: json
-  }
-}
-
-// TODO: add requests for specific users
-export function requestPages() {
-  return {
-    type: types.REQUEST_PAGES
-  }
-}
-
-export function fetchPages(token){
-  return dispatch => {
-    dispatch(requestPages())
-    return fetch(pagesEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': "Token " + token
-           },
-           method: "POST",
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch(receivePages(json)))
-  }
-}
-
 
 export function changeStartDate(new_start_date) {
   return {
@@ -61,11 +28,11 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, save) {
+export function setCurrentPage(page, visited) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    save: save
+    visited: visited
   }
 }
 
@@ -84,7 +51,7 @@ export function toggleDomainClicked() {
 }
 
 
-export function getDomain(pk, clicked, token){
+export function getDomain(pk, token){
   return dispatch => {
     return fetch(domainInfoEndpoint, {
           headers: {
@@ -97,6 +64,6 @@ export function getDomain(pk, clicked, token){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(updateDisplayDomain(json, clicked)))
+      .then(json => dispatch(updateDisplayDomain(json, true)))
   }
 }

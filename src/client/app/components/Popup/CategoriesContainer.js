@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import CategoryBar from '../Bars/CategoryBar';
 import SelectedCategoryBar from '../Bars/SelectedCategoryBar';
+var classNames = require('classnames');
 
 class CategoriesContainer extends Component {
 
@@ -20,7 +21,8 @@ class CategoriesContainer extends Component {
   }
 
   getCategories() {
-    if (Object.keys(this.props.categories).length) {
+    var categories = this.props.categories.cats;
+    if (categories != null && Object.keys(categories).length) {
       let result = []
       var currentPageCategories = this.props.currentPage.categories;
       var MAXDISPLAYCATEGORIES = 12;
@@ -28,20 +30,20 @@ class CategoriesContainer extends Component {
       for (var i = 0; i < numCheckedCategories; i++) {
         result.push(this.getCategoryBar(currentPageCategories[i], true))
       }
-      var numUncheckedCategories = MAXDISPLAYCATEGORIES <= this.props.categories.length ? MAXDISPLAYCATEGORIES - numCheckedCategories : this.props.categories.length - numCheckedCategories;
+      var numUncheckedCategories = MAXDISPLAYCATEGORIES <= categories.length ? MAXDISPLAYCATEGORIES - numCheckedCategories : categories.length - numCheckedCategories;
       var uncheckedCount = 0;
       while (uncheckedCount < numUncheckedCategories) {
-        for (var i = this.props.categories.length-1; i >= 0; i--) {
-          if(this.props.categories[i]){
+        for (var i = categories.length-1; i >= 0; i--) {
+          if(categories[i]){
             var alreadyAdded = false;
             for (var j = 0; j < currentPageCategories.length; j++) {
-              if (currentPageCategories[j].title === this.props.categories[i].title) {
+              if (currentPageCategories[j].title === categories[i].title) {
                 alreadyAdded = true;
                 break;
               }
             }
             if (!alreadyAdded) {
-              result.push(this.getCategoryBar(this.props.categories[i]), false)
+              result.push(this.getCategoryBar(categories[i]), false)
               uncheckedCount++;
               if (uncheckedCount == numUncheckedCategories) break;
             }
@@ -53,8 +55,9 @@ class CategoriesContainer extends Component {
   }
 
   render() {
+    var classname = classNames('categories-container', this.props.className);
     return (
-      <div className={"categories-container"}>
+      <div className = {classname}>
         {this.getCategories()}
       </div>
     )
@@ -63,6 +66,7 @@ class CategoriesContainer extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
+    currentUser : state.currentUser,
     categories: state.categories,
 
 })

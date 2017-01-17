@@ -15,21 +15,37 @@ body {
 }
 
 .url-bar {
-  height: 22px;
+  height: 40px;
+  line-height: 40px;
   margin: 5px;
   border-radius: 3px;
   width: auto;
   background-color: $electric-blue;
   padding: 0px 6px;
+  display: flex;
 }
 
-.url-bar.starred {
-  background-color: $electric-blue;
+.url {
+  color: $base-white;
+}
+
+.url:hover {
+  color: $canteloupe;
+}
+
+.star-categories {
+  float: right;
+  height: 40px;
+  width: 40px;
+  right: 10px;
+  position: absolute;
+  line-height: 40px;
+  color: $canteloupe;
 }
 
 .lookback-container{
   width: 95%;
-  height: 350px;
+  height: 80%;
   overflow: scroll;
   background-color: $base-white;
   margin: 30px;
@@ -43,13 +59,13 @@ body {
 }
 
 .lookback-details-container{
-  height: 120px;
   text-align: center;
   position: relative;
-  padding: 10px;
+  padding: 0px;
   width: 100%;
   background-color: $base-white;
-  color: $canteloupe;
+  color: $electric-blue;
+  margin: 1%;
 }
 
 /*BUTTONS*/
@@ -79,10 +95,12 @@ body {
 
 .side-bar-container{
   display: inline-block;
-  width: 200px;
+  width: 202px;
   height: calc(100% - 70px);
   background-color: $base-white;
-  border: solid 1px $electric-blue;
+  border-left: solid 3px $electric-blue;
+  border-right: solid 3px $electric-blue;
+  border-bottom: solid 3px $electric-blue;
 }
 
 .domain-bar{
@@ -104,11 +122,24 @@ body {
   }
 }
 
-#domain-favicon{
+.domain-favicon {
   width: 15px;
   height: 15px;
   margin-bottom: 4px;
   margin-right: 8px;
+}
+
+.display-favicon {
+  width:25px;
+  height:25px;
+  margin-right: 10px;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .previousPath {
@@ -136,7 +167,7 @@ start-time-label .end-time-label{
 }
 
 .categories-page {
-  height: calc(100% - 50px);
+  height: auto;
 }
 
 .vertical-axis-label {
@@ -197,18 +228,23 @@ start-time-label .end-time-label{
   font-size: medium;
 }
 .nav-bar-button:hover {
-  color: $canteloupe;
+  color: $base-white;
 }
 .nav-bar-button-selected {
   color: $base-white;
-  text-decoration: underline;
+  border-bottom: solid $base-white 1px;
+  padding: 0px;
+  margin: 10px;
 }
 
 .control-buttons{
-  display: flex;
-  justify-content: space-around;
+  display: block;
   color: $canteloupe;
   font-weight: bold;
+}
+
+.checkbox {
+  text-align: center;
 }
 
 .nav-bar-container {
@@ -229,6 +265,7 @@ start-time-label .end-time-label{
   border: none;
   min-width: 200px;
   height: 35px;
+  padding: 10px;
 }
 .blacklist-text-entry {
   margin: 3px 5px;
@@ -250,40 +287,33 @@ start-time-label .end-time-label{
   margin-top: 5%;
   width: 95%;
   border: $electric-blue solid;
+  border-left:none;
   float: none;
-  margin-left: auto;
-  margin-right: auto;
-  height: 15%;
+  margin-left: 2%;
+  margin-right: 2%;
+  height: 100px;
   border-radius: 5px;
+  display:flex;
+  flex-flow: row nowrap;
 }
 
 .page-bar{
   border-left: solid $electric-blue;
-  border-right: solid $electric-blue;
   height:100%;
   display:inline-block;
+  margin: 0;
 }
 
 .close-detail-view-btn{
   float: right;
   margin-top: 10px;
-  margin-right: 20px;
-  border: none;
-  border-left: $watermelon;
-  background-color: $watermelon;
-  font-size: x-large;
+  margin-right: 30px;
+  border: #FAFAFA;
+  background-color: #FAFAFA;
   padding-top: 0px;
   padding-bottom: 0px;
   vertical-align: middle;
-}
-
-.categories-display{
-  padding: 3px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0px;
-  margin-top: 0px;
-  justify-content: center;
+  font-size: xx-large;
 }
 
 .category-entry-wrapper{
@@ -302,21 +332,39 @@ start-time-label .end-time-label{
 
 .delete-category-button {
   float: right;
-  background-color: $canteloupe;
+  color: $canteloupe;
   width: 15px;
-  height: 15px;
+  height: 25px;
+  line-height: 25px;
+}
+
+
+.edit-category-button {
+  color: $canteloupe;
+  width: 15px;
+  height: 25px;
+  line-height: 25px;
+}
+
+.edit-category-input {
+  height: 20px;
+  width: 150px;
 }
 
 .category-title {
-  float: left;
   color: $electric-blue;
   text-align: center;
-  width: 180px;
+  width: 150px;
 }
 
-.side-bar-category {
+.side-bar-category{
   width: 100%;
   height: 25px;
+  display: flex;
+  line-height: 25px;
+  border-top-style: solid;
+  border-top-width: thin;
+  justify-content: space-between;
 }
 
 .side-bar-category.checked {
@@ -541,4 +589,37 @@ td.rdtYear:hover {
   width: 100%;
   font-size: 1.2em;
   margin-top: 37px;
+
+.edit-category-entry {
+  textarea {
+    width: 150px;
+    border: none;
+    background-color: $light-blue;
+    text-align: center;
+  }
+}
+
+.star-display{
+  margin-top: 10px;
+}
+
+.display-view {
+  width:50%
+}
+
+.lookback-details-container h4{
+  color: $canteloupe;
+  margin: 5px;
+}
+
+.lookback-details-container p{
+  margin-right: 30px;
+}
+
+.domain-details{
+  height: 125px;
+}
+
+.page-details{
+  height: 300px;
 }

@@ -8,7 +8,6 @@ class SidebarCategoryBar extends Component {
 
   constructor(props) {
     super(props);
-    this.categoryInfo = this.props.categoryInfo;
   }
 
   render() {
@@ -17,30 +16,55 @@ class SidebarCategoryBar extends Component {
     var multiSelect = this.props.currentSearchCategories.multiSelect;
     var categoryTitle = this.props.categoryInfo.title;
     var userToken = this.props.currentUser.token;
+    var editCategory = this.props.categories.editCategory;
+    var inputClass = editCategory == categoryTitle ? 'edit-category-entry' : 'edit-category-entry hidden';
+    var categoryTitleClass = editCategory == categoryTitle ? 'category-title hidden' : 'category-title';
+    var inputCheckButton = editCategory == categoryTitle ? 'fa fa-check edit-category-button' : 'fa fa-check edit-category-button hidden';
+    var editCategoryButton = editCategory == categoryTitle ? 'fa fa-pencil edit-category-button hidden' : 'fa fa-pencil edit-category-button';
+    var textFieldValue = this.props.categories.newCategoryName;
     return (
       <div className={className}>
-        <div className='category-title'
+        <div className={categoryTitleClass}
           onClick={() => {
             if (!multiSelect) { // only choose one search category
               this.props.category_actions.clearSearchCategories();
-              this.props.category_actions.updateSearchCategory(
-                categoryTitle, true);
-            } else {
-              this.props.category_actions.updateSearchCategory(
-                categoryTitle, !this.props.checked);
-            }}
-          }
+            }
+            this.props.category_actions.updateSearchCategory(
+            categoryTitle, !this.props.checked);
+          }}
         > {categoryTitle} </div>
-        <div className='delete-category-button' onClick={() => {
-          this.props.category_actions.updateSearchCategory(categoryTitle, false);
-          this.props.category_actions.deleteCategory(categoryTitle, userToken); }}/>
+        <div className={inputClass}>
+          <input className='edit-category-input' defaultValue={categoryTitle}
+            onChange={(event) => {
+              this.props.category_actions.updateCategoryEditField(event.target.value);
+            }}
+          />
+        </div>
+        <a onClick={() => {
+          this.props.category_actions.updateCategoryEditField(categoryTitle);
+          if (categoryTitle == editCategory) {
+            this.props.category_actions.editCategoryTitle(categoryTitle, textFieldValue, userToken);
+            this.props.category_actions.toggleEditCategory('');
+          } else {
+            this.props.category_actions.toggleEditCategory(categoryTitle)
+          }
+        }}>
+          <i className={editCategoryButton}/>
+          <i className={inputCheckButton}/>
+        </a>
+        <a>
+          <i className='fa fa-trash delete-category-button' onClick={() => {
+            this.props.category_actions.updateSearchCategory(categoryTitle, false);
+            this.props.category_actions.deleteCategory(categoryTitle, userToken); }}>
+          </i>
+        </a>
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-  categories : state.categories, 
+  categories : state.categories,
   currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser
 })

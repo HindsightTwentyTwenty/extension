@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
-import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 
 function getState() {
 	return {
@@ -33,18 +33,18 @@ class LoginPage extends Component {
   }
 
 	forgotMyPassword(){
-		this.props.login_actions.forgotMyPasswordPage(true);
+		this.props.user_actions.forgotMyPasswordPage(true);
 	}
 
 	CreateUserAccount(){
-		this.props.login_actions.createNewUserPage(true);
+		this.props.user_actions.createNewUserPage(true);
 	}
 
   loginUser(){
     console.log("login user item: ", this.state.user_name);
     console.log("login password item: ", this.state.password);
 
-    this.props.login_actions.loginUser(this.state.user_name, this.state.password);
+    this.props.user_actions.loginUser(this.state.user_name, this.state.password);
   }
 
   render () {
@@ -88,7 +88,7 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    login_actions: bindActionCreators(LoginActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

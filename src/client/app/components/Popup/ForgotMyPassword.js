@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 
 class ForgotMyPassword extends Component {
 
@@ -11,12 +11,19 @@ class ForgotMyPassword extends Component {
   }
 
   submit(email){
-    this.props.login_actions.forgotMyPasswordEmailSubmit(email);
+    this.props.user_actions.forgotMyPasswordEmailSubmit(email);
+  }
+
+  back() {
+    this.props.login_actions.forgotMyPasswordPage(false);
   }
 
   render() {
     return (
       <div>
+        <button className="btn btn-primary" type="button" onClick={() => {
+          this.back();
+        }}>Back</button>
         <div className="section-title">Enter the email to your account:</div>
         <div className="input-group">
           <input type="text" className="form-control" placeholder="tommy@hindsite.com" ref={node => {
@@ -38,7 +45,7 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    login_actions: bindActionCreators(LoginActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotMyPassword);

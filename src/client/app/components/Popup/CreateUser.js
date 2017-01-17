@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import * as LoginActions from '../../actions/Popup/LoginActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 
 
 function getState() {
@@ -26,8 +26,8 @@ class CreateUser extends Component {
 
   createNewUser(){
     console.log(this.state);
-    this.props.login_actions.createNewUser(this.state.email, this.state.password_1, this.state.password_2, this.state.first_name, this.state.last_name);
-    this.props.login_actions.createNewUserPage(false);
+    this.props.user_actions.createNewUser(this.state.email, this.state.password_1, this.state.password_2, this.state.first_name, this.state.last_name);
+    this.props.user_actions.createNewUserPage(false);
 
   }
 
@@ -64,7 +64,7 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  login_actions: bindActionCreators(LoginActions, dispatch)
+  user_actions: bindActionCreators(UserActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);
