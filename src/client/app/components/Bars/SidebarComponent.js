@@ -9,25 +9,19 @@ class SidebarComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.allCategories = this.props.allCategories;
-    this.title = this.props.title;
   }
 
   getCategories() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    if (Object.keys(this.props.allCategories).length) {
-      let result = []
-      for (var i = 0; i < this.props.allCategories.length; i++) {
-        var categoryBarMade = false;
-        for (var j = 0; j < currentSearchCategories.length; j++) {
-          if (currentSearchCategories[j] === this.props.allCategories[i].title) {
-            result.push(<SidebarCategoryBar categoryInfo={this.props.allCategories[i]} checked={true} key={this.props.allCategories[i].title}/>);
-              categoryBarMade = true;
-              break;
-          }
-        }
-        if (!categoryBarMade) {
-          result.push(<SidebarCategoryBar categoryInfo={this.props.allCategories[i]} checked={false} key={this.props.allCategories[i].title}/>)
+    var allCategories = this.props.allCategories;
+    if (Object.keys(allCategories).length) {
+      let result = [];
+      let searchCategorySet = new Set(currentSearchCategories);
+      for (var i = 0; i < allCategories.length; i++) {
+        if (!searchCategorySet.has(allCategories[i].title)) {
+          result.push(<SidebarCategoryBar categoryInfo={allCategories[i]} checked={false} key={allCategories[i].title}/>)
+        } else {
+          result.push(<SidebarCategoryBar categoryInfo={allCategories[i]} checked={true} key={allCategories[i].title}/>)
         }
       }
       return result
