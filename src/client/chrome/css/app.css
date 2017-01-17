@@ -45,7 +45,7 @@ body {
 
 .lookback-container{
   width: 95%;
-  height: 80%;
+  height: 350px;
   overflow: scroll;
   background-color: $base-white;
   margin: 30px;
