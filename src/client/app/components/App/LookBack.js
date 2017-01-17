@@ -5,9 +5,7 @@ import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
-import 'react-date-picker/index.css';
 import Datetime from 'react-datetime';
-import { DateField, TransitionView, Calendar } from 'react-date-picker'
 
 
 import TabComponent from './TabComponent.js';
