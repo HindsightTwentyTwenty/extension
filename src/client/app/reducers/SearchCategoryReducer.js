@@ -4,18 +4,12 @@ const searchCategory = (state, action) => {
   var stateMultiSelect = state.multiSelect;
   switch (action.type) {
     case types.TOGGLE_SEARCH_SELECTOR:
-      var currentCategories = state.searchCats;
-      var newCategoryList = [];
-      for(var i = 0; i < currentCategories.length; i++) {
-        newCategoryList.push(currentCategories[i]);
-      }
-      return {multiSelect: !stateMultiSelect, searchCats: newCategoryList};
+      return {multiSelect: !stateMultiSelect, searchCats: [...state.searchCats]};
     case types.CLEAR_SEARCH_CATEGORIES:
       return {multiSelect: stateMultiSelect, searchCats: []};
     case types.ADD_SEARCH_CATEGORY:
       return {multiSelect: stateMultiSelect, searchCats: state.searchCats.concat([action.categoryTitle])};
     case types.REMOVE_SEARCH_CATEGORY:
-    // TODO: neater way to copy array and push on a single element, instead of pushing on all categories
       var newCategoryList = [];
       var currentCategories = state.searchCats;
       for(var i = 0; i < currentCategories.length; i++) {
@@ -30,15 +24,7 @@ const searchCategory = (state, action) => {
 }
 
 function searchCategoryReducer(state = {multiSelect: false, searchCats: []}, action){
-  switch(action.type){
-    case types.TOGGLE_SEARCH_SELECTOR:
-    case types.CLEAR_SEARCH_CATEGORIES:
-    case types.ADD_SEARCH_CATEGORY:
-    case types.REMOVE_SEARCH_CATEGORY:
-      return searchCategory(state, action);
-    default:
-        return state;
-  }
+  return searchCategory(state, action);
 }
 
 export default searchCategoryReducer;
