@@ -22,17 +22,23 @@ class DisplayDetails extends Component {
     }else if(currentDomain.clicked && this.props.displayPage.url != ""){
       var categories = <div></div>;
       if(this.props.categories.cats.length > 0){
-        categories = <CategoriesContainer className={categories-display}/>;
+        categories = <CategoriesContainer />;
       }
       return(
-        <div className="lookback-details-container">
-          <div className="row">
+        <div className="lookback-details-container page-details">
+          <div className="row flex-row">
             <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
-            <Star/>
+            <Star className="star-display"/>
+          </div>
+          <hr className="display-view"/>
+          <div className="row">
             <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
           </div>
-          <CategoryEntry popup={false}/>
-          {categories}
+          <h4>categories</h4>
+          <div className="categories-box display-view">
+            <CategoryEntry/>
+            {categories}
+          </div>
         </div>
       )
     } else {
@@ -47,7 +53,7 @@ class DisplayDetails extends Component {
         favicon = <img className="display-favicon" src={currentDomain.favicon}/>
       }
       return (
-          <div className="lookback-details-container">
+          <div className="lookback-details-container domain-details">
               <div className="row flex-row">
                 <div>
                   {favicon}

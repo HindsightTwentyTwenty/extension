@@ -59,13 +59,13 @@ body {
 }
 
 .lookback-details-container{
-  height: 20%;
   text-align: center;
   position: relative;
-  padding: 2%;
+  padding: 0px;
   width: 100%;
   background-color: $base-white;
-  color: $canteloupe;
+  color: $electric-blue;
+  margin: 1%;
 }
 
 /*BUTTONS*/
@@ -308,9 +308,6 @@ start-time-label .end-time-label{
   vertical-align: middle;
 }
 
-.categories-display{
-  width: 50%;
-}
 
 .category-entry-wrapper{
   width: 50%;
@@ -374,4 +371,25 @@ start-time-label .end-time-label{
     background-color: $light-blue;
     text-align: center;
   }
+}
+
+.star-display{
+  margin-top: 20px;
+}
+
+.display-view {
+  width:50%
+}
+
+.lookback-details-container h4{
+  color: $canteloupe;
+  margin: 5px;
+}
+
+.domain-details{
+  height: 175px;
+}
+
+.page-details{
+  height: 300px;
 }
