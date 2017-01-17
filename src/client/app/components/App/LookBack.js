@@ -163,6 +163,7 @@ class LookBack extends Component {
 
 
   render() {
+		console.log("start date", this.props.start_date);
 		var date = this.props.start_date;
 
 		if(this.props.currentDomainDisplayed.clicked){
@@ -190,7 +191,7 @@ class LookBack extends Component {
 								</button>
 								<div className="date-picker" >
 									<Datetime
-										defaultValue={this.props.start_date}
+										value={this.props.start_date}
 										onChange={this.changeStartTime.bind(this)}
 									/>
 								</div>
