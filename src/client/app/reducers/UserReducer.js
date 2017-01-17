@@ -1,8 +1,9 @@
 import * as types from '../constants/ActionTypes';
 import * as PasswordConstants from '../constants/PasswordConstants.js'
+import * as PopupConstants from '../constants/PopupConstants.js'
 
 //if no valid username:
-function userReducer(state = {user_name:"", token:"", forgot:false, invalid_login:false, create_user:false, change_password: PasswordConstants.Closed}, action){
+function userReducer(state = {user_name:"", token:"", forgot:false, invalid_login:false, create_user:false, change_password: PasswordConstants.Closed, popup_status: PopupConstants.SignIn}, action){
 
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
@@ -22,6 +23,8 @@ function userReducer(state = {user_name:"", token:"", forgot:false, invalid_logi
       return { ...state, invalid_login:false, create_user: action.create_user }
     case types.CHANGE_PASSWORD:
       return { ...state, change_password: action.change_password }
+    case types.POPUP_STATUS:
+      return { ...state, popup_status: action.popup_status }
     case types.TEST:
       console.log("TEST IN REDUCER");
       return { ...state }

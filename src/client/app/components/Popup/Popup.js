@@ -11,6 +11,7 @@ import NoContent from './NoContent.js';
 
 import ForgotMyPassword from './ForgotMyPassword.js';
 import * as UserActions from '../../actions/User/UserActions.js';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
 
 
 import * as PopupConstants from '../../constants/PopupConstants.js';
@@ -26,7 +27,15 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-    //chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
+		//chrome.storage.local.remove("hindsite-token");
+
+		console.log("popup create");
+    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
+
+		// If Already logged in begin process of getting first page
+		// if(this.props.currentUser.token.length != 0){
+		// 	this.props.popup_actions.getPageInfo(this.props.currentUser.token)
+		// }
   }
 
 	renderContentNew() {
@@ -43,10 +52,20 @@ class Popup extends Component {
 		        </div>
 		      );
 				case PopupConstants.NoContent:
-					return <NoContent/>
+					return (
+						<div>
+							<PopupHeader/>
+							<NoContent/>
+						</div>
+					);
 				default:
 					// Still Loading Page or Page Does Not Exist in Backend
-					return <Loading/>
+					return (
+						<div>
+							<PopupHeader/>
+							<Loading/>
+						</div>
+					);
 			}
 
 		} else {
@@ -118,8 +137,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    user_actions: bindActionCreators(UserActions, dispatch)
-
+    user_actions: bindActionCreators(UserActions, dispatch),
+		popup_actions: bindActionCreators(PopupActions, dispatch)
   }
 }
 

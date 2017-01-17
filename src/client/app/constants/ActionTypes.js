@@ -51,5 +51,6 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const FORGOT_MY_PASSWORD_PAGE = 'FORGOT_MY_PASSWORD_PAGE';
 export const CREATE_NEW_USER = 'CREATE_NEW_USER';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const POPUP_STATUS = 'POPUP_STATUS'
 
 export const TEST = 'TEST';

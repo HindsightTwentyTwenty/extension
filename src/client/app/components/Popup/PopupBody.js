@@ -12,9 +12,9 @@ class PopupBody extends Component {
   constructor(props) {
     super(props);
     console.log("prequery token check", this.props.currentUser);
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      this.props.popup_actions.getPageInfo(tabs[0].url, this.props.currentUser.token);
-    });
+    // chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+    //   this.props.popup_actions.getPageInfo(tabs[0].url, this.props.currentUser.token);
+    // });
     this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 

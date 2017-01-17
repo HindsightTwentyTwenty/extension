@@ -2,6 +2,9 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
+import * as PopupConstants from '../../constants/PopupConstants.js'
+import * as Lists from '../../constants/UrlBlacklist.js'
+import ApiUtils from './../ApiUtils.js'
 // import getPageInfo from './PopupActions.js';
 // import store from '../../index.js'
 
@@ -9,6 +12,7 @@ const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
+const activePageInfoEndpoint = urls.BASE_URL + "activepage/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
 
 const unauthorizedCode = "403";
@@ -70,7 +74,7 @@ export function createNewUserPage(value) {
 }
 
 export function receiveUserTokenFromChrome(token) {
-  console.log("TOKEN: ", token);
+  console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
   return dispatch => {
     dispatch(
       {
@@ -78,8 +82,38 @@ export function receiveUserTokenFromChrome(token) {
        token: token
      }
     )
-    dispatch (
+    console.log("IN DISPATCH token[hindsite-token]:", token['hindsite-token']);
+    if(token['hindsite-token']){
+      console.log("headed to grab page info");
+      dispatch(getPageInfoTest(token['hindsite-token']))
+    }
+  }
+}
 
+export function getPageInfoTest(token){
+
+  return dispatch => {
+    console.log("Token:", token);
+    return fetch(activePageInfoEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': 'Token ' + token
+           },
+           method: "GET"
+         }
+       )
+      .then(response => response.json())
+      .then(json => {
+          dispatch({
+          type: types.RECEIVE_PAGE_INFO,
+          categories: json.categories,
+          url: json.url,
+          star: json.star,
+          title: json.title
+        })
+        dispatch(UpdatePopupStatus(PopupConstants.Received))
+      }
     )
   }
 }
@@ -146,15 +180,26 @@ function getPageInfo(url, token){
   }
 }
 
+export function UpdatePopupStatus(status){
+  console.log("Update popup status", status);
+  return {
+    type: types.POPUP_STATUS,
+    popup_status: status
+  }
+}
+
 export function sendCurrentPage(token) {
 
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
+      console.log("Blacklist", Lists.Blacklist);
+      console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
+
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
-      if(tab.title && tab.url != 'chrome://newtab/'){
+      if(tab.title && Lists.Blacklist.indexOf(tab.url) < 0){
           fetch(newPageEndpoint, {
             headers: {
               'Accept': 'application/json',
@@ -166,23 +211,48 @@ export function sendCurrentPage(token) {
             body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
           }
         )
-        .then(response => {
-          if (response['status'] == '200'){
-            console.log("login success");
-            dispatch(error(response));
-            return response
-            //TODO Implement user message warning of error on logout
-          } else {
-            console.log("logoin fail", response['status']);
-            return response;
+        .then(response =>
+          response.json().then(json => ({
+            status: response.status,
+            json
+          })
+        ))
+        .then(
+          ({ status, json }) => {
+            if(status == 204){
+              console.log("No content");
+            } else {
+              console.log("valid receive", json);
+              dispatch(receivePageInfo(json));
+              dispatch(UpdatePopupStatus(PopupConstants.Received))
+            }
           }
-        })
-        .then(response => response.json())
-        .then(json => dispatch(receivePageInfo(json)))
+        )
+      } else {
+        console.log("DISPATCHING NO CONTENT", tab.url)
+        dispatch(UpdatePopupStatus(PopupConstants.NoContent));
+      }
+
+        // .then(ApiUtils.checkStatus)
+        // .then(response => response.json())
+        // .then(json => console.log(json))
+        // .catch(e => console.log("error", e))
+        // .then(response => {
+        //   if (response['status'] == '200'){
+        //     console.log("login success");
+        //     dispatch(error(response));
+        //     return response
+        //     //TODO Implement user message warning of error on logout
+        //   } else {
+        //     console.log("logoin fail", response['status']);
+        //     return response;
+        //   }
+        // })
+        // .then(response => response.json())
+        // .then(json => dispatch(receivePageInfo(json)))
         // .then(
         //   dispatch(getPageInfo(tab.url, token))
         // )
-      }
     });
   }
 }
