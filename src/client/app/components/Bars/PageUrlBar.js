@@ -10,10 +10,11 @@ class PageUrlBar extends Component {
   }
 
   render() {
-    var className = this.props.page.star ? 'url-bar starred' : 'url-bar';
+    var starred = this.props.page.star ? 'fa fa-star fa-2x star' : 'fa fa-star-o fa-2x star';
     return (
-      <div className={className}>
-        <a target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
+      <div className={'url-bar'}>
+        <a className={'url'} target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
+        <i className={starred}></i>
       </div>
     )
   }
