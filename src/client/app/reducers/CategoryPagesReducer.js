@@ -1,11 +1,11 @@
 import * as types from '../constants/ActionTypes';
 
-function categoryPagesReducer(state = {cats: [], showStarred: false}, action){
+function categoryPagesReducer(state = {catsPages: [], starred:[], showStarred: false}, action){
   switch(action.type){
     case types.RECEIVE_CATEGORIES_AND_PAGES:
-      return {cats: action.categories, showStarred: state.showStarred};
+      return {catsPages: action.categories.categories, starred: action.categories.starred, showStarred: state.showStarred};
     case types.TOGGLE_SHOW_STARRED:
-      return {cats: [...state.cats], showStarred: !state.showStarred};
+      return {catsPages: [...state.catsPages], starred: [...state.starred], showStarred: !state.showStarred};
     default:
       return state;
   }

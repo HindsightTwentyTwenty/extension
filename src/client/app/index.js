@@ -33,7 +33,8 @@ let store = createStore(
     currentDomainDisplayed:{
     },
     categoriesAndPages:{
-      cats:[],
+      catsPages:[],
+      starred:[],
       showStarred: false
     },
     currentSearchCategories: {

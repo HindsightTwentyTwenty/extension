@@ -16,12 +16,21 @@ class CategoriesPage extends Component {
 
   fetchPages() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var categoriesPages = this.props.categoriesAndPages.cats.categories;
-    var starred = this.props.categoriesAndPages.cats.starred;
+    var categoriesPages = this.props.categoriesAndPages.catsPages;
+    var starred = this.props.categoriesAndPages.starred;
+    var showStarred = this.props.categoriesAndPages.showStarred;
     if (categoriesPages && Object.keys(categoriesPages).length) {
       let result = [];
-      let pageSet = new Set();
+      var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
+      if (showStarred) {
+        for (let page in starred) {
+          if (!pageSet.has(starred[page].pk)) {
+            result.push(<PageUrlBar key={starred[page].pk} page={starred[page]}/>)
+            pageSet.add(starred[page].pk);
+          }
+        }
+      }
       if (searchCatSet.size) {
         for (var i = 0; i < categoriesPages.length; i++) {
           var searchCat = categoriesPages[i];
@@ -58,7 +67,6 @@ let mapStateToProps = (state) => ({
     categoriesAndPages: state.categoriesAndPages,
     currentSearchCategories : state.currentSearchCategories,
     currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => {
