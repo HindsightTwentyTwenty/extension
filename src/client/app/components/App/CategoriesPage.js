@@ -24,7 +24,7 @@ class CategoriesPage extends Component {
           for (var i = 0; i < categoriesPages.categories.length; i++) {
             if (currentSearchCategories[j] == categoriesPages.categories[i].title) {
               for (let page in categoriesPages.categories[i].pages) {
-                result.push(<PageUrlBar key={categoriesPages.categories[i].pages[page].pk} page ={categoriesPages.categories[i].pages[page]}/>)
+                result.push(<PageUrlBar key={categoriesPages.categories[i].pages[page].pk} page={categoriesPages.categories[i].pages[page]}/>)
               }
             }
           }
