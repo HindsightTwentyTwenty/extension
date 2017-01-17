@@ -45,7 +45,7 @@ body {
 
 .lookback-container{
   width: 95%;
-  height: 350px;
+  height: 80%;
   overflow: scroll;
   background-color: $base-white;
   margin: 30px;
@@ -140,6 +140,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .previousPath {
   border-color: $banana;
 }
@@ -225,11 +226,13 @@ start-time-label .end-time-label{
   font-size: medium;
 }
 .nav-bar-button:hover {
-  color: $canteloupe;
+  color: $base-white;
 }
 .nav-bar-button-selected {
   color: $base-white;
-  text-decoration: underline;
+  border-bottom: solid $base-white 1px;
+  padding: 0px;
+  margin: 10px;
 }
 
 .control-buttons{
@@ -260,6 +263,7 @@ start-time-label .end-time-label{
   border: none;
   min-width: 200px;
   height: 35px;
+  padding: 10px;
 }
 .blacklist-text-entry {
   margin: 3px 5px;
@@ -301,16 +305,14 @@ start-time-label .end-time-label{
 .close-detail-view-btn{
   float: right;
   margin-top: 10px;
-  margin-right: 20px;
-  border: none;
-  border-left: $watermelon;
-  background-color: $watermelon;
-  font-size: x-large;
+  margin-right: 30px;
+  border: #FAFAFA;
+  background-color: #FAFAFA;
   padding-top: 0px;
   padding-bottom: 0px;
   vertical-align: middle;
+  font-size: xx-large;
 }
-
 
 .category-entry-wrapper{
   width: 50%;
@@ -377,7 +379,7 @@ start-time-label .end-time-label{
 }
 
 .star-display{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .display-view {
@@ -389,8 +391,12 @@ start-time-label .end-time-label{
   margin: 5px;
 }
 
+.lookback-details-container p{
+  margin-right: 30px;
+}
+
 .domain-details{
-  height: 175px;
+  height: 125px;
 }
 
 .page-details{

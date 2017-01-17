@@ -60,9 +60,11 @@ class DisplayDetails extends Component {
                 </div>
                 <h3>{currentDomain.title}</h3>
               </div>
-              <div className="row">
+              <div className="row flex-row">
                 <p>pages visited: {currentDomain.pages}</p>
                 <p>minutes active: {currentDomain.minutes_active}</p>
+              </div>
+              <div className="row flex-row">
                 <p>opened: <Timestamp time={currentDomain.created} format="full"/></p>
                 {closed}
               </div>
