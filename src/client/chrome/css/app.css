@@ -15,16 +15,32 @@ body {
 }
 
 .url-bar {
-  height: 22px;
+  height: 40px;
+  line-height: 40px;
   margin: 5px;
   border-radius: 3px;
   width: auto;
   background-color: $electric-blue;
   padding: 0px 6px;
+  display: flex;
 }
 
-.url-bar.starred {
-  background-color: $electric-blue;
+.url {
+  color: $base-white;
+}
+
+.url:hover {
+  color: $canteloupe;
+}
+
+.star {
+  float: right;
+  height: 40px;
+  width: 40px;
+  right: 10px;
+  position: absolute;
+  line-height: 40px;
+  color: $canteloupe;
 }
 
 .lookback-container{
