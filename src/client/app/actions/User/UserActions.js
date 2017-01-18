@@ -19,18 +19,6 @@ const unauthorizedCode = "403";
 
 var curr_token = ""
 
-export function receiveUserToken(json, username) {
-  console.log("RECEIVE USER TOKEN: ", json.token);
-  console.log("RECEIVE USER name: ", username);
-
-  return {
-    type: types.RECEIVE_USER_TOKEN,
-    token: json.token,
-    user_name: username
-  }
-}
-
-
 export function receiveError(error) {
   console.log("RECEIVE error: ", error);
 
@@ -120,7 +108,10 @@ export function logoutUser(token) {
         //TODO Implement user message warning of error on logout
       } else {
         console.log("succesful logout")
-        dispatch(clearStore())
+        // clear store
+        dispatch({
+          type: types.USER_LOGOUT
+        })
       }
     })
   }
@@ -138,6 +129,9 @@ function receivePageInfo(json) {
 }
 
 function getPageInfo(url, token){
+  console.log("getPageInfo() url", url);
+  console.log("getPageInfo() token", token);
+
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
@@ -167,6 +161,7 @@ export function sendCurrentPage(token) {
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      console.log("page: ", tabs[0]);
       var tab = tabs[0];
       console.log("Blacklist", Lists.Blacklist);
       console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
@@ -229,36 +224,39 @@ export function receivePageInfo(json) {
 
 
 export function loginUser(username, password){
+  console.log("loginUser()");
   return dispatch => {
-    dispatch(requestUserToken())
     return fetch(loginUserEndpoint, {
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-             },
-             method: "POST",
-             body: JSON.stringify({"email": username, "password": password})
-           }
-      )
-      .then(response =>
-        response.json().then(json => ({
-          status: response.status,
-          json
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"email": username, "password": password})
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
         })
-      ))
-      .then(
-        ({ status, json }) => {
-          if(status == 401){
-            console.log("Invalid post caught");
-            dispatch(receiveLoginError());
-          } else {
-            console.log("valid post", json);
-            dispatch(receiveUserToken(json, username))
-            dispatch(sendCurrentPage(json['token']))
-          }
-        }
       )
-
+    )
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          console.log("Invalid post caught");
+          dispatch(receiveLoginError());
+        } else {
+          console.log("valid post", json);
+          dispatch({
+            type: types.RECEIVE_USER_TOKEN,
+            token: json.token,
+            user_name: username
+          })
+          dispatch(sendCurrentPage(json['token']))
+        }
+      }
+    )
   }
 }
 
@@ -272,7 +270,10 @@ export function forgotMyPasswordEmailSubmit(email){
       method: "POST",
       body: JSON.stringify({"email": email})
     })
-    .then(dispatch(clearStore()))
+    // clear store
+    .then(dispatch({
+      type: types.USER_LOGOUT
+    }))
   }
 }
 

@@ -28,11 +28,11 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, save) {
+export function setCurrentPage(page, visited) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    save: save
+    visited: visited
   }
 }
 
@@ -51,7 +51,7 @@ export function toggleDomainClicked() {
 }
 
 
-export function getDomain(pk, clicked, token){
+export function getDomain(pk, token){
   return dispatch => {
     return fetch(domainInfoEndpoint, {
           headers: {
@@ -64,6 +64,6 @@ export function getDomain(pk, clicked, token){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(updateDisplayDomain(json, clicked)))
+      .then(json => dispatch(updateDisplayDomain(json, true)))
   }
 }

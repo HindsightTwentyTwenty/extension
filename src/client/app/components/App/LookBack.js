@@ -5,6 +5,8 @@ import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
+import Datetime from 'react-datetime';
+
 
 import TabComponent from './TabComponent.js';
 
@@ -95,9 +97,9 @@ class LookBack extends Component {
   getFormattedDate(date_string){
     if(date_string){
       var date = new Date(date_string);
-      var monthes = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-      var month = monthes[(date.getMonth() -1)];
+      var month = months[(date.getMonth())];
       var datetext = (month + " " + date.getDate());
 
       return datetext;
@@ -140,25 +142,62 @@ class LookBack extends Component {
       let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
-				// if(tIndex < 23){
 					results.push(this.getTabComponent(tIndex))
-
-				// }
       }
       return results;
     }
   }
 
+	changeStartTime(input){
+		var today = Datetime.moment();
+		if(Datetime.moment.isMoment(input) && input.isBefore( today )){
+			var one_hour_ago = today.subtract(1, 'h');
+
+			if(input.isAfter(one_hour_ago)){
+				today.add(1, 'h');
+				this.props.lookback_actions.changeTimeframe(input.toDate(), today.toDate());
+				this.props.tab_actions.getAllTabs(input.toJSON(), today.toJSON(), this.props.currentUser.token);
+			}else{
+				var new_end_date = Datetime.moment(input);
+				new_end_date.add(1, 'h');
+				this.props.lookback_actions.changeTimeframe(input.toDate(), new_end_date.toDate());
+				this.props.tab_actions.getAllTabs(input.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
+			}
+		}
+
+	}
+
+	clickOutside(input){
+		console.log("click outside, moment:", input);
+		if(!Datetime.moment.isMoment(input)){
+			console.log("start date changed", this.props.start_date);
+			this.props.lookback_actions.changeTimeframe(this.props.start_date, this.props.end_date);
+
+		}
+	}
+
+	checkValidDateChosen(currentDate, selectedDate){
+		//check that the date is not before 2017
+		var earliest_day = Datetime.moment("2017-01-01");
+		if(currentDate.isBefore(earliest_day)){
+			return false;
+		}
+		//check that the date is not after today
+		var today = Datetime.moment();
+    return currentDate.isBefore( today );
+	}
 
   render() {
+		var date = this.props.start_date;
+
 		if(this.props.currentDomainDisplayed.clicked){
 			return(
 				<div className="domainBar-zoom-container">
 					<div className="row">
 					<button className='close-detail-view-btn' onClick={() => {
 						this.props.lookback_actions.toggleDomainClicked();
-						this.props.lookback_actions.setCurrentPage({}, false);
-					}}>X</button>
+						this.props.lookback_actions.setCurrentPage({});
+					}}><i className="fa fa-window-close-o" aria-hidden="true"></i></button>
 					</div>
 					<div className="row">
 						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
@@ -170,12 +209,19 @@ class LookBack extends Component {
       <div className="lookback-graph-container">
         <div className="vertical-axis-label">Tabs</div>
 	        <div className="time-labels">
-	          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
-								<button id="back-button">
+	          <div className="start-time-label" >
+								<button id="back-button" onClick={this.getPrevPage.bind(this)}>
 									back
 								</button>
-								{this.state.start_date_formatted}
-
+								<div className="date-picker" >
+									<Datetime
+										value={this.props.start_date}
+										onChange={this.changeStartTime.bind(this)}
+										isValidDate={this.checkValidDateChosen.bind(this)}
+										viewMode='time'
+										onBlur={this.clickOutside.bind(this)}
+									/>
+								</div>
 						</div>
 						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
 						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>

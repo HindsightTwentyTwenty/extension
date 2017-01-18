@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as StarActions from '../../actions/Star/StarActions.js';
-
+var classNames = require('classnames');
 class Star extends Component {
 
   constructor(props) {
@@ -13,9 +13,10 @@ class Star extends Component {
   render () {
     var checkedVal = this.props.currentPage.star;
     var starred = checkedVal ? 'fa fa-star fa-2x star' : 'fa fa-star fa-2x star hidden';
-    var unstarred = checkedVal ? 'fa fa-star-o fa-2x star hidden' : 'fa fa-star-o fa-2x star'
+    var unstarred = checkedVal ? 'fa fa-star-o fa-2x star hidden' : 'fa fa-star-o fa-2x star';
+    var classname = classNames('star-div', this.props.className);
     return (
-      <div className="star-div">
+      <div className={classname}>
         <i className={starred} id='starred'
           onClick={() => {
             checkedVal = !checkedVal
