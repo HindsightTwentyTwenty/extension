@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as UserActions from '../../actions/User/UserActions.js';
+import * as PopupConstants from '../../constants/PopupConstants.js';
 
 
 function getState() {
@@ -27,15 +28,22 @@ class CreateUser extends Component {
   createNewUser(){
     console.log(this.state);
     this.props.user_actions.createNewUser(this.state.email, this.state.password_1, this.state.password_2, this.state.first_name, this.state.last_name);
-    this.props.user_actions.createNewUserPage(false);
+    this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
 
   }
 
+	back() {
+		this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
+	}
 
   render () {
 
     return (
       <div>
+				<button className="btn btn-primary" type="button" onClick={() => {
+					this.back();
+				}}>Back</button>
+				<br/>
         <span>Create a new user account:</span>
         <div className ="row">
           <div className="col-xs-12">

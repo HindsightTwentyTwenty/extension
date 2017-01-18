@@ -607,6 +607,12 @@ td.rdtYear:hover {
   }
 }
 
+#loading_page {
+  display: table;
+  margin: 0 auto;
+  margin-top: 18%;
+}
+
 .star-display{
   margin-top: 10px;
 }
