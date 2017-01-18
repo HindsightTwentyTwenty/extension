@@ -71,6 +71,7 @@ class Popup extends Component {
 		} else {
 			// Not Logged In
 			switch (this.props.currentUser.popup_status){
+
 				case PopupConstants.SignIn:
 					return <LoginPage/>
 				case PopupConstants.SignUp:

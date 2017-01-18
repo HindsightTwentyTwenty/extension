@@ -47,13 +47,6 @@ export function requestUserToken() {
   }
 }
 
-function checkStatus(response){
-  if(response.status == 200){
-    return true;
-  }else{
-    return false;
-  }
-}
 
 export function userToken(token) {
   return {
@@ -62,35 +55,24 @@ export function userToken(token) {
  }
 }
 
-export function createNewUserPage(value) {
-  return dispatch => {
-    dispatch(
-      {
-       type: types.CREATE_NEW_USER,
-       create_user: value
-     }
-   )
- }
-}
-
 export function receiveUserTokenFromChrome(token) {
   console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
   return dispatch => {
-    dispatch(
-      {
-       type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-       token: token
-     }
-    )
     console.log("IN DISPATCH token[hindsite-token]:", token['hindsite-token']);
     if(token['hindsite-token']){
       console.log("headed to grab page info");
-      dispatch(getPageInfoTest(token['hindsite-token']))
+      dispatch(
+        {
+         type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+         token: token
+       }
+      )
+      dispatch(getPageInformation(token['hindsite-token']))
     }
   }
 }
 
-export function getPageInfoTest(token){
+export function getPageInformation(token){
 
   return dispatch => {
     console.log("Token:", token);
@@ -110,7 +92,7 @@ export function getPageInfoTest(token){
        })
        .catch(e => {
           console.log("Error caught. Retrying: ", e);
-          setTimeout(dispatch(getPageInfoTest(token)));
+          setTimeout(dispatch(getPageInformation(token)));
         })
   }
 }
@@ -172,7 +154,7 @@ function getPageInfo(url, token){
   }
 }
 
-export function UpdatePopupStatus(status){
+export function updatePopupStatus(status){
   console.log("Update popup status", status);
   return {
     type: types.POPUP_STATUS,
@@ -216,35 +198,13 @@ export function sendCurrentPage(token) {
             } else {
               console.log("valid receive", json);
               dispatch(receivePageInfo(json));
-              dispatch(UpdatePopupStatus(PopupConstants.Received))
             }
           }
         )
       } else {
         console.log("DISPATCHING NO CONTENT", tab.url)
-        dispatch(UpdatePopupStatus(PopupConstants.NoContent));
+        dispatch(updatePopupStatus(PopupConstants.NoContent));
       }
-
-        // .then(ApiUtils.checkStatus)
-        // .then(response => response.json())
-        // .then(json => console.log(json))
-        // .catch(e => console.log("error", e))
-        // .then(response => {
-        //   if (response['status'] == '200'){
-        //     console.log("login success");
-        //     dispatch(error(response));
-        //     return response
-        //     //TODO Implement user message warning of error on logout
-        //   } else {
-        //     console.log("logoin fail", response['status']);
-        //     return response;
-        //   }
-        // })
-        // .then(response => response.json())
-        // .then(json => dispatch(receivePageInfo(json)))
-        // .then(
-        //   dispatch(getPageInfo(tab.url, token))
-        // )
     });
   }
 }
@@ -299,8 +259,6 @@ export function loginUser(username, password){
         }
       )
 
-
-
   }
 }
 
@@ -335,15 +293,6 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
     })
     .then(response => response.json())
     .then(json => dispatch(receiveUserTokenFromChrome(json['token'])))
-  }
-}
-
-export function forgotMyPasswordPage(value){
-  return dispatch => {
-    return dispatch({
-      type: types.FORGOT_MY_PASSWORD_PAGE,
-      forgot: value
-    })
   }
 }
 
@@ -385,11 +334,5 @@ export function changeMyPasswordToggle(value){
       type: types.CHANGE_PASSWORD,
       change_password: value
     })
-  }
-}
-
-export function test() {
-  return {
-    type: types.TEST
   }
 }

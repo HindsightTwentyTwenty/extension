@@ -5,6 +5,8 @@ import {render} from 'react-dom';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
 
+import * as PopupConstants from '../../constants/PopupConstants.js'
+
 function getState() {
 	return {
     user_name: "",
@@ -33,11 +35,11 @@ class LoginPage extends Component {
   }
 
 	forgotMyPassword(){
-		this.props.user_actions.forgotMyPasswordPage(true);
+		this.props.user_actions.updatePopupStatus(PopupConstants.ForgotMyPassword);
 	}
 
 	CreateUserAccount(){
-		this.props.user_actions.createNewUserPage(true);
+		this.props.user_actions.updatePopupStatus(PopupConstants.SignUp);
 	}
 
   loginUser(){

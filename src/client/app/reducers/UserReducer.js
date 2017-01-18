@@ -17,20 +17,12 @@ function userReducer(state = {user_name:"", token:"", forgot:false, invalid_logi
       } else {
         return state;
       }
-    case types.FORGOT_MY_PASSWORD_PAGE:
-      return { ...state, forgot: action.forgot, invalid_login:false, create_user: false }
-    case types.CREATE_NEW_USER:
-      return { ...state, invalid_login:false, create_user: action.create_user }
     case types.CHANGE_PASSWORD:
       return { ...state, change_password: action.change_password }
     case types.POPUP_STATUS:
       return { ...state, popup_status: action.popup_status }
     case types.RECEIVE_PAGE_INFO:
-      console.log("RECIVE PAGE INFO IN USER REDUCER TEST______----")
       return { ...state, popup_status: PopupConstants.Received }
-    case types.TEST:
-      console.log("TEST IN REDUCER");
-      return { ...state }
     default:
         return state;
   }
