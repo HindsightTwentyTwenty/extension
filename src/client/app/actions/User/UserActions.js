@@ -55,12 +55,15 @@ export function receiveUserTokenFromChrome(token) {
          token: token
        }
       )
-      dispatch(getPageInformation(token['hindsite-token']))
+      dispatch(getPageInformation(token['hindsite-token'], 0))
+    }
+    else {
+      dispatch(updatePopupStatus(PopupConstants.SignIn))
     }
   }
 }
 
-export function getPageInformation(token){
+export function getPageInformation(token, count){
 
   return dispatch => {
     console.log("Token:", token);
@@ -80,7 +83,11 @@ export function getPageInformation(token){
        })
        .catch(e => {
           console.log("Error caught. Retrying: ", e);
-          setTimeout(dispatch(getPageInformation(token)));
+          if(count < 50){
+            dispatch(getPageInformation(token, count + 1));
+          } else {
+            dispatch(updatePopupStatus(PopupConstants.NoContent))
+          }
         })
   }
 }
@@ -165,6 +172,7 @@ export function sendCurrentPage(token) {
       var tab = tabs[0];
       console.log("Blacklist", Lists.Blacklist);
       console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
+      console.log("token in send current", token);
 
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false

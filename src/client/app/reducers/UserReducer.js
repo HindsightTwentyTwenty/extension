@@ -3,17 +3,17 @@ import * as PasswordConstants from '../constants/PasswordConstants.js'
 import * as PopupConstants from '../constants/PopupConstants.js'
 
 //if no valid username:
-function userReducer(state = {user_name:"", token:"", forgot:false, invalid_login:false, create_user:false, change_password: PasswordConstants.Closed, popup_status: PopupConstants.SignIn}, action){
+function userReducer(state = {user_name:"", token:"", invalid_login:false, change_password: PasswordConstants.Closed, popup_status: PopupConstants.Loading}, action){
 
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
       chrome.storage.local.set({"hindsite-token": action.token});
-      return { ...state, user_name:action.user_name, token:action.token, forgot: false, invalid_login:false, create_user: false }
+      return { ...state, user_name:action.user_name, token:action.token, invalid_login:false}
     case types.USER_ERROR:
       return { ...state, invalid_login:true, create_user: false }
     case types.RECEIVE_USER_TOKEN_FROM_CHROME:
       if(action.token != null && action.token['hindsite-token'] != null){
-        return { ...state, token:action.token['hindsite-token'], forgot: false, invalid_login:false, create_user: false }
+        return { ...state, token:action.token['hindsite-token'], invalid_login:false}
       } else {
         return state;
       }

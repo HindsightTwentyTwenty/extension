@@ -10,8 +10,10 @@ class PopupHeader extends Component {
   }
 
   openTab () {
-    chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
-    });
+    if(this.props.currentUser.token.length != 0){
+      chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
+      });
+    }
   }
 
   render () {

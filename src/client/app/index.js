@@ -46,10 +46,9 @@ let store = createStore(
     currentUser: {
       user_name:"",
       token:"",
-      forgot:false,
       invalid_login:false,
       change_password:false,
-      popup_status:PopupConstants.SignIn
+      popup_status:PopupConstants.Loading
     }
   },
   applyMiddleware(
