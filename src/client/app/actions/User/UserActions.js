@@ -107,35 +107,11 @@ export function getPageInfoTest(token){
        .then(response => response.json())
        .then(json => {
          dispatch(receivePageInfo(json))
-         dispatch(UpdatePopupStatus(PopupConstants.Received))
        })
        .catch(e => {
-          console.log(e);
-          dispatch(getPageInfoTest(token));
+          console.log("Error caught. Retrying: ", e);
+          setTimeout(dispatch(getPageInfoTest(token)));
         })
-      //  .then(response =>
-      //    response.json().then(json => ({
-      //      status: response.status,
-      //      json
-      //    })
-      //  ))
-      //  .then (
-      //    ({ status, json }) => {
-      //      console.log("STATUS: status")
-      //    }
-      //  )
-    //   .then(response => response.json())
-    //   .then(json => {
-    //       dispatch({
-    //       type: types.RECEIVE_PAGE_INFO,
-    //       categories: json.categories,
-    //       url: json.url,
-    //       star: json.star,
-    //       title: json.title
-    //     })
-    //     dispatch(UpdatePopupStatus(PopupConstants.Received))
-    //   }
-    // )
   }
 }
 
@@ -144,11 +120,6 @@ export function clearStore(){
   return {
     type: types.USER_LOGOUT
   }
-}
-
-export function _checkStatus(response){
-  console.log("checkStatus", response)
-  // return {response, response.sta}
 }
 
 export function logoutUser(token) {

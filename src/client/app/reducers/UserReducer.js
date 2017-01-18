@@ -25,6 +25,9 @@ function userReducer(state = {user_name:"", token:"", forgot:false, invalid_logi
       return { ...state, change_password: action.change_password }
     case types.POPUP_STATUS:
       return { ...state, popup_status: action.popup_status }
+    case types.RECEIVE_PAGE_INFO:
+      console.log("RECIVE PAGE INFO IN USER REDUCER TEST______----")
+      return { ...state, popup_status: PopupConstants.Received }
     case types.TEST:
       console.log("TEST IN REDUCER");
       return { ...state }
