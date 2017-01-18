@@ -2,8 +2,6 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
-// import getPageInfo from './PopupActions.js';
-// import store from '../../index.js'
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
@@ -15,18 +13,6 @@ const unauthorizedCode = "403";
 
 var curr_token = ""
 
-export function receiveUserToken(json, username) {
-  console.log("RECEIVE USER TOKEN: ", json.token);
-  console.log("RECEIVE USER name: ", username);
-
-  return {
-    type: types.RECEIVE_USER_TOKEN,
-    token: json.token,
-    user_name: username
-  }
-}
-
-
 export function receiveError(error) {
   console.log("RECEIVE error: ", error);
 
@@ -34,12 +20,6 @@ export function receiveError(error) {
     type: types.RECEIVE_ERROR,
     error: error
 
-  }
-}
-
-export function requestUserToken() {
-  return {
-    type: types.REQUEST_USER_TOKEN
   }
 }
 
@@ -51,17 +31,9 @@ function checkStatus(response){
   }
 }
 
-export function userToken(token) {
-  return {
-   type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-   token: token
- }
-}
-
 export function createNewUserPage(value) {
   return dispatch => {
-    dispatch(
-      {
+    dispatch({
        type: types.CREATE_NEW_USER,
        create_user: value
      }
@@ -80,15 +52,11 @@ export function receiveUserTokenFromChrome(token) {
     )
   }
  return dispatch => {
-   return dispatch(userToken(token))
+   return dispatch({
+    type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+    token: token
+  })
  }
-}
-
-
-export function clearStore(){
-  return {
-    type: types.USER_LOGOUT
-  }
 }
 
 export function _checkStatus(response){
@@ -112,7 +80,10 @@ export function logoutUser(token) {
         //TODO Implement user message warning of error on logout
       } else {
         console.log("succesful logout")
-        dispatch(clearStore())
+        // clear store
+        dispatch({
+          type: types.USER_LOGOUT
+        })
       }
     })
   }
@@ -192,37 +163,37 @@ export function receivePageInfo(json) {
 export function loginUser(username, password){
   console.log("loginUser()");
   return dispatch => {
-    dispatch(requestUserToken())
     return fetch(loginUserEndpoint, {
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-             },
-             method: "POST",
-             body: JSON.stringify({"email": username, "password": password})
-           }
-      )
-      .then(response =>
-        response.json().then(json => ({
-          status: response.status,
-          json
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"email": username, "password": password})
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
         })
-      ))
-      .then(
-        ({ status, json }) => {
-          if(status == 401){
-            console.log("Invalid post caught");
-            dispatch(receiveLoginError());
-          } else {
-            console.log("valid post", json);
-            dispatch(receiveUserToken(json, username))
-            dispatch(sendCurrentPage(json['token']))
-          }
-        }
       )
-
-
-
+    )
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          console.log("Invalid post caught");
+          dispatch(receiveLoginError());
+        } else {
+          console.log("valid post", json);
+          dispatch({
+            type: types.RECEIVE_USER_TOKEN,
+            token: json.token,
+            user_name: username
+          })
+          dispatch(sendCurrentPage(json['token']))
+        }
+      }
+    )
   }
 }
 
@@ -236,7 +207,10 @@ export function forgotMyPasswordEmailSubmit(email){
       method: "POST",
       body: JSON.stringify({"email": email})
     })
-    .then(dispatch(clearStore()))
+    // clear store
+    .then(dispatch({
+      type: types.USER_LOGOUT
+    }))
   }
 }
 
@@ -307,11 +281,5 @@ export function changeMyPasswordToggle(value){
       type: types.CHANGE_PASSWORD,
       change_password: value
     })
-  }
-}
-
-export function test() {
-  return {
-    type: types.TEST
   }
 }

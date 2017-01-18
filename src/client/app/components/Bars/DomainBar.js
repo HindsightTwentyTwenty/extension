@@ -43,13 +43,15 @@ class DomainBar extends Component {
   }
 
   highlight_previous() {
-    if(this.props.domain.opened_from_domain){
-      document.getElementById(this.props.domain.opened_from_tabid + "-" + this.props.domain.opened_from_domain).classList.add('previousPath');
+    var element = document.getElementById(this.props.domain.opened_from_tabid + "-" + this.props.domain.opened_from_domain);
+    if(element){
+      element.classList.add('previousPath');
     }
   }
   unhighlight_previous() {
-    if(this.props.domain.opened_from_domain){
-      document.getElementById(this.props.domain.opened_from_tabid + "-" + this.props.domain.opened_from_domain).classList.remove('previousPath');
+    var element = document.getElementById(this.props.domain.opened_from_tabid + "-" + this.props.domain.opened_from_domain);
+    if(element){
+      element.classList.remove('previousPath');
     }
   }
 }

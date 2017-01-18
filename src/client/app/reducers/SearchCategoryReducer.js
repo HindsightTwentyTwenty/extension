@@ -4,7 +4,8 @@ const searchCategory = (state, action) => {
   var stateMultiSelect = state.multiSelect;
   switch (action.type) {
     case types.TOGGLE_SEARCH_SELECTOR:
-      return {multiSelect: !stateMultiSelect, searchCats: [...state.searchCats]};
+      // deselect all search categories except the most recently selected one
+      return {multiSelect: !stateMultiSelect, searchCats: [state.searchCats[state.searchCats.length-1]]};
     case types.CLEAR_SEARCH_CATEGORIES:
       return {multiSelect: stateMultiSelect, searchCats: []};
     case types.ADD_SEARCH_CATEGORY:
