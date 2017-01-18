@@ -26,15 +26,15 @@ export function getPageInfo(token){
            method: "POST"
          }
        )
-      .then(response => console.log("GET PAGE INFO POPUP", response))
-      // .then(json => dispatch({
-      //   type: types.RECEIVE_PAGE_INFO,
-      //   categories: json.categories,
-      //   url: json.url,
-      //   star: json.star,
-      //   title: json.title
-      // })
-    //)
+      .then(response => response.json())
+      .then(json => dispatch({
+        type: types.RECEIVE_PAGE_INFO,
+        categories: json.categories,
+        url: json.url,
+        star: json.star,
+        title: json.title
+      })
+    )
   }
 }
 
