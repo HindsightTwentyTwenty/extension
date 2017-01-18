@@ -83,7 +83,7 @@ export function getPageInformation(token, count){
        })
        .catch(e => {
           console.log("Error caught. Retrying: ", e);
-          if(count < 50){
+          if(count < 100){
             dispatch(getPageInformation(token, count + 1));
           } else {
             dispatch(updatePopupStatus(PopupConstants.NoContent))
