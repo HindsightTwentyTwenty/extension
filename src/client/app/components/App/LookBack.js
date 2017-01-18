@@ -149,21 +149,48 @@ class LookBack extends Component {
   }
 
 	changeStartTime(input){
-		var new_start_date = input['_d'];
+		console.log("CHANGED", input);
+		var today = Datetime.moment();
+		if(Datetime.moment.isMoment(input) && input.isBefore( today )){
+			// var one_hour_ago = input.subtract(1, 'h');
+			// if(input.isAfter(one_hour_ago)){
+			// 	this.props.lookback_actions.changeTimeframe(one_hour_ago.toDate(), today.toDate());
+			// 	this.props.tab_actions.getAllTabs(one_hour_ago.toJSON(), today.toJSON(), this.props.currentUser.token);
+			// }
+			var new_start_date = input['_d'];
 
-		var new_end_hour = new Date(new_start_date).getHours() + 1;
-		var new_end_date = new Date(new_start_date);
-		new_end_date.setHours(new_end_hour);
+			var new_end_hour = new Date(new_start_date).getHours() + 1;
+			var new_end_date = new Date(new_start_date);
+			new_end_date.setHours(new_end_hour);
 
-		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
-
+			this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+			this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
+		}
 
 	}
 
+	clickOutside(input){
+		console.log("click outside, moment:", input);
+		if(!Datetime.moment.isMoment(input)){
+			console.log("changing");
+			console.log("start date changed", this.props.start_date);
+			this.props.lookback_actions.changeTimeframe(this.props.start_date, this.props.end_date);
+
+		}
+	}
+
+	checkValidDateChosen(currentDate, selectedDate){
+		//check that the date is not before 2017
+		var earliest_day = Datetime.moment("2017-01-01");
+		if(currentDate.isBefore(earliest_day)){
+			return false;
+		}
+		//check that the date is not after today
+		var today = Datetime.moment();
+    return currentDate.isBefore( today );
+	}
 
   render() {
-		console.log("start date", this.props.start_date);
 		var date = this.props.start_date;
 
 		if(this.props.currentDomainDisplayed.clicked){
@@ -193,6 +220,9 @@ class LookBack extends Component {
 									<Datetime
 										value={this.props.start_date}
 										onChange={this.changeStartTime.bind(this)}
+										isValidDate={this.checkValidDateChosen.bind(this)}
+										viewMode='time'
+										onBlur={this.clickOutside.bind(this)}
 									/>
 								</div>
 						</div>
