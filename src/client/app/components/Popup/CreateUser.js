@@ -32,11 +32,18 @@ class CreateUser extends Component {
 
   }
 
+	back() {
+		this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
+	}
 
   render () {
 
     return (
       <div>
+				<button className="btn btn-primary" type="button" onClick={() => {
+					this.back();
+				}}>Back</button>
+				<br/>
         <span>Create a new user account:</span>
         <div className ="row">
           <div className="col-xs-12">
