@@ -149,18 +149,43 @@ class LookBack extends Component {
   }
 
 	changeStartTime(input){
-		var new_start_date = input['_d'];
+		var today = Datetime.moment();
+		if(Datetime.moment.isMoment(input) && input.isBefore( today )){
+			var one_hour_ago = today.subtract(1, 'h');
 
-		var new_end_hour = new Date(new_start_date).getHours() + 1;
-		var new_end_date = new Date(new_start_date);
-		new_end_date.setHours(new_end_hour);
-
-		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
-
+			if(input.isAfter(one_hour_ago)){
+				today.add(1, 'h');
+				this.props.lookback_actions.changeTimeframe(input.toDate(), today.toDate());
+				this.props.tab_actions.getAllTabs(input.toJSON(), today.toJSON(), this.props.currentUser.token);
+			}else{
+				var new_end_date = Datetime.moment(input);
+				new_end_date.add(1, 'h');
+				this.props.lookback_actions.changeTimeframe(input.toDate(), new_end_date.toDate());
+				this.props.tab_actions.getAllTabs(input.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
+			}
+		}
 
 	}
 
+	clickOutside(input){
+		console.log("click outside, moment:", input);
+		if(!Datetime.moment.isMoment(input)){
+			console.log("start date changed", this.props.start_date);
+			this.props.lookback_actions.changeTimeframe(this.props.start_date, this.props.end_date);
+
+		}
+	}
+
+	checkValidDateChosen(currentDate, selectedDate){
+		//check that the date is not before 2017
+		var earliest_day = Datetime.moment("2017-01-01");
+		if(currentDate.isBefore(earliest_day)){
+			return false;
+		}
+		//check that the date is not after today
+		var today = Datetime.moment();
+    return currentDate.isBefore( today );
+	}
 
   render() {
 		var date = this.props.start_date;
@@ -190,8 +215,11 @@ class LookBack extends Component {
 								</button>
 								<div className="date-picker" >
 									<Datetime
-										defaultValue={this.props.start_date}
+										value={this.props.start_date}
 										onChange={this.changeStartTime.bind(this)}
+										isValidDate={this.checkValidDateChosen.bind(this)}
+										viewMode='time'
+										onBlur={this.clickOutside.bind(this)}
 									/>
 								</div>
 						</div>

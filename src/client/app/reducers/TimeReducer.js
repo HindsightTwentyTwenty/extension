@@ -10,6 +10,8 @@ function timeReducer(state = {start_date:"", end_date:""}, action){
       return Object.assign({}, {start_date:state.start_date, end_date:action.end_date});
     case types.UPDATE_TIMEFRAME:
       //TODO: Remove empty object source??
+      console.log("update time frame");
+      console.log("start update time: ", action.start_date);
       return Object.assign({}, {start_date:action.start_date, end_date:action.end_date});
     default:
         return state;
