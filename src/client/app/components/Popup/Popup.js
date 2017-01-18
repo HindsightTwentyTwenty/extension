@@ -122,7 +122,7 @@ class Popup extends Component {
 
   render() {
     return (
-      <div>
+      <div id="popup_wrapper">
         { this.renderContentNew() }
       </div>
     );

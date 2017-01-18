@@ -349,3 +349,9 @@ start-time-label .end-time-label{
     text-align: center;
   }
 }
+
+#loading_page {
+  display: table;
+  margin: 0 auto;
+  margin-top: 18%;
+}

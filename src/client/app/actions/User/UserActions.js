@@ -103,18 +103,39 @@ export function getPageInfoTest(token){
            method: "GET"
          }
        )
-      .then(response => response.json())
-      .then(json => {
-          dispatch({
-          type: types.RECEIVE_PAGE_INFO,
-          categories: json.categories,
-          url: json.url,
-          star: json.star,
-          title: json.title
+       .then(ApiUtils.checkStatus)
+       .then(response => response.json())
+       .then(json => {
+         dispatch(receivePageInfo(json))
+         dispatch(UpdatePopupStatus(PopupConstants.Received))
+       })
+       .catch(e => {
+          console.log(e);
+          dispatch(getPageInfoTest(token));
         })
-        dispatch(UpdatePopupStatus(PopupConstants.Received))
-      }
-    )
+      //  .then(response =>
+      //    response.json().then(json => ({
+      //      status: response.status,
+      //      json
+      //    })
+      //  ))
+      //  .then (
+      //    ({ status, json }) => {
+      //      console.log("STATUS: status")
+      //    }
+      //  )
+    //   .then(response => response.json())
+    //   .then(json => {
+    //       dispatch({
+    //       type: types.RECEIVE_PAGE_INFO,
+    //       categories: json.categories,
+    //       url: json.url,
+    //       star: json.star,
+    //       title: json.title
+    //     })
+    //     dispatch(UpdatePopupStatus(PopupConstants.Received))
+    //   }
+    // )
   }
 }
 
