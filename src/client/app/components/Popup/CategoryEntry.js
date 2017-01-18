@@ -22,29 +22,20 @@ class CategoryEntry extends Component {
 
 
   render () {
-    if(!this.props.popup){
-      var lookBackStyle = {width: '50%'};
-    }
     return (
-      <div className="container" style={lookBackStyle}>
-        <div className ="row">
-          <div className="col-xs-12">
-            <div className="input-group">
-              <input type="text" className="popup-form form-control" placeholder="New Category..." ref={node => {
-                this.input = node;
-              }} />
-              <span className="input-group-btn">
-                <button className="btn add-category-btn" type="button" onClick={() => {
-                  if (this.input.value.trim() !== '') {
-                    this.addNewCategory(this.input.value);
-                    this.input.value = '';
-                  }
-                }}>+</button>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="input-group category-entry">
+      <input type="text" className="popup-form form-control" placeholder="New Category..." ref={node => {
+        this.input = node;
+      }} />
+      <span className="input-group-btn">
+        <button className="btn add-category-btn" type="button" onClick={() => {
+          if (this.input.value.trim() !== '') {
+            this.addNewCategory(this.input.value);
+            this.input.value = '';
+          }
+        }}><i className="fa fa-plus" aria-hidden="true"></i></button>
+      </span>
+    </div>
     )
   }
 }

@@ -12,21 +12,63 @@ class SelectedDomainBar extends Component {
   }
 
   getPageBar(pageVisit, width, key){
-    var barStyle = {"width" : width, "margin": '0'};
-    return <PageBar page={pageVisit} style={barStyle} key={key}/>;
+    var barStyle = {"width" : width + "%"};
+    return <PageBar page={pageVisit.page} visited={pageVisit.visited} style={barStyle} key={key}/>;
   }
 
   getPageBars(){
-    var baseWidth = 100;
-    var numPages = this.props.domain.pages;
-    var equalDivide = (baseWidth / numPages) + "%";
     var pageBars = [];
+    var pageWidths = [];
+
     var pageVisits = this.props.domain.pagevisits;
-    for(var i = 0; i < numPages; i++ ){
-      var pageBar = this.getPageBar(pageVisits[i], equalDivide, i);
+    if(this.props.domain.closed == null){
+      this.props.domain.end = new Date().getTime();
+    }
+    var domainOpenTime = this.getTimeOpen(this.props.domain.created, this.props.domain.closed);
+
+    var minWidth = 100;
+    for(var i = 0; i < pageVisits.length; i++){
+      var pageOpenTime;
+      if(i < pageVisits.length -1){
+        pageOpenTime = this.getTimeOpen(pageVisits[i].visited, pageVisits[i+1].visited);
+      }else{
+        pageOpenTime = this.getTimeOpen(pageVisits[i].visited, this.props.domain.closed);
+      }
+      var width = (pageOpenTime/domainOpenTime) * 100;
+      if(width < minWidth && width > 0){
+        minWidth = width;
+      }
+      pageWidths.push(width);
+    }
+    var MINWIDTH = 7;
+    var MAXWIDTH = 100;
+    //scale
+    var scaleFactor = 1;
+    if(minWidth < MINWIDTH){
+      scaleFactor = MINWIDTH/minWidth;
+    }
+
+    for(var i = 0; i < pageVisits.length; i++){
+      var adjWidth = pageWidths[i] * scaleFactor;
+      if(adjWidth > MAXWIDTH){
+        adjWidth = MAXWIDTH;
+      }
+
+      var pageBar = this.getPageBar(pageVisits[i], adjWidth, i);
       pageBars.push(pageBar);
     }
     return pageBars;
+  }
+
+  getTimeOpen(created, closed){
+    var start = new Date(created).getTime();
+    if(closed == null){
+      var end = this.props.domain.end;
+    }else{
+      var end = new Date(closed).getTime();
+    }
+    var diff = end - start;
+    return diff;
   }
 
   render() {

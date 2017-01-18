@@ -19,7 +19,6 @@ class PopupBody extends Component {
   }
 
   render () {
-    console.log(this.props.currentPage);
     if(!this.props.currentPage.url){
       return(
         <div className="container popup-body">
@@ -30,6 +29,10 @@ class PopupBody extends Component {
         </div>
       )
     } else {
+      var categories = <div></div>;
+      if(this.props.categories.cats.length > 0){
+        categories = <CategoriesContainer/>;
+      }
       return (
         <div className="container popup-body">
           <div className="row">
@@ -46,12 +49,14 @@ class PopupBody extends Component {
               <h4>categories</h4>
             </div>
           </div>
-          <div className="row">
-              <CategoryEntry popup={true}/>
-          </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <CategoriesContainer all={true}/>
+          <div className="categories-box">
+            <div className="row">
+                <CategoryEntry/>
+            </div>
+            <div className="row">
+              <div className="col-xs-12">
+                {categories}
+              </div>
             </div>
           </div>
         </div>

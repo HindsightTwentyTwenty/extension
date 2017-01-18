@@ -15,21 +15,37 @@ body {
 }
 
 .url-bar {
-  height: 22px;
+  height: 40px;
+  line-height: 40px;
   margin: 5px;
   border-radius: 3px;
   width: auto;
   background-color: $electric-blue;
   padding: 0px 6px;
+  display: flex;
 }
 
-.url-bar.starred {
-  background-color: $electric-blue;
+.url {
+  color: $base-white;
+}
+
+.url:hover {
+  color: $canteloupe;
+}
+
+.star-categories {
+  float: right;
+  height: 40px;
+  width: 40px;
+  right: 10px;
+  position: absolute;
+  line-height: 40px;
+  color: $canteloupe;
 }
 
 .lookback-container{
   width: 95%;
-  height: 350px;
+  height: 80%;
   overflow: scroll;
   background-color: $base-white;
   margin: 30px;
@@ -43,13 +59,13 @@ body {
 }
 
 .lookback-details-container{
-  height: 120px;
   text-align: center;
   position: relative;
-  padding: 10px;
+  padding: 0px;
   width: 100%;
   background-color: $base-white;
-  color: $canteloupe;
+  color: $electric-blue;
+  margin: 1%;
 }
 
 /*BUTTONS*/
@@ -62,11 +78,12 @@ body {
   transition-duration: 0.4s;
   margin-right: 5px;
   margin-left: 5px;
+  height: 27px;
 }
 
 #back-botton:hover {
-    background: $electric-blue;
-    color: $electric-blue;
+    background: red;
+    color: red;
 }
 
 .side-bar-title{
@@ -105,11 +122,24 @@ body {
   }
 }
 
-#domain-favicon{
+.domain-favicon {
   width: 15px;
   height: 15px;
   margin-bottom: 4px;
   margin-right: 8px;
+}
+
+.display-favicon {
+  width:25px;
+  height:25px;
+  margin-right: 10px;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .previousPath {
@@ -137,7 +167,7 @@ start-time-label .end-time-label{
 }
 
 .categories-page {
-  height: calc(100% - 50px);
+  height: auto;
 }
 
 .vertical-axis-label {
@@ -154,6 +184,7 @@ start-time-label .end-time-label{
 
 .start-time-label{
   float: left;
+  display: inline-flex;
 }
 .end-time-label{
   float: right;
@@ -197,18 +228,23 @@ start-time-label .end-time-label{
   font-size: medium;
 }
 .nav-bar-button:hover {
-  color: $canteloupe;
+  color: $base-white;
 }
 .nav-bar-button-selected {
   color: $base-white;
-  text-decoration: underline;
+  border-bottom: solid $base-white 1px;
+  padding: 0px;
+  margin: 10px;
 }
 
 .control-buttons{
-  display: flex;
-  justify-content: space-around;
+  display: block;
   color: $canteloupe;
   font-weight: bold;
+}
+
+.checkbox {
+  text-align: center;
 }
 
 .nav-bar-container {
@@ -229,6 +265,7 @@ start-time-label .end-time-label{
   border: none;
   min-width: 200px;
   height: 35px;
+  padding: 10px;
 }
 .blacklist-text-entry {
   margin: 3px 5px;
@@ -250,40 +287,33 @@ start-time-label .end-time-label{
   margin-top: 5%;
   width: 95%;
   border: $electric-blue solid;
+  border-left:none;
   float: none;
-  margin-left: auto;
-  margin-right: auto;
-  height: 15%;
+  margin-left: 2%;
+  margin-right: 2%;
+  height: 100px;
   border-radius: 5px;
+  display:flex;
+  flex-flow: row nowrap;
 }
 
 .page-bar{
   border-left: solid $electric-blue;
-  border-right: solid $electric-blue;
   height:100%;
   display:inline-block;
+  margin: 0;
 }
 
 .close-detail-view-btn{
   float: right;
   margin-top: 10px;
-  margin-right: 20px;
-  border: none;
-  border-left: $watermelon;
-  background-color: $watermelon;
-  font-size: x-large;
+  margin-right: 30px;
+  border: #FAFAFA;
+  background-color: #FAFAFA;
   padding-top: 0px;
   padding-bottom: 0px;
   vertical-align: middle;
-}
-
-.categories-display{
-  padding: 3px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0px;
-  margin-top: 0px;
-  justify-content: center;
+  font-size: xx-large;
 }
 
 .category-entry-wrapper{
@@ -341,6 +371,226 @@ start-time-label .end-time-label{
   background-color: $banana;
 }
 
+
+/*!
+*DATE PICKER CSS
+* https://github.com/arqex/react-datetime
+*/
+.date-picker {
+  width:165px;
+  position: relative;
+}
+
+.rdt {
+  position: relative;
+}
+.rdtPicker {
+  display: none;
+  position: absolute;
+  width: 250px;
+  padding: 4px;
+  margin-top: 1px;
+  z-index: 99999 !important;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  border: 1px solid #f9f9f9;
+}
+.rdtOpen .rdtPicker {
+  display: block;
+}
+.rdtStatic .rdtPicker {
+  box-shadow: none;
+  position: static;
+}
+
+.rdtPicker .rdtTimeToggle {
+  text-align: center;
+}
+
+.rdtPicker table {
+  width: 100%;
+  margin: 0;
+}
+.rdtPicker td,
+.rdtPicker th {
+  text-align: center;
+  height: 28px;
+}
+.rdtPicker td {
+  cursor: pointer;
+}
+.rdtPicker td.rdtDay:hover,
+.rdtPicker td.rdtHour:hover,
+.rdtPicker td.rdtMinute:hover,
+.rdtPicker td.rdtSecond:hover,
+.rdtPicker .rdtTimeToggle:hover {
+  background: #eeeeee;
+  cursor: pointer;
+}
+.rdtPicker td.rdtOld,
+.rdtPicker td.rdtNew {
+  color: #999999;
+}
+.rdtPicker td.rdtToday {
+  position: relative;
+}
+.rdtPicker td.rdtToday:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-bottom: 7px solid #428bca;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+}
+.rdtPicker td.rdtActive,
+.rdtPicker td.rdtActive:hover {
+  background-color: #428bca;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.rdtPicker td.rdtActive.rdtToday:before {
+  border-bottom-color: #fff;
+}
+.rdtPicker td.rdtDisabled,
+.rdtPicker td.rdtDisabled:hover {
+  background: none;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.rdtPicker td span.rdtOld {
+  color: #999999;
+}
+.rdtPicker td span.rdtDisabled,
+.rdtPicker td span.rdtDisabled:hover {
+  background: none;
+  color: #999999;
+  cursor: not-allowed;
+}
+.rdtPicker th {
+  border-bottom: 1px solid #f9f9f9;
+}
+.rdtPicker .dow {
+  width: 14.2857%;
+  border-bottom: none;
+}
+.rdtPicker th.rdtSwitch {
+  width: 100px;
+}
+.rdtPicker th.rdtNext,
+.rdtPicker th.rdtPrev {
+  font-size: 21px;
+  vertical-align: top;
+}
+
+.rdtPrev span,
+.rdtNext span {
+  display: block;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+.rdtPicker th.rdtDisabled,
+.rdtPicker th.rdtDisabled:hover {
+  background: none;
+  color: #999999;
+  cursor: not-allowed;
+}
+.rdtPicker thead tr:first-child th {
+  cursor: pointer;
+}
+.rdtPicker thead tr:first-child th:hover {
+  background: #eeeeee;
+}
+
+.rdtPicker tfoot {
+  border-top: 1px solid #f9f9f9;
+}
+
+.rdtPicker button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.rdtPicker button:hover {
+  background-color: #eee;
+}
+
+.rdtPicker thead button {
+  width: 100%;
+  height: 100%;
+}
+
+td.rdtMonth,
+td.rdtYear {
+  height: 50px;
+  width: 25%;
+  cursor: pointer;
+}
+td.rdtMonth:hover,
+td.rdtYear:hover {
+  background: #eee;
+}
+
+.rdtCounters {
+  display: inline-block;
+}
+
+.rdtCounters > div {
+  float: left;
+}
+
+.rdtCounter {
+  height: 100px;
+}
+
+.rdtCounter {
+  width: 40px;
+}
+
+.rdtCounterSeparator {
+  line-height: 100px;
+}
+
+.rdtCounter .rdtBtn {
+  height: 40%;
+  line-height: 40px;
+  cursor: pointer;
+  display: block;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+}
+.rdtCounter .rdtBtn:hover {
+  background: #eee;
+}
+.rdtCounter .rdtCount {
+  height: 20%;
+  font-size: 1.2em;
+}
+
+.rdtMilli {
+  vertical-align: middle;
+  padding-left: 8px;
+  width: 48px;
+}
+
+.rdtMilli input {
+  width: 100%;
+  font-size: 1.2em;
+  margin-top: 37px;
+}
+
 .edit-category-entry {
   textarea {
     width: 150px;
@@ -348,4 +598,29 @@ start-time-label .end-time-label{
     background-color: $light-blue;
     text-align: center;
   }
+}
+
+.star-display{
+  margin-top: 10px;
+}
+
+.display-view {
+  width:50%
+}
+
+.lookback-details-container h4{
+  color: $canteloupe;
+  margin: 5px;
+}
+
+.lookback-details-container p{
+  margin-right: 30px;
+}
+
+.domain-details{
+  height: 125px;
+}
+
+.page-details{
+  height: 300px;
 }

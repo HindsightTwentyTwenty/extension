@@ -5,6 +5,8 @@ import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
+import Datetime from 'react-datetime';
+
 
 import TabComponent from './TabComponent.js';
 
@@ -95,9 +97,9 @@ class LookBack extends Component {
   getFormattedDate(date_string){
     if(date_string){
       var date = new Date(date_string);
-      var monthes = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-      var month = monthes[(date.getMonth() -1)];
+      var month = months[(date.getMonth())];
       var datetext = (month + " " + date.getDate());
 
       return datetext;
@@ -140,25 +142,37 @@ class LookBack extends Component {
       let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
-				// if(tIndex < 23){
 					results.push(this.getTabComponent(tIndex))
-
-				// }
       }
       return results;
     }
   }
 
+	changeStartTime(input){
+		var new_start_date = input['_d'];
+
+		var new_end_hour = new Date(new_start_date).getHours() + 1;
+		var new_end_date = new Date(new_start_date);
+		new_end_date.setHours(new_end_hour);
+
+		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
+		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
+
+
+	}
+
 
   render() {
+		var date = this.props.start_date;
+
 		if(this.props.currentDomainDisplayed.clicked){
 			return(
 				<div className="domainBar-zoom-container">
 					<div className="row">
 					<button className='close-detail-view-btn' onClick={() => {
 						this.props.lookback_actions.toggleDomainClicked();
-						this.props.lookback_actions.setCurrentPage({}, false);
-					}}>X</button>
+						this.props.lookback_actions.setCurrentPage({});
+					}}><i className="fa fa-window-close-o" aria-hidden="true"></i></button>
 					</div>
 					<div className="row">
 						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
@@ -170,12 +184,16 @@ class LookBack extends Component {
       <div className="lookback-graph-container">
         <div className="vertical-axis-label">Tabs</div>
 	        <div className="time-labels">
-	          <div className="start-time-label" onClick={this.getPrevPage.bind(this)}>
-								<button id="back-button">
+	          <div className="start-time-label" >
+								<button id="back-button" onClick={this.getPrevPage.bind(this)}>
 									back
 								</button>
-								{this.state.start_date_formatted}
-
+								<div className="date-picker" >
+									<Datetime
+										defaultValue={this.props.start_date}
+										onChange={this.changeStartTime.bind(this)}
+									/>
+								</div>
 						</div>
 						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
 						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
