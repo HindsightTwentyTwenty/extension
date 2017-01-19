@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as UserActions from '../../actions/User/UserActions.js';
+import * as PopupConstants from '../../constants/PopupConstants.js';
 
 class ForgotMyPassword extends Component {
 
@@ -15,7 +16,7 @@ class ForgotMyPassword extends Component {
   }
 
   back() {
-    this.props.login_actions.forgotMyPasswordPage(false);
+    this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
   }
 
   render() {
