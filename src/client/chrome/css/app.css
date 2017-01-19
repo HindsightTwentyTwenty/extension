@@ -52,6 +52,11 @@ body {
   border:solid 1px $electric-blue;
 }
 
+.domain-info {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .lookback-graph-container{
   height: calc(100% - 70px);
   min-width: 800px;
