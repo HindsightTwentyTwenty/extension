@@ -42,6 +42,11 @@ $base-white: #FAFAFA;
   color: $canteloupe;
 }
 
+.popup-page-title {
+  width: 370px;
+  display: flex;
+}
+
 hr{
   margin: 0 auto;
   margin-bottom: 10px;
@@ -113,10 +118,7 @@ hr{
 }
 
 .star{
-  height: 45px;
   line-height: 45px;
-  width: 45px;
-  text-align: center;
 }
 .category-entry{
   margin: 0 auto;

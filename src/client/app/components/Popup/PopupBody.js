@@ -31,29 +31,15 @@ class PopupBody extends Component {
       }
       return (
         <div className="container popup-body">
-          <div className="row">
-            <div className="col-xs-10">
-              <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
-            </div>
-            <div className="col-xs-2">
-              <Star/>
-            </div>
+          <div className='popup-page-title'>
+            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
+            <Star/>
           </div>
           <hr/>
-          <div className="row">
-            <div className="col-xs-12">
-              <h4>categories</h4>
-            </div>
-          </div>
+          <h4>categories</h4>
           <div className="categories-box">
-            <div className="row">
-                <CategoryEntry/>
-            </div>
-            <div className="row">
-              <div className="col-xs-12">
-                {categories}
-              </div>
-            </div>
+            <CategoryEntry/>
+            {categories}
           </div>
         </div>
       )
