@@ -8,8 +8,9 @@ $base-white: #FAFAFA;
    width:400px;
    height:300px;
    background-color: $base-white;
-   font-family: 'Raleway';
    color: $electric-blue;
+   font-family: 'Raleway';
+   font-weight: normal;
    vertical-align: middle;
 }
 
@@ -21,9 +22,7 @@ $base-white: #FAFAFA;
 .popup-header h1 {
   margin: auto;
   color: $base-white;
-  font-weight: normal;
   font-size: 30px;
-  vertical-align: middle;
 }
 
 .lookback-btn {
@@ -34,9 +33,7 @@ $base-white: #FAFAFA;
 
 .popup-body h3{
   margin-top: 10px;
-  color: $electric-blue;
   font-size: x-large;
-  padding-bottom: 3px;
 }
 
 .popup-body h4{
