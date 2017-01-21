@@ -30,8 +30,11 @@ body {
   color: $base-white;
   float: left;
   background-color: $watermelon;
-  padding: 0 5px;
-  margin: 0 5px;
+  padding: 0 10px;
+  height: 30px;
+  border-radius: 2px;
+  margin: 5px;
+  line-height: 30px;
 }
 
 .url {
