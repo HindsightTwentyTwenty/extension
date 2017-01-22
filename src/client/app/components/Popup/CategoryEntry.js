@@ -20,7 +20,6 @@ class CategoryEntry extends Component {
     });
   }
 
-
   render () {
     return (
     <div className="input-group category-entry">
@@ -28,9 +27,8 @@ class CategoryEntry extends Component {
         this.input = node;
       }} />
       <span className="input-group-btn">
-        <button className="btn add-category-btn" type="button" onClick={() => {
-          // TODO: process input values (check for empties) on the backend?
-          if (this.input.value !== '') {
+        <button className="btn canteloupe add-category-btn" type="button" onClick={() => {
+          if (this.input.value.trim() !== '') {
             this.addNewCategory(this.input.value);
             this.input.value = '';
           }

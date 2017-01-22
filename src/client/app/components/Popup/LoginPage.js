@@ -38,46 +38,28 @@ class LoginPage extends Component {
 		this.props.user_actions.updatePopupStatus(PopupConstants.ForgotMyPassword);
 	}
 
-	CreateUserAccount(){
+	createUserAccount(){
 		this.props.user_actions.updatePopupStatus(PopupConstants.SignUp);
 	}
 
   loginUser(){
-    console.log("login user item: ", this.state.user_name);
-    console.log("login password item: ", this.state.password);
-
     this.props.user_actions.loginUser(this.state.user_name, this.state.password);
   }
 
   render () {
-		console.log("currentUser", this.props.currentUser);
-
     return (
-      <div className="container">
-        <br/>
-        <p>Please Login to hindsite:</p>
-        <div className ="row">
-          <div className="col-xs-12">
-						<div className={this.props.currentUser.invalid_login ? '' : 'hidden'}> Invalid Username or Password </div>
-            <div className="input-group">
-              <input type="email" className="form-control" id="user_name" placeholder="username" onChange={this.updateUserName.bind(this)} />
-              <input type="password" className="form-control" id="password" placeholder="password" onChange={this.updatePassword.bind(this)} />
-            </div>
-            <br/>
-            <span className="input-group-btn">
-						<button className="btn btn-primary add-category-btn" type="button" onClick={this.loginUser.bind(this)}>Submit</button>
-            </span>
-          </div>
-        </div>
-				<div className ="row">
-          <div className="col-xs-12">
-					<button className="btn btn-primary" type="button" onClick={this.forgotMyPassword.bind(this)}>forgot my password</button>
-					</div>
+      <div className="popup-main-form">
+				<br/>
+        <p>Please login to use hindsite:</p>
+				<div className={this.props.currentUser.invalid_login ? '' : 'hidden'}> Invalid Username or Password </div>
+				<div className = 'popup-form-group'>
+					<input type="email" className=" popup-form form-control" id="user_name" placeholder="username" onChange={this.updateUserName.bind(this)} />
+	        <input type="password" className="popup-form form-control" id="password" placeholder="password" onChange={this.updatePassword.bind(this)} />
 				</div>
-				<div className ="row">
-					<div className="col-xs-12">
-					<button className="btn btn-primary" type="button" onClick={this.CreateUserAccount.bind(this)}>Create New Account</button>
-					</div>
+				<div className ="popup-button-group">
+					<button className="btn canteloupe btn-primary" type="button" onClick={this.loginUser.bind(this)}>Submit</button>
+					<button className="btn btn-primary" type="button" onClick={this.forgotMyPassword.bind(this)}>Forgot Password</button>
+					<button className="btn btn-primary" type="button" onClick={this.createUserAccount.bind(this)}>New Account</button>
 				</div>
       </div>
     )
@@ -86,7 +68,6 @@ class LoginPage extends Component {
 
 let mapStateToProps = (state) => ({
 	currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => ({

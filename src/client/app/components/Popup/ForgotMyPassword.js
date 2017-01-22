@@ -31,7 +31,7 @@ class ForgotMyPassword extends Component {
             this.input = node;
           }} />
           <span className="input-group-btn">
-            <button className="btn btn-primary add-category-btn" type="button" onClick={() => {
+            <button className="btn btn-primary canteloupe add-category-btn" type="button" onClick={() => {
               this.submit(this.input.value);
               this.input.value = '';
             }}>Submit</button>

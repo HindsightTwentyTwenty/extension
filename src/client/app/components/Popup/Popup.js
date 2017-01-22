@@ -52,11 +52,26 @@ class Popup extends Component {
 		} else { // Not Logged In
 			switch (this.props.currentUser.popup_status) {
 				case PopupConstants.SignIn:
-					return <LoginPage/>
+					return (
+            <div>
+              <PopupHeader/>
+              <LoginPage/>
+            </div>
+          );
 				case PopupConstants.SignUp:
-					return <CreateUser/>
+					return (
+            <div>
+              <PopupHeader/>
+              <CreateUser/>
+            </div>
+          );
 				case PopupConstants.ForgotMyPassword:
-					return <ForgotMyPassword/>
+					return (
+            <div>
+              <PopupHeader/>
+              <ForgotMyPassword/>
+            </div>
+          );
 				default:
 					return (
 						<div>

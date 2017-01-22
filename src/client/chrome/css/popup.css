@@ -59,15 +59,17 @@ hr{
 }
 
 .add-category-btn{
-  background-color: $canteloupe;
-  color: white;
   padding-top: 8px;
   padding-bottom: 7px;
   border: 0px;
   font-size: large;
-  &:hover {
-    background-color: $watermelon;
-  }
+}
+
+.popup-button-group {
+  display: inline-flex;
+  width: 400px;
+  margin: 10px 0;
+  justify-content: space-around;
 }
 
 .category-bar{
@@ -92,6 +94,10 @@ hr{
   justify-content: center;
 }
 
+.popup-form-group {
+  margin: 5px; 
+}
+
 .popup-form {
   border: solid 1px $canteloupe;
   height: 40px;
@@ -101,7 +107,7 @@ hr{
   text-align: center;
 }
 
-.categories-box{
+.popup-main-form{
   padding: 5px;
 }
 

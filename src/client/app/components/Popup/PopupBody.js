@@ -37,7 +37,7 @@ class PopupBody extends Component {
           </div>
           <hr/>
           <h4>categories</h4>
-          <div className="categories-box">
+          <div className="popup-main-form">
             <CategoryEntry/>
             {categories}
           </div>
