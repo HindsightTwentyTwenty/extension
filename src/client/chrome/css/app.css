@@ -440,11 +440,13 @@ start-time-label .end-time-label{
 }
 
 .display-view {
-  width:50%
+  width:50%;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 .page-details{
-  height: 300px;
+  height: 40%;
 }
 
 .canteloupe {
