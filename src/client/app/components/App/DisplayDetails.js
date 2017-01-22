@@ -34,8 +34,7 @@ class DisplayDetails extends Component {
           <div className="row">
             <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
           </div>
-          <h4>categories</h4>
-          <div className="popup-main-form display-view">
+          <div className="display-view">
             <CategoryEntry/>
             {categories}
           </div>
