@@ -453,6 +453,7 @@ start-time-label .end-time-label{
   &:hover {
     background-color: $watermelon;
   }
+}
 
 .star-checkbox{
   border-bottom: solid thin $canteloupe;
