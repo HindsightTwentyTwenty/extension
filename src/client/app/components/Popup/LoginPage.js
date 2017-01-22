@@ -53,7 +53,7 @@ class LoginPage extends Component {
         <p>Please login to use hindsite:</p>
 				<div className={this.props.currentUser.invalid_login ? '' : 'hidden'}> Invalid Username or Password </div>
 				<div className = 'popup-form-group'>
-					<input type="email" className=" popup-form form-control" id="user_name" placeholder="username" onChange={this.updateUserName.bind(this)} />
+					<input type="email" className="popup-form form-control" id="user_name" placeholder="username" onChange={this.updateUserName.bind(this)} />
 	        <input type="password" className="popup-form form-control" id="password" placeholder="password" onChange={this.updatePassword.bind(this)} />
 				</div>
 				<div className ="popup-button-group">

@@ -20,11 +20,4 @@ class Loading extends Component {
   }
 }
 
-let mapStateToProps = (state) => ({
-
-})
-
-let mapDispatchToProps = (dispatch) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(null, null)(Loading);
