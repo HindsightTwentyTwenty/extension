@@ -20,19 +20,13 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-		//chrome.storage.local.remove("hindsite-token");
-
     chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
-
   }
 
 	renderContent() {
-		if(this.props.currentUser.token.length != 0){
-			//Logged In
-
+		if(this.props.currentUser.token.length != 0){ //Logged In
 			switch (this.props.currentUser.popup_status){
-				case PopupConstants.Received:
-					// Display Page
+				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
 		          <PopupHeader/>
@@ -47,8 +41,7 @@ class Popup extends Component {
 						</div>
 					);
 				case PopupConstants.Loading:
-				default:
-					// Still Loading Page or Page Does Not Exist in Backend
+				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
 						<div>
 							<PopupHeader/>
@@ -56,10 +49,8 @@ class Popup extends Component {
 						</div>
 					);
 			}
-
-		} else {
-			// Not Logged In
-			switch (this.props.currentUser.popup_status){
+		} else { // Not Logged In
+			switch (this.props.currentUser.popup_status) {
 				case PopupConstants.SignIn:
 					return <LoginPage/>
 				case PopupConstants.SignUp:
@@ -77,16 +68,10 @@ class Popup extends Component {
 		}
 	}
 
-
   render() {
-    return (
-      <div id="popup_wrapper">
-        { this.renderContent() }
-      </div>
-    );
+    return (this.renderContent());
   }
 }
-
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
