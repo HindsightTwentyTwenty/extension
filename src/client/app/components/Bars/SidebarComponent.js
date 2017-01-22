@@ -30,6 +30,7 @@ class SidebarComponent extends Component {
   }
 
   getCheckBox() {
+    var className = this.props.categoriesAndPages.showStarred ? 'star-checkbox checked' : 'star-checkbox';
     if (this.props.button) {
       return (<div className="control-buttons">
         <div className = "checkbox">
@@ -39,13 +40,11 @@ class SidebarComponent extends Component {
             }}
             value="first_checkbox"/> select multiple </label>
         </div>
-        <div className = "checkbox">
-          <label> <input type="checkbox" id="check-select"
-            onChange={() => {
-              this.props.category_pages_actions.toggleShowStarred();
-            }}
-            value="second_checkbox"/> show starred </label>
-        </div>
+        <div className={className} onClick={() => {
+          this.props.category_pages_actions.toggleShowStarred();
+        }}>
+            <i className='fa fa-star fa-2x star side-bar-star ' id='starred'></i>
+          </div>
       </div>)
     }
   }
