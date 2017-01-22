@@ -35,7 +35,6 @@ class CategoryEntry extends Component {
         }}><i className="fa fa-plus" aria-hidden="true"></i></button>
       </span>
     </div>
-
     )
   }
 }
@@ -44,7 +43,6 @@ let mapStateToProps = (state) => ({
     categories : state.categories,
     currentPage : state.currentPage,
     currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => ({

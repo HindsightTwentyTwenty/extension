@@ -18,7 +18,7 @@ const unauthorizedCode = "403";
 var curr_token = ""
 
 export function receiveError(error) {
-  console.log("RECEIVE error: ", error);
+  // console.log("RECEIVE error: ", error);
 
   return {
     type: types.RECEIVE_ERROR,
@@ -28,11 +28,11 @@ export function receiveError(error) {
 }
 
 export function receiveUserTokenFromChrome(token) {
-  console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
+  // console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
   return dispatch => {
-    console.log("IN DISPATCH token[hindsite-token]:", token['hindsite-token']);
+    // console.log("IN DISPATCH token[hindsite-token]:", token['hindsite-token']);
     if(token['hindsite-token']){
-      console.log("headed to grab page info");
+      // console.log("headed to grab page info");
       dispatch(
         {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
@@ -50,7 +50,7 @@ export function receiveUserTokenFromChrome(token) {
 export function getPageInformation(token, count){
 
   return dispatch => {
-    console.log("Token:", token);
+    // console.log("Token:", token);
     return fetch(activePageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
@@ -66,7 +66,7 @@ export function getPageInformation(token, count){
          dispatch(receivePageInfo(json))
        })
        .catch(e => {
-          console.log("Error caught. Retrying: ", e);
+          // console.log("Error caught. Retrying: ", e);
           if(count < 100){
             dispatch(getPageInformation(token, count + 1));
           } else {
@@ -88,10 +88,10 @@ export function logoutUser(token) {
     })
     .then(response => {
       if (response['status'] != unauthorizedCode){
-        console.log("logout failure");
+        // console.log("logout failure");
         //TODO Implement user message warning of error on logout
       } else {
-        console.log("succesful logout")
+        // console.log("succesful logout")
         // clear store
         dispatch({
           type: types.USER_LOGOUT
@@ -102,7 +102,7 @@ export function logoutUser(token) {
 }
 
 function receivePageInfo(json) {
-  console.log("receive page info", json);
+  // console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -113,8 +113,8 @@ function receivePageInfo(json) {
 }
 
 function getPageInfo(url, token){
-  console.log("getPageInfo() url", url);
-  console.log("getPageInfo() token", token);
+  // console.log("getPageInfo() url", url);
+  // console.log("getPageInfo() token", token);
 
   return dispatch => {
     return fetch(pageInfoEndpoint, {
@@ -133,7 +133,7 @@ function getPageInfo(url, token){
 }
 
 export function updatePopupStatus(status){
-  console.log("Update popup status", status);
+  // console.log("Update popup status", status);
   return {
     type: types.POPUP_STATUS,
     popup_status: status
@@ -145,11 +145,11 @@ export function sendCurrentPage(token) {
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      console.log("page: ", tabs[0]);
+      // console.log("page: ", tabs[0]);
       var tab = tabs[0];
-      console.log("Blacklist", Lists.Blacklist);
-      console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
-      console.log("token in send current", token);
+      // console.log("Blacklist", Lists.Blacklist);
+      // console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
+      // console.log("token in send current", token);
 
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
@@ -174,15 +174,15 @@ export function sendCurrentPage(token) {
         .then(
           ({ status, json }) => {
             if(status == 204){
-              console.log("No content");
+              // console.log("No content");
             } else {
-              console.log("valid receive", json);
+              // console.log("valid receive", json);
               dispatch(receivePageInfo(json));
             }
           }
         )
       } else {
-        console.log("DISPATCHING NO CONTENT", tab.url)
+        // console.log("DISPATCHING NO CONTENT", tab.url)
         dispatch(updatePopupStatus(PopupConstants.NoContent));
       }
     });
@@ -190,14 +190,14 @@ export function sendCurrentPage(token) {
 }
 
 export function error(response){
-  console.log("error", response.json());
+  // console.log("error", response.json());
   return {
     type: types.TEST
   }
 }
 
 export function receivePageInfo(json) {
-  console.log("receive page info", json);
+  // console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -209,7 +209,7 @@ export function receivePageInfo(json) {
 
 
 export function loginUser(username, password){
-  console.log("loginUser()");
+  // console.log("loginUser()");
   return dispatch => {
     return fetch(loginUserEndpoint, {
       headers: {
@@ -229,10 +229,10 @@ export function loginUser(username, password){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          console.log("Invalid post caught");
+          // console.log("Invalid post caught");
           dispatch(receiveLoginError());
         } else {
-          console.log("valid post", json);
+          // console.log("valid post", json);
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
@@ -303,10 +303,10 @@ export function changeMyPassword(current_password, new_password, token){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          console.log("Invalid password for password change");
+          // console.log("Invalid password for password change");
           dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
         } else {
-          console.log("valid post");
+          // console.log("valid post");
           dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))
         }
       }
