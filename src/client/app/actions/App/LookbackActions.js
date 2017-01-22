@@ -3,6 +3,8 @@ import fetch from 'isomorphic-fetch'
 import * as urls from '../../constants/GlobalConstants';
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
+const searchEnpoint = urls.BASE_URL + "search/";
+
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
@@ -44,9 +46,35 @@ export function updateDisplayDomain(json, clicked) {
   }
 }
 
+export function searchResultsReturned(json) {
+  console.log("results", json
+  )
+  return {
+    type: types.SEARCH_ITEM,
+    json: json,
+  }
+}
+
 export function toggleDomainClicked() {
   return {
     type: types.TOGGLE_DOMAIN_CLICKED
+  }
+}
+
+export function searchTerm(search_term, token){
+  return dispatch => {
+    return fetch(searchEnpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token
+           },
+           method: "POST",
+           body: JSON.stringify({"query": search_term})
+         }
+       )
+      .then(response => response.json())
+      .then(json => dispatch(searchResultsReturned(json, true)))
   }
 }
 
