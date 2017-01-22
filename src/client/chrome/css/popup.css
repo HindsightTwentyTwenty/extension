@@ -112,7 +112,7 @@ hr{
 .star-div{
   height:45px;
   width: 45px;
-  color: black;
+  color: $banana;
 }
 
 .star{
