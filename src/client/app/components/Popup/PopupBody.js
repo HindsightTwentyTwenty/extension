@@ -36,7 +36,6 @@ class PopupBody extends Component {
             <Star/>
           </div>
           <hr/>
-          <h4>categories</h4>
           <div className="popup-main-form">
             <CategoryEntry/>
             {categories}
