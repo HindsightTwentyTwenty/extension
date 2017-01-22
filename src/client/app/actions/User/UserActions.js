@@ -5,8 +5,6 @@ import * as PasswordConstants from '../../constants/PasswordConstants.js'
 import * as PopupConstants from '../../constants/PopupConstants.js'
 import * as Lists from '../../constants/UrlBlacklist.js'
 import ApiUtils from './../ApiUtils.js'
-// import getPageInfo from './PopupActions.js';
-// import store from '../../index.js'
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
@@ -27,20 +25,6 @@ export function receiveError(error) {
     error: error
 
   }
-}
-
-export function requestUserToken() {
-  return {
-    type: types.REQUEST_USER_TOKEN
-  }
-}
-
-
-export function userToken(token) {
-  return {
-   type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-   token: token
- }
 }
 
 export function receiveUserTokenFromChrome(token) {
@@ -89,13 +73,6 @@ export function getPageInformation(token, count){
             dispatch(updatePopupStatus(PopupConstants.NoContent))
           }
         })
-  }
-}
-
-
-export function clearStore(){
-  return {
-    type: types.USER_LOGOUT
   }
 }
 
