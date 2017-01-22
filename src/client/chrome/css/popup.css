@@ -16,11 +16,14 @@ $base-white: #FAFAFA;
 
 .popup-header {
   background-color: $electric-blue;
-  padding: 10px 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .popup-header h1 {
-  margin: auto;
+  margin: 0;
+  float: left;
   color: $base-white;
   font-size: 30px;
 }
