@@ -116,17 +116,20 @@ body {
   text-align: center;
   padding: 10px;
   font-weight: bold;
-  color: $canteloupe;
+  color: $base-white;
+  background-color: $canteloupe;
+  font-size: large;
+
 }
 
 .side-bar-container{
+  color: $canteloupe;
   display: inline-block;
-  width: 202px;
-  height: calc(100% - 70px);
+  width: 18%;
+  height: 100%;
   background-color: $base-white;
-  border-left: solid 3px $electric-blue;
-  border-right: solid 3px $electric-blue;
-  border-bottom: solid 3px $electric-blue;
+  border: solid 3px $canteloupe;
+  border-top: 0px;
 }
 
 .domain-bar{
@@ -193,7 +196,7 @@ start-time-label .end-time-label{
 }
 
 .categories-page {
-  height: auto;
+  height: 92.5vh;
 }
 
 .vertical-axis-label {
@@ -203,6 +206,7 @@ start-time-label .end-time-label{
   position: absolute;
   top: 600px;
 }
+
 .time-labels{
   padding-left: 30px;
   padding-right: 15px;
@@ -250,8 +254,10 @@ start-time-label .end-time-label{
   border: none;
   background-color: $electric-blue;
   color: $banana;
-  margin-top: 13px;
+  margin: 10px;
+  margin-top: 15px;
   font-size: medium;
+  padding: 0px;
 }
 .nav-bar-button:hover {
   color: $base-white;
@@ -260,7 +266,6 @@ start-time-label .end-time-label{
   color: $base-white;
   border-bottom: solid $base-white 1px;
   padding: 0px;
-  margin: 10px;
 }
 
 .control-buttons{
@@ -364,7 +369,6 @@ start-time-label .end-time-label{
   line-height: 25px;
 }
 
-
 .edit-category-button {
   color: $canteloupe;
   width: 15px;
@@ -378,7 +382,7 @@ start-time-label .end-time-label{
 }
 
 .category-title {
-  color: $electric-blue;
+  color: $canteloupe;
   text-align: center;
   width: 150px;
 }
@@ -388,12 +392,11 @@ start-time-label .end-time-label{
   height: 25px;
   display: flex;
   line-height: 25px;
-  border-top-style: solid;
-  border-top-width: thin;
+  border-bottom: solid thin $canteloupe;
   justify-content: space-between;
 }
 
-.side-bar-category.checked {
+.checked {
   background-color: $banana;
 }
 
@@ -642,4 +645,17 @@ td.rdtYear:hover {
 
 .page-details{
   height: 300px;
+}
+
+.star-checkbox{
+  border-bottom: solid thin $canteloupe;
+  border-top: solid thin $canteloupe;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  display: flex;
+}
+
+.side-bar-star{
+  margin: 0 auto;
 }
