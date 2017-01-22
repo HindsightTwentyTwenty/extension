@@ -412,8 +412,7 @@ start-time-label .end-time-label{
 
 #loading_page {
   display: table;
-  margin: 0 auto;
-  margin-top: 18%;
+  margin: 20px 40%;
 }
 
 .star-display{
