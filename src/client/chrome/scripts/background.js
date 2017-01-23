@@ -19,6 +19,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   closed = false
   if(changeInfo.status == 'complete' && tab.title){
       chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+        if(!dom){
+          var dom = "";
+        }
         if(tab.url != 'chrome://newtab/'){
           fetch('https://hindsite2020.herokuapp.com/newpage/', {
             headers: {
