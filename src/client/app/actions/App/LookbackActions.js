@@ -6,31 +6,6 @@ const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
-export function receivePages(json) {
-  return {
-    type: types.RECEIVE_PAGES,
-    categories: json
-  }
-}
-
-// TODO: add requests for specific users
-export function requestPages() {
-  return {
-    type: types.REQUEST_PAGES
-  }
-}
-
-export function fetchPages(){
-  return dispatch => {
-    dispatch(requestPages())
-    // TODO: change from local host
-    return fetch('http://127.0.0.1:8000/pages/')
-      .then(response => response.json())
-      .then(json => dispatch(receivePages(json)))
-  }
-}
-
-
 export function changeStartDate(new_start_date) {
   return {
     type: types.UPDATE_START_DATE,
@@ -53,11 +28,11 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, save) {
+export function setCurrentPage(page, visited) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    save: save
+    visited: visited
   }
 }
 
@@ -76,18 +51,19 @@ export function toggleDomainClicked() {
 }
 
 
-export function getDomain(pk, clicked){
+export function getDomain(pk, token){
   return dispatch => {
     return fetch(domainInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
-             'Content-Type': 'application/json'
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token
            },
            method: "POST",
            body: JSON.stringify({pk: pk})
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(updateDisplayDomain(json, clicked)))
+      .then(json => dispatch(updateDisplayDomain(json, true)))
   }
 }

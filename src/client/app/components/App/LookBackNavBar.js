@@ -37,19 +37,21 @@ class LookBackNavBar extends Component {
             <button id="nav-bar-button-2" className="nav-bar-button" type="button" onClick={() => {
               this.switchLookBackSelection(LookBackSections.Manage);
             }}>manage</button>
-            <button id="nav-bar-button-3" className="nav-bar-button" type="button" onClick={() => {
-              this.switchLookBackSelection(LookBackSections.Find);
-            }}>find</button>
           </div>
         </div>
-        <div className="site-title">hindsite</div>
+        <div className="site-title"
+          onClick={() => {
+            this.switchLookBackSelection(LookBackSections.LookBack);
+          }}>hindsite</div>
       </div>
     );
   }
 }
 
 let mapStateToProps = (state) => ({
-  currentLookBackSelection: state.currentLookBackSelection
+  currentLookBackSelection: state.currentLookBackSelection,
+  currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

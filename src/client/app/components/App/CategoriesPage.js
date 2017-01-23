@@ -10,52 +10,35 @@ class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
-    this.props.category_actions.fetchCategories();
-    this.props.category_actions.fetchCategoriesAndPages();
+    this.props.category_actions.fetchCategories( this.props.currentUser.token);
+    this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
   }
 
   fetchPages() {
-    var andOrSelector = document.getElementById("radio-and") ? document.getElementById("radio-and").checked : null;
-    var categoriesPages = this.props.categoriesAndPages;
-    if (categoriesPages.categories && Object.keys(categoriesPages.categories).length) {
-      let result = []
-      if (andOrSelector && this.props.currentSearchCategories.length) { //and
-        let validPages = []
-        while (!validPages.length) {
-          for (let searchCat in this.props.currentSearchCategories) {
-            var foundMatch = false;
-            for (let cat in categoriesPages.categories) {
-              if (this.props.currentSearchCategories[searchCat] == categoriesPages.categories[cat].title) {
-                for (let page in categoriesPages.categories[cat].pages) {
-                  validPages.push(categoriesPages.categories[cat].pages[page]);
-                }
-                foundMatch = true;
-                break;
-              }
-            }
-            if (foundMatch) { break };
+    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
+    var categoriesPages = this.props.categoriesAndPages.catsPages;
+    var starred = this.props.categoriesAndPages.starred;
+    var showStarred = this.props.categoriesAndPages.showStarred;
+    if (categoriesPages && Object.keys(categoriesPages).length) {
+      let result = [];
+      var pageSet = new Set();
+      let searchCatSet = new Set(currentSearchCategories);
+      if (showStarred) {
+        for (let page in starred) {
+          if (!pageSet.has(starred[page].pk)) {
+            result.push(<PageUrlBar key={starred[page].pk} page={starred[page]}/>)
+            pageSet.add(starred[page].pk);
           }
         }
-        for (let validPage in validPages) {
-          var foundAllSearchCats = this.props.currentSearchCategories.length;
-          for (var searchCat = 0; searchCat < this.props.currentSearchCategories.length; searchCat++) {
-            for (let pageCat in validPages[validPage].categories) {
-              if (validPages[validPage].categories[pageCat].title == this.props.currentSearchCategories[searchCat]) {
-                foundAllSearchCats--;
-                break;
-              }
-            }
-          }
-          if (foundAllSearchCats == 0) {
-            result.push(<PageUrlBar key={validPages[validPage].pk} page ={validPages[validPage]}/>)
-          }
-        }
-      } else { //or
-        for (var j = 0; j < this.props.currentSearchCategories.length; j++) {
-          for (var i = 0; i < categoriesPages.categories.length; i++) {
-            if (this.props.currentSearchCategories[j] == categoriesPages.categories[i].title) {
-              for (let page in categoriesPages.categories[i].pages) {
-                result.push(<PageUrlBar key={categoriesPages.categories[i].pages[page].pk} page ={categoriesPages.categories[i].pages[page]}/>)
+      }
+      if (searchCatSet.size) {
+        for (var i = 0; i < categoriesPages.length; i++) {
+          var searchCat = categoriesPages[i];
+          if (searchCatSet.has(searchCat.title)) {
+            for (let page in searchCat.pages) {
+              if (!pageSet.has(searchCat.pages[page].pk)) {
+                result.push(<PageUrlBar key={searchCat.pages[page].pk} page={searchCat.pages[page]}/>)
+                pageSet.add(searchCat.pages[page].pk);
               }
             }
           }
@@ -69,7 +52,7 @@ class CategoriesPage extends Component {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent title={"Categories"} button={true} allCategories={this.props.categories}/>
+        <SidebarComponent title={"Categories"} button={true}/>
         <div className="search-results-container">
           <div className="section-title">Search Results</div>
           {searchResults}
@@ -83,6 +66,7 @@ let mapStateToProps = (state) => ({
     categories: state.categories,
     categoriesAndPages: state.categoriesAndPages,
     currentSearchCategories : state.currentSearchCategories,
+    currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => {

@@ -11,13 +11,14 @@ export function updateStar(newStarVal) {
   }
 }
 
-export function toggleStar(url, star){
+export function toggleStar(url, star, token){
   return dispatch => {
     dispatch(updateStar(star))
     return fetch(updateStarEndpoint, {
             headers: {
                'Accept': 'application/json',
-               'Content-Type': 'application/json'
+               'Content-Type': 'application/json',
+               'Authorization': "Token " + token
              },
              method: "POST",
              body: JSON.stringify({url: url, star: star})

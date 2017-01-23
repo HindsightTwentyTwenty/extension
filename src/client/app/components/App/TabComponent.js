@@ -25,8 +25,8 @@ class TabComponent extends Component {
   }
 
   getActiveTimesStyle(domain){
-    var active_color = "#2b616d";
-    var non_active_color = "#b2dbd5";
+    var active_color = "#4897D8";
+    var non_active_color = "#dbedfc";
     var base = "linear-gradient(to right, " + non_active_color + " 0%";
 
     var time_opened = (new Date(domain.created)).getTime();
@@ -157,7 +157,6 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    tab_actions: bindActionCreators(TabActions, dispatch)
   }
 }
 

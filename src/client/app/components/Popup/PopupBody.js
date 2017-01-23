@@ -11,68 +11,46 @@ import CategoriesContainer from './CategoriesContainer';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      this.props.popup_actions.getPageInfo(tabs[0].url);
-    });
-    this.props.category_actions.fetchCategories();
+    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   render () {
     if(!this.props.currentPage.url){
       return(
         <div className="container popup-body">
-          <div className="row error-message">
-            <h4> Navigate to a different page to use hindsite.</h4>
+          <div className="error-message">
+            <h4> Something went wrong!</h4>
+            <h4> Please navigate to a different page to use hindsite.</h4>
           </div>
         </div>
       )
     } else {
+      var categories = <div></div>;
+      if(this.props.categories.cats.length > 0){
+        categories = <CategoriesContainer/>;
+      }
       return (
         <div className="container popup-body">
-          <div className="row">
-            <div className="col-xs-10">
-              <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
-            </div>
-            <div className="col-xs-2">
-              <Star/>
-            </div>
+          <div className='popup-page-title'>
+            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
+            <Star/>
           </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <CategoriesContainer all={false}/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <h4>categorize this page:</h4>
-            </div>
-          </div>
-          <div className="row">
-            <hr/>
-          </div>
-          <div className="row">
-              <CategoryEntry popup={true}/>
-          </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <h5>recent</h5>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <CategoriesContainer all={true}/>
-            </div>
+          <hr/>
+          <div className="popup-main-form">
+            <CategoryEntry/>
+            {categories}
           </div>
         </div>
       )
     }
-
   }
 }
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
-    categories: state.categories
+    categories: state.categories,
+    currentUser : state.currentUser
+
 })
 
 let mapDispatchToProps = (dispatch) => {

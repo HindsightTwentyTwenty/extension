@@ -8,18 +8,30 @@ import lookBackNavReducer from './LookBackNavReducer.js';
 import lookBackReducer from './lookBackReducer.js';
 import searchCategoryReducer from './searchCategoryReducer.js';
 import categoryPagesReducer from './categoryPagesReducer.js';
+import userReducer from './userReducer.js';
 import pageDisplayReducer from './pageDisplayReducer.js';
 
-const rootReducer = combineReducers({
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
+
+const appReducer = combineReducers({
   pages: pageReducer,
   currentSearchCategories: searchCategoryReducer,
   categories: categoryReducer,
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
+  currentDomain: lookBackReducer,
   currentLookBackSelection: lookBackNavReducer,
-  currentDomainDisplayed: lookBackReducer,
   categoriesAndPages: categoryPagesReducer,
+  currentUser: userReducer,
+  currentDomainDisplayed: lookBackReducer,
+
 });
 
 export default rootReducer;

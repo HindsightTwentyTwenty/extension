@@ -9,23 +9,23 @@ const pageInfo = (state, action) => {
         star: action.star,
         title: action.title
       }
-    // TODO: change {star: !star} ?
+    // TODO: change {star: !star}
     case types.UPDATE_CURRENT_STAR:
       return Object.assign({}, state, {star: action.star});
     case types.ADD_PAGE_CATEGORY:
       return Object.assign({}, state, {categories: state.categories.concat([action.category])});
     case types.DELETE_PAGE_CATEGORY:
-    // TODO: neater way to copy arrya and push on a single element, instead of pushing on all categories
+    // TODO: neater way to copy array and push on a single element, instead of pushing on all categories
       var newCategoryList = [];
       var currentCategories = state.categories;
       for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title !== action.categoryTitle) {
+        if (currentCategories[i].title !== action.category.title) {
           newCategoryList.push(currentCategories[i]);
         }
       }
       return Object.assign({}, state, {categories: newCategoryList});
     case types.SET_CURRENT_PAGE:
-      if(action.save == false){
+      if(action.page.url == null){
         return {
           url: "",
           categories: [],
@@ -33,14 +33,16 @@ const pageInfo = (state, action) => {
           title: ""
         }
       }
-      if(action.page.page.star == undefined){
-        action.page.page.star = false;
+      if(action.page.star == undefined){
+        action.page.star = false;
       }
       return {
-        title: action.page.page.title,
-        url: action.page.page.url,
-        star: action.page.page.star,
-        categories: action.page.page.categories
+        title: action.page.title,
+        url: action.page.url,
+        star: action.page.star,
+        categories: action.page.categories,
+        created: action.page.created,
+        visited: action.visited
       }
     default:
       return state
@@ -48,17 +50,14 @@ const pageInfo = (state, action) => {
 }
 
 function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
-  // TODO: simplify switch statement cause they're all the same :(
   switch(action.type){
     case types.RECEIVE_PAGE_INFO:
-      return Object.assign({}, pageInfo(state, action));
+      console.log("in recieve page info");
     case types.UPDATE_CURRENT_STAR:
-      return Object.assign({}, pageInfo(state, action));
     case types.ADD_PAGE_CATEGORY:
-      return Object.assign({}, pageInfo(state, action));
     case types.DELETE_PAGE_CATEGORY:
-      return Object.assign({}, pageInfo(state, action));
     case types.SET_CURRENT_PAGE:
+      console.log("set current page");
       return Object.assign({}, pageInfo(state, action));
     default:
         return state;
