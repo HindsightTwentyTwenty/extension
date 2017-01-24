@@ -8,7 +8,7 @@ function blacklistReducer(state = {urls: []}, action){
       var blacklist = [];
       var currentUrls = state.urls;
       for(var i = 0; i < currentUrls.length; i++) {
-        if (currentUrls[i].url !== action.url) {
+        if (currentUrls[i].pk !== action.pk) {
           blacklist.push(currentUrls[i]);
         }
       }

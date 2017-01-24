@@ -16,6 +16,7 @@ class BlacklistBar extends Component {
         <div className='blacklist-bar-info'>
           <label className='blacklist-bar-label hide-overflow'> since {this.props.created} </label>
           <div className='blacklist-button remove' onClick={()=>{
+            this.props.blacklist_actions.removeFromBlacklist(this.props.pk, this.props.currentUser.token);
             }}>
             <i className={'fa fa-times fa-2x'}></i>
           </div>
@@ -30,7 +31,8 @@ class BlacklistBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    blacklist : state.blacklist
+    blacklist : state.blacklist,
+    currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => ({

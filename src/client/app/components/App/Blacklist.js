@@ -15,7 +15,7 @@ class Blacklist extends Component {
   fetchSites() {
     if (this.props.blacklist.urls) {
       return this.props.blacklist.urls.map(function(site) {
-        return (<BlacklistBar key={site.pk} title={site.base_url} created={site.created}/>);
+        return (<BlacklistBar key={site.pk} title={site.base_url} created={site.created} pk={site.pk}/>);
       });
     }
   }
