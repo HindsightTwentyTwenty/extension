@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch'
 const removeFromBlacklistEndpoint = urls.BASE_URL + "deleteblacklist/";
 const addToBlacklistEndpoint = urls.BASE_URL + "addblacklist/";
 const editBlacklistEndpoint = urls.BASE_URL + "editblacklist/"; //todo
-const getAllBlackListEndpoint = urls.BASE_URL + "blacklists/"; //todo
+const getAllBlackListEndpoint = urls.BASE_URL + "blacklists/"; 
 
 export function fetchBlacklist(token) {
   return dispatch => {

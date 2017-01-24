@@ -9,12 +9,18 @@ class BlacklistBar extends Component {
   constructor(props) {
     super(props);
   }
+
+  formatDate() {
+    var date = new Date(this.props.created);
+    return (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+   }
+
   render() {
     return (
       <div className='blacklist-bar'>
         <label className='blacklist-bar-label hide-overflow'> {this.props.title} </label>
         <div className='blacklist-bar-info'>
-          <label className='blacklist-bar-label hide-overflow'> since {this.props.created} </label>
+          <label className='blacklist-bar-label hide-overflow'> since {this.formatDate()} </label>
           <div className='blacklist-button remove' onClick={()=>{
             this.props.blacklist_actions.removeFromBlacklist(this.props.pk, this.props.currentUser.token);
             }}>
