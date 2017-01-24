@@ -9,9 +9,8 @@ const pageInfo = (state, action) => {
         star: action.star,
         title: action.title
       }
-    // TODO: change {star: !star}
     case types.UPDATE_CURRENT_STAR:
-      return Object.assign({}, state, {star: action.star});
+      return Object.assign({}, state, {star: !state.star});
     case types.ADD_PAGE_CATEGORY:
       return Object.assign({}, state, {categories: state.categories.concat([action.category])});
     case types.DELETE_PAGE_CATEGORY:
@@ -52,12 +51,10 @@ const pageInfo = (state, action) => {
 function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
   switch(action.type){
     case types.RECEIVE_PAGE_INFO:
-      console.log("in recieve page info");
     case types.UPDATE_CURRENT_STAR:
     case types.ADD_PAGE_CATEGORY:
     case types.DELETE_PAGE_CATEGORY:
     case types.SET_CURRENT_PAGE:
-      console.log("set current page");
       return Object.assign({}, pageInfo(state, action));
     default:
         return state;
