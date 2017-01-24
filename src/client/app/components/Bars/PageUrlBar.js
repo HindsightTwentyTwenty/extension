@@ -26,9 +26,8 @@ class PageUrlBar extends Component {
         <a className={'url'} target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
         <div className='url-categories'>
           {this.getCategories()}
-          <div className='im-a-star' onClick={()=>{
-            this.props.page.star = !this.props.page.star
-            this.props.star_actions.toggleStar(this.props.page.url, this.props.page.star, this.props.currentUser.token);
+          <div onClick={()=>{
+            this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
             this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
             }}>
             <i className={starred}></i>
