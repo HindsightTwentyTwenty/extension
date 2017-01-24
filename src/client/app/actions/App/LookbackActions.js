@@ -1,6 +1,8 @@
 import * as types from '../../constants/ActionTypes';
 import fetch from 'isomorphic-fetch'
 import * as urls from '../../constants/GlobalConstants';
+import * as NavActions from '../LookBackNav/LookBackNavActions.js'
+import * as LookBackSections from '../../constants/LookBackConstants.js'
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
 const searchEnpoint = urls.BASE_URL + "search/";
@@ -50,8 +52,8 @@ export function searchResultsReturned(json) {
   console.log("results", json
   )
   return {
-    type: types.SEARCH_ITEM,
-    json: json,
+    type: types.SEARCH_RESULTS,
+    search_results: json,
   }
 }
 
@@ -63,7 +65,9 @@ export function toggleDomainClicked() {
 
 export function searchTerm(search_term, token){
   return dispatch => {
-    return fetch(searchEnpoint, {
+    return [
+      dispatch(NavActions.switchLookBackSelection(LookBackSections.Search)),
+      fetch(searchEnpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
@@ -74,7 +78,8 @@ export function searchTerm(search_term, token){
          }
        )
       .then(response => response.json())
-      .then(json => dispatch(searchResultsReturned(json, true)))
+      .then(json => dispatch(searchResultsReturned(json)))
+    ]
   }
 }
 

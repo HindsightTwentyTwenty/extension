@@ -25,9 +25,7 @@ class LookBackNavBar extends Component {
 
   switchLookBackSelection(newLookBackSelection){
       if(newLookBackSelection != this.props.currentLookBackSelection){
-        document.getElementById("nav-bar-button-" + this.props.currentLookBackSelection).classList.remove('nav-bar-button-selected');
         this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection)
-        document.getElementById("nav-bar-button-" + newLookBackSelection).classList.add('nav-bar-button-selected');
       }
   }
 
