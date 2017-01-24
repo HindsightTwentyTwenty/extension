@@ -1,5 +1,6 @@
 var closed = false;
 var token = "";
+var url = 'https://hindsite2020.herokuapp.com/'
 
 function get_token(token_return){
   token = token_return['hindsite-token'];
@@ -19,7 +20,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           var dom = "";
         }
         var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        fetch('https://hindsite2020.herokuapp.com/newpage/', {
+        fetch(url + 'newpage/', {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
   if(token){
     closed = true;
-    fetch('https://hindsite2020.herokuapp.com/closetab/', {
+    fetch(url + 'closetab/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
           var dom = "";
         }
         var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        fetch('https://hindsite2020.herokuapp.com/active/', {
+        fetch(url + 'active/', {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -68,9 +69,9 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
           method: "POST",
           body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
         });
-      }
+      });
         closed = false;
       });
-    });
+    }
   }
-});
+);
