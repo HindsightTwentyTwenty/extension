@@ -17,8 +17,7 @@ import './../chrome/css/popup.css';
 let store = createStore(
   rootReducer,
   { blacklist: {
-      urls: [],
-      blacklistTextEntry: ""
+      urls: []
     },
     categories: {
       cats: [],

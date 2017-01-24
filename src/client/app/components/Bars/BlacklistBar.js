@@ -9,12 +9,10 @@ class BlacklistBar extends Component {
   constructor(props) {
     super(props);
   }
-  // put a regex on the blacklist box
   render() {
     return (
-      <div
-        className='blacklist-bar'
-        <label className='blacklist-bar-label hide-overflow'> {this.props.blacklistSiteTitle} </label>
+      <div className='blacklist-bar'>
+        <label className='blacklist-bar-label hide-overflow'> {this.props.title} </label>
       </div>
     )
   }

@@ -2,14 +2,16 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
-const removeFromBlacklistEndpoint = urls.BASE_URL + "PLACEHOLDER/";
-const addToBlacklistEndpoint = urls.BASE_URL + "PLACEHOLDER/";
+const removeFromBlacklistEndpoint = urls.BASE_URL + "deleteblacklist/";
+const addToBlacklistEndpoint = urls.BASE_URL + "addblacklist/";
+const editBlacklistEndpoint = urls.BASE_URL + "editblacklist/"; //todo
+const getAllBlackListEndpoint = urls.BASE_URL + "blacklists/"; //todo
 
-export function removeFromBlacklist(pageUrl, token) {
+export function removeFromBlacklist(pagePk, token) {
   return dispatch => {
     dispatch({
       type: types.REMOVE_FROM_BLACKLIST,
-      url: pageUrl
+      pk: pagePk
     })
     return fetch(removeFromBlacklistEndpoint, {
       headers: {
@@ -18,17 +20,13 @@ export function removeFromBlacklist(pageUrl, token) {
         'Authorization': 'Token ' + token
       },
       method: "POST",
-      body: JSON.stringify({url: pageUrl})
+      body: JSON.stringify({pk: pagePk})
     })
   }
 }
 
-export function addToBlacklist(pageUrl, token) {
+export function addToBlacklist(domain, token) {
   return dispatch => {
-    dispatch({
-      type: types.ADD_TO_BLACKLIST,
-      url: pageUrl
-    })
     return fetch(addToBlacklistEndpoint, {
       headers: {
         'Accept': 'application/json',
@@ -36,7 +34,13 @@ export function addToBlacklist(pageUrl, token) {
         'Authorization': 'Token ' + token
       },
       method: "POST",
-      body: JSON.stringify({url: pageUrl})
+      body: JSON.stringify({blacklist: domain})
     })
+    .then(response => response.json())
+    .then(json => dispatch({
+      type: types.ADD_TO_BLACKLIST,
+      pk: json.pk,
+      url: domain
+    }))
   }
 }
