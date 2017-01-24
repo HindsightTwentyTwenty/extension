@@ -4,6 +4,7 @@ $light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
+$bar-height: 40px;
 
 body {
    width:auto;
@@ -15,14 +16,40 @@ body {
 }
 
 .url-bar {
-  height: 40px;
-  line-height: 40px;
-  margin: 5px auto;
+  height: $bar-height;
+  line-height: $bar-height;
+  margin: 5px;
   border-radius: 3px;
   width: 95%;
   background-color: $electric-blue;
   padding: 0px 6px;
   display: flex;
+  justify-content: space-between;
+}
+
+//WC TODO: change css of blacklist bar and url bar to common component?
+.blacklist-bar {
+  height: 40px;
+  line-height: 40px;
+  margin: 5px auto;
+  border-radius: 3px;
+  width: 95%;
+  background-color: $canteloupe;
+  color: $base-white;
+  padding: 0px 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.blacklist-button {
+  line-height: $bar-height;
+  height: $bar-height;
+}
+
+.blacklist-bar-info {
+  display: flex;
+  height: $bar-height;
+  width: 150px;
   justify-content: space-between;
 }
 

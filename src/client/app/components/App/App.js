@@ -69,7 +69,6 @@ class App extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    pages : state.pages,
     lookBackSelection : state.currentLookBackSelection,
     currentUser : state.currentUser
 })
