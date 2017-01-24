@@ -17,7 +17,7 @@ body {
 .url-bar {
   height: 40px;
   line-height: 40px;
-  margin: 5px;
+  margin: 5px auto;
   border-radius: 3px;
   width: 95%;
   background-color: $electric-blue;
@@ -205,6 +205,7 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
+  padding-right: 15px;
   width: calc(100% - 200px);
   height: calc(100% - 50px);
   display: inline-block;
@@ -522,6 +523,29 @@ hr{
   padding-bottom: 5px;
 }
 
+/* Search Component */
 #search-container {
   margin: 15px;
+}
+
+#search-results-container {
+
+}
+
+#search-selection-container {
+  text-align: center;
+}
+
+.search-select-dropdown {
+  margin: 0 20px;
+}
+
+.advanced-search-bar {
+  width:100%;
+  margin: 7px auto;
+  border-radius: 10px;
+  border: canteloupe;
+  min-width: 200px;
+  height: 35px;
+  padding: 10px;
 }
