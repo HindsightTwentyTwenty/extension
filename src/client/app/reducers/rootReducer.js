@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import pageReducer from './PageReducer.js';
 import currentPageReducer from './CurrentPageReducer.js';
 import categoryReducer from './CategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
@@ -22,7 +21,6 @@ const rootReducer = (state, action) => {
 
 const appReducer = combineReducers({
   blacklist: blacklistReducer,
-  pages: pageReducer,
   currentSearchCategories: searchCategoryReducer,
   categories: categoryReducer,
   currentPage: currentPageReducer,
@@ -33,7 +31,6 @@ const appReducer = combineReducers({
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
-
 });
 
 export default rootReducer;

@@ -3,9 +3,9 @@ import * as types from '../constants/ActionTypes';
 function categoryReducer(state = {cats: [], editCategory: '', newCategoryName: ''}, action){
   switch(action.type){
     case types.UPDATE_CATEGORY_EDIT_FIELD:
-      return {cats: [...state.cats], editCategory: state.editCategory, newCategoryName: action.categoryTitle}
+      return {...state, newCategoryName: action.categoryTitle}
     case types.TOGGLE_EDIT_CATEGORY:
-      return {cats: [...state.cats], editCategory: action.editCategory, newCategoryName: state.newCategoryName}
+      return {...state, editCategory: action.editCategory}
     case types.UPDATE_CATEGORY_TITLE:
       var newCategoryList = [];
       var currentCategories = state.cats;
@@ -15,7 +15,7 @@ function categoryReducer(state = {cats: [], editCategory: '', newCategoryName: '
         }
         newCategoryList.push(currentCategories[i]);
       }
-      return {cats: newCategoryList, editCategory: state.editCategory, newCategoryName: state.newCategoryName};
+      return {...state, cats: newCategoryList};
     case types.DELETE_CATEGORY:
       var newCategoryList = [];
       var currentCategories = state.cats;
@@ -24,11 +24,11 @@ function categoryReducer(state = {cats: [], editCategory: '', newCategoryName: '
           newCategoryList.push(currentCategories[i]);
         }
       }
-      return {cats: newCategoryList, editCategory: state.editCategory, newCategoryName: state.newCategoryName};
+      return {...state, cats: newCategoryList};
     case types.RECEIVE_CATEGORIES:
-      return {cats: action.categories, editCategory: state.editCategory, newCategoryName: state.newCategoryName};
+      return {...state, cats: action.categories};
     case types.RECEIVE_PUSH_CATEGORY:
-      return {cats: [...state.cats, action.category_added], editCategory: state.editCategory, newCategoryName: state.newCategoryName};
+      return {...state, cats: [...state.cats, action.category_added]};
     default:
         return state;
   }
