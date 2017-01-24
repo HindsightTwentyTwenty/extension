@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as UserActions from '../../actions/User/UserActions.js';
-
+import * as PopupConstants from '../../constants/PopupConstants.js';
 
 function getState() {
 	return {
@@ -25,46 +25,37 @@ class CreateUser extends Component {
   }
 
   createNewUser(){
-    console.log(this.state);
     this.props.user_actions.createNewUser(this.state.email, this.state.password_1, this.state.password_2, this.state.first_name, this.state.last_name);
-    this.props.user_actions.createNewUserPage(false);
-
+    this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
   }
 
+	back() {
+		this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
+	}
 
   render () {
-
     return (
-      <div>
-        <span>Create a new user account:</span>
-        <div className ="row">
-          <div className="col-xs-12">
-            <div className="input-group">
-              <input type="text" className="form-control" id="first_name" placeholder="First Name" onChange={this.updateField.bind(this)} />
-              <input type="text" className="form-control" id="last_name" placeholder="Last Name" onChange={this.updateField.bind(this)} />
-
-              <input type="email" className="form-control" id="email" placeholder="email" onChange={this.updateField.bind(this)} />
-              <input type="password" className="form-control" id="password_1" placeholder="password" onChange={this.updateField.bind(this)} />
-              <input type="password" className="form-control" id="password_2" placeholder="confirm password" onChange={this.updateField.bind(this)} />
-
-            </div>
-            <br/>
-            <span className="input-group-btn">
-            <button className="btn btn-primary add-category-btn" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>
-            </span>
-          </div>
+			<div className="popup-main-form">
+				<br/>
+        <p>Create a new user account:</p>
+				<div className = 'popup-form-group'>
+					<input type="text" className="popup-form form-control" id="first_name" placeholder="first name" onChange={this.updateField.bind(this)} />
+					<input type="text" className="popup-form form-control" id="last_name" placeholder="last name" onChange={this.updateField.bind(this)} />
+					<input type="email" className="popup-form form-control" id="email" placeholder="email" onChange={this.updateField.bind(this)} />
+					<input type="password" className="popup-form form-control" id="password_1" placeholder="password" onChange={this.updateField.bind(this)} />
+					<input type="password" className="popup-form form-control" id="password_2" placeholder="confirm password" onChange={this.updateField.bind(this)} />
+        </div>
+				<div className ="popup-button-group">
+          <button className="btn btn-primary canteloupe" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>
+          <button className="btn btn-primary" type="button" onClick={() => {this.back()}}>Back</button>
         </div>
       </div>
     )
   }
 }
 
-let mapStateToProps = (state) => ({
-
-})
-
 let mapDispatchToProps = (dispatch) => ({
   user_actions: bindActionCreators(UserActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);
+export default connect(null, mapDispatchToProps)(CreateUser);

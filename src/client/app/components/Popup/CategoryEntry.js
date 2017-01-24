@@ -20,7 +20,6 @@ class CategoryEntry extends Component {
     });
   }
 
-
   render () {
     return (
     <div className="input-group category-entry">
@@ -28,7 +27,7 @@ class CategoryEntry extends Component {
         this.input = node;
       }} />
       <span className="input-group-btn">
-        <button className="btn add-category-btn" type="button" onClick={() => {
+        <button className="btn canteloupe add-category-btn" type="button" onClick={() => {
           if (this.input.value.trim() !== '') {
             this.addNewCategory(this.input.value);
             this.input.value = '';
@@ -44,7 +43,6 @@ let mapStateToProps = (state) => ({
     categories : state.categories,
     currentPage : state.currentPage,
     currentUser : state.currentUser
-
 })
 
 let mapDispatchToProps = (dispatch) => ({

@@ -34,8 +34,7 @@ class DisplayDetails extends Component {
           <div className="row">
             <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
           </div>
-          <h4>categories</h4>
-          <div className="categories-box display-view">
+          <div className="display-view">
             <CategoryEntry/>
             {categories}
           </div>
@@ -44,9 +43,9 @@ class DisplayDetails extends Component {
     } else {
       let closed = null;
       if(currentDomain.closed != null){
-        closed = <p>closed: <Timestamp time={currentDomain.closed} format="full"/></p>;
+        closed = <p className={'domain-info'}>closed: <Timestamp time={currentDomain.closed} format="full"/></p>;
       }else{
-        closed = <p>closed: still open</p>;
+        closed = <p className={'domain-info'}>closed: still open</p>;
       }
       let favicon = null;
       if(currentDomain.favicon != ""){
@@ -61,11 +60,11 @@ class DisplayDetails extends Component {
                 <h3>{currentDomain.title}</h3>
               </div>
               <div className="row flex-row">
-                <p>pages visited: {currentDomain.pages}</p>
-                <p>minutes active: {currentDomain.minutes_active}</p>
+                <p className={'domain-info'}>pages visited: {currentDomain.pages}</p>
+                <p className={'domain-info'}>minutes active: {currentDomain.minutes_active}</p>
               </div>
               <div className="row flex-row">
-                <p>opened: <Timestamp time={currentDomain.created} format="full"/></p>
+                <p className={'domain-info'}>opened: <Timestamp time={currentDomain.created} format="full"/></p>
                 {closed}
               </div>
           </div>

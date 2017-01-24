@@ -15,7 +15,7 @@ export function addPage(ptitle, purl, pstarred, pcategories){
   }
 }
 
-export function getPageInfo(url, token){
+export function getPageInfo(token){
   return dispatch => {
     return fetch(pageInfoEndpoint, {
           headers: {
@@ -23,8 +23,7 @@ export function getPageInfo(url, token){
              'Content-Type': 'application/json',
              'Authorization': 'Token ' + token
            },
-           method: "POST",
-           body: JSON.stringify({url: url})
+           method: "POST"
          }
        )
       .then(response => response.json())

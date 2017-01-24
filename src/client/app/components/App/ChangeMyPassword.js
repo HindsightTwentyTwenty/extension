@@ -44,7 +44,7 @@ class ChangeMyPassword extends Component {
             </div>
             <br/>
             <span className="input-group-btn">
-            <button className="btn btn-primary add-category-btn" type="button" onClick={this.changePassword.bind(this)}>Submit</button>
+            <button className="btn btn-primary canteloupe add-category-btn" type="button" onClick={this.changePassword.bind(this)}>Submit</button>
             </span>
           </div>
         </div>

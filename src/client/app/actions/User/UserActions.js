@@ -2,33 +2,23 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
-// import getPageInfo from './PopupActions.js';
-// import store from '../../index.js'
+import * as PopupConstants from '../../constants/PopupConstants.js'
+import * as Lists from '../../constants/UrlBlacklist.js'
+import ApiUtils from './../ApiUtils.js'
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
+const activePageInfoEndpoint = urls.BASE_URL + "activepage/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
 
 const unauthorizedCode = "403";
 
 var curr_token = ""
 
-export function receiveUserToken(json, username) {
-  console.log("RECEIVE USER TOKEN: ", json.token);
-  console.log("RECEIVE USER name: ", username);
-
-  return {
-    type: types.RECEIVE_USER_TOKEN,
-    token: json.token,
-    user_name: username
-  }
-}
-
-
 export function receiveError(error) {
-  console.log("RECEIVE error: ", error);
+  // console.log("RECEIVE error: ", error);
 
   return {
     type: types.RECEIVE_ERROR,
@@ -37,63 +27,53 @@ export function receiveError(error) {
   }
 }
 
-export function requestUserToken() {
-  return {
-    type: types.REQUEST_USER_TOKEN
-  }
-}
-
-function checkStatus(response){
-  if(response.status == 200){
-    return true;
-  }else{
-    return false;
-  }
-}
-
-export function userToken(token) {
-  return {
-   type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-   token: token
- }
-}
-
-export function createNewUserPage(value) {
-  return dispatch => {
-    dispatch(
-      {
-       type: types.CREATE_NEW_USER,
-       create_user: value
-     }
-   )
- }
-}
-
 export function receiveUserTokenFromChrome(token) {
-  console.log("TOKEN: ", token);
+  // console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
   return dispatch => {
-    dispatch(
-      {
-       type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-       token: token
-     }
-    )
-  }
- return dispatch => {
-   return dispatch(userToken(token))
- }
-}
-
-
-export function clearStore(){
-  return {
-    type: types.USER_LOGOUT
+    // console.log("IN DISPATCH token[hindsite-token]:", token['hindsite-token']);
+    if(token['hindsite-token']){
+      // console.log("headed to grab page info");
+      dispatch(
+        {
+         type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+         token: token
+       }
+      )
+      dispatch(getPageInformation(token['hindsite-token'], 0))
+    }
+    else {
+      dispatch(updatePopupStatus(PopupConstants.SignIn))
+    }
   }
 }
 
-export function _checkStatus(response){
-  console.log("checkStatus", response)
-  // return {response, response.sta}
+export function getPageInformation(token, count){
+
+  return dispatch => {
+    // console.log("Token:", token);
+    return fetch(activePageInfoEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': 'Token ' + token
+           },
+           method: "GET"
+         }
+       )
+       .then(ApiUtils.checkStatus)
+       .then(response => response.json())
+       .then(json => {
+         dispatch(receivePageInfo(json))
+       })
+       .catch(e => {
+          // console.log("Error caught. Retrying: ", e);
+          if(count < 100){
+            dispatch(getPageInformation(token, count + 1));
+          } else {
+            dispatch(updatePopupStatus(PopupConstants.NoContent))
+          }
+        })
+  }
 }
 
 export function logoutUser(token) {
@@ -108,18 +88,21 @@ export function logoutUser(token) {
     })
     .then(response => {
       if (response['status'] != unauthorizedCode){
-        console.log("logout failure");
+        // console.log("logout failure");
         //TODO Implement user message warning of error on logout
       } else {
-        console.log("succesful logout")
-        dispatch(clearStore())
+        // console.log("succesful logout")
+        // clear store
+        dispatch({
+          type: types.USER_LOGOUT
+        })
       }
     })
   }
 }
 
 function receivePageInfo(json) {
-  console.log("receive page info", json);
+  // console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -130,8 +113,8 @@ function receivePageInfo(json) {
 }
 
 function getPageInfo(url, token){
-  console.log("getPageInfo() url", url);
-  console.log("getPageInfo() token", token);
+  // console.log("getPageInfo() url", url);
+  // console.log("getPageInfo() token", token);
 
   return dispatch => {
     return fetch(pageInfoEndpoint, {
@@ -149,16 +132,28 @@ function getPageInfo(url, token){
   }
 }
 
+export function updatePopupStatus(status){
+  // console.log("Update popup status", status);
+  return {
+    type: types.POPUP_STATUS,
+    popup_status: status
+  }
+}
+
 export function sendCurrentPage(token) {
 
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      console.log("page: ", tabs[0]);
+      // console.log("page: ", tabs[0]);
       var tab = tabs[0];
+      // console.log("Blacklist", Lists.Blacklist);
+      // console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
+      // console.log("token in send current", token);
+
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
-      if(tab.title && tab.url != 'chrome://newtab/'){
+      if(tab.title && Lists.Blacklist.indexOf(tab.url) < 0){
           fetch(newPageEndpoint, {
             headers: {
               'Accept': 'application/json',
@@ -169,16 +164,40 @@ export function sendCurrentPage(token) {
             method: "POST",
             body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
           }
-        ).then(
-          dispatch(getPageInfo(tab.url, token))
         )
+        .then(response =>
+          response.json().then(json => ({
+            status: response.status,
+            json
+          })
+        ))
+        .then(
+          ({ status, json }) => {
+            if(status == 204){
+              // console.log("No content");
+            } else {
+              // console.log("valid receive", json);
+              dispatch(receivePageInfo(json));
+            }
+          }
+        )
+      } else {
+        // console.log("DISPATCHING NO CONTENT", tab.url)
+        dispatch(updatePopupStatus(PopupConstants.NoContent));
       }
     });
   }
 }
 
+export function error(response){
+  // console.log("error", response.json());
+  return {
+    type: types.TEST
+  }
+}
+
 export function receivePageInfo(json) {
-  console.log("receive page info", json);
+  // console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -190,39 +209,39 @@ export function receivePageInfo(json) {
 
 
 export function loginUser(username, password){
-  console.log("loginUser()");
+  // console.log("loginUser()");
   return dispatch => {
-    dispatch(requestUserToken())
     return fetch(loginUserEndpoint, {
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-             },
-             method: "POST",
-             body: JSON.stringify({"email": username, "password": password})
-           }
-      )
-      .then(response =>
-        response.json().then(json => ({
-          status: response.status,
-          json
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"email": username, "password": password})
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
         })
-      ))
-      .then(
-        ({ status, json }) => {
-          if(status == 401){
-            console.log("Invalid post caught");
-            dispatch(receiveLoginError());
-          } else {
-            console.log("valid post", json);
-            dispatch(receiveUserToken(json, username))
-            dispatch(sendCurrentPage(json['token']))
-          }
-        }
       )
-
-
-
+    )
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          // console.log("Invalid post caught");
+          dispatch(receiveLoginError());
+        } else {
+          // console.log("valid post", json);
+          dispatch({
+            type: types.RECEIVE_USER_TOKEN,
+            token: json.token,
+            user_name: username
+          })
+          dispatch(sendCurrentPage(json['token']))
+        }
+      }
+    )
   }
 }
 
@@ -236,7 +255,10 @@ export function forgotMyPasswordEmailSubmit(email){
       method: "POST",
       body: JSON.stringify({"email": email})
     })
-    .then(dispatch(clearStore()))
+    // clear store
+    .then(dispatch({
+      type: types.USER_LOGOUT
+    }))
   }
 }
 
@@ -257,15 +279,6 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
     })
     .then(response => response.json())
     .then(json => dispatch(receiveUserTokenFromChrome(json['token'])))
-  }
-}
-
-export function forgotMyPasswordPage(value){
-  return dispatch => {
-    return dispatch({
-      type: types.FORGOT_MY_PASSWORD_PAGE,
-      forgot: value
-    })
   }
 }
 
@@ -290,10 +303,10 @@ export function changeMyPassword(current_password, new_password, token){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          console.log("Invalid password for password change");
+          // console.log("Invalid password for password change");
           dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
         } else {
-          console.log("valid post");
+          // console.log("valid post");
           dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))
         }
       }
@@ -307,11 +320,5 @@ export function changeMyPasswordToggle(value){
       type: types.CHANGE_PASSWORD,
       change_password: value
     })
-  }
-}
-
-export function test() {
-  return {
-    type: types.TEST
   }
 }

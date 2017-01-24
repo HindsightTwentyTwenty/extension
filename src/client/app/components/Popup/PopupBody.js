@@ -11,10 +11,6 @@ import CategoriesContainer from './CategoriesContainer';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-    console.log("prequery token check", this.props.currentUser);
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      this.props.popup_actions.getPageInfo(tabs[0].url, this.props.currentUser.token);
-    });
     this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
@@ -35,29 +31,14 @@ class PopupBody extends Component {
       }
       return (
         <div className="container popup-body">
-          <div className="row">
-            <div className="col-xs-10">
-              <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
-            </div>
-            <div className="col-xs-2">
-              <Star/>
-            </div>
+          <div className='popup-page-title'>
+            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
+            <Star/>
           </div>
           <hr/>
-          <div className="row">
-            <div className="col-xs-12">
-              <h4>categories</h4>
-            </div>
-          </div>
-          <div className="categories-box">
-            <div className="row">
-                <CategoryEntry/>
-            </div>
-            <div className="row">
-              <div className="col-xs-12">
-                {categories}
-              </div>
-            </div>
+          <div className="popup-main-form">
+            <CategoryEntry/>
+            {categories}
           </div>
         </div>
       )
