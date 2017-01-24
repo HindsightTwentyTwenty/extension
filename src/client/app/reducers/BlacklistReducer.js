@@ -1,7 +1,9 @@
 import * as types from '../constants/ActionTypes';
 
-function blacklistReducer(state = { urls: []}, action){
+function blacklistReducer(state = {urls: []}, action){
   switch(action.type){
+    case types.RECEIVE_BLACKLIST:
+      return { urls: action.blacklist };
     case types.REMOVE_FROM_BLACKLIST:
       var blacklist = [];
       var currentUrls = state.urls;
@@ -12,7 +14,7 @@ function blacklistReducer(state = { urls: []}, action){
       }
       return { urls: blacklist};
     case types.ADD_TO_BLACKLIST:
-      return { urls: state.urls.concat({pk: action.pk, url: action.url})}
+      return { urls: state.urls.concat(action.blacklistedSite)}
     default:
         return state;
   }

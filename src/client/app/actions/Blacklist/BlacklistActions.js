@@ -7,6 +7,24 @@ const addToBlacklistEndpoint = urls.BASE_URL + "addblacklist/";
 const editBlacklistEndpoint = urls.BASE_URL + "editblacklist/"; //todo
 const getAllBlackListEndpoint = urls.BASE_URL + "blacklists/"; //todo
 
+export function fetchBlacklist(token) {
+  return dispatch => {
+    return fetch(getAllBlackListEndpoint, {
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+         'Authorization': 'Token ' + token
+       },
+       method: "GET"
+    })
+      .then(response => response.json())
+      .then(json => dispatch({
+        type: types.RECEIVE_BLACKLIST,
+        blacklist: json
+      }))
+  }
+}
+
 export function removeFromBlacklist(pagePk, token) {
   return dispatch => {
     dispatch({
@@ -39,8 +57,7 @@ export function addToBlacklist(domain, token) {
     .then(response => response.json())
     .then(json => dispatch({
       type: types.ADD_TO_BLACKLIST,
-      pk: json.pk,
-      url: domain
+      blacklistedSite : json
     }))
   }
 }

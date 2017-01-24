@@ -9,13 +9,15 @@ class Blacklist extends Component {
 
   constructor(props) {
     super(props);
+    this.props.blacklist_actions.fetchBlacklist(this.props.currentUser.token);
   }
 
   fetchSites() {
-    var blacklistedSites = this.props.blacklist.urls;
-    return blacklistedSites.map(function(site) {
-      return (<BlacklistBar key={site.pk} title={site.url}/>);
-    });
+    if (this.props.blacklist.urls) {
+      return this.props.blacklist.urls.map(function(site) {
+        return (<BlacklistBar key={site.pk} title={site.base_url}/>);
+      });
+    }
   }
 
   render() {
@@ -31,7 +33,6 @@ class Blacklist extends Component {
             <button className="btn add-category-btn" type="button" onClick={() => {
               var input = this.input.value.trim();
               if (input.substring(0, 8) == 'https://' || input.substring(0, 7) == 'http://') {
-                console.log(this.input.value);
                 this.props.blacklist_actions.addToBlacklist(this.input.value, this.props.currentUser.token);
                 this.input.value = '';
               }
