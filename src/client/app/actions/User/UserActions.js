@@ -66,9 +66,10 @@ export function getPageInformation(token, count){
          dispatch(receivePageInfo(json))
        })
        .catch(e => {
-          // console.log("Error caught. Retrying: ", e);
-          if(count < 100){
-            dispatch(getPageInformation(token, count + 1));
+          if(count < 10){
+            console.log("retrying to fetch active page", e);
+            setTimeout(function() { dispatch(getPageInformation(token, count + 1)); }, 1000);
+
           } else {
             dispatch(updatePopupStatus(PopupConstants.NoContent))
           }

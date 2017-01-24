@@ -19,18 +19,16 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           var dom = "";
         }
         var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        if(tab.url != 'chrome://newtab/'){
-          fetch('https://hindsite2020.herokuapp.com/newpage/', {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': "Token " + token
-            },
-            method: "POST",
-            body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
-          }
-        );
-      }
+        fetch('https://hindsite2020.herokuapp.com/newpage/', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token
+          },
+          method: "POST",
+          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
+        }
+      );
     });
     closed = false;
   }
@@ -61,17 +59,16 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
           var dom = "";
         }
         var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        if(tab.url != 'chrome://newtab/'){
-          fetch('https://hindsite2020.herokuapp.com/active/', {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': "Token " + token
-            },
-            method: "POST",
-            body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
-          });
-        }
+        fetch('https://hindsite2020.herokuapp.com/active/', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token
+          },
+          method: "POST",
+          body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
+        });
+      }
         closed = false;
       });
     });
