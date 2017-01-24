@@ -13,6 +13,17 @@ class BlacklistBar extends Component {
     return (
       <div className='blacklist-bar'>
         <label className='blacklist-bar-label hide-overflow'> {this.props.title} </label>
+        <div className='blacklist-bar-info'>
+          <label className='blacklist-bar-label hide-overflow'> since {this.props.created} </label>
+          <div className='blacklist-button remove' onClick={()=>{
+            }}>
+            <i className={'fa fa-times fa-2x'}></i>
+          </div>
+          <div className='blacklist-button edit' onClick={()=>{
+            }}>
+            <i className={'fa fa-pencil-square-o fa-2x'}></i>
+          </div>
+        </div>
       </div>
     )
   }

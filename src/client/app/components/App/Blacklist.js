@@ -15,7 +15,7 @@ class Blacklist extends Component {
   fetchSites() {
     if (this.props.blacklist.urls) {
       return this.props.blacklist.urls.map(function(site) {
-        return (<BlacklistBar key={site.pk} title={site.base_url}/>);
+        return (<BlacklistBar key={site.pk} title={site.base_url} created={site.created}/>);
       });
     }
   }
@@ -24,7 +24,7 @@ class Blacklist extends Component {
     var blacklistedSites = this.fetchSites();
     return (
       <div>
-        <div className="section-title">Blacklist</div>
+        <div className="section-title">Blacklisted Sites</div>
         <div className="input-group category-entry">
           <input type="text" className="popup-form form-control" placeholder="Enter a site to be blacklisted. Must start with 'https://' or 'http://'"  ref={node => {
             this.input = node;
@@ -40,7 +40,6 @@ class Blacklist extends Component {
           </span>
         </div>
         <div className="blacklist-container">
-          <div className="section-title">Blacklisted Sites</div>
           {blacklistedSites}
         </div>
       </div>

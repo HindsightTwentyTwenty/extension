@@ -4,6 +4,7 @@ $light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
+$bar-height: 40px;
 
 body {
    width:auto;
@@ -15,8 +16,8 @@ body {
 }
 
 .url-bar {
-  height: 40px;
-  line-height: 40px;
+  height: $bar-height;
+  line-height: $bar-height;
   margin: 5px;
   border-radius: 3px;
   width: 95%;
@@ -37,6 +38,13 @@ body {
   color: $base-white;
   padding: 0px 6px;
   display: flex;
+  justify-content: space-between;
+}
+
+.blacklist-bar-info {
+  display: flex;
+  height: $bar-height;
+  width: 200px;
   justify-content: space-between;
 }
 
