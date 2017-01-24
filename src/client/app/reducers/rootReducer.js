@@ -10,6 +10,7 @@ import searchCategoryReducer from './searchCategoryReducer.js';
 import categoryPagesReducer from './categoryPagesReducer.js';
 import userReducer from './userReducer.js';
 import pageDisplayReducer from './pageDisplayReducer.js';
+import searchReducer from './SearchReducer.js';
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -31,6 +32,7 @@ const appReducer = combineReducers({
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
+  search: searchReducer
 
 });
 
