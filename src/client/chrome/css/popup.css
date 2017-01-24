@@ -4,7 +4,7 @@ $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
 
-.popup-body {
+.popup-content {
    width:400px;
    max-height: 300px;
    background-color: $base-white;
@@ -30,8 +30,13 @@ $base-white: #FAFAFA;
 
 .lookback-btn {
   float: right;
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 33px;
+  background-color: $watermelon;
+  color: white;
+  border-color: $watermelon;
+  border-radius: 4px;
+  outline: none;
 }
 
 .popup-body h3{

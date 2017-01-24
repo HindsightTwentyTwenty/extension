@@ -513,6 +513,7 @@ hr{
   height:45px;
   width: 45px;
   color: $banana;
+  margin-left: 1%;
 }
 
 .star{
@@ -521,6 +522,10 @@ hr{
 .category-entry{
   width: 100%;
   padding-bottom: 5px;
+}
+
+.page-title{
+  width: 60%;
 }
 
 /* Search Component */
