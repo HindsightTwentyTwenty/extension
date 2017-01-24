@@ -4,17 +4,29 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as SearchConstants from '../../constants/SearchConstants.js'
+
+function getState() {
+  return {
+    time_selection: SearchConstants.Anytime,
+    category_selection: 0,
+    sort_selection: SearchConstants.Relevance
+  }
+}
 
 class Search extends Component {
 
+
   constructor(props) {
     super(props);
+    this.state = getState();
 
-    console.log("Search Results:", this.props.search);
-    console.log("categories in Search", this.props.categories);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
 
   searchBarInput(event){
+    console.log("STATE", this.state);
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
@@ -37,7 +49,14 @@ class Search extends Component {
       console.log("loading");
       return <div>LOADING</div>
     }
+  }
 
+  handleTimeChange(event) {
+    this.setState({time_selection: event.target.value});
+  }
+
+  handleSortChange(event) {
+    this.setState({sort_selection: event.target.value});
   }
 
   render() {
@@ -54,23 +73,23 @@ class Search extends Component {
           <div className="container">
             <div className="row">
               <div id="search-selection-container" className="col-xs-10 col-xs-offset-1">
-                <select id="time-selection" name="time-selection" className="search-select-dropdown">
-                  <option defaultValue="">Anytime</option>
-                  <option>Past hour</option>
-                  <option>Past 24 hours</option>
-                  <option>Past week</option>
-                  <option>Past month</option>
-                  <option>Past year</option>
-                  <option>Custom range...</option>
+                <select id="time-selection" className="search-select-dropdown" value={this.state.time_selection} onChange={this.handleTimeChange}>
+                  <option value={SearchConstants.Anytime}>Anytime</option>
+                  <option value={SearchConstants.Hour}>Past hour</option>
+                  <option value={SearchConstants.Day}>Past 24 hours</option>
+                  <option value={SearchConstants.Week}>Past week</option>
+                  <option value={SearchConstants.Month}>Past month</option>
+                  <option value={SearchConstants.Year}>Past year</option>
+                  <option value={SearchConstants.Custom}>Custom range...</option>
                 </select>
                 <select id="category-selection" name="category-selection" className="search-select-dropdown">
                   <option defaultValue="">Any Category</option>
                   { this.getCategories() }
                 </select>
-                <select id="sort-selection" name="sort-selection" className="search-select-dropdown">
-                  <option defaultValue="">Sort by Relevance</option>
-                  <option>Sort by Date</option>
-                  <option>Sort by Time Spent</option>
+                <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange}>
+                  <option value={SearchConstants.Relevance}>Sort by Relevance</option>
+                  <option value={SearchConstants.Date}>Sort by Date</option>
+                  <option value={SearchConstants.Time_Spent}>Sort by Time Spent</option>
                 </select>
               </div>
             </div>
