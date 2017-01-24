@@ -21,14 +21,10 @@ class BlacklistBar extends Component {
         <label className='blacklist-bar-label hide-overflow'> {this.props.title} </label>
         <div className='blacklist-bar-info'>
           <label className='blacklist-bar-label hide-overflow'> since {this.formatDate()} </label>
-          <div className='blacklist-button remove' onClick={()=>{
+          <div className='blacklist-button' onClick={()=>{
             this.props.blacklist_actions.removeFromBlacklist(this.props.pk, this.props.currentUser.token);
             }}>
             <i className={'fa fa-times fa-2x'}></i>
-          </div>
-          <div className='blacklist-button edit' onClick={()=>{
-            }}>
-            <i className={'fa fa-pencil-square-o fa-2x'}></i>
           </div>
         </div>
       </div>

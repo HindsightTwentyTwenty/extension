@@ -41,10 +41,15 @@ body {
   justify-content: space-between;
 }
 
+.blacklist-button {
+  line-height: $bar-height;
+  height: $bar-height;
+}
+
 .blacklist-bar-info {
   display: flex;
   height: $bar-height;
-  width: 200px;
+  width: 150px;
   justify-content: space-between;
 }
 
