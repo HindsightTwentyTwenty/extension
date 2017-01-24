@@ -12,7 +12,8 @@ class NoContent extends Component {
   render () {
     return (
       <div className="error-message">
-        <h4> Please navigate to a different page to use hindsite.</h4>
+        <h4> hindsite can only be used on pages with urls beginning with http:// or https://</h4>
+        <h5> Please navigate to another page. </h5>
       </div>
     )
   }
