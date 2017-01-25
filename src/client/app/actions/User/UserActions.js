@@ -67,7 +67,7 @@ export function getPageInformation(token, count){
        })
        .catch(e => {
           if(count < 10){
-            console.log("retrying to fetch active page", e);
+            //console.log("retrying to fetch active page", e);
             setTimeout(function() { dispatch(getPageInformation(token, count + 1)); }, 1000);
 
           } else {

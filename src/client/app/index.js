@@ -52,6 +52,10 @@ let store = createStore(
       invalid_login:false,
       change_password:false,
       popup_status:PopupConstants.Loading
+    },
+    lookbackNav: {
+      selection: 0,
+      searchTerm: ""
     }
   },
   applyMiddleware(

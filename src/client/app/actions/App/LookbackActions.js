@@ -66,7 +66,7 @@ export function toggleDomainClicked() {
 export function searchTerm(search_term, token){
   return dispatch => {
     return [
-      dispatch(NavActions.switchLookBackSelection(LookBackSections.Search)),
+      dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
       fetch(searchEnpoint, {
           headers: {
              'Accept': 'application/json',
