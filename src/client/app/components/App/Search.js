@@ -26,7 +26,6 @@ class Search extends Component {
   }
 
   searchBarInput(event){
-    console.log("STATE", this.state);
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
@@ -66,7 +65,7 @@ class Search extends Component {
           <div className="container">
             <div className="row">
               <div className="col-xs-6 col-xs-offset-3">
-                <input type="text" className="advanced-search-bar" placeholder="Search..." onKeyPress={this.searchBarInput.bind(this)} />
+                <input type="text" className="advanced-search-bar" defaultValue={this.props.lookbackNav.searchTerm} placeholder="Search..." onKeyPress={this.searchBarInput.bind(this)} />
               </div>
             </div>
           </div>
@@ -104,6 +103,7 @@ class Search extends Component {
 }
 
 let mapStateToProps = (state) => ({
+  lookbackNav: state.lookbackNav,
   categories: state.categories,
   currentUser: state.currentUser,
   search: state.search

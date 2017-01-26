@@ -24,7 +24,7 @@ class App extends Component {
 
   renderContent(){
     if(this.props.currentUser.token.length != 0){
-      switch(this.props.lookBackSelection){
+      switch(this.props.lookbackNav.selection){
         case LookBackSections.LookBack:
           return (
             <div>
@@ -69,7 +69,7 @@ class App extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    lookBackSelection : state.currentLookBackSelection,
+    lookbackNav : state.lookbackNav,
     currentUser : state.currentUser
 })
 
