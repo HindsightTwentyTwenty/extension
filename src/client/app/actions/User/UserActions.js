@@ -88,13 +88,29 @@ export function getPageInformation(url, token, count){
          dispatch(receivePageInfo(json))
        })
        .catch(e => {
-          if(count < 10){
-            console.log("retrying to fetch active page", e);
-            setTimeout(function() { dispatch(getPageInformation(url, token, count + 1)); }, 1000);
 
-          } else {
-            dispatch(updatePopupStatus(PopupConstants.Error))
-          }
+          switch (e) {
+            case 404:
+              console.log("404 caught");
+              // Page does not exist in backend at this moment
+              // Retry up to 5 times before displaying error message
+              if(count < 5){
+                setTimeout(function() { dispatch(getPageInformation(url, token, count + 1)); }, 1000);
+              } else {
+                dispatch(updatePopupStatus(PopupConstants.Error));
+              }
+              break;
+            case 204:
+              // User has blacklisted this url
+              console.log("204 Blacklist caught");
+              dispatch(updatePopupStatus(PopupConstants.Blacklist));
+              break;
+            default:
+              // Defualt in case of non-expected error code
+              console.log("default");
+              dispatch(updatePopupStatus(PopupConstants.Error));
+              break;
+         }
         })
   }
 }
