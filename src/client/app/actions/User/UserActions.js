@@ -3,7 +3,7 @@ import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
 import * as PopupConstants from '../../constants/PopupConstants.js'
-import * as Lists from '../../constants/UrlBlacklist.js'
+import * as Url from '../../constants/UrlBlacklist.js'
 import ApiUtils from './../ApiUtils.js'
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
@@ -39,7 +39,8 @@ export function receiveUserTokenFromChrome(token) {
          token: token
        }
       )
-      dispatch(getPageInformation(token['hindsite-token'], 0))
+      dispatch(checkCurrentPage(token['hindsite-token']))
+      //dispatch(getPageInformation(token['hindsite-token'], 0))
     }
     else {
       dispatch(updatePopupStatus(PopupConstants.SignIn))
@@ -47,17 +48,38 @@ export function receiveUserTokenFromChrome(token) {
   }
 }
 
-export function getPageInformation(token, count){
+export function checkCurrentPage(token){
+  return dispatch => {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      var tab = tabs[0];
+      console.log("Current tab is", tab);
+
+      if(Url.isUrlBlacklisted(tab.url)){
+        // Display message to navigate to a different page
+        return dispatch(updatePopupStatus(PopupConstants.NoContent))
+
+      } else {
+        // fetch category information to display in the popup
+        return dispatch(getPageInformation(tab.url, token, 0))
+      }
+
+    });
+  }
+
+}
+
+export function getPageInformation(url, token, count){
 
   return dispatch => {
     // console.log("Token:", token);
-    return fetch(activePageInfoEndpoint, {
+    return fetch(pageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
              'Authorization': 'Token ' + token
            },
-           method: "GET"
+           method: "POST",
+           body: JSON.stringify({url: url})
          }
        )
        .then(ApiUtils.checkStatus)
@@ -67,11 +89,11 @@ export function getPageInformation(token, count){
        })
        .catch(e => {
           if(count < 10){
-            //console.log("retrying to fetch active page", e);
-            setTimeout(function() { dispatch(getPageInformation(token, count + 1)); }, 1000);
+            console.log("retrying to fetch active page", e);
+            setTimeout(function() { dispatch(getPageInformation(url, token, count + 1)); }, 1000);
 
           } else {
-            dispatch(updatePopupStatus(PopupConstants.NoContent))
+            dispatch(updatePopupStatus(PopupConstants.Error))
           }
         })
   }
@@ -154,7 +176,7 @@ export function sendCurrentPage(token) {
 
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
-      if(tab.title && Lists.Blacklist.indexOf(tab.url) < 0){
+      if(tab.title && !Url.isUrlBlacklisted(tab.url)){
           fetch(newPageEndpoint, {
             headers: {
               'Accept': 'application/json',

@@ -1,6 +1,6 @@
 var ApiUtils = {
   checkStatus: function(response) {
-    // console.log("Api Utils");
+    console.log("Api Utils", response);
     if (response.status == 204){
       // console.log("Catching 204 No Content");
       let error = new Error('NoContent')

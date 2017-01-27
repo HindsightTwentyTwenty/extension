@@ -8,6 +8,7 @@ import LoginPage from './LoginPage.js';
 import CreateUser from './CreateUser.js';
 import Loading from './Loading.js';
 import NoContent from './NoContent.js';
+import Error from './Error.js';
 
 import ForgotMyPassword from './ForgotMyPassword.js';
 import * as UserActions from '../../actions/User/UserActions.js';
@@ -38,6 +39,13 @@ class Popup extends Component {
 						<div>
 							<PopupHeader/>
 							<NoContent/>
+						</div>
+					);
+        case PopupConstants.Error:
+					return (
+						<div>
+							<PopupHeader/>
+							<Error/>
 						</div>
 					);
 				case PopupConstants.Loading:
