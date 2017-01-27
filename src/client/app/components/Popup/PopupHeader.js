@@ -20,7 +20,7 @@ class PopupHeader extends Component {
     return (
       <div className="popup-header">
         <h1 className="popup-header-text">hindsite</h1>
-        <div><img className="lookback-btn" src="../../assets/img/icon-48.png" onClick={this.openTab.bind(this)}/></div>
+        <button className="lookback-btn" onClick={this.openTab.bind(this)}>lookback</button>
       </div>
     )
   }

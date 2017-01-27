@@ -43,8 +43,20 @@ class SidebarCategoryBar extends Component {
         <a onClick={() => {
           this.props.category_actions.updateCategoryEditField(categoryTitle);
           if (categoryTitle == editCategory) {
-            this.props.category_actions.editCategoryTitle(categoryTitle, textFieldValue, userToken);
-            this.props.category_actions.toggleEditCategory('');
+            var currentPageCategories = this.props.categories.cats;
+            var existingCategoryName = false;
+            for (let cat in currentPageCategories) {
+              if (currentPageCategories[cat].title.trim() == textFieldValue.trim()) {
+                existingCategoryName = true;
+                break;
+              }
+            }
+            if (!existingCategoryName) {
+              this.props.category_actions.editCategoryTitle(categoryTitle, textFieldValue, userToken);
+              this.props.category_actions.toggleEditCategory('');
+            } else {
+              alert("Category name already exists!");
+            }
           } else {
             this.props.category_actions.toggleEditCategory(categoryTitle)
           }

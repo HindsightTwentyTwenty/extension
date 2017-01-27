@@ -4,6 +4,7 @@ $light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
+$bar-height: 40px;
 
 body {
    width:auto;
@@ -15,14 +16,40 @@ body {
 }
 
 .url-bar {
-  height: 40px;
-  line-height: 40px;
+  height: $bar-height;
+  line-height: $bar-height;
   margin: 5px;
   border-radius: 3px;
   width: 95%;
   background-color: $electric-blue;
   padding: 0px 6px;
   display: flex;
+  justify-content: space-between;
+}
+
+//WC TODO: change css of blacklist bar and url bar to common component?
+.blacklist-bar {
+  height: 40px;
+  line-height: 40px;
+  margin: 5px auto;
+  border-radius: 3px;
+  width: 95%;
+  background-color: $canteloupe;
+  color: $base-white;
+  padding: 0px 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.blacklist-button {
+  line-height: $bar-height;
+  height: $bar-height;
+}
+
+.blacklist-bar-info {
+  display: flex;
+  height: $bar-height;
+  width: 150px;
   justify-content: space-between;
 }
 
@@ -205,6 +232,7 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
+  padding-right: 15px;
   width: calc(100% - 200px);
   height: calc(100% - 50px);
   display: inline-block;
@@ -512,6 +540,7 @@ hr{
   height:45px;
   width: 45px;
   color: $banana;
+  margin-left: 1%;
 }
 
 .star{
@@ -520,4 +549,35 @@ hr{
 .category-entry{
   width: 100%;
   padding-bottom: 5px;
+}
+
+.page-title{
+  width: 60%;
+}
+
+/* Search Component */
+#search-container {
+  margin: 15px;
+}
+
+#search-results-container {
+
+}
+
+#search-selection-container {
+  text-align: center;
+}
+
+.search-select-dropdown {
+  margin: 0 20px;
+}
+
+.advanced-search-bar {
+  width:100%;
+  margin: 7px auto;
+  border-radius: 10px;
+  border: canteloupe;
+  min-width: 200px;
+  height: 35px;
+  padding: 10px;
 }

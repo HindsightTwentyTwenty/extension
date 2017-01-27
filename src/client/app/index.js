@@ -16,7 +16,10 @@ import './../chrome/css/popup.css';
 
 let store = createStore(
   rootReducer,
-  { categories: {
+  { blacklist: {
+      urls: []
+    },
+    categories: {
       cats: [],
       editCategory: "",
       newCategoryName: ""
@@ -49,6 +52,10 @@ let store = createStore(
       invalid_login:false,
       change_password:false,
       popup_status:PopupConstants.Loading
+    },
+    lookbackNav: {
+      selection: 0,
+      searchTerm: ""
     }
   },
   applyMiddleware(

@@ -5,16 +5,6 @@ import fetch from 'isomorphic-fetch'
 const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 
-export function addPage(ptitle, purl, pstarred, pcategories){
-  return {
-    type: types.ADD_PAGE,
-    url: purl,
-    title: ptitle,
-    starred: pstarred,
-    pcategories: pcategories,
-  }
-}
-
 export function getPageInfo(token){
   return dispatch => {
     return fetch(pageInfoEndpoint, {

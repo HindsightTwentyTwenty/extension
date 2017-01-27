@@ -15,16 +15,6 @@ class PopupBody extends Component {
   }
 
   render () {
-    if(!this.props.currentPage.url){
-      return(
-        <div className="container popup-body">
-          <div className="error-message">
-            <h4> Something went wrong!</h4>
-            <h4> Please navigate to a different page to use hindsite.</h4>
-          </div>
-        </div>
-      )
-    } else {
       var categories = <div></div>;
       if(this.props.categories.cats.length > 0){
         categories = <CategoriesContainer/>;
@@ -42,7 +32,6 @@ class PopupBody extends Component {
           </div>
         </div>
       )
-    }
   }
 }
 
