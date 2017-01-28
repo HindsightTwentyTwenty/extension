@@ -15,49 +15,23 @@ class PopupBody extends Component {
   }
 
   render () {
-    if(!this.props.currentPage.url){
-      return(
-        <div className="container popup-body">
-          <div className="error-message">
-            <h4> Something went wrong!</h4>
-            <h4> Please navigate to a different page to use hindsite.</h4>
-          </div>
-        </div>
-      )
-    } else {
       var categories = <div></div>;
       if(this.props.categories.cats.length > 0){
         categories = <CategoriesContainer/>;
       }
       return (
         <div className="container popup-body">
-          <div className="row">
-            <div className="col-xs-10">
-              <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
-            </div>
-            <div className="col-xs-2">
-              <Star/>
-            </div>
+          <div className='popup-page-title'>
+            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
+            <Star/>
           </div>
           <hr/>
-          <div className="row">
-            <div className="col-xs-12">
-              <h4>categories</h4>
-            </div>
-          </div>
-          <div className="categories-box">
-            <div className="row">
-                <CategoryEntry/>
-            </div>
-            <div className="row">
-              <div className="col-xs-12">
-                {categories}
-              </div>
-            </div>
+          <div className="popup-main-form">
+            <CategoryEntry/>
+            {categories}
           </div>
         </div>
       )
-    }
   }
 }
 

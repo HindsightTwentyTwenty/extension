@@ -7,6 +7,7 @@ import LookBack from './LookBack.js';
 import LookBackNavBar from './LookBackNavBar.js';
 import CategoriesPage from './CategoriesPage.js';
 import Manage from './Manage.js';
+import Search from './Search.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
@@ -23,7 +24,7 @@ class App extends Component {
 
   renderContent(){
     if(this.props.currentUser.token.length != 0){
-      switch(this.props.lookBackSelection){
+      switch(this.props.lookbackNav.selection){
         case LookBackSections.LookBack:
           return (
             <div>
@@ -38,6 +39,10 @@ class App extends Component {
         case LookBackSections.Manage:
           return (
             <Manage />
+          );
+        case LookBackSections.Search:
+          return (
+            <Search />
           );
         default:
           return (
@@ -64,8 +69,7 @@ class App extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    pages : state.pages,
-    lookBackSelection : state.currentLookBackSelection,
+    lookbackNav : state.lookbackNav,
     currentUser : state.currentUser
 })
 

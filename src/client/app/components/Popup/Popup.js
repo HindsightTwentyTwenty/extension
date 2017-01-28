@@ -8,6 +8,8 @@ import LoginPage from './LoginPage.js';
 import CreateUser from './CreateUser.js';
 import Loading from './Loading.js';
 import NoContent from './NoContent.js';
+import Error from './Error.js';
+import Blacklist from './Blacklist.js';
 
 import ForgotMyPassword from './ForgotMyPassword.js';
 import * as UserActions from '../../actions/User/UserActions.js';
@@ -20,19 +22,13 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-		//chrome.storage.local.remove("hindsite-token");
-
     chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
-
   }
 
 	renderContent() {
-		if(this.props.currentUser.token.length != 0){
-			//Logged In
-
+		if(this.props.currentUser.token.length != 0){ //Logged In
 			switch (this.props.currentUser.popup_status){
-				case PopupConstants.Received:
-					// Display Page
+				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
 		          <PopupHeader/>
@@ -46,9 +42,22 @@ class Popup extends Component {
 							<NoContent/>
 						</div>
 					);
+        case PopupConstants.Error:
+					return (
+						<div>
+							<PopupHeader/>
+							<Error/>
+						</div>
+					);
+          case PopupConstants.Blacklist:
+  					return (
+  						<div>
+  							<PopupHeader/>
+  							<Blacklist/>
+  						</div>
+  					);
 				case PopupConstants.Loading:
-				default:
-					// Still Loading Page or Page Does Not Exist in Backend
+				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
 						<div>
 							<PopupHeader/>
@@ -56,16 +65,29 @@ class Popup extends Component {
 						</div>
 					);
 			}
-
-		} else {
-			// Not Logged In
-			switch (this.props.currentUser.popup_status){
+		} else { // Not Logged In
+			switch (this.props.currentUser.popup_status) {
 				case PopupConstants.SignIn:
-					return <LoginPage/>
+					return (
+            <div>
+              <PopupHeader/>
+              <LoginPage/>
+            </div>
+          );
 				case PopupConstants.SignUp:
-					return <CreateUser/>
+					return (
+            <div>
+              <PopupHeader/>
+              <CreateUser/>
+            </div>
+          );
 				case PopupConstants.ForgotMyPassword:
-					return <ForgotMyPassword/>
+					return (
+            <div>
+              <PopupHeader/>
+              <ForgotMyPassword/>
+            </div>
+          );
 				default:
 					return (
 						<div>
@@ -77,16 +99,10 @@ class Popup extends Component {
 		}
 	}
 
-
   render() {
-    return (
-      <div id="popup_wrapper">
-        { this.renderContent() }
-      </div>
-    );
+    return (this.renderContent());
   }
 }
-
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,

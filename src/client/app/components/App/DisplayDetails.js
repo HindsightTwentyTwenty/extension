@@ -27,15 +27,14 @@ class DisplayDetails extends Component {
       return(
         <div className="lookback-details-container page-details">
           <div className="row flex-row">
-            <a target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
+            <a className="page-title" target="_blank" href={this.props.displayPage.url}><h3>{this.props.displayPage.title}</h3></a>
             <Star className="star-display"/>
           </div>
           <hr className="display-view"/>
           <div className="row">
             <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
           </div>
-          <h4>categories</h4>
-          <div className="categories-box display-view">
+          <div className="display-view">
             <CategoryEntry/>
             {categories}
           </div>

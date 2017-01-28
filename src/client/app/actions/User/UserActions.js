@@ -3,10 +3,8 @@ import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
 import * as PopupConstants from '../../constants/PopupConstants.js'
-import * as Lists from '../../constants/UrlBlacklist.js'
+import * as Url from '../../constants/UrlBlacklist.js'
 import ApiUtils from './../ApiUtils.js'
-// import getPageInfo from './PopupActions.js';
-// import store from '../../index.js'
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
@@ -29,20 +27,6 @@ export function receiveError(error) {
   }
 }
 
-export function requestUserToken() {
-  return {
-    type: types.REQUEST_USER_TOKEN
-  }
-}
-
-
-export function userToken(token) {
-  return {
-   type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-   token: token
- }
-}
-
 export function receiveUserTokenFromChrome(token) {
   // console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
   return dispatch => {
@@ -55,7 +39,8 @@ export function receiveUserTokenFromChrome(token) {
          token: token
        }
       )
-      dispatch(getPageInformation(token['hindsite-token'], 0))
+      dispatch(checkCurrentPage(token['hindsite-token']))
+      //dispatch(getPageInformation(token['hindsite-token'], 0))
     }
     else {
       dispatch(updatePopupStatus(PopupConstants.SignIn))
@@ -63,17 +48,38 @@ export function receiveUserTokenFromChrome(token) {
   }
 }
 
-export function getPageInformation(token, count){
+export function checkCurrentPage(token){
+  return dispatch => {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      var tab = tabs[0];
+      console.log("Current tab is", tab);
+
+      if(Url.isUrlBlacklisted(tab.url)){
+        // Display message to navigate to a different page
+        return dispatch(updatePopupStatus(PopupConstants.NoContent))
+
+      } else {
+        // fetch category information to display in the popup
+        return dispatch(getPageInformation(tab.url, token, 0))
+      }
+
+    });
+  }
+
+}
+
+export function getPageInformation(url, token, count){
 
   return dispatch => {
     // console.log("Token:", token);
-    return fetch(activePageInfoEndpoint, {
+    return fetch(pageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
              'Authorization': 'Token ' + token
            },
-           method: "GET"
+           method: "POST",
+           body: JSON.stringify({url: url})
          }
        )
        .then(ApiUtils.checkStatus)
@@ -82,20 +88,30 @@ export function getPageInformation(token, count){
          dispatch(receivePageInfo(json))
        })
        .catch(e => {
-          // console.log("Error caught. Retrying: ", e);
-          if(count < 100){
-            dispatch(getPageInformation(token, count + 1));
-          } else {
-            dispatch(updatePopupStatus(PopupConstants.NoContent))
-          }
+
+          switch (e) {
+            case 404:
+              console.log("404 caught");
+              // Page does not exist in backend at this moment
+              // Retry up to 5 times before displaying error message
+              if(count < 5){
+                setTimeout(function() { dispatch(getPageInformation(url, token, count + 1)); }, 1000);
+              } else {
+                dispatch(updatePopupStatus(PopupConstants.Error));
+              }
+              break;
+            case 204:
+              // User has blacklisted this url
+              console.log("204 Blacklist caught");
+              dispatch(updatePopupStatus(PopupConstants.Blacklist));
+              break;
+            default:
+              // Defualt in case of non-expected error code
+              console.log("default");
+              dispatch(updatePopupStatus(PopupConstants.Error));
+              break;
+         }
         })
-  }
-}
-
-
-export function clearStore(){
-  return {
-    type: types.USER_LOGOUT
   }
 }
 
@@ -176,7 +192,7 @@ export function sendCurrentPage(token) {
 
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
-      if(tab.title && Lists.Blacklist.indexOf(tab.url) < 0){
+      if(tab.title && !Url.isUrlBlacklisted(tab.url)){
           fetch(newPageEndpoint, {
             headers: {
               'Accept': 'application/json',

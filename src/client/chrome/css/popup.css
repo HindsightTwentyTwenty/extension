@@ -4,39 +4,44 @@ $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
 
-.popup-body {
+.popup-content {
    width:400px;
-   height:300px;
+   max-height: 300px;
    background-color: $base-white;
-   font-family: 'Raleway';
    color: $electric-blue;
+   font-family: 'Raleway';
+   font-weight: normal;
    vertical-align: middle;
 }
 
 .popup-header {
   background-color: $electric-blue;
-  padding: 10px 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .popup-header h1 {
-  margin: auto;
+  margin: 0;
+  float: left;
   color: $base-white;
-  font-weight: normal;
   font-size: 30px;
-  vertical-align: middle;
 }
 
 .lookback-btn {
   float: right;
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 33px;
+  background-color: $watermelon;
+  color: white;
+  border-color: $watermelon;
+  border-radius: 4px;
+  outline: none;
 }
 
 .popup-body h3{
   margin-top: 10px;
-  color: $electric-blue;
   font-size: x-large;
-  padding-bottom: 3px;
 }
 
 .popup-body h4{
@@ -45,50 +50,20 @@ $base-white: #FAFAFA;
   color: $canteloupe;
 }
 
-hr{
-  margin: 0 auto;
-  margin-bottom: 10px;
-  border-color: $banana;
-  border-width: 2px;
-  width: 99%;
-}
-
-.add-category-btn{
-  background-color: $canteloupe;
-  color: white;
-  padding-top: 8px;
-  padding-bottom: 7px;
-  border: 0px;
-  font-size: large;
-  &:hover {
-    background-color: $watermelon;
-  }
-}
-
-.category-bar{
-  width: 80px;
-  margin: 5px;
-  height: 35px;
-  border: solid 1px $canteloupe;
-  border-radius: 2px;
-  color: $electric-blue;
-  line-height: 32px;
-  text-align: center;
-  padding: 0 6px;
-}
-
-.category-bar.checked{
-  background-color: $canteloupe;
-  color: $base-white;
-}
-
-.categories-container{
+.popup-page-title {
+  width: 370px;
   display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  margin-top: 1%;
-  justify-content: center;
+}
 
+.popup-button-group {
+  display: inline-flex;
+  width: 400px;
+  margin: 10px 0;
+  justify-content: space-around;
+}
+
+.popup-form-group {
+  margin: 5px;
 }
 
 .popup-form {
@@ -97,31 +72,9 @@ hr{
 }
 
 .error-message{
-  padding-top: 25%;
   text-align: center;
 }
 
-.categories-box{
-  border: solid 2px $canteloupe;
-  padding: 1%;
-  margin: 0 auto;
-  margin-top: 0px;
-  margin-bottom: 10px;
-}
-
-.star-div{
-  height:45px;
-  width: 45px;
-  color: $banana;
-}
-
-.star{
-  height: 45px;
-  line-height: 45px;
-  width: 45px;
-  text-align: center;
-}
-.category-entry{
-  margin: 0 auto;
-  width: 90%;
+.popup-main-form{
+  padding: 5px;
 }

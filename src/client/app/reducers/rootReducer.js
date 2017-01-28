@@ -1,15 +1,16 @@
 import {combineReducers} from 'redux';
-import pageReducer from './PageReducer.js';
 import currentPageReducer from './CurrentPageReducer.js';
 import categoryReducer from './CategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
 import timeReducer from './TimeReducer.js';
 import lookBackNavReducer from './LookBackNavReducer.js';
 import lookBackReducer from './lookBackReducer.js';
-import searchCategoryReducer from './searchCategoryReducer.js';
-import categoryPagesReducer from './categoryPagesReducer.js';
-import userReducer from './userReducer.js';
-import pageDisplayReducer from './pageDisplayReducer.js';
+import searchCategoryReducer from './SearchCategoryReducer.js';
+import categoryPagesReducer from './CategoryPagesReducer.js';
+import userReducer from './UserReducer.js';
+import pageDisplayReducer from './PageDisplayReducer.js';
+import blacklistReducer from './BlacklistReducer.js';
+import searchReducer from './SearchReducer.js';
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -20,18 +21,18 @@ const rootReducer = (state, action) => {
 }
 
 const appReducer = combineReducers({
-  pages: pageReducer,
+  blacklist: blacklistReducer,
   currentSearchCategories: searchCategoryReducer,
   categories: categoryReducer,
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
   currentDomain: lookBackReducer,
-  currentLookBackSelection: lookBackNavReducer,
+  lookbackNav: lookBackNavReducer,
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
-
+  search: searchReducer
 });
 
 export default rootReducer;
