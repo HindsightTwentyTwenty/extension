@@ -23,7 +23,7 @@ class CategoryEntry extends Component {
   render () {
     return (
     <div className="input-group category-entry">
-      <input type="text" className="popup-form form-control" placeholder="New Category..." ref={node => {
+      <input type="text" className=" form-control" placeholder="New Category..." ref={node => {
         this.input = node;
       }} />
       <span className="input-group-btn">

@@ -26,7 +26,7 @@ class Blacklist extends Component {
       <div>
         <div className="section-title">Blacklisted Sites</div>
         <div className="input-group category-entry">
-          <input type="text" className="popup-form form-control" placeholder="Enter a site to be blacklisted. Must start with 'https://' or 'http://'"  ref={node => {
+          <input type="text" className="form-control" placeholder="Enter a site to be blacklisted. Must start with 'https://' or 'http://'"  ref={node => {
             this.input = node;
           }} />
           <span className="input-group-btn">
