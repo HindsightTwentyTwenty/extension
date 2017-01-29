@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
+import * as PopupConstants from '../../constants/PopupConstants.js';
 
 class PopupHeader extends Component {
   constructor(props) {
@@ -17,10 +18,13 @@ class PopupHeader extends Component {
   }
 
   render () {
+    if(this.props.loggedIn){
+      var button = <button className="lookback-btn" onClick={this.openTab.bind(this)}>lookback</button>
+    }
     return (
       <div className="popup-header">
         <h1 className="popup-header-text">hindsite</h1>
-        <button className="lookback-btn" onClick={this.openTab.bind(this)}>lookback</button>
+        {button}
       </div>
     )
   }
@@ -29,7 +33,6 @@ class PopupHeader extends Component {
 let mapStateToProps = (state) => ({
     pages : state.pages,
     currentUser : state.currentUser
-
 })
 
 export default connect(mapStateToProps, null)(PopupHeader);

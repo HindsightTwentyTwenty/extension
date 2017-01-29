@@ -12,7 +12,7 @@ class Error extends Component {
   render () {
     return (
       <div className="error-message">
-        <h4> An error has occured. Please try closing and reopening the Popup</h4>
+        <h4> An error has occured. Please try closing and reopening the Popup.</h4>
       </div>
     )
   }
