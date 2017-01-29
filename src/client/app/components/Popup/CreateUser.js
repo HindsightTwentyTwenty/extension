@@ -35,19 +35,19 @@ class CreateUser extends Component {
 
   render () {
     return (
-			<div className="popup-main-form">
-				<br/>
-        <p>Create a new user account:</p>
+			<div className="popup-main-form electric-blue">
+				<img className="logo" src="../../assets/img/logo-transparent.png"/>
+        <h2>Create Account</h2>
 				<div className = 'popup-form-group'>
-					<input type="text" className="popup-form form-control" id="first_name" placeholder="first name" onChange={this.updateField.bind(this)} />
-					<input type="text" className="popup-form form-control" id="last_name" placeholder="last name" onChange={this.updateField.bind(this)} />
-					<input type="email" className="popup-form form-control" id="email" placeholder="email" onChange={this.updateField.bind(this)} />
-					<input type="password" className="popup-form form-control" id="password_1" placeholder="password" onChange={this.updateField.bind(this)} />
-					<input type="password" className="popup-form form-control" id="password_2" placeholder="confirm password" onChange={this.updateField.bind(this)} />
+					<input type="text" className="popup-form form-control" id="first_name" placeholder="&#xf007; first name" onChange={this.updateField.bind(this)} />
+					<input type="text" className="popup-form form-control" id="last_name" placeholder="&#xf007; last name" onChange={this.updateField.bind(this)} />
+					<input type="email" className="popup-form form-control" id="email" placeholder="&#xf003; email" onChange={this.updateField.bind(this)} />
+					<input type="password" className="popup-form form-control" id="password_1" placeholder="&#xf13e; password" onChange={this.updateField.bind(this)} />
+					<input type="password" className="popup-form form-control" id="password_2" placeholder="&#xf13e; confirm password" onChange={this.updateField.bind(this)} />
         </div>
 				<div className ="popup-button-group">
-          <button className="btn btn-primary canteloupe" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>
-          <button className="btn btn-primary" type="button" onClick={() => {this.back()}}>Back</button>
+          <button className="btn popup-main-btn watermelon" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>
+          <button className="btn link-text-btn" type="button" onClick={() => {this.back()}}>Cancel</button>
         </div>
       </div>
     )

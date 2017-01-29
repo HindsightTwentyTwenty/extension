@@ -2,6 +2,7 @@ $banana: #FFDB5C;
 $electric-blue: #4897D8;
 $light-blue: #dbedfc;
 $watermelon: #FA6E59;
+$watermelon-dark: #F95339;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
 $bar-height: 40px;
@@ -77,6 +78,7 @@ body {
 }
 .url-categories{
   display: flex;
+  overflow: scroll;
 }
 .star-categories {
   float: right;
@@ -477,11 +479,12 @@ start-time-label .end-time-label{
   height: 40%;
 }
 
-.canteloupe {
-  background-color: $canteloupe;
+.watermelon {
+  background-color: $watermelon;
   color: white;
   &:hover {
-    background-color: $watermelon;
+    background-color: $watermelon-dark;
+    color: white;
   }
 }
 

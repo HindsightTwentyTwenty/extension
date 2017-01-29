@@ -70,21 +70,18 @@ class Popup extends Component {
 				case PopupConstants.SignIn:
 					return (
             <div>
-              <PopupHeader/>
               <LoginPage/>
             </div>
           );
 				case PopupConstants.SignUp:
 					return (
             <div>
-              <PopupHeader/>
               <CreateUser/>
             </div>
           );
 				case PopupConstants.ForgotMyPassword:
 					return (
             <div>
-              <PopupHeader/>
               <ForgotMyPassword/>
             </div>
           );
