@@ -47,19 +47,20 @@ class LoginPage extends Component {
   }
 
   render () {
+		var emailplaceholder = <div><i class="fa fa-envelope-o" aria-hidden="true"></i><p>email</p></div>
     return (
-      <div className="popup-main-form">
-				<br/>
-        <p>Please login to use hindsite:</p>
+      <div className="popup-main-form electric-blue">
+				<img className="logo" src="../../assets/img/logo.png"/>
+				<h2 className="popup-header-text">hindsite</h2>
 				<div className={this.props.currentUser.invalid_login ? '' : 'hidden'}> Invalid Username or Password </div>
 				<div className = 'popup-form-group'>
-					<input type="email" className="popup-form form-control" id="user_name" placeholder="username" onChange={this.updateUserName.bind(this)} />
-	        <input type="password" className="popup-form form-control" id="password" placeholder="password" onChange={this.updatePassword.bind(this)} />
+					<input type="email" className="popup-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
+	        <input type="password" className="popup-form form-control" id="password" placeholder=" &#xf13e;  password" onChange={this.updatePassword.bind(this)} />
 				</div>
 				<div className ="popup-button-group">
-					<button className="btn canteloupe btn-primary" type="button" onClick={this.loginUser.bind(this)}>Submit</button>
-					<button className="btn btn-primary" type="button" onClick={this.forgotMyPassword.bind(this)}>Forgot Password</button>
-					<button className="btn btn-primary" type="button" onClick={this.createUserAccount.bind(this)}>New Account</button>
+				<button className="btn logIn-btn watermelon" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>
+				<button className="link-text-btn" onClick={this.forgotMyPassword.bind(this)}>Forgot Password?</button>
+					<button className="link-text-btn" onClick={this.createUserAccount.bind(this)}>New to hindsite? Sign up here.</button>
 				</div>
       </div>
     )

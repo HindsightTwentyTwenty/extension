@@ -70,7 +70,6 @@ class Popup extends Component {
 				case PopupConstants.SignIn:
 					return (
             <div>
-              <PopupHeader loggedIn={false}/>
               <LoginPage/>
             </div>
           );
