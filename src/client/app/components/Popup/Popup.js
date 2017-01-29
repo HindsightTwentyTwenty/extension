@@ -83,7 +83,6 @@ class Popup extends Component {
 				case PopupConstants.ForgotMyPassword:
 					return (
             <div>
-              <PopupHeader loggedIn={false}/>
               <ForgotMyPassword/>
             </div>
           );

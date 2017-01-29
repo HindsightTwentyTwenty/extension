@@ -58,7 +58,7 @@ class LoginPage extends Component {
 	        <input type="password" className="popup-form form-control" id="password" placeholder=" &#xf13e;  password" onChange={this.updatePassword.bind(this)} />
 				</div>
 				<div className ="popup-button-group">
-				<button className="btn logIn-btn watermelon" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>
+				<button className="btn popup-main-btn watermelon" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>
 				<button className="link-text-btn" onClick={this.forgotMyPassword.bind(this)}>Forgot Password?</button>
 					<button className="link-text-btn" onClick={this.createUserAccount.bind(this)}>New to hindsite? Sign up here.</button>
 				</div>
