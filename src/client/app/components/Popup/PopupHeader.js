@@ -18,13 +18,10 @@ class PopupHeader extends Component {
   }
 
   render () {
-    if(this.props.loggedIn){
-      var button = <button className="lookback-btn watermelon" onClick={this.openTab.bind(this)}>lookback</button>
-    }
     return (
       <div className="popup-header">
         <h1 className="popup-header-text">hindsite</h1>
-        {button}
+        <button className="lookback-btn watermelon" onClick={this.openTab.bind(this)}>lookback</button>
       </div>
     )
   }

@@ -31,28 +31,28 @@ class Popup extends Component {
 				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
-		          <PopupHeader loggedIn={true}/>
+		          <PopupHeader/>
 		          <PopupBody/>
 		        </div>
 		      );
 				case PopupConstants.NoContent:
 					return (
 						<div>
-							<PopupHeader loggedIn={true}/>
+							<PopupHeader/>
 							<NoContent/>
 						</div>
 					);
         case PopupConstants.Error:
 					return (
 						<div>
-							<PopupHeader loggedIn={true}/>
+							<PopupHeader/>
 							<Error/>
 						</div>
 					);
           case PopupConstants.Blacklist:
   					return (
   						<div>
-  							<PopupHeader loggedIn={true}/>
+  							<PopupHeader/>
   							<Blacklist/>
   						</div>
   					);
@@ -60,7 +60,7 @@ class Popup extends Component {
 				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
 						<div>
-							<PopupHeader loggedIn={true}/>
+							<PopupHeader/>
 							<Loading/>
 						</div>
 					);
@@ -76,7 +76,6 @@ class Popup extends Component {
 				case PopupConstants.SignUp:
 					return (
             <div>
-              <PopupHeader loggedIn={false}/>
               <CreateUser/>
             </div>
           );
@@ -89,7 +88,7 @@ class Popup extends Component {
 				default:
 					return (
 						<div>
-							<PopupHeader loggedIn={true}/>
+							<PopupHeader/>
 							<Loading/>
 						</div>
 					);

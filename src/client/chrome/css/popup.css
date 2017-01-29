@@ -45,9 +45,9 @@ $base-white: #FAFAFA;
   margin-bottom: 3%
 }
 
-.popup-main-form h2{
+.popup-main-form h2 {
   text-align: center;
-  margin-top: 2%;
+  margin-top: 0;
 }
 
 .popup-body h3{
@@ -124,10 +124,10 @@ $base-white: #FAFAFA;
 }
 
 .logo{
-  height: 60px;
+  height: 40px;
   border: black;
   display: block;
-  margin: auto;
+  margin: 0 auto;
   margin-top: 3%;
 }
 
