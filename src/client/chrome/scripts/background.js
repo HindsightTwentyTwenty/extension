@@ -73,5 +73,4 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
         closed = false;
       });
     }
-  }
-);
+  });

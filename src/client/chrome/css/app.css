@@ -1,9 +1,11 @@
 $banana: #FFDB5C;
 $electric-blue: #4897D8;
+$electric-blue-dark: #2B82CA;
 $light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $watermelon-dark: #F95339;
 $canteloupe: #F8A055;
+$canteloupe-dark: #F68828;
 $base-white: #FAFAFA;
 $bar-height: 40px;
 
@@ -484,6 +486,15 @@ start-time-label .end-time-label{
   color: white;
   &:hover {
     background-color: $watermelon-dark;
+    color: white;
+  }
+}
+
+.canteloupe {
+  background-color: $canteloupe;
+  color: white;
+  &:hover {
+    background-color: $canteloupe-dark;
     color: white;
   }
 }
