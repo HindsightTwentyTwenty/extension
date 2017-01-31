@@ -12,7 +12,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     if (alarm.name === tabAlarmName && token) {
         chrome.tabs.query({}, function(tabs) {
           var tab_ids = tabs.map(function(tab) {return tab.id;});
-          fetch(url + 'tabupdate', {
+          fetch(url + 'tabupdate/', {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
