@@ -1,6 +1,30 @@
 var closed = false;
 var token = "";
-var url = 'https://hindsite2020.herokuapp.com/'
+var url = 'https://hindsite2020.herokuapp.com/';
+var tabAlarmName = 'tabAlarm';
+
+chrome.alarms.create(tabAlarmName, {
+    delayInMinutes: 0,
+    periodInMinutes: 15
+});
+
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    if (alarm.name === tabAlarmName && token) {
+        chrome.tabs.query({}, function(tabs) {
+          var tab_ids = tabs.map(function(tab) {return tab.id;});
+          fetch(url + 'tabupdate', {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': "Token " + token
+            },
+            method: "POST",
+            body: JSON.stringify({"tab_ids":tab_ids})
+          }
+        );
+      });
+    }
+});
 
 function get_token(token_return){
   token = token_return['hindsite-token'];
