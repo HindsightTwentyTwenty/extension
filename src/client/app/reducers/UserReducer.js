@@ -10,7 +10,9 @@ function userReducer(state = {user_name:"", token:"", invalid_login:false, chang
       chrome.storage.local.set({"hindsite-token": action.token});
       return { ...state, user_name:action.user_name, token:action.token, invalid_login:false}
     case types.USER_ERROR:
-      return { ...state, invalid_login:true, create_user: false }
+      return { ...state, invalid_login:true, invalid_login_message:action.error_message, create_user: false }
+    case types.NO_USER_ERROR:
+      return {...state, invalid_login:false}
     case types.RECEIVE_USER_TOKEN_FROM_CHROME:
       if(action.token != null && action.token['hindsite-token'] != null){
         return { ...state, token:action.token['hindsite-token'], invalid_login:false}

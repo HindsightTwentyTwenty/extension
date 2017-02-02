@@ -97,6 +97,10 @@ $base-white: #FAFAFA;
   }
 }
 
+.errorInput ::-webkit-input-placeholder {
+   color: red;
+}
+
 .error-message{
   text-align: center;
 }

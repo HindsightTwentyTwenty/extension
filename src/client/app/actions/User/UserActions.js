@@ -18,7 +18,7 @@ const unauthorizedCode = "403";
 var curr_token = ""
 
 export function receiveError(error) {
-  // console.log("RECEIVE error: ", error);
+  console.log("RECEIVE error: ", error);
 
   return {
     type: types.RECEIVE_ERROR,
@@ -27,12 +27,33 @@ export function receiveError(error) {
   }
 }
 
+export function receiveLoginError(message){
+  console.log("ERROR:", message);
+  return {
+    type: types.USER_ERROR,
+    error_message: message
+
+  }
+}
+
+export function receiveCreateUserError(message, error_type){
+  console.log("ERROR:", message);
+  return {
+    type: error_type,
+    error_message: message
+
+  }
+}
+
+export function endErrorMessage(json){
+  return {
+    type: types.NO_USER_ERROR
+  }
+}
+
 export function receiveUserTokenFromChrome(token) {
-  // console.log("TOKEN IN RECEIVE USER TOKEN: ", token);
   return dispatch => {
-    // console.log("IN DISPATCH token[hindsite-token]:", token['hindsite-token']);
     if(token['hindsite-token']){
-      // console.log("headed to grab page info");
       dispatch(
         {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
@@ -40,7 +61,6 @@ export function receiveUserTokenFromChrome(token) {
        }
       )
       dispatch(checkCurrentPage(token['hindsite-token']))
-      //dispatch(getPageInformation(token['hindsite-token'], 0))
     }
     else {
       dispatch(updatePopupStatus(PopupConstants.SignIn))
@@ -71,7 +91,6 @@ export function checkCurrentPage(token){
 export function getPageInformation(url, token, count){
 
   return dispatch => {
-    // console.log("Token:", token);
     return fetch(pageInfoEndpoint, {
           headers: {
              'Accept': 'application/json',
@@ -141,7 +160,6 @@ export function logoutUser(token) {
 }
 
 function receivePageInfo(json) {
-  // console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -152,8 +170,6 @@ function receivePageInfo(json) {
 }
 
 function getPageInfo(url, token){
-  // console.log("getPageInfo() url", url);
-  // console.log("getPageInfo() token", token);
 
   return dispatch => {
     return fetch(pageInfoEndpoint, {
@@ -172,7 +188,6 @@ function getPageInfo(url, token){
 }
 
 export function updatePopupStatus(status){
-  // console.log("Update popup status", status);
   return {
     type: types.POPUP_STATUS,
     popup_status: status
@@ -184,11 +199,7 @@ export function sendCurrentPage(token) {
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      // console.log("page: ", tabs[0]);
       var tab = tabs[0];
-      // console.log("Blacklist", Lists.Blacklist);
-      // console.log("INDEX OF", Lists.Blacklist.indexOf(tab.url));
-      // console.log("token in send current", token);
 
       var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
       var closed = false
@@ -236,7 +247,6 @@ export function error(response){
 }
 
 export function receivePageInfo(json) {
-  // console.log("receive page info", json);
   return {
     type: types.RECEIVE_PAGE_INFO,
     categories: json.categories,
@@ -248,7 +258,6 @@ export function receivePageInfo(json) {
 
 
 export function loginUser(username, password){
-  // console.log("loginUser()");
   return dispatch => {
     return fetch(loginUserEndpoint, {
       headers: {
@@ -268,10 +277,8 @@ export function loginUser(username, password){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          // console.log("Invalid post caught");
-          dispatch(receiveLoginError());
+          dispatch(receiveLoginError(json['message']));
         } else {
-          // console.log("valid post", json);
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
@@ -316,8 +323,22 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
                             "confirm_password": password_2
                           })
     })
-    .then(response => response.json())
-    .then(json => dispatch(receiveUserTokenFromChrome(json['token'])))
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+        })
+      )
+    )
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          dispatch(receiveLoginError(json['message']));
+        } else {
+          dispatch(receiveUserTokenFromChrome(json['token']))
+        }
+      }
+    )
   }
 }
 
