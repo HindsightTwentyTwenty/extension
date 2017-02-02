@@ -601,3 +601,46 @@ hr{
   text-align: center;
 
 }
+
+
+
+.hider{
+    position:absolute;
+    top: 0%;
+    left: 0%;
+    width:1600px;
+    height:2000px;
+    margin-top: -800px; /*set to a negative number 1/2 of your height*/
+    margin-left: -500px; /*set to a negative number 1/2 of your width*/
+    /*
+    z- index must be lower than pop up box
+   */
+    z-index: 99;
+   background-color:Black;
+   //for transparency
+   opacity:0.6;
+}
+
+
+.modal{
+  position:absolute;
+  background-color: red;
+  /*top: 50%;
+  left: 50%;
+  width:10em;
+  height:10em;
+  */
+  width:100px;
+  height:100px;
+
+  border: 1px solid #ccc;
+  border:  2px solid black;
+  z-index:100;
+  -webkit-transition: opacity 2s ease-in;
+  -moz-transition: opacity 2s ease-in;
+  -o-transition: opacity 2s ease-in;
+  -ms-transition: opacity 2s ease-in;
+  transition: opacity 2s ease-in;
+
+
+}
