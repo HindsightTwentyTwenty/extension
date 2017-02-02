@@ -27,8 +27,28 @@ export function receiveError(error) {
   }
 }
 
-export function receiveLoginError(json){
-  console.log("receive login error,", json);
+export function receiveLoginError(message){
+  console.log("ERROR:", message);
+  return {
+    type: types.USER_ERROR,
+    error_message: message
+
+  }
+}
+
+export function receiveCreateUserError(message, error_type){
+  console.log("ERROR:", message);
+  return {
+    type: error_type,
+    error_message: message
+
+  }
+}
+
+export function endErrorMessage(json){
+  return {
+    type: types.NO_USER_ERROR
+  }
 }
 
 export function receiveUserTokenFromChrome(token) {
@@ -257,7 +277,7 @@ export function loginUser(username, password){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          dispatch(receiveLoginError(json));
+          dispatch(receiveLoginError(json['message']));
         } else {
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
@@ -303,8 +323,22 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
                             "confirm_password": password_2
                           })
     })
-    .then(response => response.json())
-    .then(json => dispatch(receiveUserTokenFromChrome(json['token'])))
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+        })
+      )
+    )
+    .then(
+      ({ status, json }) => {
+        if(status == 401){
+          dispatch(receiveLoginError(json['message']));
+        } else {
+          dispatch(receiveUserTokenFromChrome(json['token']))
+        }
+      }
+    )
   }
 }
 

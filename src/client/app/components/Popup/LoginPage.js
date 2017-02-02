@@ -39,6 +39,7 @@ class LoginPage extends Component {
 	}
 
 	createUserAccount(){
+		this.props.user_actions.endErrorMessage();
 		this.props.user_actions.updatePopupStatus(PopupConstants.SignUp);
 	}
 
@@ -52,7 +53,7 @@ class LoginPage extends Component {
       <div className="popup-main-form electric-blue">
 				<img className="logo" src="../../assets/img/logo-transparent.png"/>
 				<h2 className="popup-header-text">hindsite</h2>
-				<div className={this.props.currentUser.invalid_login ? '' : 'hidden'}> Invalid Username or Password </div>
+				<div className="login-error"> {this.props.currentUser.invalid_login ? 'Invalid Username or Password' : ''}</div>
 				<div className = 'popup-form-group'>
 					<input type="email" className="popup-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
 	        <input type="password" className="popup-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} />

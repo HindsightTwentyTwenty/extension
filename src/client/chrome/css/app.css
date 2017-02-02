@@ -584,3 +584,9 @@ hr{
   height: 35px;
   padding: 10px;
 }
+
+.login-error {
+  color: $banana;
+  text-align: center;
+
+}
