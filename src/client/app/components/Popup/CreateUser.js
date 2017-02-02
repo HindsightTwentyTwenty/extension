@@ -7,10 +7,6 @@ import * as PopupConstants from '../../constants/PopupConstants.js';
 import * as types from '../../constants/ActionTypes';
 
 const ERROR_COLOR = '#ff0000';
-//var email_regex = new RegExp("e");
-// This is the Django email validator + minor tweak because JS doesn't support negative lookbehind
-
-
 
 function getState() {
 	return {
@@ -36,7 +32,6 @@ class CreateUser extends Component {
 
 	markError(element){
 		document.getElementById(element).style.borderBottom = '1.5px solid ' + ERROR_COLOR;
-		document.getElementById(element).style.color = ERROR_COLOR;
 	}
 
 	markCorrect(element){
@@ -66,9 +61,7 @@ class CreateUser extends Component {
 
 			//check all fields filled in
 			for(var i in fields){
-				//console.log("looking at: ", fields[i]);
 				if(!document.getElementById(fields[i]).value || document.getElementById(fields[i]).value == ""){
-					//console.log("it is false");
 					error = true;
 					this.markError(fields[i]);
 					this.setState({ main_error_message: 'Please fill empty fields.' });
@@ -76,11 +69,6 @@ class CreateUser extends Component {
 			}
 
 			//check valid email
-			// var email_atom = '[-!#$%&\'*+/=?^_`{}|~0-9A-Z]+(?:\\.[-!#$%&\'*+/=?^_`{}|~0-9A-Z]+)*';
-			// var email_quote = '"(?:[\0o001-\0o010\0o013\0o014\0o016-\0o037!#-\[\]-\0o177]|\\[\0o001-\0o011\0o013\0o014\0o016-\0o177])*"';
-			// var email_domain = '(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+(?:[A-Z]{2,6}|[A-Z0-9-]{1,}[A-Z0-9])';
-			// var email_regex = /^(?:' + email_atom + '|' + email_quote + ')@' + email_domain + '$/;
-
 			var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			var patt = new RegExp(email_regex);
 
@@ -96,7 +84,6 @@ class CreateUser extends Component {
 				this.markError('email');
 				this.setState({ email_error_message: '' });
 			}
-
 
 		}else{
 			error = true;
@@ -118,7 +105,6 @@ class CreateUser extends Component {
 			<div className="popup-main-form electric-blue">
 				<img className="logo" src="../../assets/img/logo-transparent.png"/>
         <h2>Create Account</h2>
-				<div className="login-error"> {this.props.currentUser.invalid_login ? this.props.currentUser.invalid_login_message : ''}</div>
 				<div className="login-error" id="main-error">{this.state ? this.state.main_error_message : ''}</div>
 				<div className = 'popup-form-group'>
 					<input type="text" className="popup-form form-control" id="first_name" placeholder="&#xf007; first name" onChange={this.updateField.bind(this)} />
