@@ -11,7 +11,9 @@ function getState() {
     time_selection: SearchConstants.Anytime,
     category_selection: 0,
     sort_selection: SearchConstants.Relevance,
-    iframe_show:false
+    iframe_show:false,
+    iframehider_show:false
+
   }
 }
 
@@ -60,6 +62,7 @@ class Search extends Component {
   }
 
   openIframe(event){
+    this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
 
     // document.getElementById('iframe-hider').fadeIn("slow");
@@ -67,8 +70,9 @@ class Search extends Component {
   }
 
   closeIframe(event){
-    document.getElementById('iframe-hider').fadeOut("slow");
-    document.getElementById('iframe-modal').fadeOut("slow");
+    this.setState({ iframehider_show: false });
+    this.setState({ iframe_show: false });
+
   }
 
 
@@ -87,16 +91,15 @@ class Search extends Component {
     // });
     return (
       <div>
-        {this.state.iframe_show ?
-          <div>
-            <div className="hider" id="iframe-hider"></div>
-            <div className="modal" id="iframe-modal">
-                <button id="iframe-close-button" onClick={this.closeIframe.bind(this)}>
-                  CLOSE IFRAME
-                </button>
-            </div>
+      {this.state.iframe_show ?
+          <div className="modal-test" id="iframe-modal">
+              <button id="iframe-close-button" onClick={this.closeIframe.bind(this)}>
+                CLOSE IFRAME
+              </button>
           </div>
-        : ''}
+      : ''}
+        {this.state.iframehider_show ?
+            <div className="hider" id="iframe-hider"></div>: ''}
         <button id="iframe-open-button" onClick={this.openIframe.bind(this)}>
           OPEN IFRAME
         </button>
