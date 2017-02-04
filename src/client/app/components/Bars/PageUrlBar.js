@@ -7,10 +7,20 @@ import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
+
+function getState() {
+  return {
+    iframe_show:false,
+    iframehider_show:false
+  }
+}
 class PageUrlBar extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState();
+    // console.log("THIS PAGE: ", this.props);
+
   }
 
   getCategories() {
@@ -19,11 +29,34 @@ class PageUrlBar extends Component {
     });
   }
 
+  openIframe(event){
+    this.setState({ iframehider_show: true });
+    this.setState({ iframe_show: true });
+  }
+
+  closeIframe(event){
+    this.setState({ iframehider_show: false });
+    this.setState({ iframe_show: false });
+
+  }
+
   render() {
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories' : 'fa fa-star-o fa-2x star-categories';
     return (
       <div className={'url-bar'}>
+        {this.state.iframe_show ?
+            <div className="modal-base" id="iframe-modal">
+                <button id="iframe-close-button " onClick={this.closeIframe.bind(this)}>
+                  x
+                </button>
+                <iframe className="m-iframe" src={this.props.page.url}></iframe>
+            </div>
+        : ''}
+        {this.state.iframehider_show ? <div className="hider" id="iframe-hider"></div>: ''}
         <a className={'url'} target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
+        <button id="iframe-open-button" onClick={this.openIframe.bind(this)}>
+          <span className="glyphicon glyphicon-eye-open"></span>
+        </button>
         <div className='url-categories'>
           {this.getCategories()}
           <div onClick={()=>{

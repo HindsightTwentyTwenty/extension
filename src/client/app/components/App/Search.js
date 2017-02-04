@@ -61,48 +61,11 @@ class Search extends Component {
     this.setState({sort_selection: event.target.value});
   }
 
-  openIframe(event){
-    this.setState({ iframehider_show: true });
-    this.setState({ iframe_show: true });
-
-    // document.getElementById('iframe-hider').fadeIn("slow");
-    // document.getElementById('iframe-modal').fadeIn("slow");
-  }
-
-  closeIframe(event){
-    this.setState({ iframehider_show: false });
-    this.setState({ iframe_show: false });
-
-  }
-
 
   render() {
-    // document.getElementById('iframe-hider').hide();
-    // document.getElementById('iframe-modal').hide();
-    //on click show the hider div and the message
-
-    // document.getElementById("showpopup").click(function () {
-    //
-    // });
-    //on click hide the message and the
-    // document.getElementById("buttonClose").click(function () {
-    //
-    //
-    // });
     return (
       <div>
-      {this.state.iframe_show ?
-          <div className="modal-test" id="iframe-modal">
-              <button id="iframe-close-button" onClick={this.closeIframe.bind(this)}>
-                CLOSE IFRAME
-              </button>
-          </div>
-      : ''}
-        {this.state.iframehider_show ?
-            <div className="hider" id="iframe-hider"></div>: ''}
-        <button id="iframe-open-button" onClick={this.openIframe.bind(this)}>
-          OPEN IFRAME
-        </button>
+
         <div id="search-container">
           <div id="search-selection-container">
             <div className="container">
