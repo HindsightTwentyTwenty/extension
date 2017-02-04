@@ -14,8 +14,17 @@ class PageUrlBar extends Component {
   }
 
   getCategories() {
-    return this.props.page.categories.map(function(category) {
-      return <div className={'url-bar-category'} key={category.title}> {category.title} </div>;
+    var _this = this;
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token); 
+    return this.props.page.categories.map(function(category){
+      return <div className={'url-bar-category'} key={category.title}>
+          {category.title}
+          <div className='url-bar-category-times' onClick={()=>{
+              _this.props.category_actions.toggleCategory(_this.props.page.url, category, false, _this.props.currentUser.token);
+            }}>
+            <i className='fa fa-times'></i>
+          </div>
+        </div>;
     });
   }
 
@@ -28,7 +37,6 @@ class PageUrlBar extends Component {
           {this.getCategories()}
           <div onClick={()=>{
             this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
-            this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
             }}>
             <i className={starred}></i>
           </div>
@@ -48,7 +56,6 @@ let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch),
   star_actions: bindActionCreators(StarActions, dispatch),
   category_actions: bindActionCreators(CategoryActions, dispatch)
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);
