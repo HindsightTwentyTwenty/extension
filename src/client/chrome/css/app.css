@@ -514,10 +514,9 @@ start-time-label .end-time-label{
 
 hr{
   margin: 0 auto;
-  margin-bottom: 10px;
-  border-color: $watermelon;
+  border-color: $watermelon-dark;
   border-width: 2px;
-  width: 99%;
+  width: 100%;
 }
 
 .add-category-btn{
@@ -525,6 +524,10 @@ hr{
   padding-bottom: 7px;
   border: 0px;
   font-size: large;
+  background: none;
+  &:hover{
+    color: $canteloupe;
+  }
 }
 
 
@@ -533,15 +536,22 @@ hr{
   margin: 5px;
   height: 35px;
   border: solid 2px $canteloupe;
-  color: $electric-blue;
+  color: $base-white;
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
+  &:hover{
+    color: $canteloupe;
+  }
 }
 
 .category-bar.checked{
   background-color: $canteloupe;
   color: $base-white;
+  &:hover{
+    background-color: $canteloupe-dark;
+    border: solid 2px $canteloupe-dark;
+  }
 }
 
 .categories-container{
@@ -567,9 +577,12 @@ hr{
 .star{
   line-height: 45px;
 }
+
 .category-entry{
-  width: 100%;
-  padding-bottom: 5px;
+  margin: 0 auto;
+  width: 97%;
+  margin-bottom: 5px;
+  background-color: $electric-blue-dark;
 }
 
 .page-title{
@@ -604,7 +617,7 @@ hr{
 }
 
 .login-error {
-  color: $banana;
+  color: $watermelon-dark;
   text-align: center;
-
+  font-weight: bold;
 }

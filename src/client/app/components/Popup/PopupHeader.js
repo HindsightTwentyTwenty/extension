@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
 class PopupHeader extends Component {
@@ -17,12 +18,20 @@ class PopupHeader extends Component {
     }
   }
 
+  logoutUser(){
+    chrome.storage.local.remove("hindsite-token");
+    this.props.user_actions.logoutUser(this.props.currentUser.token);
+    window.close();
+  }
+
   render () {
     return (
-      <div className="popup-header">
-        <img className="logo zero-margin" src="../../assets/img/logo-transparent.png"/>
-        <h3 className="popup-header-text zero-margin">hindsite</h3>
-        <button className="lookback-btn watermelon" onClick={this.openTab.bind(this)}>lookback</button>
+      <div className="electric-blue popup-header-wrapper flex-row">
+        <div className="popup-header" onMouseDown={()=>{this.openTab()}}>
+          <img className="logo header zero-margin"  src="../../assets/img/logo-light.png"/>
+          <p className="popup-header-text zero-margin">hindsite</p>
+        </div>
+        <p className="sign-out" onMouseDown={()=>{this.logoutUser()}}>Sign Out</p>
       </div>
     )
   }
@@ -33,4 +42,8 @@ let mapStateToProps = (state) => ({
     currentUser : state.currentUser
 })
 
-export default connect(mapStateToProps, null)(PopupHeader);
+let mapDispatchToProps = (dispatch) => ({
+    user_actions: bindActionCreators(UserActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopupHeader);

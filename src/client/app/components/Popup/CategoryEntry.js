@@ -20,14 +20,26 @@ class CategoryEntry extends Component {
     });
   }
 
+  keyPressed(event){
+    var keycode = event.keyCode || event.which;
+    if(keycode == '13') {
+        // var new_category = event.target.value;
+        if (this.input.value.trim() !== '') {
+          this.addNewCategory(this.input.value);
+          this.input.value = '';
+        }
+        this.props.addNewCategory(new_category);
+    }
+  }
+
   render () {
     return (
     <div className="input-group category-entry">
-      <input type="text" className=" form-control" placeholder="New Category..." ref={node => {
+      <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
         this.input = node;
       }} />
       <span className="input-group-btn">
-        <button className="btn canteloupe add-category-btn" type="button" onClick={() => {
+        <button className="btn add-category-btn" type="button" onClick={() => {
           if (this.input.value.trim() !== '') {
             this.addNewCategory(this.input.value);
             this.input.value = '';

@@ -31,14 +31,12 @@ class Popup extends Component {
 				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
-		          <PopupHeader/>
 		          <PopupBody/>
 		        </div>
 		      );
 				case PopupConstants.NoContent:
 					return (
 						<div>
-							<PopupHeader/>
 							<NoContent/>
 						</div>
 					);
