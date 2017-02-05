@@ -55,7 +55,7 @@ class LoginPage extends Component {
 				<h2 className="popup-header-text">hindsite</h2>
 				<div className="login-error"> {this.props.currentUser.invalid_login ? 'Invalid Username or Password' : ''}</div>
 				<div className = 'popup-form-group'>
-					<input type="email" className="popup-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
+					<input type="email" autoComplete="off" className="popup-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
 	        <input type="password" className="popup-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} />
 				</div>
 				<div className ="popup-button-group">
