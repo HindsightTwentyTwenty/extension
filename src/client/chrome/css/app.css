@@ -515,7 +515,7 @@ start-time-label .end-time-label{
 hr{
   margin: 0 auto;
   margin-bottom: 10px;
-  border-color: $banana;
+  border-color: $watermelon;
   border-width: 2px;
   width: 99%;
 }
@@ -553,8 +553,15 @@ hr{
 .star-div{
   height:45px;
   width: 45px;
-  color: $banana;
+  color: $base-white;
   margin-left: 1%;
+  &:hover{
+    color: $banana;
+  }
+}
+
+.starred{
+  color: $banana;
 }
 
 .star{

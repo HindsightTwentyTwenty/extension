@@ -20,7 +20,8 @@ class PopupHeader extends Component {
   render () {
     return (
       <div className="popup-header">
-        <h1 className="popup-header-text">hindsite</h1>
+        <img className="logo zero-margin" src="../../assets/img/logo-transparent.png"/>
+        <h3 className="popup-header-text zero-margin">hindsite</h3>
         <button className="lookback-btn watermelon" onClick={this.openTab.bind(this)}>lookback</button>
       </div>
     )
