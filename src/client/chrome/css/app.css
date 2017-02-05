@@ -64,10 +64,20 @@ body {
   height: 30px;
   border-radius: 2px;
   margin: 5px;
+  display: inline;
   line-height: 30px;
 }
 
-.url {
+.url-bar-category-times {
+  display: inline;
+  position: relative;
+  padding-left: 10px;
+}
+.url-bar-category-times:hover{
+  color: $watermelon;
+}
+
+.url{
   color: $base-white;
   white-space: nowrap;
   overflow: hidden;
