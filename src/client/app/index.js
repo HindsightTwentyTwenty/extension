@@ -56,6 +56,10 @@ let store = createStore(
     lookbackNav: {
       selection: 0,
       searchTerm: ""
+    },
+    search: {
+      results: [],
+      dom: ""
     }
   },
   applyMiddleware(

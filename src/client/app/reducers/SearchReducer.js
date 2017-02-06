@@ -7,6 +7,7 @@ function searchReducer(state = {results: [], dom: ""}, action){
     case types.SEARCH_RESULTS:
       return { ...state, results:action.search_results}
     case types.SET_CURR_DOM:
+      console.log("SETTING DOM");
       return {...state, dom:action.dom}
     default:
         return state;

@@ -66,7 +66,7 @@ export function domReturned(json){
   console.log("json for dom:", json);
   return{
     type: types.SET_CURR_DOM,
-    dom: json
+    dom: json['html']
 
   }
 }

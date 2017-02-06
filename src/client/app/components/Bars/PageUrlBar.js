@@ -37,8 +37,11 @@ class PageUrlBar extends Component {
 
   openIframe(event){
     this.getDOM();
-    this.setState({ iframehider_show: true });
-    this.setState({ iframe_show: true });
+    // if(this.props.search.dom){
+      console.log("search item ish", this.props.search_items);
+      this.setState({ iframehider_show: true });
+      this.setState({ iframe_show: true });
+    // }
   }
 
   closeIframe(event){
@@ -48,6 +51,10 @@ class PageUrlBar extends Component {
   }
 
   render() {
+    // <iframe className="m-iframe" src={this.props.page.url}></iframe>
+    //                <iframe className="m-iframe" srcdoc={this.props.search_items.dom}></iframe>
+
+
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories' : 'fa fa-star-o fa-2x star-categories';
     return (
       <div className={'url-bar'}>
@@ -81,6 +88,7 @@ class PageUrlBar extends Component {
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
     currentPage : state.currentPage,
+    search_items: state.search
 
 })
 
