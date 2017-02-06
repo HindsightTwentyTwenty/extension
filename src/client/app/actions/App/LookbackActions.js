@@ -118,7 +118,7 @@ export function getDomain(pk, token){
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: JSON.stringify({pk: pk})
+           body: JSON.stringify({"pk": pk})
          }
        )
       .then(response => response.json())
