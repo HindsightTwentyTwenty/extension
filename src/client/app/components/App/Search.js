@@ -45,7 +45,7 @@ class Search extends Component {
   searchResults(){
     if(this.props.search.results){
       return this.props.search.results.map(function(result) {
-        return <PageUrlBar key={result.page.title} page={result.page}/>
+        return <PageUrlBar key={result.page.title} page={result.page} vist_pk={result.pk}/>
       });
     } else {
       console.log("loading");

@@ -19,7 +19,6 @@ class PageUrlBar extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-    // console.log("THIS PAGE: ", this.props);
 
   }
 
@@ -29,7 +28,15 @@ class PageUrlBar extends Component {
     });
   }
 
+  getDOM(){
+    console.log("token:", this.props.currentUser.token);
+    console.log("props:", this.props);
+
+    this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token);
+  }
+
   openIframe(event){
+    this.getDOM();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
   }
