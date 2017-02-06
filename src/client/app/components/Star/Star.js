@@ -11,11 +11,11 @@ class Star extends Component {
   }
 
   render () {
-    var starred = this.props.currentPage.star ? 'fa fa-star fa-2x star' : 'fa fa-star-o fa-2x star';
+    var starred = this.props.currentPage.star ? 'fa fa-star fa-2x star starred' : 'fa fa-star-o fa-2x star unstarred';
     var classname = classNames('star-div', this.props.className);
     return (
       <div className={classname}>
-        <i className={starred} id='starred'
+        <i className={starred}
           onClick={() => {
             this.props.star_actions.toggleStar(this.props.currentPage, this.props.currentUser.token);
           }}

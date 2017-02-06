@@ -51,12 +51,12 @@ class LoginPage extends Component {
 		var emailplaceholder = <div><i class="fa fa-envelope-o" aria-hidden="true"></i><p>email</p></div>
     return (
       <div className="popup-main-form electric-blue">
-				<img className="logo" src="../../assets/img/logo-transparent.png"/>
+				<img className="logo" src="../../assets/img/logo-light.png" onMouseDown={()=>{window.close()}}/>
 				<h2 className="popup-header-text">hindsite</h2>
 				<div className="login-error"> {this.props.currentUser.invalid_login ? 'Invalid Username or Password' : ''}</div>
 				<div className = 'popup-form-group'>
-					<input type="email" className="popup-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
-	        <input type="password" className="popup-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} />
+					<input type="email" autoComplete="off" className="login-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
+	        <input type="password" className="login-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} />
 				</div>
 				<div className ="popup-button-group">
 				<button className="btn popup-main-btn watermelon" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>

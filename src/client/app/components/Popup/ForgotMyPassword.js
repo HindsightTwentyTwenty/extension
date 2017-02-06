@@ -22,11 +22,11 @@ class ForgotMyPassword extends Component {
   render() {
     return (
       <div className="popup-main-form electric-blue">
-        <img className="logo" src="../../assets/img/logo-transparent.png"/>
+        <img className="logo" src="../../assets/img/logo-light.png"/>
         <h2 className="popup-header-text">Forgot Password?</h2>
         <p className="forgot-password-text">Enter your email below to receive password reset instructions.</p>
 				<div className = 'popup-form-group'>
-          <input type="text" className="popup-form form-control" placeholder="&#xf003;  email address" ref={node => {this.input = node;}} />
+          <input type="text" className="login-form form-control" placeholder="&#xf003;  email address" ref={node => {this.input = node;}} />
         </div>
 				<div className ="popup-button-group">
           <button className="btn popup-main-btn watermelon" type="button" onClick={() => {

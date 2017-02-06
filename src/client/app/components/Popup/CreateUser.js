@@ -103,17 +103,17 @@ class CreateUser extends Component {
   render () {
     return (
 			<div className="popup-main-form electric-blue">
-				<img className="logo" src="../../assets/img/logo-transparent.png"/>
-        <h2>Create Account</h2>
+				<img className="logo" src="../../assets/img/logo-light.png"/>
+        <h2 className="popup-header-text">Create Account</h2>
 				<div className="login-error" id="main-error">{this.state ? this.state.main_error_message : ''}</div>
-				<div className = 'popup-form-group'>
-					<input type="text" className="popup-form form-control" id="first_name" placeholder="&#xf007; first name" onChange={this.updateField.bind(this)} />
-					<input type="text" className="popup-form form-control" id="last_name" placeholder="&#xf007; last name" onChange={this.updateField.bind(this)} />
+				<div className = 'login-form-group'>
+					<input type="text" className="login-form form-control" id="first_name" placeholder="&#xf007; first name" onChange={this.updateField.bind(this)} />
+					<input type="text" className="login-form form-control" id="last_name" placeholder="&#xf007; last name" onChange={this.updateField.bind(this)} />
 					<div className="login-error" id="email-error">{this.state? this.state.email_error_message : ''}</div>
-					<input type="email" className="popup-form form-control" id="email" placeholder="&#xf003; email" onChange={this.updateField.bind(this)} />
+					<input type="email" className="login-form form-control" id="email" placeholder="&#xf003; email" onChange={this.updateField.bind(this)} />
 					<div className="login-error" id="password-error">{this.state? this.state.pass_error_message : ''}</div>
-					<input type="password" className="popup-form form-control" id="password_1" placeholder="&#xf13e; password" onChange={this.updateField.bind(this)} />
-					<input type="password" className="popup-form form-control" id="password_2" placeholder="&#xf13e; confirm password" onChange={this.updateField.bind(this)} />
+					<input type="password" className="login-form form-control" id="password_1" placeholder="&#xf13e; password" onChange={this.updateField.bind(this)} />
+					<input type="password" className="login-form form-control" id="password_2" placeholder="&#xf13e; confirm password" onChange={this.updateField.bind(this)} />
         </div>
 				<div className ="popup-button-group">
           <button className="btn popup-main-btn watermelon" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>

@@ -7,6 +7,8 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
 import CategoriesContainer from './CategoriesContainer';
+import PopupHeader from './PopupHeader.js';
+
 
 class PopupBody extends Component {
   constructor(props) {
@@ -20,12 +22,13 @@ class PopupBody extends Component {
         categories = <CategoriesContainer/>;
       }
       return (
-        <div className="container popup-body">
+        <div className="container popup-body electric-blue">
+          <PopupHeader/>
+          <hr/>
           <div className='popup-page-title'>
-            <h3 className="hide-overflow">{this.props.currentPage.title}</h3>
+            <p className="hide-overflow">{this.props.currentPage.title}</p>
             <Star/>
           </div>
-          <hr/>
           <div className="popup-main-form">
             <CategoryEntry/>
             {categories}
