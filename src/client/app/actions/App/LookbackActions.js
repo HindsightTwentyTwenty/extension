@@ -63,11 +63,16 @@ export function toggleDomainClicked() {
 }
 
 export function domReturned(json){
-  console.log("json for dom:", json);
   return{
     type: types.SET_CURR_DOM,
     dom: json['html']
+  }
+}
 
+export function clearDOM(){
+  return{
+    type: types.SET_CURR_DOM,
+    dom: ""
   }
 }
 
