@@ -23,22 +23,6 @@ class PageUrlBar extends Component {
     this.catsAndPages = null;
   }
 
-  getCategories() {
-    var _this = this;
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
-    return this.props.page.categories.map(function(category){
-      return <div className={'url-bar-category'} key={category.title}>
-          {category.title}
-          <div className='url-bar-category-times' onClick={()=>{
-              _this.props.category_actions.toggleCategory(_this.props.page.url, category, false, _this.props.currentUser.token);
-            }}>
-            <i className='fa fa-times'></i>
-            </div>
-          </div>;
-      });
-    }
-  }
-
   getDOM(){
     this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token);
   }
@@ -70,7 +54,6 @@ class PageUrlBar extends Component {
         {(this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''}
         <a className={'url'} target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
         <div className='url-categories'>
-          {this.getCategories()}
           <div onClick={()=>{
             this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
             }}>
