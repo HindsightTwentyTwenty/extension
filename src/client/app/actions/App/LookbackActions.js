@@ -5,6 +5,7 @@ import * as NavActions from '../LookBackNav/LookBackNavActions.js'
 import * as LookBackSections from '../../constants/LookBackConstants.js'
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
+const domEndpoint = urls.BASE_URL + "gethtml/";
 const searchEnpoint = urls.BASE_URL + "search/";
 
 // TODO: date specifc GET requests
@@ -49,8 +50,6 @@ export function updateDisplayDomain(json, clicked) {
 }
 
 export function searchResultsReturned(json) {
-  console.log("results", json
-  )
   return {
     type: types.SEARCH_RESULTS,
     search_results: json,
@@ -60,6 +59,15 @@ export function searchResultsReturned(json) {
 export function toggleDomainClicked() {
   return {
     type: types.TOGGLE_DOMAIN_CLICKED
+  }
+}
+
+export function domReturned(json){
+  console.log("json for dom:", json);
+  return{
+    type: types.SET_CURR_DOM,
+    dom: json['html']
+
   }
 }
 
@@ -83,6 +91,23 @@ export function searchTerm(search_term, token){
   }
 }
 
+export function getDOM(pk, token){
+  return dispatch => {
+    return fetch(domEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token
+           },
+           method: "POST",
+           body: JSON.stringify({"pk": pk})
+         }
+       )
+      .then(response => response.json())
+      .then(json => dispatch(domReturned(json)))
+  }
+}
+
 
 export function getDomain(pk, token){
   return dispatch => {
@@ -93,7 +118,7 @@ export function getDomain(pk, token){
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: JSON.stringify({pk: pk})
+           body: JSON.stringify({"pk": pk})
          }
        )
       .then(response => response.json())
