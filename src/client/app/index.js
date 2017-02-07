@@ -6,6 +6,7 @@ import rootReducer from './reducers/rootReducer';
 import thunkMiddleware from 'redux-thunk'
 
 import * as PopupConstants from './constants/PopupConstants.js'
+import * as GlobalConstants from './constants/GlobalConstants.js'
 
 import { Router, hashHistory, browserHistory } from 'react-router';
 import routes from './routes';
@@ -21,6 +22,8 @@ let store = createStore(
     },
     categories: {
       cats: [],
+      editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
+      showColorPicker: false,
       editCategory: "",
       newCategoryName: ""
     },

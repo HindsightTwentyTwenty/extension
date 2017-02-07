@@ -13,12 +13,10 @@ function getState() {
     sort_selection: SearchConstants.Relevance,
     iframe_show:false,
     iframehider_show:false
-
   }
 }
 
 class Search extends Component {
-
 
   constructor(props) {
     super(props);
@@ -48,7 +46,6 @@ class Search extends Component {
         return <PageUrlBar key={result.page.title} page={result.page} visit_pk={result.pk}/>
       });
     } else {
-      console.log("loading");
       return <div>LOADING</div>
     }
   }

@@ -123,6 +123,15 @@ export function toggleSearchSelector() {
   }
 }
 
+export function toggleColorPicker(show) {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_COLOR_PICKER,
+      showColorPicker: show
+    })
+  }
+}
+
 export function clearSearchCategories() {
   return dispatch => {
     dispatch({

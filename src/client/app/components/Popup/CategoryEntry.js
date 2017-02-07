@@ -2,12 +2,24 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
 class CategoryEntry extends Component {
+  constructor(props) {
+    super(props);
+    this.editColor = GlobalConstants.DEFAULT_CAT_COLOR; //canteloupe
+    this.categoryColors = [
+     {name:'canteloupe', code:'#F8A055'},
+     {name:'banana', code:'#FFDB5C'},
+     {name:'lime', code: '#77F200'},
+     {name:'watermelon', code:'#FA6E59'}
+   ];
+  }
+
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(categoryTitle, this.props.currentUser.token).then(() => {
+      this.props.popup_actions.pushCategory(categoryTitle, this.editColor, this.props.currentUser.token).then(() => {
         var categoryObject;
         var categories = this.props.categories.cats;
         for(var i = categories.length-1; i >= 0; i--){
@@ -23,7 +35,6 @@ class CategoryEntry extends Component {
   keyPressed(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
-        // var new_category = event.target.value;
         if (this.input.value.trim() !== '') {
           this.addNewCategory(this.input.value);
           this.input.value = '';
@@ -32,20 +43,53 @@ class CategoryEntry extends Component {
     }
   }
 
+  changeEditColor(color) {
+    this.editColor = color;
+    this.props.category_actions.toggleColorPicker(false);
+  }
+
+  getColors() {
+    var showPicker = this.props.categories.showColorPicker;
+    if(showPicker){
+      return this.categoryColors.map((color) => {
+        var className = 'color-square ' + color.name;
+        return <div className={className} onClick={this.changeEditColor.bind(this, color.code)} key={color.name}></div>
+      });
+    } else {
+      return this.categoryColors.map((color) => {
+        var className = 'color-square ' + color.name;
+        if(color.code != this.editColor) {
+          className += ' hide';
+        }
+        return <div className={className} onClick={this.toggleColorPicker.bind(this, !showPicker)}
+          key={color.name}></div>
+      });
+    }
+  }
+
+  toggleColorPicker(showPicker){
+    this.props.category_actions.toggleColorPicker(showPicker);
+  }
+
   render () {
     return (
-    <div className="input-group category-entry">
-      <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
-        this.input = node;
-      }} />
-      <span className="input-group-btn">
-        <button className="btn add-category-btn" type="button" onClick={() => {
-          if (this.input.value.trim() !== '') {
-            this.addNewCategory(this.input.value);
-            this.input.value = '';
-          }
-        }}><i className="fa fa-plus" aria-hidden="true"></i></button>
-      </span>
+    <div className="create-category-bar">
+      <div className="dropdown-colors">
+        {this.getColors()}
+      </div>
+      <div className="input-group popup-category-entry">
+        <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
+          this.input = node;
+        }} />
+        <span className="input-group-btn">
+          <button className="btn add-category-btn" type="button" onClick={() => {
+            if (this.input.value.trim() !== '') {
+              this.addNewCategory(this.input.value);
+              this.input.value = '';
+            }
+          }}><i className="fa fa-plus" aria-hidden="true"></i></button>
+        </span>
+      </div>
     </div>
     )
   }
