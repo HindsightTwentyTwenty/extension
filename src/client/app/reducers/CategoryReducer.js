@@ -7,7 +7,7 @@ function categoryReducer(state = {cats: [], editCatColor: GlobalConstants.DEFAUL
     case types.UPDATE_CATEGORY_EDIT_FIELD:
       return {...state, newCategoryName: action.categoryTitle}
     case types.TOGGLE_COLOR_PICKER:
-      return {...state, showColorPicker: true}
+      return {...state, showColorPicker: action.showColorPicker}
     case types.TOGGLE_EDIT_CATEGORY:
       return {...state, editCategory: action.editCategory}
     case types.UPDATE_CATEGORY_TITLE:

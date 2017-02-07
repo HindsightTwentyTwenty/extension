@@ -12,9 +12,9 @@ class CategoryEntry extends Component {
     this.editColor = GlobalConstants.DEFAULT_CAT_COLOR; //canteloupe
     this.categoryColors = [
      {name:'canteloupe', code:'#F8A055'},
-     {name:'banana', code:''},
-     {name:'electric-blue', code:''},
-     {name:'watermelon', code:''}
+     {name:'banana', code:'#FFDB5C'},
+     {name:'electric-blue', code:'#4897D8'},
+     {name:'watermelon', code:'#FA6E59'}
    ];
   }
 
@@ -43,35 +43,32 @@ class CategoryEntry extends Component {
     }
   }
 
-  componentDidMount() {
-      this.mounted = true;
-  }
-
-  componentWillUnmount() {
-      this.mounted = false;
-  }
-
-  changeEditColor() {
-    this.editColor = "#FAFAFA";
+  changeEditColor(color) {
+    this.editColor = color;
+    this.props.category_actions.toggleColorPicker(false);
   }
 
   getColors() {
-    if (this.mounted) {
-      if(this.props.categories.showColorPicker){
-        return this.categoryColors.map((color) => {
-          var className = 'color-square ' + color.name;
-          return <div className={className} onClick={this.changeEditColor.bind(this)} key={color.name}></div>
-        });
-      } else {
-        return this.categoryColors.map((color) => {
-          var className = 'color-square ' + color.name;
-          if(color.code != this.editColor) {
-            className += ' hide';
-          }
-          return <div className={className} onClick={this.props.category_actions.toggleColorPicker()} key={color.name}></div>
-        });
-      }
+    var showPicker = this.props.categories.showColorPicker;
+    if(showPicker){
+      return this.categoryColors.map((color) => {
+        var className = 'color-square ' + color.name;
+        return <div className={className} onClick={this.changeEditColor.bind(this, color.code)} key={color.name}></div>
+      });
+    } else {
+      return this.categoryColors.map((color) => {
+        var className = 'color-square ' + color.name;
+        if(color.code != this.editColor) {
+          className += ' hide';
+        }
+        return <div className={className} onClick={this.toggleColorPicker.bind(this, !showPicker)}
+          key={color.name}></div>
+      });
     }
+  }
+
+  toggleColorPicker(showPicker){
+    this.props.category_actions.toggleColorPicker(showPicker);
   }
 
   render () {
