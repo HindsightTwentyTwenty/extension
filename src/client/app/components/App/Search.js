@@ -13,7 +13,6 @@ function getState() {
     sort_selection: SearchConstants.Relevance,
     iframe_show:false,
     iframehider_show:false
-
   }
 }
 

@@ -21,6 +21,7 @@ let store = createStore(
     },
     categories: {
       cats: [],
+      editCatColor: "#F8A055",
       editCategory: "",
       newCategoryName: ""
     },

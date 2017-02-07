@@ -23,7 +23,6 @@ class CategoryEntry extends Component {
   keyPressed(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
-        // var new_category = event.target.value;
         if (this.input.value.trim() !== '') {
           this.addNewCategory(this.input.value);
           this.input.value = '';
@@ -32,20 +31,32 @@ class CategoryEntry extends Component {
     }
   }
 
+  getColors() {
+    var categoryColors = [ 'canteloupe', 'banana', 'electric-blue', 'watermelon'];
+    return categoryColors.map(function(color) {
+      return <div className={'hide'} key={color}> {color} </div>
+    });
+  }
+
   render () {
     return (
-    <div className="input-group category-entry">
-      <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
-        this.input = node;
-      }} />
-      <span className="input-group-btn">
-        <button className="btn add-category-btn" type="button" onClick={() => {
-          if (this.input.value.trim() !== '') {
-            this.addNewCategory(this.input.value);
-            this.input.value = '';
-          }
-        }}><i className="fa fa-plus" aria-hidden="true"></i></button>
-      </span>
+    <div className="create-category-bar">
+      <div className="dropdown-colors">
+        {this.getColors()}
+      </div>
+      <div className="input-group popup-category-entry">
+        <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
+          this.input = node;
+        }} />
+        <span className="input-group-btn">
+          <button className="btn add-category-btn" type="button" onClick={() => {
+            if (this.input.value.trim() !== '') {
+              this.addNewCategory(this.input.value);
+              this.input.value = '';
+            }
+          }}><i className="fa fa-plus" aria-hidden="true"></i></button>
+        </span>
+      </div>
     </div>
     )
   }
