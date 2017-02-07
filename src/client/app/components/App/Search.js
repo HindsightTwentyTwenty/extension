@@ -18,7 +18,6 @@ function getState() {
 
 class Search extends Component {
 
-
   constructor(props) {
     super(props);
     this.state = getState();
@@ -47,7 +46,6 @@ class Search extends Component {
         return <PageUrlBar key={result.page.title} page={result.page} visit_pk={result.pk}/>
       });
     } else {
-      console.log("loading");
       return <div>LOADING</div>
     }
   }

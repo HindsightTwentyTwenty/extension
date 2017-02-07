@@ -6,6 +6,18 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
 class CategoryEntry extends Component {
+  constructor(props) {
+    super(props);
+    this.isEditingColor = false;
+    this.defaultColor = '#F8A055'; //canteloupe
+    this.categoryColors = [
+     {name:'canteloupe', code:'#F8A055'},
+     {name:'banana', code:''},
+     {name:'electric-blue', code:''},
+     {name:'watermelon', code:''}
+   ];
+  }
+
   addNewCategory(categoryTitle){
       this.props.popup_actions.pushCategory(categoryTitle, this.props.currentUser.token).then(() => {
         var categoryObject;
@@ -31,11 +43,31 @@ class CategoryEntry extends Component {
     }
   }
 
+  componentDidMount() {
+      this.mounted = true;
+      console.log("Mounted");
+  }
+
+  componentWillUnmount() {
+      this.mounted = false;
+  }
+
   getColors() {
-    var categoryColors = [ 'canteloupe', 'banana', 'electric-blue', 'watermelon'];
-    return categoryColors.map(function(color) {
-      return <div className={'hide'} key={color}> {color} </div>
-    });
+    if (this.mounted) {
+     return this.categoryColors.map((color) => {
+       var className = 'color-square ' + color.name;
+       if(color.code != this.defaultColor) {
+         className += ' hide';
+       }
+       return <div className={className} onClick={this.toggleEditState.bind(this)} key={color.name}></div>
+     });
+    }
+  }
+
+  toggleEditState() {
+    if (this.mounted) {
+      this.isEditingColor = !this.isEditingColor;
+    }
   }
 
   render () {

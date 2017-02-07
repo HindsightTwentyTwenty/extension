@@ -217,16 +217,22 @@ $canteloupe-dark: #F68828;
 .dropdown-colors {
   width: 40px;
   height: 40px;
-  background-color: $base-white;
+  background-color: $electric-blue-dark;
 }
 
 .create-category-bar {
   display: flex;
 }
 
-.popup-category-entry{
+.popup-category-entry {
   margin: 0 auto;
   width: 89%;
   margin-bottom: 5px;
   background-color: $electric-blue-dark;
+}
+
+.color-square {
+  width: 25px;
+  height: 25px;
+  margin: 7px auto;
 }
