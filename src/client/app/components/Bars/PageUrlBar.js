@@ -19,51 +19,46 @@ class PageUrlBar extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
+    this.firstFetch = true;
+    this.catsAndPages = null;
   }
 
   getCategories() {
     var _this = this;
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token); 
-    return this.props.page.categories.map(function(category){
-      return <div className={'url-bar-category'} key={category.title}>
-          {category.title}
-          <div className='url-bar-category-times' onClick={()=>{
-              _this.props.category_actions.toggleCategory(_this.props.page.url, category, false, _this.props.currentUser.token);
-            }}>
+    if (this.firstFetch) {
+      this.firstFetch = false;
+      this.catsAndPages = this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+    }
+    if (this.catsAndPages) {
+      return this.catsAndPages.map(function(category){
+        return <div className={'url-bar-category'} key={category.title}>
+            {category.title}
+            <div className='url-bar-category-times' onClick={()=>{
+                _this.props.category_actions.toggleCategory(_this.props.page.url, category, false, _this.props.currentUser.token);
+              }}>
             <i className='fa fa-times'></i>
-          </div>
-        </div>;
-    });
+            </div>
+          </div>;
+      });
+    }
   }
 
   getDOM(){
-    console.log("token:", this.props.currentUser.token);
-    console.log("props:", this.props);
-
     this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token);
   }
 
   openIframe(event){
     this.getDOM();
-    // if(this.props.search.dom){
-      console.log("search item ish", this.props.search_items);
-      this.setState({ iframehider_show: true });
-      this.setState({ iframe_show: true });
-    // }
+    this.setState({ iframehider_show: true });
+    this.setState({ iframe_show: true });
   }
 
   closeIframe(event){
     this.setState({ iframehider_show: false });
     this.setState({ iframe_show: false });
-
   }
 
   render() {
-    // <iframe className="m-iframe" src={this.props.page.url}></iframe>
-    //                <iframe className="m-iframe" srcdoc={this.props.search_items.dom}></iframe>
-
-
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories' : 'fa fa-star-o fa-2x star-categories';
     return (
       <div className={'url-bar'}>

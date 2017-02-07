@@ -13,13 +13,13 @@ class CategoryEntry extends Component {
     this.categoryColors = [
      {name:'canteloupe', code:'#F8A055'},
      {name:'banana', code:'#FFDB5C'},
-     {name:'electric-blue', code:'#4897D8'},
+     {name:'lime', code: '#77F200'},
      {name:'watermelon', code:'#FA6E59'}
    ];
   }
 
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(categoryTitle, this.props.currentUser.token).then(() => {
+      this.props.popup_actions.pushCategory(categoryTitle, this.editColor, this.props.currentUser.token).then(() => {
         var categoryObject;
         var categories = this.props.categories.cats;
         for(var i = categories.length-1; i >= 0; i--){
