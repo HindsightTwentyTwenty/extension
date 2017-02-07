@@ -2,14 +2,14 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
 class CategoryEntry extends Component {
   constructor(props) {
     super(props);
-    this.isEditingColor = false;
-    this.defaultColor = '#F8A055'; //canteloupe
+    this.editColor = GlobalConstants.DEFAULT_CAT_COLOR; //canteloupe
     this.categoryColors = [
      {name:'canteloupe', code:'#F8A055'},
      {name:'banana', code:''},
@@ -45,28 +45,32 @@ class CategoryEntry extends Component {
 
   componentDidMount() {
       this.mounted = true;
-      console.log("Mounted");
   }
 
   componentWillUnmount() {
       this.mounted = false;
   }
 
-  getColors() {
-    if (this.mounted) {
-     return this.categoryColors.map((color) => {
-       var className = 'color-square ' + color.name;
-       if(color.code != this.defaultColor) {
-         className += ' hide';
-       }
-       return <div className={className} onClick={this.toggleEditState.bind(this)} key={color.name}></div>
-     });
-    }
+  changeEditColor() {
+    this.editColor = "#FAFAFA";
   }
 
-  toggleEditState() {
+  getColors() {
     if (this.mounted) {
-      this.isEditingColor = !this.isEditingColor;
+      if(this.props.categories.showColorPicker){
+        return this.categoryColors.map((color) => {
+          var className = 'color-square ' + color.name;
+          return <div className={className} onClick={this.changeEditColor.bind(this)} key={color.name}></div>
+        });
+      } else {
+        return this.categoryColors.map((color) => {
+          var className = 'color-square ' + color.name;
+          if(color.code != this.editColor) {
+            className += ' hide';
+          }
+          return <div className={className} onClick={this.props.category_actions.toggleColorPicker()} key={color.name}></div>
+        });
+      }
     }
   }
 

@@ -232,6 +232,7 @@ $canteloupe-dark: #F68828;
 }
 
 .color-square {
+  z-index: 1;
   width: 25px;
   height: 25px;
   margin: 7px auto;

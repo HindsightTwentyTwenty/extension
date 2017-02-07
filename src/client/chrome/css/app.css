@@ -1,4 +1,5 @@
 $banana: #FFDB5C;
+$banana-dark: #F9D34A;
 $electric-blue: #4897D8;
 $electric-blue-dark: #2B82CA;
 $light-blue: #dbedfc;
@@ -499,7 +500,6 @@ start-time-label .end-time-label{
   color: white;
   &:hover {
     background-color: $watermelon-dark;
-    color: white;
   }
 }
 
@@ -508,7 +508,22 @@ start-time-label .end-time-label{
   color: white;
   &:hover {
     background-color: $canteloupe-dark;
-    color: white;
+  }
+}
+
+.banana {
+  background-color: $banana;
+  color: white;
+  &:hover {
+    background-color: $banana-dark;
+  }
+}
+
+.electric-blue {
+  background-color: $electric-blue;
+  color: white;
+  &:hover {
+    background-color: $electric-blue-dark;
   }
 }
 
