@@ -6,7 +6,7 @@ import * as LookBackSections from '../../constants/LookBackConstants.js'
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
 const domEndpoint = urls.BASE_URL + "gethtml/";
-const searchEnpoint = urls.BASE_URL + "search/";
+const searchEndpoint = urls.BASE_URL + "search/";
 
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
@@ -71,18 +71,21 @@ export function domReturned(json){
   }
 }
 
-export function searchTerm(search_term, token){
+export function searchTerm(search_term, start_time, end_time, token){
+  console.log("token", token);
+  console.log("start_time in search", start_time.substring(0,start_time.lastIndexOf("-")));
+  console.log("end_time n search", end_time);
   return dispatch => {
     return [
       dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
-      fetch(searchEnpoint, {
+      fetch(searchEndpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: JSON.stringify({"query": search_term})
+           body: JSON.stringify({"query": search_term, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))})
          }
        )
       .then(response => response.json())

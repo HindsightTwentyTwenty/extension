@@ -11,8 +11,8 @@ import moment from 'moment';
 
 const dateRanges = {
   'Anytime': [moment().subtract(2, 'year'), moment()],
-  'Today': [moment(), moment()],
-  'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+  'Today': [moment().subtract(1, 'days'), moment()],
+  'Yesterday': [moment().subtract(2, 'days'), moment().subtract(1, 'days')],
   'Past Week': [moment().subtract(7, 'days'), moment()],
   'Past Month': [moment().subtract(1, 'month'), moment()],
   'Past Year': [moment().subtract(1, 'year'), moment()]
@@ -21,8 +21,8 @@ const dateRanges = {
 
 function getState() {
   return {
-    start_date:{},
-    end_date: {},
+    start_date: moment().subtract(2, 'year'),
+    end_date: moment(),
     date_message: "Select Date Range",
     category_selection: 0,
     sort_selection: SearchConstants.Relevance,
@@ -47,7 +47,7 @@ class Search extends Component {
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
-      this.props.lookback_actions.searchTerm(search_term, this.props.currentUser.token);
+      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).format(), moment(this.state.end_date).format(), this.props.currentUser.token);
     }
   }
 
