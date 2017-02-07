@@ -618,9 +618,21 @@ hr{
 }
 
 .search-select-dropdown {
+  margin: 1px 19px;
+}
+
+#search-date-select-dropdown{
   margin: 0 20px;
   float: left;
 }
+#date-select-text{
+  border-width: 1px;
+  border-radius: 5px;
+  border: gray;
+  border-style: solid;
+  padding: 2px 1px;
+}
+
 
 .advanced-search-bar {
   width:100%;

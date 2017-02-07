@@ -18,7 +18,7 @@ class LookBackNavBar extends Component {
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
         var search_term = event.target.value;
-        this.props.lookback_actions.searchTerm(search_term, moment().subtract(2, 'year').format(), moment().format(), this.props.currentUser.token);
+        this.props.lookback_actions.searchTermNav(search_term, this.props.currentUser.token);
     }
   }
 

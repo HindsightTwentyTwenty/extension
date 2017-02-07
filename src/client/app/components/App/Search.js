@@ -24,7 +24,7 @@ function getState() {
     start_date: moment().subtract(2, 'year'),
     end_date: moment(),
     date_message: "Select Date Range",
-    category_selection: 0,
+    category_selection: "",
     sort_selection: SearchConstants.Relevance,
     iframe_show:false,
     iframehider_show:false
@@ -40,6 +40,7 @@ class Search extends Component {
     this.state = getState();
 
     this.handleTimeEvent = this.handleTimeEvent.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
   }
 
@@ -47,7 +48,10 @@ class Search extends Component {
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
-      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).format(), moment(this.state.end_date).format(), this.props.currentUser.token);
+      if(!this.state.category_selection){
+        console.log("empty stirng");
+      }
+      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).format(), moment(this.state.end_date).format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
     }
   }
 
@@ -68,16 +72,12 @@ class Search extends Component {
     }
   }
 
-  handleTimeChange(event) {
-    this.setState({time_selection: event.target.value});
+  handleCategoryChange(event) {
+    console.log("cat on change", event.target.value);
+    this.setState({category_selection: event.target.value});
   }
 
   handleTimeEvent(event, picker) {
-    console.log("event", event);
-    console.log("picker", picker);
-    console.log("startDate", moment(picker.startDate).format("MMM Do YY"));
-    console.log("startDate", moment(picker.startDate).format());
-    console.log("startDate", picker.startDate);
     this.setState({start_date: picker.startDate});
     this.setState({end_date: picker.endDate});
     this.setState({date_message: moment(this.state.start_date).format("MMM Do YY") + " - " + moment(this.state.end_date).format("MMM Do YY")});
@@ -93,7 +93,6 @@ class Search extends Component {
 
     return (
       <div>
-
         <div id="search-container">
           <div id="search-selection-container">
             <div className="container">
@@ -103,21 +102,26 @@ class Search extends Component {
                 </div>
               </div>
             </div>
-            <div className="container">
-              <div className="row">
-                <div id="search-selection-container" className="col-xs-10 col-xs-offset-1">
-                <DateRangePicker className="search-select-dropdown" onApply={this.handleTimeEvent} timePicker={true} startDate={moment()} endDate={moment()} ranges={dateRanges}>
-                                <div>{this.state.date_message}</div>
-                            </DateRangePicker>
-                  <select id="category-selection" name="category-selection" className="search-select-dropdown">
-                    <option defaultValue="">Any Category</option>
-                    { this.getCategories() }
-                  </select>
-                  <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange}>
-                    <option value={SearchConstants.Relevance}>Sort by Relevance</option>
-                    <option value={SearchConstants.Date}>Sort by Date</option>
-                    <option value={SearchConstants.Time_Spent}>Sort by Time Spent</option>
-                  </select>
+            <div id="search-selection-container" className="container">
+              <div className="col-xs-10 col-xs-offset-1">
+                <div className="row">
+                  <div className="col-xs-4">
+                    <DateRangePicker id="search-date-select-dropdown" onApply={this.handleTimeEvent} timePicker={true} startDate={moment()} endDate={moment()} ranges={dateRanges}>
+                      <div id="date-select-text">{this.state.date_message}</div>
+                    </DateRangePicker>
+                  </div>
+                  <div className="col-xs-4">
+                    <select id="category-selection" name="category-selection" className="search-select-dropdown" onChange={this.handleCategoryChange}>
+                      <option value="" >Any Category</option>
+                      { this.getCategories() }
+                    </select>
+                  </div>
+                  <div className="col-xs-4">
+                    <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange}>
+                      <option value={SearchConstants.Relevance}>Sort by Relevance</option>
+                      <option value={SearchConstants.Date}>Sort by Date</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
