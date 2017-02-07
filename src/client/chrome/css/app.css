@@ -1,3 +1,5 @@
+@import url("./daterangepicker.css");
+
 $banana: #FFDB5C;
 $electric-blue: #4897D8;
 $electric-blue-dark: #2B82CA;
@@ -617,6 +619,7 @@ hr{
 
 .search-select-dropdown {
   margin: 0 20px;
+  float: left;
 }
 
 .advanced-search-bar {

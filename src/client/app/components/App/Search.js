@@ -4,11 +4,26 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
-import * as SearchConstants from '../../constants/SearchConstants.js'
+import * as SearchConstants from '../../constants/SearchConstants.js';
+
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import moment from 'moment';
+
+const dateRanges = {
+  'Anytime': [moment().subtract(2, 'year'), moment()],
+  'Today': [moment(), moment()],
+  'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+  'Past Week': [moment().subtract(7, 'days'), moment()],
+  'Past Month': [moment().subtract(1, 'month'), moment()],
+  'Past Year': [moment().subtract(1, 'year'), moment()]
+};
+
 
 function getState() {
   return {
-    time_selection: SearchConstants.Anytime,
+    start_date:{},
+    end_date: {},
+    date_message: "Select Date Range",
     category_selection: 0,
     sort_selection: SearchConstants.Relevance,
     iframe_show:false,
@@ -24,7 +39,7 @@ class Search extends Component {
     super(props);
     this.state = getState();
 
-    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleTimeEvent = this.handleTimeEvent.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
   }
 
@@ -45,7 +60,7 @@ class Search extends Component {
   searchResults(){
     if(this.props.search.results){
       return this.props.search.results.map(function(result) {
-        return <PageUrlBar key={result.page.title} page={result.page} visit_pk={result.pk}/>
+        return <PageUrlBar key={result.page.pk} page={result.page} visit_pk={result.pk}/>
       });
     } else {
       console.log("loading");
@@ -57,12 +72,25 @@ class Search extends Component {
     this.setState({time_selection: event.target.value});
   }
 
+  handleTimeEvent(event, picker) {
+    console.log("event", event);
+    console.log("picker", picker);
+    console.log("startDate", moment(picker.startDate).format("MMM Do YY"));
+    console.log("startDate", moment(picker.startDate).format());
+    console.log("startDate", picker.startDate);
+    this.setState({start_date: picker.startDate});
+    this.setState({end_date: picker.endDate});
+    this.setState({date_message: moment(this.state.start_date).format("MMM Do YY") + " - " + moment(this.state.end_date).format("MMM Do YY")});
+    console.log(this.state.end_date);
+  }
+
   handleSortChange(event) {
     this.setState({sort_selection: event.target.value});
   }
 
 
   render() {
+
     return (
       <div>
 
@@ -78,15 +106,9 @@ class Search extends Component {
             <div className="container">
               <div className="row">
                 <div id="search-selection-container" className="col-xs-10 col-xs-offset-1">
-                  <select id="time-selection" className="search-select-dropdown" value={this.state.time_selection} onChange={this.handleTimeChange}>
-                    <option value={SearchConstants.Anytime}>Anytime</option>
-                    <option value={SearchConstants.Hour}>Past hour</option>
-                    <option value={SearchConstants.Day}>Past 24 hours</option>
-                    <option value={SearchConstants.Week}>Past week</option>
-                    <option value={SearchConstants.Month}>Past month</option>
-                    <option value={SearchConstants.Year}>Past year</option>
-                    <option value={SearchConstants.Custom}>Custom range...</option>
-                  </select>
+                <DateRangePicker className="search-select-dropdown" onApply={this.handleTimeEvent} timePicker={true} startDate={moment()} endDate={moment()} ranges={dateRanges}>
+                                <div>{this.state.date_message}</div>
+                            </DateRangePicker>
                   <select id="category-selection" name="category-selection" className="search-select-dropdown">
                     <option defaultValue="">Any Category</option>
                     { this.getCategories() }
@@ -104,10 +126,22 @@ class Search extends Component {
             { this.searchResults() }
           </div>
         </div>
+
       </div>
     );
   }
 }
+
+// <select id="time-selection" className="search-select-dropdown" value={this.state.time_selection} onChange={this.handleTimeChange}>
+//   <option value={SearchConstants.Anytime}>Anytime</option>
+//   <option value={SearchConstants.Hour}>Past hour</option>
+//   <option value={SearchConstants.Day}>Past 24 hours</option>
+//   <option value={SearchConstants.Week}>Past week</option>
+//   <option value={SearchConstants.Month}>Past month</option>
+//   <option value={SearchConstants.Year}>Past year</option>
+//   <option value={SearchConstants.Custom}>Custom range...</option>
+// </select>
+
 
 let mapStateToProps = (state) => ({
   lookbackNav: state.lookbackNav,
