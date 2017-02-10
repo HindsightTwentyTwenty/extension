@@ -10,9 +10,6 @@ import DateRangePicker from 'react-bootstrap-daterangepicker';
 import moment from 'moment';
 import 'moment-timezone';
 
-// var moment = require('moment');
-// require('moment-timezone');
-
 const dateRanges = {
   'Anytime': [moment().subtract(2, 'year'), moment()],
   'Today': [moment().subtract(1, 'days'), moment()],
@@ -49,13 +46,6 @@ class Search extends Component {
   }
 
   searchBarInput(event){
-    // var timezoneMinutesOffset = new Date().getTimezoneOffset();
-    // console.log("timezone offset", timezoneMinutesOffset);
-    // console.log("timezones", moment.tz.names());
-    console.log("start-time real",moment(this.state.start_date).format());
-    console.log("start-time UTC",moment(this.state.start_date).tz("UTC").format());
-    console.log("end-time real",moment(this.state.end_date).format());
-    console.log("end-time UTC",moment(this.state.end_date).tz("UTC").format());
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
