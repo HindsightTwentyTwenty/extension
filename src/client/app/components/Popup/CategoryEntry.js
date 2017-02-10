@@ -38,7 +38,7 @@ class CategoryEntry extends Component {
 
   getCurrentColor() {
     return <div className='color-square' key={this.props.categories.editCatColor.name}
-    style={{"background-color" : this.props.categories.editCatColor.code}}
+    style={{"backgroundColor" : this.props.categories.editCatColor.code}}
     onClick={()=> this.props.category_actions.toggleColorPicker(!this.props.categories.showColorPicker)}></div>;
   }
 

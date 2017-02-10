@@ -21,7 +21,7 @@ class ColorPicker extends Component {
     return this.categoryColors.map((color) => {
       return <div className='color-square'
       onClick={this.changeEditColor.bind(this, color)}
-      style={{"background-color" : color.code}}
+      style={{"backgroundColor" : color.code}}
       key={color.name}></div>
     });
   }
