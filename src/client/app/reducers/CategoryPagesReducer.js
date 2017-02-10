@@ -2,6 +2,15 @@ import * as types from '../constants/ActionTypes';
 
 function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred: false}, action){
   switch(action.type){
+    case types.REMOVE_CAT_FROM_PAGE:
+      var newPageInfo = action.json;
+      var catsToPagesDict = Object.assign({}, state.catsToPages);
+      for (let cat in catsToPagesDict) {
+        if (catsToPagesDict[cat][newPageInfo.pk]) {
+          catsToPagesDict[cat][newPageInfo.pk] = newPageInfo;
+        }
+      }
+      return {...state, catsToPages: catsToPagesDict};
     case types.RECEIVE_CATEGORIES_AND_PAGES:
       var catsToPagesDict = {};
       action.json.categories.map(function(category) {
