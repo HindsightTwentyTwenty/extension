@@ -24,6 +24,7 @@
     "jsx-loader": "^0.13.2",
     "moment": "^2.17.1",
     "react": "^15.3.2",
+    "react-bootstrap-daterangepicker": "^3.2.2",
     "react-date-picker": "^5.3.28",
     "react-datetime": "^2.8.3",
     "react-dom": "^15.3.2",

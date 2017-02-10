@@ -1,12 +1,14 @@
 import * as types from '../../constants/ActionTypes';
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
 import * as urls from '../../constants/GlobalConstants';
-import * as NavActions from '../LookBackNav/LookBackNavActions.js'
-import * as LookBackSections from '../../constants/LookBackConstants.js'
+import * as NavActions from '../LookBackNav/LookBackNavActions.js';
+import * as LookBackSections from '../../constants/LookBackConstants.js';
+import * as SearchConstants from '../../constants/SearchConstants.js';
+import moment from 'moment';
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
 const domEndpoint = urls.BASE_URL + "gethtml/";
-const searchEnpoint = urls.BASE_URL + "search/";
+const searchEndpoint = urls.BASE_URL + "search/";
 
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
@@ -63,26 +65,48 @@ export function toggleDomainClicked() {
 }
 
 export function domReturned(json){
-  console.log("json for dom:", json);
   return{
     type: types.SET_CURR_DOM,
     dom: json['html']
-
   }
 }
 
-export function searchTerm(search_term, token){
+export function clearDOM(){
+  return{
+    type: types.SET_CURR_DOM,
+    dom: ""
+  }
+}
+export function searchTermNav(search_term, token){
+  return dispatch => {
+    dispatch(searchTerm(search_term, moment().subtract(2, 'year').format(), moment().format(), "", SearchConstants.Relevance, token))
+  }
+}
+
+export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
+  console.log("start_time in search", start_time.substring(0,start_time.lastIndexOf("-")));
+  console.log("end_time in search", end_time);
+
+  console.log("Sort", sort_selection);
+
+  // This is gross. Will clean up
+  var bodyInfo;
+  if(category_selection){
+    bodyInfo = JSON.stringify({"query": search_term, "category": category_selection, "order": sort_selection, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))});
+  } else {
+    bodyInfo = JSON.stringify({"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))})
+  }
   return dispatch => {
     return [
       dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
-      fetch(searchEnpoint, {
+      fetch(searchEndpoint, {
           headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: JSON.stringify({"query": search_term})
+           body: bodyInfo
          }
        )
       .then(response => response.json())
