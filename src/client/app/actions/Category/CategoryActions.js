@@ -41,7 +41,7 @@ export function fetchCategoriesAndPages(token){
       .then(response => response.json())
       .then(json => dispatch({
         type: types.RECEIVE_CATEGORIES_AND_PAGES,
-        categories: json
+        json: json
       }))
   }
 }
@@ -163,6 +163,14 @@ export function updateCategoryEditField(newCategoryTitle) {
     dispatch({
       type: types.UPDATE_CATEGORY_EDIT_FIELD,
       categoryTitle: newCategoryTitle
+    })
+  }
+}
+
+export function toggleShowStarred() {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_SHOW_STARRED
     })
   }
 }

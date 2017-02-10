@@ -41,8 +41,8 @@ let store = createStore(
     currentDomainDisplayed:{
     },
     categoriesAndPages:{
-      catsPages:[],
-      starred:[],
+      catsToPages: {},
+      starred: {},
       showStarred: false
     },
     currentSearchCategories: {

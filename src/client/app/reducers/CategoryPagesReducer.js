@@ -1,11 +1,26 @@
 import * as types from '../constants/ActionTypes';
 
-function categoryPagesReducer(state = {catsPages: [], starred:[], showStarred: false}, action){
+function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred: false}, action){
   switch(action.type){
     case types.RECEIVE_CATEGORIES_AND_PAGES:
-      return {catsPages: action.categories.categories, starred: action.categories.starred, showStarred: state.showStarred};
+      var catsToPagesDict = {};
+      action.json.categories.map(function(category) {
+        var pagesToCatsDict = {};
+        category.pages.map(function(page) {
+          pagesToCatsDict[page.pk] = {
+            "pk": page.pk,
+            "title": page.title,
+            "url": page.url,
+            "star": page.star,
+            "categories": page.categories,
+            "created": page.created
+          }
+        });
+        catsToPagesDict[category.title] = pagesToCatsDict;
+      });
+      return {catsToPages: catsToPagesDict, starred: {}, showStarred: state.showStarred};
     case types.TOGGLE_SHOW_STARRED:
-      return {catsPages: [...state.catsPages], starred: [...state.starred], showStarred: !state.showStarred};
+      return {...state, showStarred: !state.showStarred};
     default:
       return state;
   }
