@@ -8,6 +8,7 @@ import * as SearchConstants from '../../constants/SearchConstants.js';
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import moment from 'moment';
+import 'moment-timezone';
 
 const dateRanges = {
   'Anytime': [moment().subtract(2, 'year'), moment()],
@@ -49,7 +50,7 @@ class Search extends Component {
       if(!this.state.category_selection){
         console.log("empty stirng");
       }
-      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).format(), moment(this.state.end_date).format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
+      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
     }
   }
 
