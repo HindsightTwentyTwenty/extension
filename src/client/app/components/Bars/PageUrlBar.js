@@ -57,16 +57,16 @@ class PageUrlBar extends Component {
 
   render() {
 
-    var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories' : 'fa fa-star-o fa-2x star-categories';
-    var modal = {(this.props.search_items.dom && this.state.iframe_show) ?
+    var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
+    var modal = (this.props.search_items.dom && this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
             <button id="iframe-close-button " onClick={this.closeIframe.bind(this)}>
               x
             </button>
             <iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>
         </div>
-    : ''}
-    var hider = {(this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''}
+    : ''
+    var hider = (this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
     return (
       <div className="page-url-bar">
         {modal}
@@ -81,11 +81,17 @@ class PageUrlBar extends Component {
           <div className='url-categories vertical-center'>
             {this.getCategories()}
           </div>
-          <div className='vertical-center' onClick={()=>{
-          <button id="iframe-open-button vertical-center" onClick={this.openIframe.bind(this)}>
-            <span className="glyphicon glyphicon-eye-open"></span>
-          </button>
-        </div>
+          <div className='url-buttons vertical-center'>
+            <div className='star-div' onClick={()=>{
+            this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
+            }}>
+              <i className={starred}></i>
+            </div>
+            <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
+              <i className="fa fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+
       </div>
     )
   }

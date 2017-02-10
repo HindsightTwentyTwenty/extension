@@ -44,7 +44,7 @@ body {
   color: $base-white;
   font-size: 12px;
   line-height: 15px;
-  max-width: 50%;
+  max-width: 45%;
 }
 
 .bar-text-col p{
@@ -116,13 +116,7 @@ body {
   float:right;
   overflow: scroll;
   margin-right: 1%;
-}
-.star-categories {
-  float: right;
-  height: 40px;
-  width: 40px;
-  line-height: 40px;
-  color: $banana;
+  max-width: 45%
 }
 
 .lookback-container{
@@ -341,6 +335,7 @@ start-time-label .end-time-label{
   margin-top: 15px;
   font-size: medium;
   padding: 0px;
+  outline: none;
 }
 .nav-bar-button:hover {
   color: $base-white;
@@ -597,6 +592,7 @@ hr{
 
 .star-div{
   height:45px;
+  line-height: 50px;
   width: 45px;
   color: $base-white;
   margin-left: 1%;
@@ -607,6 +603,9 @@ hr{
 
 .starred{
   color: $banana;
+  &:hover{
+    color: $base-white;
+  }
 }
 
 .star{
@@ -654,15 +653,28 @@ hr{
   padding: 2px 1px;
 }
 
-
+.advanced-search{
+  margin: 0 auto;
+  width: 50%;
+  font-size: large;
+}
 .advanced-search-bar {
-  width:100%;
+  width: 90%;
   margin: 7px auto;
-  border-radius: 10px;
-  border: canteloupe;
-  min-width: 200px;
+  border-radius: 0px;
+  border: $electric-blue;
   height: 35px;
   padding: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid;
+  color: $electric-blue-dark;
+  font-size: medium;
+  background-color: $base-white;
+  &::-webkit-input-placeholder {
+    color: $electric-blue-dark;
+    font-size: medium;
+  }
 }
 
 .login-error {
@@ -719,19 +731,15 @@ hr{
   border-color: $canteloupe;
 }
 
-#iframe-open-button{
-  position: relative;
-  float: right;
-  text-align: center;
-  height:80%;
-  line-height: 80%;
-  margin-top: auto;
-  margin-bottom: auto;
-
-  background-color: $canteloupe;
+.iframe-open-button{
+  background: none;
   color: $base-white;
-  border-style: solid;
-  border-color: $canteloupe;
+  font-size: x-large;
+  border: none;
+  outline: none;
+  &:hover{
+    color: $watermelon;
+  }
 }
 
 #iframe-open-button:hover{
@@ -746,4 +754,9 @@ hr{
   bottom:5%;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.url-buttons{
+  max-width: 8%;
+  display: flex;
 }
