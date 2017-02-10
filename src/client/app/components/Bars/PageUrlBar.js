@@ -19,12 +19,12 @@ class PageUrlBar extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
 
   }
 
   getCategories() {
     var _this = this;
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
     return this.props.page.categories.map(function(category){
       return <div className={'url-bar-category'} key={category.title}>
           {category.title}
@@ -60,9 +60,11 @@ class PageUrlBar extends Component {
       <div className={'url-bar'}>
         {(this.props.search_items.dom && this.state.iframe_show) ?
             <div className="modal-base" id="iframe-modal">
-                <button id="iframe-close-button " onClick={this.closeIframe.bind(this)}>
-                  x
-                </button>
+              <div className="i-modal-header">
+                <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
+                  <i className="fa fa-times fa-lg" aria-hidden="true"></i>
+                </div>
+              </div>
                 <iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>
             </div>
         : ''}
