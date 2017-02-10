@@ -12,7 +12,7 @@ class CategoryEntry extends Component {
   }
 
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(categoryTitle, this.props.categories.editCatColor, this.props.currentUser.token).then(() => {
+      this.props.popup_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
         var categoryObject;
         var categories = this.props.categories.cats;
         for(var i = categories.length-1; i >= 0; i--){
@@ -37,8 +37,8 @@ class CategoryEntry extends Component {
   }
 
   getCurrentColor() {
-    var className = 'color-square ' + this.props.categories.editCatColor;
-    return <div className={className} key={this.props.categories.editCatColor}
+    var className = 'color-square ' + this.props.categories.editCatColor.name;
+    return <div className={className} key={this.props.categories.editCatColor.name}
     onClick={()=> this.props.category_actions.toggleColorPicker(!this.props.categories.showColorPicker)}></div>;
   }
 

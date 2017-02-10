@@ -9,6 +9,7 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 class ColorPicker extends Component {
   constructor(props) {
     super(props);
+    this.categoryColors = GlobalConstants.CAT_COLORS;
   }
 
   changeEditColor(color) {
@@ -16,30 +17,24 @@ class ColorPicker extends Component {
     this.props.category_actions.toggleColorPicker(false);
   }
 
-  getColorSquares() {
-    var className = 'color-square ' + this.editColor;
-    return <div className={className} key={this.editColor}
-    onClick={()=> this.props.category_actions.toggleColorPicker(!this.props.categories.showColorPicker)}></div>;
+  getColors() {
+    return this.categoryColors.map((color) => {
+      var className = 'color-square ' + color.name;
+      return <div className={className} onClick={this.changeEditColor.bind(this, color)} key={color.name}></div>
+    });
   }
 
   render () {
     return (
-    <div className="color-picker">
-      {this.getColorSquares()}
+    <div className="cateogries-container">
+      {this.getColors()}
     </div>
     )
   }
 }
 
-let mapStateToProps = (state) => ({
-    categories : state.categories,
-    currentPage : state.currentPage,
-    currentUser : state.currentUser
-})
-
 let mapDispatchToProps = (dispatch) => ({
-    popup_actions: bindActionCreators(PopupActions, dispatch),
     category_actions: bindActionCreators(CategoryActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ColorPicker);
+export default connect(null, mapDispatchToProps)(ColorPicker);

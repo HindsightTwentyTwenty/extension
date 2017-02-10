@@ -8,7 +8,7 @@ import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
 import CategoriesContainer from './CategoriesContainer';
 import PopupHeader from './PopupHeader.js';
-
+import ColorPicker from './ColorPicker.js';
 
 class PopupBody extends Component {
   constructor(props) {
@@ -16,11 +16,16 @@ class PopupBody extends Component {
     this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
+  getBody() {
+    if (this.props.categories.showColorPicker) {
+      return <ColorPicker/>;
+    }
+    else if (this.props.categories.cats) {
+      return <CategoriesContainer/>;
+    }
+  }
+
   render () {
-      var categories = <div></div>;
-      if(this.props.categories.cats.length > 0){
-        categories = <CategoriesContainer/>;
-      }
       return (
         <div className="container popup-body electric-blue">
           <PopupHeader/>
@@ -30,8 +35,8 @@ class PopupBody extends Component {
             <Star/>
           </div>
           <div className="popup-main-form">
-            <CategoryEntry/>
-            {categories}
+          <CategoryEntry/>
+            {this.getBody()}
           </div>
         </div>
       )
