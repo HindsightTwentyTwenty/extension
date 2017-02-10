@@ -124,8 +124,10 @@ class Search extends Component {
               </div>
             </div>
           </div>
-          <div id="search-results-container">
-            { this.searchResults() }
+          <div id="search-page-results-container">
+            <div id="content-scroll">
+              { this.searchResults() }
+            </div>
           </div>
         </div>
 

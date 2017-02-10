@@ -258,7 +258,19 @@ start-time-label .end-time-label{
   width: calc(100% - 200px);
   height: calc(100% - 50px);
   display: inline-block;
+  margin-top: 5px;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+#content-scroll {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
 }
 
 .categories-page {
@@ -643,14 +655,23 @@ hr{
 /* Search Component */
 #search-container {
   margin: 15px;
+  height: 100%;
+  width: 99%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
 }
 
-#search-results-container {
-
+#search-page-results-container {
+  overflow: hidden;
+  flex-grow: 1;
+  position: relative;
+  margin-top: 6px;
 }
 
 #search-selection-container {
   text-align: center;
+  flex-grow: 0;
 }
 
 .search-select-dropdown {
@@ -658,15 +679,15 @@ hr{
 }
 
 #search-date-select-dropdown{
-  margin: 0 20px;
-  float: left;
+  margin: auto;
+  display: inline-block;
 }
 #date-select-text{
   border-width: 1px;
   border-radius: 5px;
   border: gray;
   border-style: solid;
-  padding: 2px 1px;
+  padding: 2px 4px;
 }
 
 
