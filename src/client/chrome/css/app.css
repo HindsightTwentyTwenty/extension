@@ -511,70 +511,6 @@ start-time-label .end-time-label{
   height: 40%;
 }
 
-.watermelon {
-  background-color: $watermelon;
-  color: white;
-  &:hover {
-    border: $watermelon-dark;
-    background-color: $watermelon-dark;
-  }
-}
-
-.watermelon-border {
-  border: solid 2px $watermelon;
-}
-
-.canteloupe {
-  background-color: $canteloupe;
-  color: white;
-  &:hover {
-    border: $canteloupe-dark;
-    background-color: $canteloupe-dark;
-  }
-}
-
-.canteloupe-border {
-  border: solid 2px $canteloupe;
-}
-
-.lime {
-  background-color: $lime;
-  color: white;
-  &:hover {
-    border: $lime-dark;
-    background-color: $lime-dark;
-  }
-}
-
-.lime-border {
-  border: solid 2px $lime;
-}
-
-.banana {
-  background-color: $banana;
-  color: white;
-  &:hover {
-    border: $banana-dark;
-    background-color: $banana-dark;
-  }
-}
-
-.banana-border {
-  border: solid 2px $banana;
-}
-
-.electric-blue {
-  background-color: $electric-blue;
-  color: white;
-  &:hover {
-    background-color: $electric-blue-dark;
-  }
-}
-
-.electric-blue-border {
-  border: solid 2px $electric-blue;
-}
-
 .star-checkbox{
   border-bottom: solid thin $canteloupe;
   border-top: solid thin $canteloupe;
@@ -605,7 +541,6 @@ hr{
     color: $canteloupe;
   }
 }
-
 
 .category-bar{
   width: 80px;
@@ -690,7 +625,6 @@ hr{
   padding: 2px 4px;
 }
 
-
 .advanced-search-bar {
   width:100%;
   margin: 7px auto;
@@ -709,15 +643,14 @@ hr{
 
 /*MODAL*/
 .hider{
-    position:absolute;
-    top: 0%;
-    left: 0%;
-    width:100%;
-    height:100%;
-    z-index: 99;
-   background-color:Black;
-   //for transparency
-   opacity:0.6;
+  position:absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  height:100%;
+  z-index: 99;
+  background-color:Black;
+  opacity:0.6; //for transparency
 }
 
 .modal-base{
@@ -730,13 +663,6 @@ hr{
   left: 7%;
   width:86%;
   height:85%;
-
-  /*-webkit-transition: opacity 2s ease-in;
-  -moz-transition: opacity 2s ease-in;
-  -o-transition: opacity 2s ease-in;
-  -ms-transition: opacity 2s ease-in;
-  transition: opacity 2s ease-in;*/
-
 }
 
 #iframe-close-button{
