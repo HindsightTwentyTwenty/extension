@@ -27,10 +27,10 @@ class CategoryBar extends Component {
   }
 
   render() {
-    var className = this.props.checked ? 'category-bar checked ' : 'category-bar ';
+    var className = this.props.checked ? 'category-bar '+ this.color : 'category-bar ' + this.color + '-border';
     return (
       <div
-        className={className + this.color}
+        className={className}
         onClick={() => {
           this.props.category_actions.toggleCategory( this.props.currentPage.url,
             this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);

@@ -19,22 +19,16 @@ class PageUrlBar extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-    this.firstFetch = true;
-    this.catsAndPages = null;
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   getCategories() {
-    var _this = this;
-    if (this.firstFetch) {
-      this.firstFetch = false;
-      this.catsAndPages = this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
-    }
-    if (this.catsAndPages) {
-      return this.catsAndPages.map(function(category){
+    if (this.props.page.categories) {
+      return this.props.page.categories.map((category) => {
         return <div className={'url-bar-category'} key={category.title}>
             {category.title}
             <div className='url-bar-category-times' onClick={()=>{
-                _this.props.category_actions.toggleCategory(_this.props.page.url, category, false, _this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>

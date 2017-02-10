@@ -498,7 +498,6 @@ start-time-label .end-time-label{
 }
 
 .watermelon {
-  border: $watermelon;
   background-color: $watermelon;
   color: white;
   &:hover {
@@ -507,8 +506,11 @@ start-time-label .end-time-label{
   }
 }
 
+.watermelon-border {
+  border: solid 2px $watermelon;
+}
+
 .canteloupe {
-  border: $canteloupe;
   background-color: $canteloupe;
   color: white;
   &:hover {
@@ -517,8 +519,11 @@ start-time-label .end-time-label{
   }
 }
 
+.canteloupe-border {
+  border: solid 2px $canteloupe;
+}
+
 .lime {
-  border: $lime;
   background-color: $lime;
   color: white;
   &:hover {
@@ -527,8 +532,11 @@ start-time-label .end-time-label{
   }
 }
 
+.lime-border {
+  border: solid 2px $lime;
+}
+
 .banana {
-  border: $banana;
   background-color: $banana;
   color: white;
   &:hover {
@@ -537,13 +545,20 @@ start-time-label .end-time-label{
   }
 }
 
+.banana-border {
+  border: solid 2px $banana;
+}
+
 .electric-blue {
-  border: $electric-blue;
   background-color: $electric-blue;
   color: white;
   &:hover {
     background-color: $electric-blue-dark;
   }
+}
+
+.electric-blue-border {
+  border: solid 2px $electric-blue;
 }
 
 .star-checkbox{
@@ -582,18 +597,10 @@ hr{
   width: 80px;
   margin: 5px;
   height: 35px;
-  border: solid 2px;
   color: $base-white;
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
-}
-
-.category-bar.checked{
-  color: $base-white;
-  &:hover{
-    border: solid 2px;
-  }
 }
 
 .categories-container{

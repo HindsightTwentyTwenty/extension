@@ -65,6 +65,7 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
            }
       )
       .then(response => response.json())
+      .then(json => dispatch(deletePageCategory(json)))
   }
 }
 
@@ -147,6 +148,13 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
       type: dispatchType,
       categoryTitle: categoryTitle,
     })
+  }
+}
+
+export function deletePageCategory(json){
+  return {
+    type: types.DELETE_PAGE_CATEGORY,
+    json: json,
   }
 }
 
