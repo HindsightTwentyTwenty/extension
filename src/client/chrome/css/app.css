@@ -18,16 +18,35 @@ body {
    font-family: 'Raleway', sans-serif;
 }
 
-.url-bar {
-  height: $bar-height;
-  line-height: $bar-height;
+.vertical-center{
+  align-self: center;
+}
+.page-url-bar {
+  height: 60px;
+  line-height: 35px;
   margin: 5px;
   border-radius: 3px;
   width: 95%;
   background-color: $electric-blue;
-  padding: 0px 6px;
+  padding: 6px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+}
+
+.bar-text-col{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;;
+  color: $base-white;
+  font-size: 12px;
+  line-height: 15px;
+  max-width: 50%;
+}
+
+.bar-text-col p{
+  margin: 0;
 }
 
 //WC TODO: change css of blacklist bar and url bar to common component?
@@ -78,19 +97,21 @@ body {
 }
 
 .url{
-  color: $base-white;
+  color: $banana;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 30%;
+  width: 90%;
+  font-size: 15px;
 }
 
 .url:hover {
-  color: $canteloupe;
+  color: $base-white;
 }
 .url-categories{
   display: flex;
   overflow: scroll;
+  margin-right: 1%;
 }
 .star-categories {
   float: right;
@@ -605,7 +626,8 @@ hr{
 }
 
 #search-results-container {
-
+  height: 75vh;
+  overflow-y: scroll;
 }
 
 #search-selection-container {

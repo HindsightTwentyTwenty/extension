@@ -41,8 +41,8 @@ class Search extends Component {
 
   searchResults(){
     if(this.props.search.results){
-      return this.props.search.results.map(function(result) {
-        return <PageUrlBar key={result.page.title} page={result.page}/>
+      return this.props.search.results.map(function(result) {console.log(result);
+        return <PageUrlBar key={result.page.title} page={result.page} domain={result.domain} visited={result.visited}/>
       });
     } else {
       console.log("loading");
@@ -70,7 +70,6 @@ class Search extends Component {
             </div>
           </div>
           <div className="container">
-            <div className="row">
               <div id="search-selection-container" className="col-xs-10 col-xs-offset-1">
                 <select id="time-selection" className="search-select-dropdown" value={this.state.time_selection} onChange={this.handleTimeChange}>
                   <option value={SearchConstants.Anytime}>Anytime</option>
@@ -91,7 +90,6 @@ class Search extends Component {
                   <option value={SearchConstants.Time_Spent}>Sort by Time Spent</option>
                 </select>
               </div>
-            </div>
           </div>
         </div>
         <div id="search-results-container">
