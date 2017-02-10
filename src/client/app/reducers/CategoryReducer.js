@@ -1,9 +1,13 @@
 import * as types from '../constants/ActionTypes';
+import * as GlobalConstants from '../constants/GlobalConstants';
 
-function categoryReducer(state = {cats: [], editCategory: '', newCategoryName: ''}, action){
+function categoryReducer(state = {cats: [], editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
+      showColorPicker: false, editCategory: '', newCategoryName: ''}, action){
   switch(action.type){
     case types.UPDATE_CATEGORY_EDIT_FIELD:
       return {...state, newCategoryName: action.categoryTitle}
+    case types.TOGGLE_COLOR_PICKER:
+      return {...state, showColorPicker: action.showColorPicker}
     case types.TOGGLE_EDIT_CATEGORY:
       return {...state, editCategory: action.editCategory}
     case types.UPDATE_CATEGORY_TITLE:

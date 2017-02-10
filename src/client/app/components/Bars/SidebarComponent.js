@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import SidebarCategoryBar from './SidebarCategoryBar';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
-import * as CategoryPagesActions from '../../actions/Category/CategoryPagesActions.js';
 
 class SidebarComponent extends Component {
 
@@ -41,7 +40,7 @@ class SidebarComponent extends Component {
             value="first_checkbox"/> select multiple </label>
         </div>
         <div className={className} onClick={() => {
-          this.props.category_pages_actions.toggleShowStarred();
+          this.props.category_actions.toggleShowStarred();
         }}>
             <i className='fa fa-star fa-2x star side-bar-star ' id='starred'></i>
           </div>
@@ -71,7 +70,6 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => {
   return {
     category_actions: bindActionCreators(CategoryActions, dispatch),
-    category_pages_actions : bindActionCreators(CategoryPagesActions, dispatch)
   }
 }
 

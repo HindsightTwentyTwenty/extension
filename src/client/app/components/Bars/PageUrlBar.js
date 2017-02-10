@@ -19,22 +19,22 @@ class PageUrlBar extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   getCategories() {
-    var _this = this;
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
-    return this.props.page.categories.map(function(category){
-      return <div className={'url-bar-category'} key={category.title}>
-          {category.title}
-          <div className='url-bar-category-times' onClick={()=>{
-              _this.props.category_actions.toggleCategory(_this.props.page.url, category, false, _this.props.currentUser.token);
-            }}>
+    if (this.props.page.categories) {
+      return this.props.page.categories.map((category) => {
+        return <div className={'url-bar-category'} key={category.title}>
+            {category.title}
+            <div className='url-bar-category-times' onClick={()=>{
+                this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
+              }}>
             <i className='fa fa-times'></i>
-          </div>
-        </div>;
-    });
+            </div>
+          </div>;
+      });
+    }
   }
 
   getDOM(){
@@ -42,9 +42,9 @@ class PageUrlBar extends Component {
   }
 
   openIframe(event){
-      this.setState({ iframehider_show: true });
-      this.setState({ iframe_show: true });
-      this.getDOM();
+    this.getDOM();
+    this.setState({ iframehider_show: true });
+    this.setState({ iframe_show: true });
   }
 
   closeIframe(event){
@@ -54,7 +54,6 @@ class PageUrlBar extends Component {
   }
 
   render() {
-
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories' : 'fa fa-star-o fa-2x star-categories';
     return (
       <div className={'url-bar'}>
