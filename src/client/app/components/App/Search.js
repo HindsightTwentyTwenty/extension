@@ -8,6 +8,10 @@ import * as SearchConstants from '../../constants/SearchConstants.js';
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import moment from 'moment';
+import 'moment-timezone';
+
+// var moment = require('moment');
+// require('moment-timezone');
 
 const dateRanges = {
   'Anytime': [moment().subtract(2, 'year'), moment()],
@@ -45,13 +49,20 @@ class Search extends Component {
   }
 
   searchBarInput(event){
+    // var timezoneMinutesOffset = new Date().getTimezoneOffset();
+    // console.log("timezone offset", timezoneMinutesOffset);
+    // console.log("timezones", moment.tz.names());
+    console.log("start-time real",moment(this.state.start_date).format());
+    console.log("start-time UTC",moment(this.state.start_date).tz("UTC").format());
+    console.log("end-time real",moment(this.state.end_date).format());
+    console.log("end-time UTC",moment(this.state.end_date).tz("UTC").format());
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
       if(!this.state.category_selection){
         console.log("empty stirng");
       }
-      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).format(), moment(this.state.end_date).format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
+      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
     }
   }
 
