@@ -1,8 +1,11 @@
 @import url("./daterangepicker.css");
 
 $banana: #FFDB5C;
+$banana-dark: #F9D34A;
 $electric-blue: #4897D8;
 $electric-blue-dark: #2B82CA;
+$lime: #77f200;
+$lime-dark: #6ad304;
 $light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $watermelon-dark: #F95339;
@@ -515,18 +518,61 @@ start-time-label .end-time-label{
   background-color: $watermelon;
   color: white;
   &:hover {
+    border: $watermelon-dark;
     background-color: $watermelon-dark;
-    color: white;
   }
+}
+
+.watermelon-border {
+  border: solid 2px $watermelon;
 }
 
 .canteloupe {
   background-color: $canteloupe;
   color: white;
   &:hover {
+    border: $canteloupe-dark;
     background-color: $canteloupe-dark;
-    color: white;
   }
+}
+
+.canteloupe-border {
+  border: solid 2px $canteloupe;
+}
+
+.lime {
+  background-color: $lime;
+  color: white;
+  &:hover {
+    border: $lime-dark;
+    background-color: $lime-dark;
+  }
+}
+
+.lime-border {
+  border: solid 2px $lime;
+}
+
+.banana {
+  background-color: $banana;
+  color: white;
+  &:hover {
+    border: $banana-dark;
+    background-color: $banana-dark;
+  }
+}
+
+.banana-border {
+  border: solid 2px $banana;
+}
+
+.electric-blue {
+  background-color: $electric-blue;
+  color: white;
+}
+
+.electric-blue-border {
+  border: solid 2px $electric-blue;
 }
 
 .star-checkbox{
@@ -565,23 +611,10 @@ hr{
   width: 80px;
   margin: 5px;
   height: 35px;
-  border: solid 2px $canteloupe;
   color: $base-white;
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
-  &:hover{
-    color: $canteloupe;
-  }
-}
-
-.category-bar.checked{
-  background-color: $canteloupe;
-  color: $base-white;
-  &:hover{
-    background-color: $canteloupe-dark;
-    border: solid 2px $canteloupe-dark;
-  }
 }
 
 .categories-container{
