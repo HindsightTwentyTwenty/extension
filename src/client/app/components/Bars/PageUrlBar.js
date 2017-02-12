@@ -9,13 +9,13 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 const Timestamp = require('react-timestamp');
 
 
-
 function getState() {
   return {
     iframe_show:false,
     iframehider_show:false
   }
 }
+
 class PageUrlBar extends Component {
 
   constructor(props) {
@@ -40,7 +40,7 @@ class PageUrlBar extends Component {
   }
 
   getDOM(){
-    this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token);
+    this.props.lookback_actions.getDOM(this.props.page.pk, this.props.currentUser.token);
   }
 
   openIframe(event){
@@ -56,7 +56,6 @@ class PageUrlBar extends Component {
   }
 
   render() {
-    console.log(this.props.visited);
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
     var modal = (this.props.search_items.dom && this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">

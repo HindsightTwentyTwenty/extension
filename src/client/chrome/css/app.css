@@ -122,7 +122,6 @@ body {
   overflow: auto;
   margin-right: 1%;
   width: 45%;
-  direction: rtl;
 }
 
 .lookback-container{
@@ -265,27 +264,16 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
-  padding-right: 15px;
-  width: calc(100% - 200px);
-  height: calc(100% - 50px);
-  display: inline-block;
-  margin-top: 5px;
-  flex-grow: 1;
-  overflow: hidden;
-  position: relative;
-}
-
-#content-scroll {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: scroll;
+  width: 80%;
+  height: 97%;
+  margin: 5px auto;
+  overflow: scroll;
 }
 
 .categories-page {
   height: 92.5vh;
+  display: flex;
+  flex-direction: row;
 }
 
 .vertical-axis-label {
@@ -638,7 +626,7 @@ hr{
 
 .star-div{
   height:45px;
-  line-height: 50px;
+  line-height: 55px;
   width: 45px;
   color: $base-white;
   margin-left: 1%;
@@ -671,22 +659,21 @@ hr{
 
 /* Search Component */
 #search-container {
-  margin: 15px;
+  margin: 15px auto;
   height: 100%;
   width: 99%;
-  position: absolute;
   display: flex;
   flex-direction: column;
 }
 
 #search-page-results-container {
-  height: 75vh;
+  height: 72vh;
   overflow-y: scroll;
 }
 
 #search-selection-container {
   text-align: center;
-  flex-grow: 0;
+  margin: 1% auto;
 }
 
 .search-select-dropdown {
@@ -802,7 +789,7 @@ hr{
 }
 
 .url-buttons{
-  width: 5%;
+  width: 7%;
   display: flex;
   margin-left: 1%;
 }
