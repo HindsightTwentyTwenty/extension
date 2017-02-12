@@ -56,6 +56,7 @@ class PageUrlBar extends Component {
   }
 
   render() {
+    console.log(this.props.visited);
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
     var modal = (this.props.search_items.dom && this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
@@ -66,6 +67,9 @@ class PageUrlBar extends Component {
         </div>
     : ''
     var hider = (this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
+    var visited = this.props.visited ? <p>visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
+    var domain= this.props.domain.base_url ? <p>{this.props.domain.base_url}</p> : '';
+
     return (
       <div className="page-url-bar">
         {modal}
@@ -73,6 +77,8 @@ class PageUrlBar extends Component {
           <div className="bar-text-col">
             <a className="url" target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
             <div>
+            {visited}
+            {domain}
             </div>
           </div>
           <div className='url-categories vertical-center'>

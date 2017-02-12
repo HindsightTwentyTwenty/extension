@@ -26,10 +26,11 @@ body {
 .vertical-center{
   align-self: center;
 }
+
 .page-url-bar {
   height: 60px;
   line-height: 35px;
-  margin: 5px;
+  margin: 5px auto;
   border-radius: 3px;
   width: 95%;
   background-color: $electric-blue;
@@ -47,7 +48,7 @@ body {
   color: $base-white;
   font-size: 12px;
   line-height: 15px;
-  max-width: 45%;
+  width: 45%;
 }
 
 .bar-text-col p{
@@ -107,19 +108,21 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 90%;
+  width: 95%;
   font-size: 15px;
 }
 
 .url:hover {
   color: $base-white;
 }
+
 .url-categories{
   display: flex;
   float:right;
-  overflow: scroll;
+  overflow: auto;
   margin-right: 1%;
-  max-width: 45%
+  width: 45%;
+  direction: rtl;
 }
 
 .lookback-container{
@@ -204,13 +207,6 @@ body {
   text-overflow: ellipsis;
 }
 
-.category-bar-label{
-  font-weight: normal;
-  .selected{
-  width:70%;
-  }
-}
-
 .domain-bar{
   height: 22px;
   border: solid 1px $electric-blue;
@@ -265,6 +261,7 @@ start-time-label .end-time-label{
   margin-right: 15px;
   color: $base-white;
   font-weight: bold;
+  font-family: 'Poiret One', cursive;
 }
 
 .search-results-container {
@@ -378,6 +375,7 @@ start-time-label .end-time-label{
   min-width: 200px;
   height: 35px;
   padding: 10px;
+  outline: none;
 }
 .blacklist-text-entry {
   margin: 3px 5px;
@@ -615,6 +613,10 @@ hr{
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
+  &:hover{
+    color: $canteloupe;
+    font-weight: bold;
+  }
 }
 
 .categories-container{
@@ -790,6 +792,7 @@ hr{
 }
 
 .url-buttons{
-  max-width: 8%;
+  width: 5%;
   display: flex;
+  margin-left: 1%;
 }

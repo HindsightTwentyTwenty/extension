@@ -10,7 +10,7 @@ class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
-    this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   fetchPages() {
@@ -34,6 +34,7 @@ class CategoriesPage extends Component {
         for (var pagePk in categoriesPages[searchCat]) {
           if (!pageSet.has(pagePk)) {
             // result.push(key={result.page.title} page={result.page}  visit_pk={result.pk} domain={result.domain} visited={result.visited})
+            console.log(categoriesPages[searchCat]);
             result.push(<PageUrlBar key={pagePk} page={categoriesPages[searchCat][pagePk]}/>)
             pageSet.add(pagePk);
           }
