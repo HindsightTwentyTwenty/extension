@@ -269,7 +269,19 @@ start-time-label .end-time-label{
   width: calc(100% - 200px);
   height: calc(100% - 50px);
   display: inline-block;
+  margin-top: 5px;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+#content-scroll {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
 }
 
 .categories-page {
@@ -604,7 +616,6 @@ hr{
   }
 }
 
-
 .category-bar{
   width: 80px;
   margin: 5px;
@@ -614,8 +625,8 @@ hr{
   text-align: center;
   padding: 0 6px;
   &:hover{
-    color: $canteloupe;
     font-weight: bold;
+    border: solid 2px $base-white;
   }
 }
 
@@ -661,15 +672,21 @@ hr{
 /* Search Component */
 #search-container {
   margin: 15px;
+  height: 100%;
+  width: 99%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
 }
 
-#search-results-container {
+#search-page-results-container {
   height: 75vh;
   overflow-y: scroll;
 }
 
 #search-selection-container {
   text-align: center;
+  flex-grow: 0;
 }
 
 .search-select-dropdown {
@@ -677,15 +694,15 @@ hr{
 }
 
 #search-date-select-dropdown{
-  margin: 0 20px;
-  float: left;
+  margin: auto;
+  display: inline-block;
 }
 #date-select-text{
   border-width: 1px;
   border-radius: 5px;
   border: gray;
   border-style: solid;
-  padding: 2px 1px;
+  padding: 2px 4px;
 }
 
 .advanced-search{
@@ -693,6 +710,7 @@ hr{
   width: 50%;
   font-size: large;
 }
+
 .advanced-search-bar {
   width: 90%;
   margin: 7px auto;
@@ -720,15 +738,14 @@ hr{
 
 /*MODAL*/
 .hider{
-    position:absolute;
-    top: 0%;
-    left: 0%;
-    width:100%;
-    height:100%;
-    z-index: 99;
-   background-color:Black;
-   //for transparency
-   opacity:0.6;
+  position:absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  height:100%;
+  z-index: 99;
+  background-color:Black;
+  opacity:0.6; //for transparency
 }
 
 .modal-base{
@@ -741,13 +758,6 @@ hr{
   left: 7%;
   width:86%;
   height:85%;
-
-  /*-webkit-transition: opacity 2s ease-in;
-  -moz-transition: opacity 2s ease-in;
-  -o-transition: opacity 2s ease-in;
-  -ms-transition: opacity 2s ease-in;
-  transition: opacity 2s ease-in;*/
-
 }
 
 #iframe-close-button{

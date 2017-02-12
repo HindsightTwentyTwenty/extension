@@ -5,6 +5,7 @@ import * as NavActions from '../LookBackNav/LookBackNavActions.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js';
 import * as SearchConstants from '../../constants/SearchConstants.js';
 import moment from 'moment';
+import 'moment-timezone';
 
 const domainInfoEndpoint = urls.BASE_URL + "domaininfo/";
 const domEndpoint = urls.BASE_URL + "gethtml/";
@@ -79,12 +80,12 @@ export function clearDOM(){
 }
 export function searchTermNav(search_term, token){
   return dispatch => {
-    dispatch(searchTerm(search_term, moment().subtract(2, 'year').format(), moment().format(), "", SearchConstants.Relevance, token))
+    dispatch(searchTerm(search_term, moment().subtract(2, 'year').tz("UTC").format(), moment().tz("UTC").format(), "", SearchConstants.Relevance, token))
   }
 }
 
 export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
-  console.log("start_time in search", start_time.substring(0,start_time.lastIndexOf("-")));
+  console.log("start_time in search", start_time.substring(0,start_time.length - 1));
   console.log("end_time in search", end_time);
 
   console.log("Sort", sort_selection);
@@ -94,7 +95,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
   if(category_selection){
     bodyInfo = JSON.stringify({"query": search_term, "category": category_selection, "order": sort_selection, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))});
   } else {
-    bodyInfo = JSON.stringify({"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))})
+    bodyInfo = JSON.stringify({"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,end_time.length - 1)})
   }
   return dispatch => {
     return [

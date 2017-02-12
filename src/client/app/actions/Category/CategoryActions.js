@@ -170,3 +170,12 @@ export function toggleShowStarred() {
     })
   }
 }
+
+export function setEditCatColor(color) {
+  return dispatch => {
+    dispatch({
+      type: types.SET_EDIT_CAT_COLOR,
+      color: color
+    })
+  }
+}
