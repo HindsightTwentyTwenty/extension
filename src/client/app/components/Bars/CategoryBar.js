@@ -15,11 +15,16 @@ class CategoryBar extends Component {
   render() {
     var catColor = this.props.categoryInfo.color;
     // var catStyle = this.props.checked ? {"backgroundColor" : catColor} : {"border" : "solid 2px " + catColor};
-    var catClass = this.props.checked ? 'category-bar ' + catColor : 'category-bar ' + catColor + '-border';
-
+    // var catClass = this.props.checked ? 'category-bar ' + catColor : 'category-bar ' + catColor + '-border';
+    //
+    // return (
+    //   <div
+    //     className={catClass}
+    var catStyle = this.props.checked ? {"backgroundColor" : catColor} : {"border" : "solid 2px " + catColor};
     return (
       <div
-        className={catClass}
+        style={catStyle}
+        className={'category-bar'}
         onClick={() => {
           this.props.category_actions.toggleCategory( this.props.currentPage.url,
             this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);
