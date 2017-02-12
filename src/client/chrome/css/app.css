@@ -514,10 +514,13 @@ start-time-label .end-time-label{
 
 .watermelon {
   background-color: $watermelon;
-  color: white;
+  color: $base-white;
   &:hover {
-    border: $watermelon-dark;
     background-color: $watermelon-dark;
+    color: $base-white;
+  }
+  &:focus{
+    color: $base-white;
   }
 }
 

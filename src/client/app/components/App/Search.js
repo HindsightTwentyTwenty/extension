@@ -47,10 +47,10 @@ class Search extends Component {
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       var search_term = event.target.value;
-      if(!this.state.category_selection){
-        console.log("empty stirng");
+      if(event.target.value.trim() != ""){
+        console.log("not empty stirng");
+        this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
       }
-      this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
     }
   }
 
@@ -62,7 +62,7 @@ class Search extends Component {
 
   searchResults(){
     if(this.props.search.results){
-      return this.props.search.results.map(function(result) {console.log(result);
+      return this.props.search.results.map(function(result) {
         return <PageUrlBar key={result.page.title} page={result.page} domain={result.domain} visited={result.visited}/>
       });
     } else {
