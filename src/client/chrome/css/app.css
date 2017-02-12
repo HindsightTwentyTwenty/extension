@@ -1,6 +1,11 @@
+@import url("./daterangepicker.css");
+
 $banana: #FFDB5C;
+$banana-dark: #F9D34A;
 $electric-blue: #4897D8;
 $electric-blue-dark: #2B82CA;
+$lime: #77f200;
+$lime-dark: #6ad304;
 $light-blue: #dbedfc;
 $watermelon: #FA6E59;
 $watermelon-dark: #F95339;
@@ -29,6 +34,8 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+
 
 //WC TODO: change css of blacklist bar and url bar to common component?
 .blacklist-bar {
@@ -90,6 +97,7 @@ body {
 }
 .url-categories{
   display: flex;
+  float:right;
   overflow: scroll;
 }
 .star-categories {
@@ -250,7 +258,19 @@ start-time-label .end-time-label{
   width: calc(100% - 200px);
   height: calc(100% - 50px);
   display: inline-block;
+  margin-top: 5px;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+#content-scroll {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
 }
 
 .categories-page {
@@ -491,24 +511,6 @@ start-time-label .end-time-label{
   height: 40%;
 }
 
-.watermelon {
-  background-color: $watermelon;
-  color: white;
-  &:hover {
-    background-color: $watermelon-dark;
-    color: white;
-  }
-}
-
-.canteloupe {
-  background-color: $canteloupe;
-  color: white;
-  &:hover {
-    background-color: $canteloupe-dark;
-    color: white;
-  }
-}
-
 .star-checkbox{
   border-bottom: solid thin $canteloupe;
   border-top: solid thin $canteloupe;
@@ -540,28 +542,14 @@ hr{
   }
 }
 
-
 .category-bar{
   width: 80px;
   margin: 5px;
   height: 35px;
-  border: solid 2px $canteloupe;
   color: $base-white;
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
-  &:hover{
-    color: $canteloupe;
-  }
-}
-
-.category-bar.checked{
-  background-color: $canteloupe;
-  color: $base-white;
-  &:hover{
-    background-color: $canteloupe-dark;
-    border: solid 2px $canteloupe-dark;
-  }
 }
 
 .categories-container{
@@ -602,18 +590,39 @@ hr{
 /* Search Component */
 #search-container {
   margin: 15px;
+  height: 100%;
+  width: 99%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
 }
 
-#search-results-container {
-
+#search-page-results-container {
+  overflow: hidden;
+  flex-grow: 1;
+  position: relative;
+  margin-top: 6px;
 }
 
 #search-selection-container {
   text-align: center;
+  flex-grow: 0;
 }
 
 .search-select-dropdown {
-  margin: 0 20px;
+  margin: 1px 19px;
+}
+
+#search-date-select-dropdown{
+  margin: auto;
+  display: inline-block;
+}
+#date-select-text{
+  border-width: 1px;
+  border-radius: 5px;
+  border: gray;
+  border-style: solid;
+  padding: 2px 4px;
 }
 
 .advanced-search-bar {
@@ -630,4 +639,73 @@ hr{
   color: $watermelon-dark;
   text-align: center;
   font-weight: bold;
+}
+
+/*MODAL*/
+.hider{
+  position:absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  height:100%;
+  z-index: 99;
+  background-color:Black;
+  opacity:0.6; //for transparency
+}
+
+.modal-base{
+  position: absolute;
+  background-color: $base-white;
+  z-index: 110;
+  display: inline;
+
+  top: 5%;
+  left: 7%;
+  width:86%;
+  height:85%;
+}
+
+#iframe-close-button{
+  float: right;
+  margin-left: 80%;
+  margin-top: 1%;
+  padding: 1px;
+
+  height: 10px;
+  line-height: 10px;
+
+
+  background-color: $canteloupe;
+  color: $base-white;
+  border-style: solid;
+  border-color: $canteloupe;
+}
+
+#iframe-open-button{
+  position: relative;
+  float: right;
+  text-align: center;
+  height:80%;
+  line-height: 80%;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  background-color: $canteloupe;
+  color: $base-white;
+  border-style: solid;
+  border-color: $canteloupe;
+}
+
+#iframe-open-button:hover{
+  background-color: $canteloupe-dark;
+}
+
+.m-iframe{
+  position:relative;
+  height: 85%;
+  width: 90%;
+  top:5%;
+  bottom:5%;
+  margin-left: 5%;
+  margin-right: 5%;
 }

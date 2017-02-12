@@ -28,7 +28,7 @@ export function getPageInfo(token){
   }
 }
 
-export function pushCategory(category, token){
+export function pushCategory(category, color, token){
   return dispatch => {
     return fetch(addCategoryEndpoint, {
             headers: {
@@ -37,7 +37,7 @@ export function pushCategory(category, token){
                'Authorization': 'Token ' + token
              },
              method: "POST",
-             body: JSON.stringify({category: category})
+             body: JSON.stringify({category: category, color: color})
            }
       )
       .then(response => response.json())
