@@ -28,7 +28,7 @@ class PageUrlBar extends Component {
     if (this.props.page.categories) {
       return this.props.page.categories.map((category) => {
         return <div className={'url-bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
-            {category.title}
+            <div className="hide-overflow">{category.title}</div>
             <div className='url-bar-category-times' onClick={()=>{
                 this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
               }}>

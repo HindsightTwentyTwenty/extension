@@ -90,7 +90,8 @@ body {
   height: 30px;
   border-radius: 2px;
   margin: 5px;
-  display: inline;
+  display: flex;
+  justify-content: space-between; 
   line-height: 30px;
 }
 
@@ -663,6 +664,7 @@ hr{
 /* Search Component */
 #search-container {
   margin: 15px auto;
+  margin-bottom: 0px;
   height: 100%;
   width: 99%;
   display: flex;
