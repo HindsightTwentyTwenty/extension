@@ -10,7 +10,7 @@ class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
-    this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   fetchPages() {
@@ -33,7 +33,7 @@ class CategoriesPage extends Component {
       for (let searchCat of searchCatSet.values()) {
         for (var pagePk in categoriesPages[searchCat]) {
           if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar key={pagePk} page={categoriesPages[searchCat][pagePk]}/>)
+            result.push(<PageUrlBar key={pagePk} page={categoriesPages[searchCat][pagePk]} domain={categoriesPages[searchCat][pagePk].domain} visited={categoriesPages[searchCat][pagePk].last_visited}/>)
             pageSet.add(pagePk);
           }
         }

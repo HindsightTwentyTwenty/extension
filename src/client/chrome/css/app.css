@@ -23,18 +23,37 @@ body {
    font-family: 'Raleway', sans-serif;
 }
 
-.url-bar {
-  height: $bar-height;
-  line-height: $bar-height;
-  margin: 5px;
+.vertical-center{
+  align-self: center;
+}
+
+.page-url-bar {
+  height: 60px;
+  line-height: 35px;
+  margin: 5px auto;
   border-radius: 3px;
   width: 95%;
   background-color: $electric-blue;
-  padding: 0px 6px;
+  padding: 6px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
+.bar-text-col{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;;
+  color: $base-white;
+  font-size: 12px;
+  line-height: 15px;
+  width: 45%;
+}
+
+.bar-text-col p{
+  margin: 0;
+}
 
 
 //WC TODO: change css of blacklist bar and url bar to common component?
@@ -85,27 +104,24 @@ body {
 }
 
 .url{
-  color: $base-white;
+  color: $banana;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 30%;
+  width: 95%;
+  font-size: 15px;
 }
 
 .url:hover {
-  color: $canteloupe;
+  color: $base-white;
 }
+
 .url-categories{
   display: flex;
   float:right;
-  overflow: scroll;
-}
-.star-categories {
-  float: right;
-  height: 40px;
-  width: 40px;
-  line-height: 40px;
-  color: $banana;
+  overflow: auto;
+  margin-right: 1%;
+  width: 45%;
 }
 
 .lookback-container{
@@ -190,13 +206,6 @@ body {
   text-overflow: ellipsis;
 }
 
-.category-bar-label{
-  font-weight: normal;
-  .selected{
-  width:70%;
-  }
-}
-
 .domain-bar{
   height: 22px;
   border: solid 1px $electric-blue;
@@ -251,30 +260,20 @@ start-time-label .end-time-label{
   margin-right: 15px;
   color: $base-white;
   font-weight: bold;
+  font-family: 'Poiret One', cursive;
 }
 
 .search-results-container {
-  padding-right: 15px;
-  width: calc(100% - 200px);
-  height: calc(100% - 50px);
-  display: inline-block;
-  margin-top: 5px;
-  flex-grow: 1;
-  overflow: hidden;
-  position: relative;
-}
-
-#content-scroll {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: scroll;
+  width: 80%;
+  height: 97%;
+  margin: 5px auto;
+  overflow: scroll;
 }
 
 .categories-page {
   height: 92.5vh;
+  display: flex;
+  flex-direction: row;
 }
 
 .vertical-axis-label {
@@ -336,6 +335,7 @@ start-time-label .end-time-label{
   margin-top: 15px;
   font-size: medium;
   padding: 0px;
+  outline: none;
 }
 .nav-bar-button:hover {
   color: $base-white;
@@ -375,6 +375,7 @@ start-time-label .end-time-label{
   min-width: 200px;
   height: 35px;
   padding: 10px;
+  outline: none;
 }
 .blacklist-text-entry {
   margin: 3px 5px;
@@ -511,6 +512,70 @@ start-time-label .end-time-label{
   height: 40%;
 }
 
+.watermelon {
+  background-color: $watermelon;
+  color: $base-white;
+  &:hover {
+    background-color: $watermelon-dark;
+    color: $base-white;
+  }
+  &:focus{
+    color: $base-white;
+  }
+}
+
+.watermelon-border {
+  border: solid 2px $watermelon;
+}
+
+.canteloupe {
+  background-color: $canteloupe;
+  color: white;
+  &:hover {
+    border: $canteloupe-dark;
+    background-color: $canteloupe-dark;
+  }
+}
+
+.canteloupe-border {
+  border: solid 2px $canteloupe;
+}
+
+.lime {
+  background-color: $lime;
+  color: white;
+  &:hover {
+    border: $lime-dark;
+    background-color: $lime-dark;
+  }
+}
+
+.lime-border {
+  border: solid 2px $lime;
+}
+
+.banana {
+  background-color: $banana;
+  color: white;
+  &:hover {
+    border: $banana-dark;
+    background-color: $banana-dark;
+  }
+}
+
+.banana-border {
+  border: solid 2px $banana;
+}
+
+.electric-blue {
+  background-color: $electric-blue;
+  color: white;
+}
+
+.electric-blue-border {
+  border: solid 2px $electric-blue;
+}
+
 .star-checkbox{
   border-bottom: solid thin $canteloupe;
   border-top: solid thin $canteloupe;
@@ -550,6 +615,10 @@ hr{
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
+  &:hover{
+    font-weight: bold;
+    border: solid 2px $base-white;
+  }
 }
 
 .categories-container{
@@ -560,6 +629,7 @@ hr{
 
 .star-div{
   height:45px;
+  line-height: 55px;
   width: 45px;
   color: $base-white;
   margin-left: 1%;
@@ -570,6 +640,9 @@ hr{
 
 .starred{
   color: $banana;
+  &:hover{
+    color: $base-white;
+  }
 }
 
 .star{
@@ -589,24 +662,21 @@ hr{
 
 /* Search Component */
 #search-container {
-  margin: 15px;
+  margin: 15px auto;
   height: 100%;
   width: 99%;
-  position: absolute;
   display: flex;
   flex-direction: column;
 }
 
 #search-page-results-container {
-  overflow: hidden;
-  flex-grow: 1;
-  position: relative;
-  margin-top: 6px;
+  height: 72vh;
+  overflow-y: scroll;
 }
 
 #search-selection-container {
   text-align: center;
-  flex-grow: 0;
+  margin: 1% auto;
 }
 
 .search-select-dropdown {
@@ -625,14 +695,29 @@ hr{
   padding: 2px 4px;
 }
 
+.advanced-search{
+  margin: 0 auto;
+  width: 50%;
+  font-size: large;
+}
+
 .advanced-search-bar {
-  width:100%;
+  width: 90%;
   margin: 7px auto;
-  border-radius: 10px;
-  border: canteloupe;
-  min-width: 200px;
+  border-radius: 0px;
+  border: $electric-blue;
   height: 35px;
   padding: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid;
+  color: $electric-blue-dark;
+  font-size: medium;
+  background-color: $base-white;
+  &::-webkit-input-placeholder {
+    color: $electric-blue-dark;
+    font-size: medium;
+  }
 }
 
 .login-error {
@@ -672,19 +757,15 @@ hr{
   }
 }
 
-#iframe-open-button{
-  position: relative;
-  float: right;
-  text-align: center;
-  height:80%;
-  line-height: 80%;
-  margin-top: auto;
-  margin-bottom: auto;
-
-  background-color: $canteloupe;
+.iframe-open-button{
+  background: none;
   color: $base-white;
-  border-style: solid;
-  border-color: $canteloupe;
+  font-size: x-large;
+  border: none;
+  outline: none;
+  &:hover{
+    color: $watermelon;
+  }
 }
 
 #iframe-open-button:hover{
@@ -703,4 +784,10 @@ hr{
   height: 90%;
   width: 90%;
   margin: 0 5% 3% 5%;
+}
+
+.url-buttons{
+  width: 7%;
+  display: flex;
+  margin-left: 1%;
 }
