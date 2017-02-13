@@ -80,8 +80,8 @@ class PageUrlBar extends Component {
           <div className="bar-text-col">
             <a className="url" target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
             <div>
-            {visited}
-            {domain}
+              {visited}
+              {domain}
             </div>
           </div>
           <div className='url-categories vertical-center'>
