@@ -70,7 +70,6 @@ class PageUrlBar extends Component {
         {(this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''}
         <a className={'url'} target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
         <div className='url-categories'>
-          {this.getCategories()}
           <div onClick={()=>{
             this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
             }}>
