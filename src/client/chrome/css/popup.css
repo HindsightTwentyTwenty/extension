@@ -1,5 +1,7 @@
 $banana: #FFDB5C;
 $electric-blue: #4897D8;
+$electric-blue-dark: #2B82CA;
+$lime: #77f200;
 $watermelon: #FA6E59;
 $canteloupe: #F8A055;
 $base-white: #FAFAFA;
@@ -211,4 +213,22 @@ $canteloupe-dark: #F68828;
   height: 45px;
   align-items: center;
   justify-content: space-between;
+}
+
+.create-category-bar {
+  display: flex;
+}
+
+.popup-category-entry {
+  margin: 0 auto;
+  width: 89%;
+  margin-bottom: 5px;
+  background-color: $electric-blue-dark;
+}
+
+.color-square {
+  display: inline-flex;
+  width: 25px;
+  height: 25px;
+  margin: 7px;
 }
