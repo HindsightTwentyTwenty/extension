@@ -59,9 +59,11 @@ class PageUrlBar extends Component {
       <div className={'url-bar'}>
         {(this.props.search_items.dom && this.state.iframe_show) ?
             <div className="modal-base" id="iframe-modal">
-                <button id="iframe-close-button " onClick={this.closeIframe.bind(this)}>
-                  x
-                </button>
+              <div className="i-modal-header">
+                <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
+                  <i className="fa fa-times fa-lg" aria-hidden="true"></i>
+                </div>
+              </div>
                 <iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>
             </div>
         : ''}
