@@ -40,7 +40,9 @@ class PageUrlBar extends Component {
   }
 
   getDOM(){
-    this.props.lookback_actions.getDOM(this.props.page.pk, this.props.currentUser.token);
+    if(this.props.visit_pk){
+      this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token);
+    }
   }
 
   openIframe(event){
@@ -59,15 +61,17 @@ class PageUrlBar extends Component {
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
     var modal = (this.props.search_items.dom && this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
-            <button id="iframe-close-button " onClick={this.closeIframe.bind(this)}>
-              x
-            </button>
+          <div className="i-modal-header">
+            <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
+              <i className="fa fa-times fa-lg" aria-hidden="true"></i>
+            </div>
+          </div>
             <iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>
         </div>
     : ''
     var hider = (this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
     var visited = this.props.visited ? <p>visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
-    var domain= this.props.domain.base_url ? <p>{this.props.domain.base_url}</p> : '';
+    var domain= this.props.domain ? <p>{this.props.domain}</p> : '';
 
     return (
       <div className="page-url-bar">

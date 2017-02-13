@@ -63,7 +63,7 @@ class Search extends Component {
   searchResults(){
     if(this.props.search.results){
       return this.props.search.results.map(function(result) {
-        return <PageUrlBar key={result.page.title} page={result.page} domain={result.domain} visited={result.visited}/>
+        return <PageUrlBar key={result.page.title} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
       });
     } else {
       return <div>LOADING</div>
