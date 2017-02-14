@@ -33,7 +33,10 @@ class CategoriesPage extends Component {
       for (let searchCat of searchCatSet.values()) {
         for (var pagePk in categoriesPages[searchCat]) {
           if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar key={pagePk} page={categoriesPages[searchCat][pagePk]} domain={categoriesPages[searchCat][pagePk].domain} visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+            result.push(<PageUrlBar key={pagePk}
+              page={categoriesPages[searchCat][pagePk]}
+              domain={categoriesPages[searchCat][pagePk].domain}
+              visited={categoriesPages[searchCat][pagePk].last_visited}/>)
             pageSet.add(pagePk);
           }
         }

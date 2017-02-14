@@ -91,7 +91,7 @@ body {
   border-radius: 2px;
   margin: 5px;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   line-height: 30px;
 }
 
@@ -194,6 +194,7 @@ body {
   color: $canteloupe;
   display: inline-block;
   width: 18%;
+  min-width: 150px;
   height: 100%;
   background-color: $base-white;
   border: solid 3px $canteloupe;
@@ -383,9 +384,6 @@ start-time-label .end-time-label{
   border-radius: 4px;
   border: none;
   width: 98%;
-}
-.all-categories {
-  overflow: scroll;
 }
 
 .section-title {
