@@ -91,7 +91,7 @@ body {
   border-radius: 2px;
   margin: 5px;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   line-height: 30px;
 }
 
@@ -792,4 +792,19 @@ hr{
   width: 7%;
   display: flex;
   margin-left: 1%;
+}
+
+.iframe-msg-box{
+  position:relative;
+  height: 90%;
+  width: 90%;
+  margin: 0 5% 3% 5%;
+}
+
+.iframe-error{
+  text-align: center;
+  width:100%;
+  margin-top:35%;
+  font-size:large;
+  color:black;
 }
