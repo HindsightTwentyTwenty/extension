@@ -27,6 +27,7 @@ function getState() {
     date_message: "Select Date Range",
     category_selection: "",
     sort_selection: SearchConstants.Relevance,
+    page: 1,
     iframe_show:false,
     iframehider_show:false
   }
@@ -41,6 +42,7 @@ class Search extends Component {
     this.handleTimeEvent = this.handleTimeEvent.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
+    this.resultsDisplayedMessage = this.resultsDisplayedMessage.bind(this);
   }
 
   searchBarInput(event){
@@ -86,6 +88,12 @@ class Search extends Component {
     this.setState({sort_selection: event.target.value});
   }
 
+  resultsDisplayedMessage(){
+    return (
+      "Hello"
+    )
+  }
+
 
   render() {
 
@@ -124,8 +132,28 @@ class Search extends Component {
             </div>
             </div>
           </div>
+          <div id="search-results-displayed-message">
+              { this.resultsDisplayedMessage() }
+          </div>
           <div id="search-page-results-container">
               { this.searchResults() }
+              <div className="container">
+                <div className="row">
+                  <div className="col-xs-10 col-xs-offset-1">
+                    <button className="" onClick={() => {
+                      this.props.lookback_actions.toggleDomainClicked();
+                    }}><i className="fa fa-chevron-left " aria-hidden="true"></i>Previous</button>
+                    <ul className="list-inline">
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                    </ul>
+                    <button className="" onClick={() => {
+                      this.props.lookback_actions.toggleDomainClicked();
+                    }}>Next<i className="fa fa-chevron-right" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
           </div>
       </div>
     );

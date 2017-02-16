@@ -91,7 +91,7 @@ body {
   border-radius: 2px;
   margin: 5px;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   line-height: 30px;
 }
 
@@ -678,7 +678,7 @@ hr{
 
 #search-selection-container {
   text-align: center;
-  margin: 1% auto;
+  margin: 1px auto;
 }
 
 .search-select-dropdown {
