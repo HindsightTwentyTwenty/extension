@@ -13,6 +13,7 @@ $canteloupe: #F8A055;
 $canteloupe-dark: #F68828;
 $base-white: #FAFAFA;
 $bar-height: 40px;
+$modal-background: #e5eefc;
 
 body {
    width:auto;
@@ -742,7 +743,7 @@ hr{
 
 .modal-base{
   position: absolute;
-  background-color: #e5eefc;
+  background-color: $modal-background;
   z-index: 110;
   top: 5%;
   left: 7%;
