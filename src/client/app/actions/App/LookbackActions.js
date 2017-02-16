@@ -75,7 +75,7 @@ export function domReturned(json){
 export function clearDOM(){
   return{
     type: types.SET_CURR_DOM,
-    dom: ""
+    dom: "loading"
   }
 }
 export function searchTermNav(search_term, token){
@@ -116,7 +116,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
   }
 }
 
-export function getDOM(pk, token){
+export function getDOM(pk, token, origin){
   return dispatch => {
     return fetch(domEndpoint, {
           headers: {
@@ -125,7 +125,7 @@ export function getDOM(pk, token){
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: JSON.stringify({"pk": pk})
+           body: JSON.stringify({"pk": pk, "page": origin})
          }
        )
       .then(response => response.json())
