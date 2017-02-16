@@ -64,6 +64,25 @@ class Search extends Component {
   }
 
   searchResults(){
+    //Activate / Deactive Prev & Next Buttons as neccessary based on results being displayed
+    console.log("CHECKING BUTTONS IF NEED TO DISPLAYED NEXT PREV");
+    if(document.getElementById("previous-btn")){
+      if(this.state.page_selection == 1){
+        console.log("disabling prev");
+        document.getElementById("previous-btn").disabled=true;
+      } else {
+        document.getElementById("previous-btn").disabled=false;
+      }
+    }
+    if(document.getElementById("next-btn")){
+      if(this.state.page_selection == Math.ceil(this.props.search.results.length / SearchConstants.ResultsPerPage)){
+        console.log("disabling next");
+        document.getElementById("next-btn").disabled=true;
+      } else {
+        document.getElementById("next-btn").disabled=false;
+      }
+    }
+
     if(this.props.search.results){
       var firstIndexDisplayed = (this.state.page_selection - 1) * SearchConstants.ResultsPerPage;
       var lastIndexDisplayed = firstIndexDisplayed + SearchConstants.ResultsPerPage;
@@ -73,6 +92,7 @@ class Search extends Component {
     } else {
       return <div>LOADING</div>
     }
+
   }
 
   handleCategoryChange(event) {
@@ -103,49 +123,57 @@ class Search extends Component {
     console.log("Over perpage:", resultsCount / 10);
     console.log("round:", Math.ceil(resultsCount / 10));
 
-    if (resultsCount <= SearchConstants.ResultsPerPage) {
-      console.log("disabling buttons");
-      if(document.getElementById("previous-btn")){
-        document.getElementById("previous-btn").disabled=true;
-      }
-      if(document.getElementById("next-btn")){
-        document.getElementById("next-btn").disabled=true;
-      }
-      return (
-        <li className="page-number-selected">1</li>
-      )
-    } else {
-      if(document.getElementById("previous-btn")){
-        document.getElementById("previous-btn").disabled=false;
-      }
-      if(document.getElementById("next-btn")){
-        document.getElementById("next-btn").disabled=false;
-      }
+    // if (resultsCount <= SearchConstants.ResultsPerPage) {
+    //   console.log("disabling buttons");
+    //   if(document.getElementById("previous-btn")){
+    //     document.getElementById("previous-btn").disabled=true;
+    //   }
+    //   if(document.getElementById("next-btn")){
+    //     document.getElementById("next-btn").disabled=true;
+    //   }
+    //   return (
+    //     <li className="page-number-selected">1</li>
+    //   )
+    // } else {
+    //   // if(document.getElementById("previous-btn")){
+    //   //   document.getElementById("previous-btn").disabled=false;
+    //   // }
+    //   // if(document.getElementById("next-btn")){
+    //   //   document.getElementById("next-btn").disabled=false;
+    //   // }
       let pages = [];
       pages.push(<li id="page-selector-1" key={1} className="page-number-selector page-number-selected" onClick={this.pageSelectionChange.bind(this, 1)}>1</li>)
       var count;
       for (count = 2; count <= Math.ceil(resultsCount / SearchConstants.ResultsPerPage); count++){
         pages.push(<li id={"page-selector-" + count} key={count} className="page-number-selector" onClick={this.pageSelectionChange.bind(this, count)}>{count}</li>)
       }
+
       return pages;
-    }
+    //}
   }
 
   pageSelectionChange(pageSelection){
+    // Buttons should be disabled to avoid this but just in case
+    if(pageSelection < 1 || pageSelection > Math.ceil(this.props.search.results.length / SearchConstants.ResultsPerPage)){
+      return;
+    }
+
     if(pageSelection != this.state.page_selection){
       console.log("switching page");
+      // Control Styling on Number Selectors
       document.getElementById("page-selector-" + this.state.page_selection).classList.remove("page-number-selected");
       document.getElementById("page-selector-" + pageSelection).classList.add("page-number-selected");
+
+      // Control Results Displayed
       this.setState({page_selection: pageSelection});
 
       // Scroll to the top of results
-      document.getElementById(search-page-results-container).scrollTop = 0;
+      document.getElementById("search-page-results-container").scrollTop = 0;
     }
   }
 
 
   render() {
-
     return (
       <div>
         <div id="search-container">
@@ -190,13 +218,13 @@ class Search extends Component {
                 <div className="row">
                   <div id="page-selector-container" className="col-xs-10 col-xs-offset-1">
                     <button id="previous-btn" className="page-selector-element" onClick={() => {
-                      this.props.lookback_actions.toggleDomainClicked();
+                      this.pageSelectionChange(this.state.page_selection - 1);
                     }}><i id="previous-chevron" className="fa fa-chevron-left" aria-hidden="true"></i>Previous</button>
                     <ul className="page-selector-element list-inline ">
                       { this.getPageNumbers() }
                     </ul>
                     <button id="next-btn" className="page-selector-element" onClick={() => {
-                      this.props.lookback_actions.toggleDomainClicked();
+                      this.pageSelectionChange(this.state.page_selection + 1);
                     }}>Next<i id="next-chevron" className="fa fa-chevron-right" aria-hidden="true"></i></button>
                   </div>
                 </div>
