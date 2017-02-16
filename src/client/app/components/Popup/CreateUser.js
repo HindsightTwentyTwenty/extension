@@ -100,6 +100,13 @@ class CreateUser extends Component {
 		this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
 	}
 
+	CreateUserEnter(event){
+		var keycode = event.keyCode || event.which;
+		if(keycode == '13') {
+			this.createNewUser();
+		}
+	}
+
   render () {
     return (
 			<div className="popup-main-form electric-blue">
@@ -113,7 +120,7 @@ class CreateUser extends Component {
 					<input type="email" className="login-form form-control" id="email" placeholder="&#xf003; email" onChange={this.updateField.bind(this)} />
 					<div className="login-error" id="password-error">{this.state? this.state.pass_error_message : ''}</div>
 					<input type="password" className="login-form form-control" id="password_1" placeholder="&#xf13e; password" onChange={this.updateField.bind(this)} />
-					<input type="password" className="login-form form-control" id="password_2" placeholder="&#xf13e; confirm password" onChange={this.updateField.bind(this)} />
+					<input type="password" className="login-form form-control" id="password_2" placeholder="&#xf13e; confirm password" onChange={this.updateField.bind(this)} onKeyPress={this.CreateUserEnter.bind(this)}/>
         </div>
 				<div className ="popup-button-group">
           <button className="btn popup-main-btn watermelon" type="button" onClick={this.createNewUser.bind(this)}>Submit</button>

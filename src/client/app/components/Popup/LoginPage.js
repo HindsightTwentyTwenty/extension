@@ -47,6 +47,13 @@ class LoginPage extends Component {
     this.props.user_actions.loginUser(this.state.user_name, this.state.password);
   }
 
+	LoginOnEnter(event){
+		var keycode = event.keyCode || event.which;
+		if(keycode == '13') {
+			this.loginUser();
+		}
+	}
+
   render () {
 		var emailplaceholder = <div><i class="fa fa-envelope-o" aria-hidden="true"></i><p>email</p></div>
     return (
@@ -56,7 +63,7 @@ class LoginPage extends Component {
 				<div className="login-error"> {this.props.currentUser.invalid_login ? 'Invalid Username or Password' : ''}</div>
 				<div className = 'popup-form-group'>
 					<input type="email" autoComplete="off" className="login-form form-control" id="email" placeholder='&#xf003;  email address' onChange={this.updateUserName.bind(this)} />
-	        <input type="password" className="login-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} />
+	        <input type="password" className="login-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} onKeyPress={this.LoginOnEnter.bind(this)}/>
 				</div>
 				<div className ="popup-button-group">
 				<button className="btn popup-main-btn watermelon" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>

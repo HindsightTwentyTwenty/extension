@@ -6,6 +6,7 @@ import Star from '../Star/Star.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
 
 
@@ -22,6 +23,7 @@ class PageUrlBar extends Component {
     super(props);
     this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+    this.props.lookback_actions.clearDOM();
   }
 
   getCategories() {
@@ -41,7 +43,11 @@ class PageUrlBar extends Component {
 
   getDOM(){
     if(this.props.visit_pk){
-      this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token);
+      if(this.props.origin == "categories"){
+        this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token, true);
+      }else{
+        this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token, false);
+      }
     }
   }
 
@@ -57,19 +63,36 @@ class PageUrlBar extends Component {
     this.props.lookback_actions.clearDOM();
   }
 
+  getIframe(){
+    if(this.props.search_items.dom == "loading"){
+      return(<div className="iframe-msg-box">
+        <Loading/>
+      </div>
+      )
+    }
+    else if(this.props.search_items.dom == ""){
+      return(<div className="iframe-msg-box">
+        <div className="iframe-error">Sorry, No html available for this page.</div>
+      </div>
+      )
+    }else{
+      return(<iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>)
+    }
+  }
+
   render() {
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
-    var modal = (this.props.search_items.dom && this.state.iframe_show) ?
+    var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
           <div className="i-modal-header">
             <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
               <i className="fa fa-times fa-lg" aria-hidden="true"></i>
             </div>
           </div>
-            <iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>
+            {this.getIframe()}
         </div>
     : ''
-    var hider = (this.state.iframehider_show && this.props.search_items.dom ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
+    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
     var visited = this.props.visited ? <p>visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
     var domain= this.props.domain ? <p>{this.props.domain}</p> : '';
 

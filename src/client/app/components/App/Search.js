@@ -50,7 +50,6 @@ class Search extends Component {
     if(keycode == '13') {
       var search_term = event.target.value;
       if(event.target.value.trim() != ""){
-        console.log("not empty stirng");
         this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
       }
     }
@@ -65,7 +64,7 @@ class Search extends Component {
   searchResults(){
     if(this.props.search.results){
       return this.props.search.results.map(function(result) {
-        return <PageUrlBar key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
+        return <PageUrlBar origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
       });
     } else {
       return <div>LOADING</div>
@@ -73,7 +72,6 @@ class Search extends Component {
   }
 
   handleCategoryChange(event) {
-    console.log("cat on change", event.target.value);
     this.setState({category_selection: event.target.value});
   }
 
@@ -81,7 +79,6 @@ class Search extends Component {
     this.setState({start_date: picker.startDate});
     this.setState({end_date: picker.endDate});
     this.setState({date_message: moment(this.state.start_date).format("MMM Do YY") + " - " + moment(this.state.end_date).format("MMM Do YY")});
-    console.log(this.state.end_date);
   }
 
   handleSortChange(event) {
@@ -159,17 +156,6 @@ class Search extends Component {
     );
   }
 }
-
-// <select id="time-selection" className="search-select-dropdown" value={this.state.time_selection} onChange={this.handleTimeChange}>
-//   <option value={SearchConstants.Anytime}>Anytime</option>
-//   <option value={SearchConstants.Hour}>Past hour</option>
-//   <option value={SearchConstants.Day}>Past 24 hours</option>
-//   <option value={SearchConstants.Week}>Past week</option>
-//   <option value={SearchConstants.Month}>Past month</option>
-//   <option value={SearchConstants.Year}>Past year</option>
-//   <option value={SearchConstants.Custom}>Custom range...</option>
-// </select>
-
 
 let mapStateToProps = (state) => ({
   lookbackNav: state.lookbackNav,
