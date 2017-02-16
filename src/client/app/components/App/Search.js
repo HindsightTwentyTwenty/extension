@@ -27,7 +27,7 @@ function getState() {
     date_message: "Select Date Range",
     category_selection: "",
     sort_selection: SearchConstants.Relevance,
-    page: 1,
+    page_selection: 1,
     iframe_show:false,
     iframehider_show:false
   }
@@ -43,6 +43,8 @@ class Search extends Component {
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
     this.resultsDisplayedMessage = this.resultsDisplayedMessage.bind(this);
+    this.getPageNumbers = this.getPageNumbers.bind(this);
+    this.pageSelectionChange = this.pageSelectionChange.bind(this);
   }
 
   searchBarInput(event){
@@ -63,7 +65,9 @@ class Search extends Component {
 
   searchResults(){
     if(this.props.search.results){
-      return this.props.search.results.map(function(result) {
+      var firstIndexDisplayed = (this.state.page_selection - 1) * SearchConstants.ResultsPerPage;
+      var lastIndexDisplayed = firstIndexDisplayed + SearchConstants.ResultsPerPage;
+      return this.props.search.results.slice(firstIndexDisplayed,lastIndexDisplayed).map(function(result) {
         return <PageUrlBar origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
       });
     } else {
@@ -86,9 +90,57 @@ class Search extends Component {
   }
 
   resultsDisplayedMessage(){
-    return (
-      "Hello"
-    )
+    if(this.props.search.results.length > 0){
+      return (
+        "Hello"
+      )
+    }
+  }
+
+  getPageNumbers(){
+    var resultsCount = this.props.search.results.length;
+    console.log("Num results: ", resultsCount);
+    console.log("Over perpage:", resultsCount / 10);
+    console.log("round:", Math.ceil(resultsCount / 10));
+
+    if (resultsCount <= SearchConstants.ResultsPerPage) {
+      console.log("disabling buttons");
+      if(document.getElementById("previous-btn")){
+        document.getElementById("previous-btn").disabled=true;
+      }
+      if(document.getElementById("next-btn")){
+        document.getElementById("next-btn").disabled=true;
+      }
+      return (
+        <li className="page-number-selected">1</li>
+      )
+    } else {
+      if(document.getElementById("previous-btn")){
+        document.getElementById("previous-btn").disabled=false;
+      }
+      if(document.getElementById("next-btn")){
+        document.getElementById("next-btn").disabled=false;
+      }
+      let pages = [];
+      pages.push(<li id="page-selector-1" key={1} className="page-number-selector page-number-selected" onClick={this.pageSelectionChange.bind(this, 1)}>1</li>)
+      var count;
+      for (count = 2; count <= Math.ceil(resultsCount / SearchConstants.ResultsPerPage); count++){
+        pages.push(<li id={"page-selector-" + count} key={count} className="page-number-selector" onClick={this.pageSelectionChange.bind(this, count)}>{count}</li>)
+      }
+      return pages;
+    }
+  }
+
+  pageSelectionChange(pageSelection){
+    if(pageSelection != this.state.page_selection){
+      console.log("switching page");
+      document.getElementById("page-selector-" + this.state.page_selection).classList.remove("page-number-selected");
+      document.getElementById("page-selector-" + pageSelection).classList.add("page-number-selected");
+      this.setState({page_selection: pageSelection});
+
+      // Scroll to the top of results
+      document.getElementById(search-page-results-container).scrollTop = 0;
+    }
   }
 
 
@@ -136,18 +188,16 @@ class Search extends Component {
               { this.searchResults() }
               <div className="container">
                 <div className="row">
-                  <div className="col-xs-10 col-xs-offset-1">
-                    <button className="" onClick={() => {
+                  <div id="page-selector-container" className="col-xs-10 col-xs-offset-1">
+                    <button id="previous-btn" className="page-selector-element" onClick={() => {
                       this.props.lookback_actions.toggleDomainClicked();
-                    }}><i className="fa fa-chevron-left " aria-hidden="true"></i>Previous</button>
-                    <ul className="list-inline">
-                      <li>1</li>
-                      <li>2</li>
-                      <li>3</li>
+                    }}><i id="previous-chevron" className="fa fa-chevron-left" aria-hidden="true"></i>Previous</button>
+                    <ul className="page-selector-element list-inline ">
+                      { this.getPageNumbers() }
                     </ul>
-                    <button className="" onClick={() => {
+                    <button id="next-btn" className="page-selector-element" onClick={() => {
                       this.props.lookback_actions.toggleDomainClicked();
-                    }}>Next<i className="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    }}>Next<i id="next-chevron" className="fa fa-chevron-right" aria-hidden="true"></i></button>
                   </div>
                 </div>
               </div>
