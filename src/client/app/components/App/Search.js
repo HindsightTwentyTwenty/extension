@@ -38,7 +38,6 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-    this.props.lookback_actions.clearDOM();
   }
 
   searchBarInput(event){
