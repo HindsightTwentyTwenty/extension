@@ -80,16 +80,25 @@ class PageUrlBar extends Component {
     }
   }
 
+  goToPage(){
+
+  }
+
   render() {
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
     var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
           <div className="i-modal-header">
-            <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
-              <i className="fa fa-times fa-lg" aria-hidden="true"></i>
-            </div>
+              <a className="go-to-site-btn" href={this.props.page.url} target="_blank">
+                go to page <i className="fa fa-arrow-circle-o-right fa-lg" aria-hidden="true"></i>
+              </a>
+              <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
+                <i className="fa fa-times fa-lg" aria-hidden="true"></i>
+              </div>
+              <div id="iframe-title">{this.props.page.title}</div>
           </div>
             {this.getIframe()}
+            <div id="iframe-msg">This is a snapshot of this page at the time you visited it, some aspects may not render correctly.</div>
         </div>
     : ''
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''

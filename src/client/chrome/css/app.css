@@ -13,6 +13,7 @@ $canteloupe: #F8A055;
 $canteloupe-dark: #F68828;
 $base-white: #FAFAFA;
 $bar-height: 40px;
+$modal-background: #e5eefc;
 
 body {
    width:auto;
@@ -742,12 +743,12 @@ hr{
 
 .modal-base{
   position: absolute;
-  background-color: #e0fffa;
+  background-color: $modal-background;
   z-index: 110;
   top: 5%;
   left: 7%;
   width:86%;
-  height:85%;
+  height:90%;
 }
 
 .iframe-close-button{
@@ -776,16 +777,16 @@ hr{
 
 .i-modal-header {
   width: 100%;
-  height: 7%;
+  height: 9%;
 }
 
 .m-iframe{
   border-style: none;
   background-color: $base-white;
   position:relative;
-  height: 90%;
+  height: 86%;
   width: 90%;
-  margin: 0 5% 3% 5%;
+  margin: 0 5% 0% 5%;
 }
 
 .url-buttons{
@@ -804,7 +805,7 @@ hr{
 .iframe-error{
   text-align: center;
   width:100%;
-  margin-top:35%;
+  margin-top:30%;
   font-size:large;
   color:black;
 }
@@ -845,4 +846,26 @@ hr{
 #results-displayed-message {
   margin: 1px 0px 5px 32px;
   color: grey;
+}
+
+.go-to-site-btn{
+  text-decoration: none;
+  margin-left: 5%;
+}
+.go-to-site-btn:hover{
+  color: $canteloupe-dark;
+}
+#iframe-title{
+  text-align: left;
+  margin-left: 5%;
+  margin-top: -1%;
+  text-overflow: ellipsis;
+  font-size: medium;
+  color:black;
+}
+
+#iframe-msg{
+  text-align: center;
+  margin-top: -10px;
+  color: black;
 }
