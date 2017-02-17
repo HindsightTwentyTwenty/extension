@@ -23,7 +23,7 @@ class PageUrlBar extends Component {
     super(props);
     this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
-    this.props.lookback_actions.clearDOM();
+    //this.props.lookback_actions.clearDOM();
   }
 
   getCategories() {

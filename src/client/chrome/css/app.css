@@ -841,3 +841,8 @@ hr{
 .page-number-selected {
   color:black;
 }
+
+#results-displayed-message {
+  margin: 1px 0px 5px 32px;
+  color: grey;
+}

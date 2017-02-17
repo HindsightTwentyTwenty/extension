@@ -38,13 +38,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
-    this.handleTimeEvent = this.handleTimeEvent.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleSortChange = this.handleSortChange.bind(this);
-    this.resultsDisplayedMessage = this.resultsDisplayedMessage.bind(this);
-    this.getPageNumbers = this.getPageNumbers.bind(this);
-    this.pageSelectionChange = this.pageSelectionChange.bind(this);
+    this.props.lookback_actions.clearDOM();
   }
 
   searchBarInput(event){
@@ -53,6 +47,7 @@ class Search extends Component {
       var search_term = event.target.value;
       if(event.target.value.trim() != ""){
         this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
+        this.pageSelectionChange(1);
       }
     }
   }
@@ -65,10 +60,8 @@ class Search extends Component {
 
   searchResults(){
     //Activate / Deactive Prev & Next Buttons as neccessary based on results being displayed
-    console.log("CHECKING BUTTONS IF NEED TO DISPLAYED NEXT PREV");
     if(document.getElementById("previous-btn")){
       if(this.state.page_selection == 1){
-        console.log("disabling prev");
         document.getElementById("previous-btn").disabled=true;
       } else {
         document.getElementById("previous-btn").disabled=false;
@@ -76,7 +69,6 @@ class Search extends Component {
     }
     if(document.getElementById("next-btn")){
       if(this.state.page_selection == Math.ceil(this.props.search.results.length / SearchConstants.ResultsPerPage)){
-        console.log("disabling next");
         document.getElementById("next-btn").disabled=true;
       } else {
         document.getElementById("next-btn").disabled=false;
@@ -111,45 +103,28 @@ class Search extends Component {
 
   resultsDisplayedMessage(){
     if(this.props.search.results.length > 0){
+      var firstIndexDisplayed = Math.min(((this.state.page_selection - 1) * SearchConstants.ResultsPerPage) + 1, this.props.search.results.length);
+      var lastIndexDisplayed = Math.min(firstIndexDisplayed + SearchConstants.ResultsPerPage - 1, this.props.search.results.length);
+
       return (
-        "Hello"
-      )
+        <div id="results-displayed-message"> Displaying results {firstIndexDisplayed} - {lastIndexDisplayed} of {this.props.search.results.length} </div>
+      );
+    } else {
+      return (<div id="results-displayed-message"> No Results Found</div>);
     }
   }
 
   getPageNumbers(){
     var resultsCount = this.props.search.results.length;
-    console.log("Num results: ", resultsCount);
-    console.log("Over perpage:", resultsCount / 10);
-    console.log("round:", Math.ceil(resultsCount / 10));
 
-    // if (resultsCount <= SearchConstants.ResultsPerPage) {
-    //   console.log("disabling buttons");
-    //   if(document.getElementById("previous-btn")){
-    //     document.getElementById("previous-btn").disabled=true;
-    //   }
-    //   if(document.getElementById("next-btn")){
-    //     document.getElementById("next-btn").disabled=true;
-    //   }
-    //   return (
-    //     <li className="page-number-selected">1</li>
-    //   )
-    // } else {
-    //   // if(document.getElementById("previous-btn")){
-    //   //   document.getElementById("previous-btn").disabled=false;
-    //   // }
-    //   // if(document.getElementById("next-btn")){
-    //   //   document.getElementById("next-btn").disabled=false;
-    //   // }
-      let pages = [];
-      pages.push(<li id="page-selector-1" key={1} className="page-number-selector page-number-selected" onClick={this.pageSelectionChange.bind(this, 1)}>1</li>)
-      var count;
-      for (count = 2; count <= Math.ceil(resultsCount / SearchConstants.ResultsPerPage); count++){
-        pages.push(<li id={"page-selector-" + count} key={count} className="page-number-selector" onClick={this.pageSelectionChange.bind(this, count)}>{count}</li>)
-      }
+    let pages = [];
+    pages.push(<li id="page-selector-1" key={1} className="page-number-selector page-number-selected" onClick={this.pageSelectionChange.bind(this, 1)}>1</li>)
+    var count;
+    for (count = 2; count <= Math.ceil(resultsCount / SearchConstants.ResultsPerPage); count++){
+      pages.push(<li id={"page-selector-" + count} key={count} className="page-number-selector" onClick={this.pageSelectionChange.bind(this, count)}>{count}</li>)
+    }
 
-      return pages;
-    //}
+    return pages;
   }
 
   pageSelectionChange(pageSelection){
@@ -159,7 +134,6 @@ class Search extends Component {
     }
 
     if(pageSelection != this.state.page_selection){
-      console.log("switching page");
       // Control Styling on Number Selectors
       document.getElementById("page-selector-" + this.state.page_selection).classList.remove("page-number-selected");
       document.getElementById("page-selector-" + pageSelection).classList.add("page-number-selected");
@@ -189,18 +163,18 @@ class Search extends Component {
             <div className="col-xs-10 col-xs-offset-1">
               <div className="row">
                 <div className="col-xs-4">
-                  <DateRangePicker id="search-date-select-dropdown" onApply={this.handleTimeEvent} timePicker={true} startDate={moment()} endDate={moment()} ranges={dateRanges}>
+                  <DateRangePicker id="search-date-select-dropdown" onApply={this.handleTimeEvent.bind(this)} timePicker={true} startDate={moment()} endDate={moment()} ranges={dateRanges}>
                     <div id="date-select-text">{this.state.date_message}</div>
                   </DateRangePicker>
                 </div>
                 <div className="col-xs-4">
-                  <select id="category-selection" name="category-selection" className="search-select-dropdown" onChange={this.handleCategoryChange}>
+                  <select id="category-selection" name="category-selection" className="search-select-dropdown" onChange={this.handleCategoryChange.bind(this)}>
                     <option value="" >Any Category</option>
                     { this.getCategories() }
                   </select>
                 </div>
                 <div className="col-xs-4">
-                  <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange}>
+                  <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange.bind(this)}>
                     <option value={SearchConstants.Relevance}>Sort by Relevance</option>
                     <option value={SearchConstants.Date}>Sort by Date</option>
                   </select>
