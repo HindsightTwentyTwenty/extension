@@ -837,10 +837,16 @@ hr{
 
 .page-number-selector:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .page-number-selected {
   color:black;
+}
+
+.page-number-selected:hover {
+  text-decoration: none !important;
+  cursor: default !important;
 }
 
 #results-displayed-message {
