@@ -27,13 +27,6 @@ class LookBackNavBar extends Component {
 
 
   switchLookBackSelection(newLookBackSelection){
-    // console.log("switchLookBackSelection: ", newLookBackSelection);
-    // console.log("LookbackSections.Lookback: ", LookBackSections.LookBack);
-    // if(newLookBackSelection == LookBackSections.LookBack){
-    //   console.log("undisplayed Details");
-    //   this.props.lookback_actions.toggleDomainClicked();
-    //   this.props.lookback_actions.setCurrentPage({});
-    // }
     if(newLookBackSelection != this.props.lookbackNav.selection){
       this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection, "")
     }
