@@ -27,9 +27,9 @@ class LookBackNavBar extends Component {
 
 
   switchLookBackSelection(newLookBackSelection){
-      if(newLookBackSelection != this.props.lookbackNav.selection){
-        this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection, "")
-      }
+    if(newLookBackSelection != this.props.lookbackNav.selection){
+      this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection, "")
+    }
   }
 
   searchForm() {

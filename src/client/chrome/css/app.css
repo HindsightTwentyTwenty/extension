@@ -679,7 +679,7 @@ hr{
 
 #search-selection-container {
   text-align: center;
-  margin: 1% auto;
+  margin: 1px auto;
 }
 
 .search-select-dropdown {
@@ -809,6 +809,51 @@ hr{
   font-size:large;
   color:black;
 }
+
+#page-selector-container{
+  text-align: center;
+  display: inline-block;
+  margin: 10px auto;
+  width: 100%;
+  font-size: 16px;
+}
+
+.page-selector-element{
+  display:inline-block;
+  padding: 0px 5px;
+  margin-left: 0px;
+  text-align:center;
+  border-color:$electric-blue;
+  border-radius:6px;
+  background-color:inherit;
+}
+
+#previous-chevron{
+  margin-right: 3px;
+}
+#next-chevron{
+  margin-left: 3px;
+}
+
+.page-number-selector:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.page-number-selected {
+  color:black;
+}
+
+.page-number-selected:hover {
+  text-decoration: none !important;
+  cursor: default !important;
+}
+
+#results-displayed-message {
+  margin: 1px 0px 5px 32px;
+  color: grey;
+}
+
 .go-to-site-btn{
   text-decoration: none;
   margin-left: 5%;
