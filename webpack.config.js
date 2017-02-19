@@ -23,6 +23,10 @@ var config = {
       {
         test: /\.css$/,
         loaders: ['style', 'css', 'sass']
+      },
+      {
+        include: /\.json$/,
+        loaders: ["json-loader"]
       }
     ]
   }

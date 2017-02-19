@@ -8,6 +8,8 @@ export const Year = 5;
 export const Custom = 6;
 
 // Sort by constants
-export const Relevance = 0;
-export const Date = 1;
-export const Time_Spent = 2;
+export const Relevance = "relevance";
+export const Date = "date";
+
+// General constants
+export const ResultsPerPage = 10;

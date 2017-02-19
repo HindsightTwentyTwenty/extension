@@ -5,6 +5,7 @@ import { bindActionCreators} from 'redux';
 import * as LookBackNavActions from '../../actions/LookBackNav/LookBackNavActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
+import moment from 'moment';
 
 class LookBackNavBar extends Component {
 
@@ -17,16 +18,18 @@ class LookBackNavBar extends Component {
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
         var search_term = event.target.value;
-        this.props.lookback_actions.searchTerm(search_term, this.props.currentUser.token);
+        if(event.target.value.trim() != ""){
+          this.props.lookback_actions.searchTermNav(search_term, this.props.currentUser.token);
+        }
     }
   }
 
 
 
   switchLookBackSelection(newLookBackSelection){
-      if(newLookBackSelection != this.props.lookbackNav.selection){
-        this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection, "")
-      }
+    if(newLookBackSelection != this.props.lookbackNav.selection){
+      this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection, "")
+    }
   }
 
   searchForm() {

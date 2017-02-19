@@ -1,6 +1,30 @@
 var closed = false;
 var token = "";
-var url = 'https://hindsite2020.herokuapp.com/'
+var url = 'https://hindsite2020.herokuapp.com/';
+var tabAlarmName = 'tabAlarm';
+
+chrome.alarms.create(tabAlarmName, {
+    delayInMinutes: 0,
+    periodInMinutes: 15
+});
+
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    if (alarm.name === tabAlarmName && token) {
+        chrome.tabs.query({}, function(tabs) {
+          var tab_ids = tabs.map(function(tab) {return tab.id;});
+          fetch(url + 'tabupdate/', {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': "Token " + token
+            },
+            method: "POST",
+            body: JSON.stringify({"tab_ids":tab_ids})
+          }
+        );
+      });
+    }
+});
 
 function get_token(token_return){
   token = token_return['hindsite-token'];
@@ -18,6 +42,8 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         var lastError = chrome.runtime.lastError;
         if (lastError) {
           var dom = "";
+        }else{
+          var strippedDom = dom.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi);
         }
         var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
         fetch(url + 'newpage/', {
@@ -27,7 +53,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             'Authorization': "Token " + token
           },
           method: "POST",
-          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
+          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
         }
       );
     });
@@ -73,5 +99,4 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
         closed = false;
       });
     }
-  }
-);
+  });

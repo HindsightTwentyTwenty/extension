@@ -2,12 +2,17 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
 class CategoryEntry extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(categoryTitle, this.props.currentUser.token).then(() => {
+      this.props.popup_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
         var categoryObject;
         var categories = this.props.categories.cats;
         for(var i = categories.length-1; i >= 0; i--){
@@ -20,20 +25,40 @@ class CategoryEntry extends Component {
     });
   }
 
+  keyPressed(event){
+    var keycode = event.keyCode || event.which;
+    if(keycode == '13') {
+        if (this.input.value.trim() !== '') {
+          this.addNewCategory(this.input.value);
+          this.input.value = '';
+        }
+        this.props.addNewCategory(new_category);
+    }
+  }
+
+  getCurrentColor() {
+    return <div className='color-square' key={this.props.categories.editCatColor.name}
+    style={{"backgroundColor" : this.props.categories.editCatColor.code}}
+    onClick={()=> this.props.category_actions.toggleColorPicker(!this.props.categories.showColorPicker)}></div>;
+  }
+
   render () {
     return (
-    <div className="input-group category-entry">
-      <input type="text" className="popup-form form-control" placeholder="New Category..." ref={node => {
-        this.input = node;
-      }} />
-      <span className="input-group-btn">
-        <button className="btn canteloupe add-category-btn" type="button" onClick={() => {
-          if (this.input.value.trim() !== '') {
-            this.addNewCategory(this.input.value);
-            this.input.value = '';
-          }
-        }}><i className="fa fa-plus" aria-hidden="true"></i></button>
-      </span>
+    <div className="create-category-bar">
+      {this.getCurrentColor()}
+      <div className="input-group popup-category-entry">
+        <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
+          this.input = node;
+        }} />
+        <span className="input-group-btn">
+          <button className="btn add-category-btn" type="button" onClick={() => {
+            if (this.input.value.trim() !== '') {
+              this.addNewCategory(this.input.value);
+              this.input.value = '';
+            }
+          }}><i className="fa fa-plus" aria-hidden="true"></i></button>
+        </span>
+      </div>
     </div>
     )
   }

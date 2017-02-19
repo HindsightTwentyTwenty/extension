@@ -1,5 +1,5 @@
 {
- "version": "0.0.1",
+ "version": "0.0.3",
  "name": "hindsite",
  "manifest_version": 2,
  "description": "hindsite chrome extension",
@@ -17,14 +17,15 @@
   }],
  "icons": {
    "16": "assets/img/icon-16.png",
-   "48": "assets/img/icon-48.png",
-   "128": "assets/img/icon-128.png"
+   "48": "assets/img/logo-48.png",
+   "128": "assets/img/logo-128.png"
  },
  "permissions": [
    "tabs",
    "sessions",
    "http://127.0.0.1:8000/*",
    "https://hindsite2020.herokuapp.com/*",
-   "storage"
+   "storage",
+   "alarms"
  ]
 }

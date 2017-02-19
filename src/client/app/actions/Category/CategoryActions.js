@@ -10,7 +10,6 @@ const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
 const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
 
 export function fetchCategories(token){
-  console.log("Token " + token);
   return dispatch => {
     return fetch(allCategoriesEndpoint,{
       headers: {
@@ -41,7 +40,7 @@ export function fetchCategoriesAndPages(token){
       .then(response => response.json())
       .then(json => dispatch({
         type: types.RECEIVE_CATEGORIES_AND_PAGES,
-        categories: json
+        json: json
       }))
   }
 }
@@ -65,6 +64,10 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
            }
       )
       .then(response => response.json())
+      .then(json => dispatch({
+        type: types.REMOVE_CAT_FROM_PAGE,
+        json: json,
+      }))
   }
 }
 
@@ -123,6 +126,15 @@ export function toggleSearchSelector() {
   }
 }
 
+export function toggleColorPicker(show) {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_COLOR_PICKER,
+      showColorPicker: show
+    })
+  }
+}
+
 export function clearSearchCategories() {
   return dispatch => {
     dispatch({
@@ -146,6 +158,23 @@ export function updateCategoryEditField(newCategoryTitle) {
     dispatch({
       type: types.UPDATE_CATEGORY_EDIT_FIELD,
       categoryTitle: newCategoryTitle
+    })
+  }
+}
+
+export function toggleShowStarred() {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_SHOW_STARRED
+    })
+  }
+}
+
+export function setEditCatColor(color) {
+  return dispatch => {
+    dispatch({
+      type: types.SET_EDIT_CAT_COLOR,
+      color: color
     })
   }
 }

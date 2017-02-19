@@ -21,18 +21,19 @@ class ForgotMyPassword extends Component {
 
   render() {
     return (
-      <div className="popup-main-form">
-				<br/>
-        <p>Enter the email to your account:</p>
+      <div className="popup-main-form electric-blue">
+        <img className="logo" src="../../assets/img/logo-light.png"/>
+        <h2 className="popup-header-text">Forgot Password?</h2>
+        <p className="forgot-password-text">Enter your email below to receive password reset instructions.</p>
 				<div className = 'popup-form-group'>
-          <input type="text" className="popup-form form-control" placeholder="tommy@hindsite.com" ref={node => {this.input = node;}} />
+          <input type="text" className="login-form form-control" placeholder="&#xf003;  email address" ref={node => {this.input = node;}} />
         </div>
 				<div className ="popup-button-group">
-          <button className="btn btn-primary canteloupe" type="button" onClick={() => {
+          <button className="btn popup-main-btn watermelon" type="button" onClick={() => {
             this.submit(this.input.value);
             this.input.value = '';
-          }}>Submit</button>
-          <button className="btn btn-primary" type="button" onClick={() => {this.back()}}>Back</button>
+          }}>Reset Password</button>
+          <button className="btn link-text-btn" type="button" onClick={() => {this.back()}}>Cancel</button>
         </div>
       </div>
     )

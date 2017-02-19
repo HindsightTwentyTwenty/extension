@@ -10,37 +10,34 @@ class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
-    this.props.category_actions.fetchCategories( this.props.currentUser.token);
-    this.props.category_actions.fetchCategoriesAndPages( this.props.currentUser.token);
+    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   fetchPages() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var categoriesPages = this.props.categoriesAndPages.catsPages;
+    var categoriesPages = this.props.categoriesAndPages.catsToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
     if (categoriesPages && Object.keys(categoriesPages).length) {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
-      if (showStarred) {
-        for (let page in starred) {
-          if (!pageSet.has(starred[page].pk)) {
-            result.push(<PageUrlBar key={starred[page].pk} page={starred[page]}/>)
-            pageSet.add(starred[page].pk);
-          }
-        }
-      }
-      if (searchCatSet.size) {
-        for (var i = 0; i < categoriesPages.length; i++) {
-          var searchCat = categoriesPages[i];
-          if (searchCatSet.has(searchCat.title)) {
-            for (let page in searchCat.pages) {
-              if (!pageSet.has(searchCat.pages[page].pk)) {
-                result.push(<PageUrlBar key={searchCat.pages[page].pk} page={searchCat.pages[page]}/>)
-                pageSet.add(searchCat.pages[page].pk);
-              }
-            }
+      // if (showStarred) {
+      //   for (let page in starred) {
+      //     if (!pageSet.has(starred[page].pk)) {
+      //       result.push(<PageUrlBar key={starred[page].pk} page={starred[page]}/>);
+      //       pageSet.add(starred[page].pk);
+      //     }
+      //   }
+      // }
+      // console.log("PROPS FOR CAT", this.props);
+      for (let searchCat of searchCatSet.values()) {
+        for (var pagePk in categoriesPages[searchCat]) {
+          // console.log("cat pages", categoriesPages);
+          // console.log("pagepk", pagePk);
+          if (!pageSet.has(pagePk)) {
+            result.push(<PageUrlBar visit_pk={pagePk} key={pagePk} origin="categories" page={categoriesPages[searchCat][pagePk]} domain={categoriesPages[searchCat][pagePk].domain} visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+            pageSet.add(pagePk);
           }
         }
       }
@@ -54,7 +51,7 @@ class CategoriesPage extends Component {
       <div className="categories-page">
         <SidebarComponent title={"Categories"} button={true}/>
         <div className="search-results-container">
-          <div className="section-title">Search Results</div>
+          <div className="section-title"></div>
           {searchResults}
         </div>
       </div>
