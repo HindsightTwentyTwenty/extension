@@ -10,18 +10,15 @@ class PopupMenu extends Component {
     super(props);
   }
 
-  changePopupTab(tabID) {
-
-  }
-
   getMenuItems() {
     return PopupConstants.POPUP_MENU_ITEMS.map( function (menuItem) {
+      var menuItemClassName = this.props.popupSelection == menuItem.id ? "popup-menu-item selected" : "popup-menu-item";
       return <div key={menuItem.id}
-      className="popup-menu-item"
-      onMouseDown={()=>{this.changePopupTab(menuItem.id)}}>
+      className={menuItemClassName}
+      onMouseDown={()=>{this.props.popup_actions.changePopupTab(menuItem.id)}}>
         {menuItem.tabName}
       </div>
-    })
+    }, this)
   }
 
   render () {
@@ -34,7 +31,7 @@ class PopupMenu extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    popupSelection : state.popup
+    popupSelection : state.popupSelection
 })
 
 let mapDispatchToProps = (dispatch) => {

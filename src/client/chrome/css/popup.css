@@ -226,7 +226,10 @@ $canteloupe-dark: #F68828;
 
 .popup-menu-item {
   color: $base-white;
-  font-size: medium; 
+  font-size: medium;
+  &.selected {
+    color: $watermelon-dark;
+  }
   &:hover{
     cursor: pointer;
     color: $watermelon;

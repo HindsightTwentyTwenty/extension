@@ -48,3 +48,12 @@ export function pushCategory(category, color, token){
     )
   }
 }
+
+export function changePopupTab(tabId) {
+  return dispatch => {
+    dispatch({
+      type: types.CHANGE_POPUP_TAB,
+      tabID: tabId
+    })
+  }
+}
