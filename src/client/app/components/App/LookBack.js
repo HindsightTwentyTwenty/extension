@@ -233,10 +233,13 @@ class LookBack extends Component {
 						</div>
 	        </div>
         <div className="lookback-container">
-						<div className="time-break-line" id="first-time-break"></div>
-						<div className="time-break-line" id="second-time-break"></div>
-
-            {this.state.tabs}
+						<div id="time-break-container">
+							<div className="time-break-line" id="first-time-break"></div>
+							<div className="time-break-line" id="second-time-break"></div>
+						</div>
+						<div id="tabs-container">
+							{this.state.tabs}
+						</div>
         </div>
 
       </div>
