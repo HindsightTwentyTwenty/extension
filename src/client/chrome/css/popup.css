@@ -24,7 +24,6 @@ $canteloupe-dark: #F68828;
   justify-content: flex-start;
   align-items: center;
   color: $base-white;
-  font-family: 'Poiret One', cursive;
   width: 35%;
   float: left;
   &:hover{
@@ -215,6 +214,24 @@ $canteloupe-dark: #F68828;
   align-items: center;
   background-color: $watermelon;
   justify-content: space-between;
+}
+
+.popup-menu {
+  display: flex;
+  align-items: center;
+  background-color: $electric-blue-dark;
+  justify-content: space-between;
+  padding: 5px 15px;
+}
+
+.popup-menu-item {
+  color: $base-white;
+  font-size: medium; 
+  &:hover{
+    cursor: pointer;
+    color: $watermelon;
+    font-weight: bold;
+  }
 }
 
 .create-category-bar {
