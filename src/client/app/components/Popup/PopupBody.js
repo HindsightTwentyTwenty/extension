@@ -28,8 +28,6 @@ class PopupBody extends Component {
   render () {
       return (
         <div className="container popup-body electric-blue">
-          <PopupHeader/>
-          <hr/>
           <div className='popup-page-title'>
             <p className="hide-overflow">{this.props.currentPage.title}</p>
             <Star/>

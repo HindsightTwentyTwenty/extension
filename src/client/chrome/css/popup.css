@@ -19,7 +19,6 @@ $canteloupe-dark: #F68828;
 }
 
 .popup-header {
-  background-color: $electric-blue;
   margin-right: 15px;
   display: flex;
   justify-content: flex-start;
@@ -211,7 +210,10 @@ $canteloupe-dark: #F68828;
 .popup-header-wrapper{
   width: inherit;
   height: 45px;
+  display: flex;
+  padding: 0 15px;
   align-items: center;
+  background-color: $watermelon;
   justify-content: space-between;
 }
 
