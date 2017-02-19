@@ -28,6 +28,18 @@ body {
   align-self: center;
 }
 
+.app-container{
+  height:50px;
+}
+
+#content-body{
+  height: 92.5vh;
+}
+
+#lookback-content{
+  height: 100%;
+}
+
 .page-url-bar {
   height: 60px;
   line-height: 35px;
@@ -128,10 +140,11 @@ body {
 
 .lookback-container{
   width: 95%;
-  height: 350px;
+  height: calc(100% - 70px);
   overflow: scroll;
   background-color: $base-white;
-  margin: 30px;
+  /*top, right, bottom, left*/
+  margin: 5px 30px 5px 30px;
   border:solid 1px $electric-blue;
 }
 
@@ -141,9 +154,9 @@ body {
 }
 
 .lookback-graph-container{
-  height: calc(100% - 70px);
+  height: calc(100% - 125px);
   min-width: 800px;
-  padding-top: 10px;
+  /*padding-top: 10px;*/
 }
 
 .lookback-details-container{
@@ -219,8 +232,8 @@ body {
   margin: 1px;
   border-radius: 2px;
   padding: 0 2px;
-  position:relative;
-  z-index: 1;
+  position:flex;
+  z-index: 10;
   min-width: 24px;
   &:hover {
     border-color: $canteloupe;
@@ -287,8 +300,12 @@ start-time-label .end-time-label{
 }
 
 .time-labels{
-  padding-left: 30px;
-  padding-right: 15px;
+  margin-left: 30px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  min-width: 755px;
 }
 
 .start-time-label{
@@ -299,11 +316,26 @@ start-time-label .end-time-label{
   float: right;
 }
 
+#time-break-container{
+  height:100%;
+  width:100%;
+  z-index:1;
+  position:relative;
+  display: flex;
+}
+
+#tabs-container{
+  height:100%;
+  width:100%;
+  z-index:10;
+  position:relative;
+}
+
 .time-break-line{
-  height: calc(92% - 240px);
-  position: absolute;
-  z-index: 1;
+  height:100%;
   border-right: 1px solid $banana;
+  position:relative;
+  z-index: 1;
 }
 
 #first-time-break{
@@ -312,8 +344,8 @@ start-time-label .end-time-label{
 }
 
 #second-time-break{
-  width: 66%;
-  float: right;
+  width: 33%;
+  float: left;
 }
 
 #time-break-line-label1{
@@ -325,9 +357,9 @@ start-time-label .end-time-label{
   position: absolute;
 }
 
-.time-container{
+/*.time-container{
   display: list-item;
-}
+}*/
 
 .nav-bar-button {
   border: none;
@@ -405,8 +437,9 @@ start-time-label .end-time-label{
   margin-right: 2%;
   height: 100px;
   border-radius: 5px;
-  display:flex;
+  display:absolute;
   flex-flow: row nowrap;
+  z-index: inherit;
 }
 
 .page-bar{

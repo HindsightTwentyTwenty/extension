@@ -10,7 +10,6 @@ const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
 const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
 
 export function fetchCategories(token){
-  console.log("Token " + token);
   return dispatch => {
     return fetch(allCategoriesEndpoint,{
       headers: {

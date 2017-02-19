@@ -85,11 +85,6 @@ export function searchTermNav(search_term, token){
 }
 
 export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
-  console.log("start_time in search", start_time.substring(0,start_time.length - 1));
-  console.log("end_time in search", end_time);
-
-  console.log("Sort", sort_selection);
-
   // This is gross. Will clean up
   var bodyInfo;
   if(category_selection){
