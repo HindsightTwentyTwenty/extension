@@ -232,3 +232,9 @@ $canteloupe-dark: #F68828;
   height: 25px;
   margin: 7px;
 }
+
+#loading_page{
+  position: absolute;
+  top: 40%;
+  left:5%;
+}
