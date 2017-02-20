@@ -17,7 +17,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     if(this.props.currentUser.token.length == 0){
-      console.log("fetching token from chrome");
       chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
     }
   }
@@ -27,9 +26,9 @@ class App extends Component {
       switch(this.props.lookbackNav.selection){
         case LookBackSections.LookBack:
           return (
-            <div>
-            <AppBaseComponent />
-            <LookBack />
+            <div id= "lookback-content">
+              <AppBaseComponent />
+              <LookBack />
             </div>
           );
         case LookBackSections.Categories:
@@ -59,10 +58,12 @@ class App extends Component {
   render () {
     return (
       <div>
-        <div id="here" className="app-container">
+        <div className="app-container">
           <LookBackNavBar />
         </div>
-        { this.renderContent() }
+        <div id="content-body">
+          { this.renderContent() }
+        </div>
       </div>
     )
   }

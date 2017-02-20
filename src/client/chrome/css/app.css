@@ -28,6 +28,18 @@ body {
   align-self: center;
 }
 
+.app-container{
+  height:50px;
+}
+
+#content-body{
+  height: 92.5vh;
+}
+
+#lookback-content{
+  height: 100%;
+}
+
 .page-url-bar {
   height: 60px;
   line-height: 35px;
@@ -128,11 +140,14 @@ body {
 
 .lookback-container{
   width: 95%;
-  height: 350px;
+  height: calc(100% - 250px);
   overflow: scroll;
-  background-color: $base-white;
-  margin: 30px;
+  background-color: white;
+  /*top, right, bottom, left*/
+  margin: 5px 30px 5px 30px;
   border:solid 1px $electric-blue;
+  position:absolute;
+  min-width: 800px;
 }
 
 .domain-info {
@@ -141,9 +156,9 @@ body {
 }
 
 .lookback-graph-container{
-  height: calc(100% - 70px);
+  /*height: calc(100% - 125px);*/
   min-width: 800px;
-  padding-top: 10px;
+  /*padding-top: 10px;*/
 }
 
 .lookback-details-container{
@@ -152,8 +167,8 @@ body {
   padding: 10px;
   width: 100%;
   height: 125px;
-  background-color: $base-white;
-  color: $electric-blue;
+  background-color: $canteloupe;
+  color: $base-white;
   .h4{
     color: $canteloupe;
     margin: 5px;
@@ -219,8 +234,8 @@ body {
   margin: 1px;
   border-radius: 2px;
   padding: 0 2px;
-  position:relative;
-  z-index: 1;
+  position:flex;
+  z-index: 10;
   min-width: 24px;
   &:hover {
     border-color: $canteloupe;
@@ -287,8 +302,12 @@ start-time-label .end-time-label{
 }
 
 .time-labels{
-  padding-left: 30px;
-  padding-right: 15px;
+  margin-left: 30px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  min-width: 755px;
 }
 
 .start-time-label{
@@ -299,11 +318,26 @@ start-time-label .end-time-label{
   float: right;
 }
 
+#time-break-container{
+  height:100%;
+  width:100%;
+  z-index:1;
+  position:absolute;
+  display: flex;
+}
+
+#tabs-container{
+  height:100%;
+  width:100%;
+  z-index:10;
+  position:relative;
+}
+
 .time-break-line{
-  height: calc(92% - 240px);
-  position: absolute;
-  z-index: 1;
+  height:100%;
   border-right: 1px solid $banana;
+  position:relative;
+  z-index: 1;
 }
 
 #first-time-break{
@@ -312,8 +346,8 @@ start-time-label .end-time-label{
 }
 
 #second-time-break{
-  width: 66%;
-  float: right;
+  width: 33%;
+  float: left;
 }
 
 #time-break-line-label1{
@@ -325,9 +359,9 @@ start-time-label .end-time-label{
   position: absolute;
 }
 
-.time-container{
+/*.time-container{
   display: list-item;
-}
+}*/
 
 .nav-bar-button {
   border: none;
@@ -405,8 +439,9 @@ start-time-label .end-time-label{
   margin-right: 2%;
   height: 100px;
   border-radius: 5px;
-  display:flex;
+  display:absolute;
   flex-flow: row nowrap;
+  z-index: inherit;
 }
 
 .page-bar{
@@ -679,7 +714,7 @@ hr{
 
 #search-selection-container {
   text-align: center;
-  margin: 1% auto;
+  margin: 1px auto;
 }
 
 .search-select-dropdown {
@@ -809,6 +844,51 @@ hr{
   font-size:large;
   color:black;
 }
+
+#page-selector-container{
+  text-align: center;
+  display: inline-block;
+  margin: 10px auto;
+  width: 100%;
+  font-size: 16px;
+}
+
+.page-selector-element{
+  display:inline-block;
+  padding: 0px 5px;
+  margin-left: 0px;
+  text-align:center;
+  border-color:$electric-blue;
+  border-radius:6px;
+  background-color:inherit;
+}
+
+#previous-chevron{
+  margin-right: 3px;
+}
+#next-chevron{
+  margin-left: 3px;
+}
+
+.page-number-selector:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.page-number-selected {
+  color:black;
+}
+
+.page-number-selected:hover {
+  text-decoration: none !important;
+  cursor: default !important;
+}
+
+#results-displayed-message {
+  margin: 1px 0px 5px 32px;
+  color: grey;
+}
+
 .go-to-site-btn{
   text-decoration: none;
   margin-left: 5%;
