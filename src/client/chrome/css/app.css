@@ -156,9 +156,7 @@ body {
 }
 
 .lookback-graph-container{
-  /*height: calc(100% - 125px);*/
   min-width: 800px;
-  /*padding-top: 10px;*/
 }
 
 .lookback-details-container{
@@ -168,6 +166,7 @@ body {
   width: 100%;
   height: 125px;
   background-color: $canteloupe;
+  min-width: 400px;
   color: $base-white;
   .h4{
     color: $canteloupe;
@@ -307,20 +306,29 @@ start-time-label .end-time-label{
   margin-top: 10px;
   margin-bottom: 10px;
   height: 40px;
-  min-width: 755px;
+  min-width: 800px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+#time-break-min-box-left{
+  position:relative;
+  float:left;
+  width:calc(33% - 190px);
+  min-width:1px;
+}
 
-#time-break-line-label1{
-  position: absolute;
-  left:33%;
+#time-break-min-box-right{
+  position:relative;
+  float:left;
+  width:26%;
+  min-width:1px;
 }
-#time-break-line-label2{
-  position:absolute;
-  left:63%;
+
+#time-break-line-label1, #time-break-line-label2{
+  position: relative;
 }
+
 
 #end-date-label{
   margin-left: auto;

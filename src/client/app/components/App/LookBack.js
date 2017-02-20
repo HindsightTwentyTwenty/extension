@@ -227,7 +227,9 @@ class LookBack extends Component {
 								onBlur={this.clickOutside.bind(this)}
 							/>
 						</div>
+						<div id="time-break-min-box-left"></div>
 						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+						<div id="time-break-min-box-right"></div>
 						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
 						<div id="end-date-label">{this.state.end_date_formatted}</div>
 
