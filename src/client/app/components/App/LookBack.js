@@ -205,32 +205,32 @@ class LookBack extends Component {
 				</div>
 			)
 		}
+
+		//BUTTONS
+		// <button id="back-button" onClick={this.getPrevPage.bind(this)}>
+		// 	back
+		// </button>
+		// <button id="back-button" onClick={this.getNextPage.bind(this)}>
+		// 	next
+		// </button>
     return (
       <div className="lookback-graph-container">
         <div className="vertical-axis-label">Tabs</div>
 	        <div className="time-labels">
-	          <div className="start-time-label" >
-								<button id="back-button" onClick={this.getPrevPage.bind(this)}>
-									back
-								</button>
-								<div className="date-picker" >
-									<Datetime
-										value={this.props.start_date}
-										onChange={this.changeStartTime.bind(this)}
-										isValidDate={this.checkValidDateChosen.bind(this)}
-										viewMode='time'
-										onBlur={this.clickOutside.bind(this)}
-									/>
-								</div>
+
+						<div className="date-picker" >
+							<Datetime
+								value={this.props.start_date}
+								onChange={this.changeStartTime.bind(this)}
+								isValidDate={this.checkValidDateChosen.bind(this)}
+								viewMode='time'
+								onBlur={this.clickOutside.bind(this)}
+							/>
 						</div>
 						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
 						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
-	          <div className="end-time-label">
-								{this.state.end_date_formatted}
-								<button id="back-button" onClick={this.getNextPage.bind(this)}>
-									next
-								</button>
-						</div>
+						<div id="end-date-label">{this.state.end_date_formatted}</div>
+
 	        </div>
         <div className="lookback-container">
 						<div id="time-break-container">

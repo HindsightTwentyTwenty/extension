@@ -308,14 +308,22 @@ start-time-label .end-time-label{
   margin-bottom: 10px;
   height: 40px;
   min-width: 755px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.start-time-label{
-  float: left;
-  display: inline-flex;
+#time-break-line-label1{
+  position: absolute;
+  left:33%;
 }
-.end-time-label{
-  float: right;
+#time-break-line-label2{
+  position:absolute;
+  left:63%;
+}
+
+#end-date-label{
+  margin-left: auto;
 }
 
 #time-break-container{
@@ -350,18 +358,6 @@ start-time-label .end-time-label{
   float: left;
 }
 
-#time-break-line-label1{
-  margin-left: 30%;
-  position: absolute;
-}
-#time-break-line-label2{
-  margin-left: 63%;
-  position: absolute;
-}
-
-/*.time-container{
-  display: list-item;
-}*/
 
 .nav-bar-button {
   border: none;
