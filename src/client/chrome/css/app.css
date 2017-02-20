@@ -140,12 +140,14 @@ body {
 
 .lookback-container{
   width: 95%;
-  height: calc(100% - 70px);
+  height: calc(100% - 250px);
   overflow: scroll;
-  background-color: $base-white;
+  background-color: white;
   /*top, right, bottom, left*/
   margin: 5px 30px 5px 30px;
   border:solid 1px $electric-blue;
+  position:absolute;
+  min-width: 800px;
 }
 
 .domain-info {
@@ -154,7 +156,7 @@ body {
 }
 
 .lookback-graph-container{
-  height: calc(100% - 125px);
+  /*height: calc(100% - 125px);*/
   min-width: 800px;
   /*padding-top: 10px;*/
 }
@@ -165,8 +167,8 @@ body {
   padding: 10px;
   width: 100%;
   height: 125px;
-  background-color: $base-white;
-  color: $electric-blue;
+  background-color: $canteloupe;
+  color: $base-white;
   .h4{
     color: $canteloupe;
     margin: 5px;
@@ -320,7 +322,7 @@ start-time-label .end-time-label{
   height:100%;
   width:100%;
   z-index:1;
-  position:relative;
+  position:absolute;
   display: flex;
 }
 
