@@ -214,37 +214,43 @@ class LookBack extends Component {
 		// 	next
 		// </button>
     return (
-      <div className="lookback-graph-container">
-        <div className="vertical-axis-label">Tabs</div>
-	        <div className="time-labels">
+			<div id="graph-plus-buttons">
+				<div className="vertical-axis-label">
+					<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
+				</div>
+	      <div className="lookback-graph-container">
+		        <div className="time-labels">
 
-						<div className="date-picker" >
-							<Datetime
-								value={this.props.start_date}
-								onChange={this.changeStartTime.bind(this)}
-								isValidDate={this.checkValidDateChosen.bind(this)}
-								viewMode='time'
-								onBlur={this.clickOutside.bind(this)}
-							/>
-						</div>
-						<div id="time-break-min-box-left"></div>
-						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
-						<div id="time-break-min-box-right"></div>
-						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
-						<div id="end-date-label">{this.state.end_date_formatted}</div>
+							<div className="date-picker" >
+								<Datetime
+									value={this.props.start_date}
+									onChange={this.changeStartTime.bind(this)}
+									isValidDate={this.checkValidDateChosen.bind(this)}
+									viewMode='time'
+									onBlur={this.clickOutside.bind(this)}
+								/>
+							</div>
+							<div id="time-break-min-box-left"></div>
+							<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+							<div id="time-break-min-box-right"></div>
+							<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+							<div id="end-date-label">{this.state.end_date_formatted}</div>
 
+		        </div>
+	        <div className="lookback-container">
+							<div id="time-break-container">
+								<div className="time-break-line" id="first-time-break"></div>
+								<div className="time-break-line" id="second-time-break"></div>
+							</div>
+							<div id="tabs-container">
+								{this.state.tabs}
+							</div>
 	        </div>
-        <div className="lookback-container">
-						<div id="time-break-container">
-							<div className="time-break-line" id="first-time-break"></div>
-							<div className="time-break-line" id="second-time-break"></div>
-						</div>
-						<div id="tabs-container">
-							{this.state.tabs}
-						</div>
-        </div>
-
-      </div>
+	      </div>
+				<div className="vertical-axis-label">
+					<i className="fa fa-angle-right fa-5x" aria-hidden="true"></i>
+				</div>
+			</div>
     );
   }
 }

@@ -157,6 +157,7 @@ body {
 
 .lookback-graph-container{
   min-width: 800px;
+  flex-grow: 1;
 }
 
 .lookback-details-container{
@@ -291,13 +292,21 @@ start-time-label .end-time-label{
   display: flex;
   flex-direction: row;
 }
+#graph-plus-buttons{
+  display: flex;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  justify-content: space-between;
+}
 
 .vertical-axis-label {
-  transform: rotate(270deg);
+  width:35px;
+  /*transform: rotate(270deg);
   transform-origin: left top 0;
   font-size: 20;
   position: absolute;
-  top: 600px;
+  top: 600px;*/
 }
 
 .time-labels{
