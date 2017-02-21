@@ -85,12 +85,11 @@ export function searchTermNav(search_term, token){
 }
 
 export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
-  // This is gross. Will clean up
+  
   var bodyInfo;
+  bodyInfo = {"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,start_time.length - 1)};
   if(category_selection){
-    bodyInfo = JSON.stringify({"query": search_term, "category": category_selection, "order": sort_selection, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))});
-  } else {
-    bodyInfo = JSON.stringify({"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,end_time.length - 1)})
+    bodyInfo["category"] = category_selection;
   }
   return dispatch => {
     return [
@@ -102,7 +101,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: bodyInfo
+           body: JSON.stringify(bodyInfo)
          }
        )
       .then(response => response.json())
