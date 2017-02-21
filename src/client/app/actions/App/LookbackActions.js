@@ -85,16 +85,12 @@ export function searchTermNav(search_term, token){
 }
 
 export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
-  // This is gross. Will clean up
+  
   var bodyInfo;
-  console.log("start",start_time);
-  console.log("end", end_time);
+  bodyInfo = {"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,start_time.length - 1)};
   if(category_selection){
-    bodyInfo = JSON.stringify({"query": search_term, "category": category_selection, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,start_time.length - 1)});
-  } else {
-    bodyInfo = JSON.stringify({"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,end_time.length - 1)})
+    bodyInfo["category"] = category_selection;
   }
-  console.log("Searching with:,", bodyInfo);
   return dispatch => {
     return [
       dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
@@ -105,7 +101,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: bodyInfo
+           body: JSON.stringify(bodyInfo)
          }
        )
       .then(response => response.json())
