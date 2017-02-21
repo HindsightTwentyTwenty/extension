@@ -74,6 +74,15 @@ class Search extends Component {
       }
     }
 
+    // If results are loading showing spinner
+    if(this.props.search.loading){
+      return (
+        <div id="search-loading">
+          <i className="fa fa-align-center fa-spinner fa-pulse fa-5x fa-fw"></i>
+        </div>
+      )
+    }
+
     if(this.props.search.results){
       var firstIndexDisplayed = (this.state.page_selection - 1) * SearchConstants.ResultsPerPage;
       var lastIndexDisplayed = firstIndexDisplayed + SearchConstants.ResultsPerPage;
@@ -81,7 +90,7 @@ class Search extends Component {
         return <PageUrlBar origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
       });
     } else {
-      return <div>LOADING</div>
+      return <div>No Results Were Found</div>
     }
 
   }
@@ -101,15 +110,17 @@ class Search extends Component {
   }
 
   resultsDisplayedMessage(){
-    if(this.props.search.results.length > 0){
+    if(this.props.search.loading || this.props.search.results.length == 0){
+      // Show nothing while results are loading or no results
+      return <div></div>
+    } else {
+
       var firstIndexDisplayed = Math.min(((this.state.page_selection - 1) * SearchConstants.ResultsPerPage) + 1, this.props.search.results.length);
       var lastIndexDisplayed = Math.min(firstIndexDisplayed + SearchConstants.ResultsPerPage - 1, this.props.search.results.length);
 
       return (
         <div id="results-displayed-message"> Displaying results {firstIndexDisplayed} - {lastIndexDisplayed} of {this.props.search.results.length} </div>
       );
-    } else {
-      return (<div id="results-displayed-message"> No Results Found</div>);
     }
   }
 

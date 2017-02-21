@@ -758,6 +758,11 @@ hr{
   }
 }
 
+#search-loading {
+  margin: 25px;
+  text-align: center;
+}
+
 .login-error {
   color: $watermelon-dark;
   text-align: center;

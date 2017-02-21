@@ -78,6 +78,13 @@ export function clearDOM(){
     dom: "loading"
   }
 }
+
+export function clearSearchResults(){
+  return {
+    type: types.CLEAR_SEARCH_RESULTS
+  }
+}
+
 export function searchTermNav(search_term, token){
   return dispatch => {
     dispatch(searchTerm(search_term, moment().subtract(2, 'year').tz("UTC").format(), moment().tz("UTC").format(), "", SearchConstants.Relevance, token))
@@ -85,7 +92,7 @@ export function searchTermNav(search_term, token){
 }
 
 export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
-  
+
   var bodyInfo;
   bodyInfo = {"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,start_time.length - 1)};
   if(category_selection){
@@ -93,6 +100,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
   }
   return dispatch => {
     return [
+      dispatch(clearSearchResults),
       dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
       fetch(searchEndpoint, {
           headers: {
