@@ -12,3 +12,7 @@ export const POPUP_MENU_ITEMS = [
   {tabName: "Sessions", id: 1},
   // {tabName: "Notes", id: 2}
 ];
+
+export const DURATION_OPTIONS = [
+  "1 hour", "2 hours", "4 hours", "indefinitely"
+];

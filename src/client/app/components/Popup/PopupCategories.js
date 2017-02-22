@@ -7,7 +7,6 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import CategoryEntry from './CategoryEntry.js';
 import Star from '../Star/Star.js';
 import CategoriesContainer from './CategoriesContainer';
-import PopupHeader from './PopupHeader.js';
 import ColorPicker from './ColorPicker.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
@@ -15,7 +14,7 @@ class PopupCategories extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   getBody() {
     if (this.props.categories.showColorPicker) {
       return <ColorPicker/>;

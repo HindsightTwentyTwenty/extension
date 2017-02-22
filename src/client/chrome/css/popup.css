@@ -259,20 +259,6 @@ $canteloupe-dark: #F68828;
   margin: 7px;
 }
 
-.new-session-btn {
-  width: auto;
-  padding: 0 15px;
-  align-items: center;
-  background-color: $canteloupe;
-  margin: 5px auto;
-  display: flex; 
-  &:hover{
-    cursor: pointer;
-    color: $watermelon;
-    font-weight: bold;
-  }
-}
-
 .current-session {
   background-color: $electric-blue-dark;
   margin: 10px 0;
@@ -285,7 +271,20 @@ $canteloupe-dark: #F68828;
   padding-top: 3px;
 }
 
-.end-session-btn {
+.duration-btn {
+  width: auto;
+  padding: 3px 5px;
+  background-color: $electric-blue-dark;
+  margin: 5px;
+  display: inline-flex;
+  &:hover{
+    cursor: pointer;
+    color: $banana;
+    font-weight: bold;
+  }
+}
+
+.session-btn {
   width: auto;
   padding: 0 15px;
   background-color: $watermelon;

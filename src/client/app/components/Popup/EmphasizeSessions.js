@@ -2,13 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
-import CategoryEntry from './CategoryEntry.js';
-import Star from '../Star/Star.js';
-import CategoriesContainer from './CategoriesContainer';
-import PopupHeader from './PopupHeader.js';
-import ColorPicker from './ColorPicker.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
 class EmphasizeSessions extends Component {
@@ -33,8 +27,23 @@ class EmphasizeSessions extends Component {
     )
   }
 
-  getNewSession(){
+  getDurationOptions(){
+    return PopupConstants.DURATION_OPTIONS.map( function(option) {
+      return <button className="btn duration-btn" type="button" key={option} onClick={() => {
+      }}>{option}</button>
+    });
+  }
 
+  getNewSession(){
+    return(
+      <div className="new-session">
+        <div className="new-session-info">
+          duration: {this.getDurationOptions()}
+        </div>
+        <button className="btn session-btn" type="button" onClick={() => {
+        }}>Start Session</button>
+      </div>
+    )
   }
 
   render () {
