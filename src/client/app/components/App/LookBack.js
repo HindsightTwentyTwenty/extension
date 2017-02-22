@@ -216,7 +216,7 @@ class LookBack extends Component {
     return (
 			<div id="graph-plus-buttons">
 				<div className="time-change-button">
-					<div id="time-change-btn-buffer"></div>
+					<div id="time-change-btn-buffer-lft"></div>
 					<div id="time-change-btn-wrapper">
 						<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
 					</div>
@@ -250,9 +250,9 @@ class LookBack extends Component {
 	        </div>
 	      </div>
 				<div className="time-change-button">
-					<div id="time-change-btn-buffer"></div>
+					<div id="time-change-btn-buffer-rt"></div>
 					<div id="time-change-btn-wrapper">
-						<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
+						<i className="fa fa-angle-right fa-5x" aria-hidden="true"></i>
 					</div>
 				</div>
 			</div>

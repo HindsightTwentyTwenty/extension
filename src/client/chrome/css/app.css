@@ -307,10 +307,17 @@ start-time-label .end-time-label{
   width:35px;
 }
 
-#time-change-btn-buffer{
+#time-change-btn-buffer-lft{
   width: 3px;
   min-height: 60px;
   height: calc(50% - 75px);
+  position: relative;
+}
+
+#time-change-btn-buffer-rt{
+  width: 3px;
+  min-height: 60px;
+  height: calc(50% - 80px);
   position: relative;
 }
 
