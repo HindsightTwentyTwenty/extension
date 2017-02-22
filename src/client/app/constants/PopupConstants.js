@@ -14,5 +14,8 @@ export const POPUP_MENU_ITEMS = [
 ];
 
 export const DURATION_OPTIONS = [
-  "1 hour", "2 hours", "4 hours", "indefinitely"
+  {duration: "1 hour", id: 0},
+  {duration: "2 hours", id: 1},
+  {duration: "4 hours", id: 2},
+  {duration: "indefinitely", id: 3}
 ];

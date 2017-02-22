@@ -10,6 +10,10 @@ class EmphasizeSessions extends Component {
     super(props);
   }
 
+  changeDuration(id) {
+    this.props.popup_actions.setDuration(id);
+  }
+
   getCurrentSession() {
     var currentSession = this.props.sessions.currentSession;
     return(
@@ -29,15 +33,31 @@ class EmphasizeSessions extends Component {
 
   getDurationOptions(){
     return PopupConstants.DURATION_OPTIONS.map( function(option) {
-      return <button className="btn duration-btn" type="button" key={option} onClick={() => {
-      }}>{option}</button>
-    });
+      if(option.id == this.props.sessions.durationId) {
+        return <button className="btn duration-btn active" type="button" key={option.duration} onClick={() => {
+          this.changeDuration(option.id)
+        }}>{option.duration}</button>
+      } else {
+        return <button className="btn duration-btn" type="button" key={option.duration} onClick={() => {
+          this.changeDuration(option.id)
+        }}>{option.duration}</button>
+      }
+    }, this);
+  }
+
+  getInputField() {
+    return(
+    <input type="text" className="popup-form form-control" placeholder="New Session..."
+     ref={node => {
+      this.input = node;
+    }} />)
   }
 
   getNewSession(){
     return(
       <div className="new-session">
         <div className="new-session-info">
+          {this.getInputField()}
           duration: {this.getDurationOptions()}
         </div>
         <button className="btn session-btn" type="button" onClick={() => {

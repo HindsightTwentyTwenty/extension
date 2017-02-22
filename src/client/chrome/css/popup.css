@@ -127,7 +127,7 @@ $canteloupe-dark: #F68828;
   }
 }
 
-.category-form{
+.popup-form{
   border: none;
   border-radius: 0px;
   background: transparent;
@@ -137,6 +137,7 @@ $canteloupe-dark: #F68828;
   height: 40px;
   margin-bottom: 3%;
   color: $base-white;
+  background-color: $electric-blue-dark;
   font-family: Raleway, FontAwesome;
   &:focus{
     box-shadow: none;
@@ -245,7 +246,7 @@ $canteloupe-dark: #F68828;
   display: flex;
 }
 
-.popup-category-entry {
+.popup-form-entry {
   margin: 0 auto;
   width: 89%;
   margin-bottom: 5px;
@@ -282,7 +283,11 @@ $canteloupe-dark: #F68828;
     color: $banana;
     font-weight: bold;
   }
+  &.active{
+    color: $watermelon;
+  }
 }
+
 
 .session-btn {
   width: auto;
@@ -295,4 +300,8 @@ $canteloupe-dark: #F68828;
     color: $banana;
     font-weight: bold;
   }
+}
+
+.new-session-info {
+  margin-top: 5px;
 }

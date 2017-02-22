@@ -50,7 +50,8 @@ let store = createStore(
       searchCats: []
     },
     sessions: {
-      ongoingSession: false, 
+      ongoingSession: false,
+      durationId: PopupConstants.DURATION_OPTIONS[3].id, //indefinitely
       currentSession:{
         title: "title",
         start: "start",

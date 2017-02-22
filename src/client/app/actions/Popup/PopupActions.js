@@ -49,11 +49,20 @@ export function pushCategory(category, color, token){
   }
 }
 
-export function changePopupTab(tabId) {
+export function changePopupTab(id) {
   return dispatch => {
     dispatch({
       type: types.CHANGE_POPUP_TAB,
-      tabID: tabId
+      tabId: id
+    })
+  }
+}
+
+export function setDuration(id) {
+  return dispatch => {
+    dispatch({
+      type: types.SET_DURATION_ID,
+      durationId: id
     })
   }
 }
