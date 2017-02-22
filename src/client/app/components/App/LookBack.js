@@ -215,12 +215,14 @@ class LookBack extends Component {
 		// </button>
     return (
 			<div id="graph-plus-buttons">
-				<div className="vertical-axis-label">
-					<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
+				<div className="time-change-button">
+					<div id="time-change-btn-buffer"></div>
+					<div id="time-change-btn-wrapper">
+						<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
+					</div>
 				</div>
 	      <div className="lookback-graph-container">
 		        <div className="time-labels">
-
 							<div className="date-picker" >
 								<Datetime
 									value={this.props.start_date}
@@ -247,8 +249,11 @@ class LookBack extends Component {
 							</div>
 	        </div>
 	      </div>
-				<div className="vertical-axis-label">
-					<i className="fa fa-angle-right fa-5x" aria-hidden="true"></i>
+				<div className="time-change-button">
+					<div id="time-change-btn-buffer"></div>
+					<div id="time-change-btn-wrapper">
+						<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
+					</div>
 				</div>
 			</div>
     );
