@@ -218,7 +218,7 @@ class LookBack extends Component {
 				<div className="time-change-button">
 					<div id="time-change-btn-buffer-lft"></div>
 					<div id="time-change-btn-wrapper">
-						<i className="fa fa-angle-left fa-5x" aria-hidden="true"></i>
+						<i className="fa fa-angle-left fa-5x arrow-btn" aria-hidden="true" onClick={this.getPrevPage.bind(this)}></i>
 					</div>
 				</div>
 	      <div className="lookback-graph-container">
@@ -252,7 +252,7 @@ class LookBack extends Component {
 				<div className="time-change-button">
 					<div id="time-change-btn-buffer-rt"></div>
 					<div id="time-change-btn-wrapper">
-						<i className="fa fa-angle-right fa-5x" aria-hidden="true"></i>
+						<i className="fa fa-angle-right fa-5x arrow-btn" aria-hidden="true" onClick={this.getNextPage.bind(this)}></i>
 					</div>
 				</div>
 			</div>
