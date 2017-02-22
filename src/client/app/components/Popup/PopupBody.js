@@ -5,6 +5,7 @@ import { bindActionCreators} from 'redux';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 import PopupCategories from './PopupCategories.js';
+import EmphasizeSessions from './EmphasizeSessions.js';
 
 class PopupBody extends Component {
   constructor(props) {
@@ -15,9 +16,7 @@ class PopupBody extends Component {
   getPopupBody() {
     switch (this.props.popupSelection) {
       case PopupConstants.POPUP_MENU_ITEMS[1].id: // Sessions
-        return <PopupCategories/>
-      case PopupConstants.POPUP_MENU_ITEMS[2].id: // Notes
-        return <PopupCategories/>
+        return <EmphasizeSessions/>
       default:
         return <PopupCategories/> // Categories
     }

@@ -10,5 +10,5 @@ export const Blacklist = 7;
 export const POPUP_MENU_ITEMS = [
   {tabName: "Categories", id: 0},
   {tabName: "Sessions", id: 1},
-  {tabName: "Notes", id: 2}
+  // {tabName: "Notes", id: 2}
 ];

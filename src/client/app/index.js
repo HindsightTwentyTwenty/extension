@@ -49,6 +49,13 @@ let store = createStore(
       multiSelect: false,
       searchCats: []
     },
+    sessions: {
+      currentSession:{
+        title: "",
+        start: "",
+        end: ""
+      }
+    },
     currentUser: {
       user_name:"",
       token:"",

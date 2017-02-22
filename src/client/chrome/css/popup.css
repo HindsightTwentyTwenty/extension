@@ -220,7 +220,7 @@ $canteloupe-dark: #F68828;
   display: flex;
   align-items: center;
   background-color: $electric-blue-dark;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 5px 15px;
 }
 
@@ -253,4 +253,17 @@ $canteloupe-dark: #F68828;
   width: 25px;
   height: 25px;
   margin: 7px;
+}
+
+.new-session-btn {
+  width: auto;
+  padding: 0 15px;
+  align-items: center;
+  background-color: $canteloupe;
+  margin: 5px auto;
+  &:hover{
+    cursor: pointer;
+    color: $watermelon;
+    font-weight: bold;
+  }
 }
