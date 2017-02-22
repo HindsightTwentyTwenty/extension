@@ -162,6 +162,7 @@ body {
   position: relative;
   height: inherit;
   width: inherit;
+  margin-right: 4px;
 }
 
 .lookback-details-container{
