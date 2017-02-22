@@ -25,7 +25,7 @@ class EmphasizeSessions extends Component {
           <p> duration: {currentSession.start} - {currentSession.end} </p>
           <p> sites visited: </p>
         </div>
-        <button className="btn end-session-btn" type="button" onClick={() => {
+        <button className="btn session-btn" type="button" onClick={() => {
         }}>End Session</button>
       </div>
     )
@@ -45,37 +45,58 @@ class EmphasizeSessions extends Component {
     }, this);
   }
 
-  getInputField() {
-    return(
-    <input type="text" className="popup-form form-control" placeholder="New Session..."
-     ref={node => {
-      this.input = node;
-    }} />)
-  }
+	startSession() {
+		var sessionTitle = this.input.value.trim();
+		if (sessionTitle == "") {
+			//WC TODO: Error handling for user.
+			return;
+		}
+		var durationId = this.props.sessions.durationId;
+		var startTime = new Date();
+		if (durationId != PopupConstants.DURATION_OPTIONS[3].id) {
+			var endTime = new Date();
+			var duration;
+			if (durationId == 0) {
+				duration = 1;
+			} else if (durationId == 1) {
+				duration = 2;
+			} else {
+				duration = 4;
+			}
+	    endTime.setHours(startTime.getHours() + duration);
+			this.props.popup_actions.addSession(this.props.currentUser.token, sessionTitle, startTime, endTime);
+		} else {
+			this.props.popup_actions.addSession(this.props.currentUser.token, sessionTitle, startTime);
+		}
+	}
 
   getNewSession(){
     return(
       <div className="new-session">
         <div className="new-session-info">
-          {this.getInputField()}
+					<input type="text" className="popup-form form-control" placeholder="New Session..."
+					 ref={node => {
+						this.input = node;
+					}} />
           duration: {this.getDurationOptions()}
         </div>
-        <button className="btn session-btn" type="button" onClick={() => {
-        }}>Start Session</button>
+        <button className="btn session-btn" type="button" onClick={()=> this.startSession()}>
+					Start Session
+				</button>
       </div>
     )
   }
 
   render () {
-      return (
-        <div className="container popup-body electric-blue">
-          <div className="popup-main-form">
-            {this.props.sessions.ongoingSession ? this.getCurrentSession() : this.getNewSession()}
-          </div>
+    return (
+      <div className="container popup-body electric-blue">
+        <div className="popup-main-form">
+          {this.props.sessions.ongoingSession ? this.getCurrentSession() : this.getNewSession()}
         </div>
-      )
-    }
+      </div>
+    )
   }
+}
 
 let mapStateToProps = (state) => ({
     sessions : state.sessions,
