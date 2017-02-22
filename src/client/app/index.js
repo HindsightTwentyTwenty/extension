@@ -50,10 +50,11 @@ let store = createStore(
       searchCats: []
     },
     sessions: {
+      ongoingSession: true, //should be false, just changed for dev purposes
       currentSession:{
-        title: "",
-        start: "",
-        end: ""
+        title: "title",
+        start: "start",
+        end: "end"
       }
     },
     currentUser: {

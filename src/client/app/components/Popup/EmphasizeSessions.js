@@ -17,16 +17,31 @@ class EmphasizeSessions extends Component {
   }
 
   getCurrentSession() {
-    
+    var currentSession = this.props.sessions.currentSession;
+    return(
+      <div className="current-session">
+        <div className="current-session-info">
+          <h4>
+            current session: {currentSession.title}
+          </h4>
+          <p> duration: {currentSession.start} - {currentSession.end} </p>
+          <p> sites visited: </p>
+        </div>
+        <button className="btn end-session-btn" type="button" onClick={() => {
+        }}>End Session</button>
+      </div>
+    )
+  }
+
+  getNewSession(){
+
   }
 
   render () {
       return (
         <div className="container popup-body electric-blue">
           <div className="popup-main-form">
-            {this.getCurrentSession()}
-            <button className="btn new-session-btn" type="button" onClick={() => {
-            }}>Start New Session <i className="fa fa-plus" aria-hidden="true"></i></button>
+            {this.props.sessions.ongoingSession ? this.getCurrentSession() : this.getNewSession()}
           </div>
         </div>
       )
@@ -34,16 +49,13 @@ class EmphasizeSessions extends Component {
   }
 
 let mapStateToProps = (state) => ({
-    currentPage : state.currentPage,
-    categories: state.categories,
+    sessions : state.sessions,
     currentUser : state.currentUser,
-    popupSelection: state.popupSelection
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
     popup_actions : bindActionCreators(PopupActions, dispatch),
-    category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

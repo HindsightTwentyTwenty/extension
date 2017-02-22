@@ -80,6 +80,10 @@ $canteloupe-dark: #F68828;
   color: $canteloupe;
 }
 
+.popup-body p{
+  margin: 2px 10px;
+}
+
 .popup-page-title {
   width: 90%;
   margin: 0 auto;
@@ -212,14 +216,14 @@ $canteloupe-dark: #F68828;
   display: flex;
   padding: 0 15px;
   align-items: center;
-  background-color: $watermelon;
+  background-color: $electric-blue-dark;
   justify-content: space-between;
 }
 
 .popup-menu {
   display: flex;
   align-items: center;
-  background-color: $electric-blue-dark;
+  background-color: $watermelon-dark;
   justify-content: space-around;
   padding: 5px 15px;
 }
@@ -228,12 +232,12 @@ $canteloupe-dark: #F68828;
   color: $base-white;
   font-size: medium;
   &.selected {
-    color: $watermelon-dark;
+    color: $banana;
+    font-weight: bold;
   }
   &:hover{
     cursor: pointer;
-    color: $watermelon;
-    font-weight: bold;
+    color: $banana;
   }
 }
 
@@ -261,9 +265,35 @@ $canteloupe-dark: #F68828;
   align-items: center;
   background-color: $canteloupe;
   margin: 5px auto;
+  display: flex; 
   &:hover{
     cursor: pointer;
     color: $watermelon;
+    font-weight: bold;
+  }
+}
+
+.current-session {
+  background-color: $electric-blue-dark;
+  margin: 10px 0;
+  border-radius: 3px;
+  padding-bottom: 5px;
+}
+
+.current-session-info {
+  margin: 10px;
+  padding-top: 3px;
+}
+
+.end-session-btn {
+  width: auto;
+  padding: 0 15px;
+  background-color: $watermelon;
+  margin: 5px auto;
+  display: flex;
+  &:hover{
+    cursor: pointer;
+    color: $banana;
     font-weight: bold;
   }
 }
