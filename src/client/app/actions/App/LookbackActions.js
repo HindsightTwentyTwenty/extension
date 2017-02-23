@@ -65,20 +65,6 @@ export function toggleDomainClicked() {
   }
 }
 
-export function domReturned(json){
-  return{
-    type: types.SET_CURR_DOM,
-    dom: json['html']
-  }
-}
-
-export function clearDOM(){
-  return{
-    type: types.SET_CURR_DOM,
-    dom: "loading"
-  }
-}
-
 export function clearSearchResults(){
   return {
     type: types.CLEAR_SEARCH_RESULTS
@@ -114,23 +100,6 @@ export function searchTerm(search_term, start_time, end_time, category_selection
       .then(response => response.json())
       .then(json => dispatch(searchResultsReturned(json)))
     ]
-  }
-}
-
-export function getDOM(pk, token, origin){
-  return dispatch => {
-    return fetch(domEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': "Token " + token
-           },
-           method: "POST",
-           body: JSON.stringify({"pk": pk, "page": origin})
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch(domReturned(json)))
   }
 }
 
