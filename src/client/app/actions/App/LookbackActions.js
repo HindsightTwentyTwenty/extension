@@ -100,7 +100,6 @@ export function searchTerm(search_term, start_time, end_time, category_selection
   }
   return dispatch => {
     return [
-      dispatch(clearSearchResults),
       dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
       fetch(searchEndpoint, {
           headers: {

@@ -45,6 +45,7 @@ class Search extends Component {
     if(keycode == '13') {
       var search_term = event.target.value;
       if(event.target.value.trim() != ""){
+        this.props.lookback_actions.clearSearchResults();
         this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), this.state.category_selection, this.state.sort_selection, this.props.currentUser.token);
         this.pageSelectionChange(1);
       }
@@ -83,14 +84,17 @@ class Search extends Component {
       )
     }
 
-    if(this.props.search.results){
+    console.log("Results:", this.props.search.results);
+    if(this.props.search.results.length > 0){
+      console.log("Displaying");
       var firstIndexDisplayed = (this.state.page_selection - 1) * SearchConstants.ResultsPerPage;
       var lastIndexDisplayed = firstIndexDisplayed + SearchConstants.ResultsPerPage;
       return this.props.search.results.slice(firstIndexDisplayed,lastIndexDisplayed).map(function(result) {
         return <PageUrlBar origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
       });
     } else {
-      return <div>No Results Were Found</div>
+      console.log("Nothing");
+      return <div id="no-search-results-message">No Results Were Found</div>
     }
 
   }
