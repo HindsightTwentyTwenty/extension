@@ -143,7 +143,7 @@ body {
   width: 98%;
   /*top/bottom, left/right*/
   margin: 5px 1%;
-  height: calc(100% - 250px);
+  height: calc(100% - 290px);
   overflow: scroll;
   background-color: white;
   border:solid 1px $electric-blue;
@@ -332,13 +332,26 @@ start-time-label .end-time-label{
   cursor:pointer;
 }
 
-.time-labels{
-  margin: 10px 15px;
+.timeline-label-row{
+  width: 100%;
+}
+
+#timeline-label-row-top{
   height: 40px;
-  min-width: 800px;
+  display: flex;
+  align-items: center;
+}
+
+#timeline-label-row-btm{
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.time-labels{
+  margin: 10px 15px;
+  height: 80px;
+  min-width: 800px;
 }
 #time-break-min-box-left{
   position:relative;

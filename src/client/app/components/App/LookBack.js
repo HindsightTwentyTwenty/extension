@@ -167,6 +167,13 @@ class LookBack extends Component {
 
 	}
 
+	jumpToNow(){
+		var now_end = Datetime.moment();
+		var now_begin = Datetime.moment().subtract(1, 'h');
+		this.props.lookback_actions.changeTimeframe(now_begin.toDate(), now_end.toDate());
+		this.props.tab_actions.getAllTabs(now_begin.toJSON(), now_end.toJSON(), this.props.currentUser.token);
+	}
+
 	clickOutside(input){
 		console.log("click outside, moment:", input);
 		if(!Datetime.moment.isMoment(input)){
@@ -186,6 +193,7 @@ class LookBack extends Component {
 		var today = Datetime.moment();
     return currentDate.isBefore( today );
 	}
+
 
   render() {
 		var date = this.props.start_date;
@@ -216,21 +224,25 @@ class LookBack extends Component {
 				</div>
 	      <div className="lookback-graph-container">
 		        <div className="time-labels">
-							<div className="date-picker" >
-								<Datetime
-									value={this.props.start_date}
-									onChange={this.changeStartTime.bind(this)}
-									isValidDate={this.checkValidDateChosen.bind(this)}
-									viewMode='time'
-									onBlur={this.clickOutside.bind(this)}
-								/>
+							<div className="timeline-label-row" id="timeline-label-row-top">
+								<button type="button" onClick={this.jumpToNow.bind(this)}>Jump to now</button>
 							</div>
-							<div id="time-break-min-box-left"></div>
-							<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
-							<div id="time-break-min-box-right"></div>
-							<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
-							<div id="end-date-label">{this.state.end_date_formatted}</div>
-
+							<div className="timeline-label-row" id="timeline-label-row-btm">
+								<div className="date-picker" >
+									<Datetime
+										value={this.props.start_date}
+										onChange={this.changeStartTime.bind(this)}
+										isValidDate={this.checkValidDateChosen.bind(this)}
+										viewMode='time'
+										onBlur={this.clickOutside.bind(this)}
+									/>
+								</div>
+								<div id="time-break-min-box-left"></div>
+								<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+								<div id="time-break-min-box-right"></div>
+								<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+								<div id="end-date-label">{this.state.end_date_formatted}</div>
+						</div>
 		        </div>
 	        <div className="lookback-container">
 							<div id="time-break-container">
