@@ -791,6 +791,11 @@ hr{
   }
 }
 
+#search-loading {
+  margin: 25px;
+  text-align: center;
+}
+
 .login-error {
   color: $watermelon-dark;
   text-align: center;
@@ -920,6 +925,12 @@ hr{
 #results-displayed-message {
   margin: 1px 0px 5px 32px;
   color: grey;
+}
+
+#no-search-results-message {
+  margin: 10px 0px 10px 32px;
+  color: grey;
+  text-align: center;
 }
 
 .go-to-site-btn{

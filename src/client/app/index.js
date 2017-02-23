@@ -62,7 +62,8 @@ let store = createStore(
     },
     search: {
       results: [],
-      dom: ""
+      dom: "",
+      loading: true
     }
   },
   applyMiddleware(
