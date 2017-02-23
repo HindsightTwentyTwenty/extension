@@ -25,10 +25,6 @@ class PageUrlBar extends Component {
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
-  componentWillMount() {
-    this.props.lookback_actions.clearDOM();
-  }
-
   getCategories() {
     if (this.props.page.categories) {
       return this.props.page.categories.map((category) => {
@@ -44,19 +40,7 @@ class PageUrlBar extends Component {
     }
   }
 
-  getDOM(){
-    if(this.props.visit_pk){
-      if(this.props.origin == "categories"){
-        this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token, true);
-      }else{
-        this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token, false);
-      }
-    }
-  }
-
   openIframe(event){
-    console.log("props to this", this.props);
-    this.getDOM();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
   }
@@ -64,29 +48,26 @@ class PageUrlBar extends Component {
   closeIframe(event){
     this.setState({ iframehider_show: false });
     this.setState({ iframe_show: false });
-    this.props.lookback_actions.clearDOM();
   }
 
   getIframe(){
-    if(this.props.search_items.dom == "loading"){
-      return(<div className="iframe-msg-box">
-        <Loading/>
-      </div>
-      )
-    }
-    else if(this.props.search_items.dom == ""){
+    //DONT DELETE- LOADING PAGE INTERFACE
+    // if(this.props.search_items.dom == "loading"){
+    //   return(<div className="iframe-msg-box">
+    //     <Loading/>
+    //   </div>
+    //   )
+    // }
+    if(this.props.page.s3 == ""){
       return(<div className="iframe-msg-box">
         <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
       )
     }else{
-      return(<iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>)
+      return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
     }
   }
 
-  goToPage(){
-
-  }
 
   render() {
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';

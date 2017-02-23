@@ -206,13 +206,6 @@ class LookBack extends Component {
 			)
 		}
 
-		//BUTTONS
-		// <button id="back-button" onClick={this.getPrevPage.bind(this)}>
-		// 	back
-		// </button>
-		// <button id="back-button" onClick={this.getNextPage.bind(this)}>
-		// 	next
-		// </button>
     return (
 			<div id="graph-plus-buttons">
 				<div className="time-change-button">

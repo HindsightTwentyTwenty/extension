@@ -24,7 +24,8 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
             "categories": page.categories,
             "created": page.created,
             "domain": page.domain,
-            "last_visited": page.last_visited
+            "last_visited": page.last_visited,
+            "s3": page.s3,
           }
         });
         catsToPagesDict[category.title] = pagesToCatsDict;
