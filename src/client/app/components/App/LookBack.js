@@ -205,44 +205,57 @@ class LookBack extends Component {
 				</div>
 			)
 		}
-    return (
-      <div className="lookback-graph-container">
-        <div className="vertical-axis-label">Tabs</div>
-	        <div className="time-labels">
-	          <div className="start-time-label" >
-								<button id="back-button" onClick={this.getPrevPage.bind(this)}>
-									back
-								</button>
-								<div className="date-picker" >
-									<Datetime
-										value={this.props.start_date}
-										onChange={this.changeStartTime.bind(this)}
-										isValidDate={this.checkValidDateChosen.bind(this)}
-										viewMode='time'
-										onBlur={this.clickOutside.bind(this)}
-									/>
-								</div>
-						</div>
-						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
-						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
-	          <div className="end-time-label">
-								{this.state.end_date_formatted}
-								<button id="back-button" onClick={this.getNextPage.bind(this)}>
-									next
-								</button>
-						</div>
-	        </div>
-        <div className="lookback-container">
-						<div id="time-break-container">
-							<div className="time-break-line" id="first-time-break"></div>
-							<div className="time-break-line" id="second-time-break"></div>
-						</div>
-						<div id="tabs-container">
-							{this.state.tabs}
-						</div>
-        </div>
 
-      </div>
+		//BUTTONS
+		// <button id="back-button" onClick={this.getPrevPage.bind(this)}>
+		// 	back
+		// </button>
+		// <button id="back-button" onClick={this.getNextPage.bind(this)}>
+		// 	next
+		// </button>
+    return (
+			<div id="graph-plus-buttons">
+				<div className="time-change-button">
+					<div id="time-change-btn-buffer-lft"></div>
+					<div id="time-change-btn-wrapper">
+						<i className="fa fa-angle-left fa-5x arrow-btn" aria-hidden="true" onClick={this.getPrevPage.bind(this)}></i>
+					</div>
+				</div>
+	      <div className="lookback-graph-container">
+		        <div className="time-labels">
+							<div className="date-picker" >
+								<Datetime
+									value={this.props.start_date}
+									onChange={this.changeStartTime.bind(this)}
+									isValidDate={this.checkValidDateChosen.bind(this)}
+									viewMode='time'
+									onBlur={this.clickOutside.bind(this)}
+								/>
+							</div>
+							<div id="time-break-min-box-left"></div>
+							<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+							<div id="time-break-min-box-right"></div>
+							<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+							<div id="end-date-label">{this.state.end_date_formatted}</div>
+
+		        </div>
+	        <div className="lookback-container">
+							<div id="time-break-container">
+								<div className="time-break-line" id="first-time-break"></div>
+								<div className="time-break-line" id="second-time-break"></div>
+							</div>
+							<div id="tabs-container">
+								{this.state.tabs}
+							</div>
+	        </div>
+	      </div>
+				<div className="time-change-button">
+					<div id="time-change-btn-buffer-rt"></div>
+					<div id="time-change-btn-wrapper">
+						<i className="fa fa-angle-right fa-5x arrow-btn" aria-hidden="true" onClick={this.getNextPage.bind(this)}></i>
+					</div>
+				</div>
+			</div>
     );
   }
 }

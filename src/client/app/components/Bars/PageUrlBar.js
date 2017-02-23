@@ -24,7 +24,7 @@ class PageUrlBar extends Component {
     this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
-  
+
   componentWillMount() {
     this.props.lookback_actions.clearDOM();
   }
@@ -55,6 +55,7 @@ class PageUrlBar extends Component {
   }
 
   openIframe(event){
+    console.log("props to this", this.props);
     this.getDOM();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });

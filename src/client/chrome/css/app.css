@@ -14,6 +14,7 @@ $canteloupe-dark: #F68828;
 $base-white: #FAFAFA;
 $bar-height: 40px;
 $modal-background: #e5eefc;
+$hover-color: #F68828;
 
 body {
    width:auto;
@@ -139,12 +140,12 @@ body {
 }
 
 .lookback-container{
-  width: 95%;
+  width: 98%;
+  /*top/bottom, left/right*/
+  margin: 5px 1%;
   height: calc(100% - 250px);
   overflow: scroll;
   background-color: white;
-  /*top, right, bottom, left*/
-  margin: 5px 30px 5px 30px;
   border:solid 1px $electric-blue;
   position:absolute;
   min-width: 800px;
@@ -156,9 +157,12 @@ body {
 }
 
 .lookback-graph-container{
-  /*height: calc(100% - 125px);*/
   min-width: 800px;
-  /*padding-top: 10px;*/
+  flex-grow: 1;
+  position: relative;
+  height: inherit;
+  width: inherit;
+  margin-right: 4px;
 }
 
 .lookback-details-container{
@@ -168,6 +172,7 @@ body {
   width: 100%;
   height: 125px;
   background-color: $canteloupe;
+  min-width: 400px;
   color: $base-white;
   .h4{
     color: $canteloupe;
@@ -292,30 +297,70 @@ start-time-label .end-time-label{
   display: flex;
   flex-direction: row;
 }
-
-.vertical-axis-label {
-  transform: rotate(270deg);
-  transform-origin: left top 0;
-  font-size: 20;
+#graph-plus-buttons{
+  display: flex;
+  width: 100%;
   position: absolute;
-  top: 600px;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.time-change-button {
+  width:35px;
+}
+
+#time-change-btn-buffer-lft{
+  width: 3px;
+  min-height: 60px;
+  height: calc(50% - 75px);
+  position: relative;
+}
+
+#time-change-btn-buffer-rt{
+  width: 3px;
+  min-height: 60px;
+  height: calc(50% - 80px);
+  position: relative;
+}
+
+#time-change-btn-wrapper{
+  position: relative;
+  left:4px;
+}
+.arrow-btn:hover{
+  color: $hover-color;
+  cursor:pointer;
 }
 
 .time-labels{
-  margin-left: 30px;
-  margin-right: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 15px;
   height: 40px;
-  min-width: 755px;
+  min-width: 800px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#time-break-min-box-left{
+  position:relative;
+  float:left;
+  width:calc(33% - 190px);
+  min-width:1px;
 }
 
-.start-time-label{
-  float: left;
-  display: inline-flex;
+#time-break-min-box-right{
+  position:relative;
+  float:left;
+  width:26%;
+  min-width:1px;
 }
-.end-time-label{
-  float: right;
+
+#time-break-line-label1, #time-break-line-label2{
+  position: relative;
+}
+
+
+#end-date-label{
+  margin-left: auto;
 }
 
 #time-break-container{
@@ -350,18 +395,6 @@ start-time-label .end-time-label{
   float: left;
 }
 
-#time-break-line-label1{
-  margin-left: 30%;
-  position: absolute;
-}
-#time-break-line-label2{
-  margin-left: 63%;
-  position: absolute;
-}
-
-/*.time-container{
-  display: list-item;
-}*/
 
 .nav-bar-button {
   border: none;
