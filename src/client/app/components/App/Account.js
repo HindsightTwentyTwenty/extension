@@ -55,8 +55,8 @@ class Account extends Component {
         <div className="row">
           <div className="col-xs-10">
             <div className="section-title">Account</div>
-            <button className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</button>
-            <button className="btn btn-primary" type="button" onClick={this.changeMyPassword.bind(this)}>Change Password</button>
+            <a className="btn btn-primary" type="button" onClick={this.logoutUser.bind(this)}>Log Out</a>
+            <a className="btn btn-primary" type="button" onClick={this.changeMyPassword.bind(this)}>Change Password</a>
             { this.changeMyPasswordFields() }
           </div>
         </div>
