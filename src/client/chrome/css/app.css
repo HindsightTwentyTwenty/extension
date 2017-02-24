@@ -343,13 +343,13 @@ start-time-label .end-time-label{
 
 .jump-btn{
   background-color: #4897D8;
-  padding: 6px 12px;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.42857143;
   text-align: center;
   vertical-align: middle;
   color: #FAFAFA;
+  padding: 5px 6px;
 }
 .jump-btn:hover{
   background-color: $electric-blue-dark;
@@ -398,11 +398,13 @@ start-time-label .end-time-label{
 
 #time-break-line-label1, #time-break-line-label2{
   position: relative;
+  font-size: larger;
 }
 
 
 #end-date-label{
   margin-left: auto;
+  font-size: larger;
 }
 
 #time-break-container{
