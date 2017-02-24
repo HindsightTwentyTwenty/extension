@@ -50,8 +50,9 @@ class LookBack extends Component {
   componentWillReceiveProps(props) {
 		var start_date = Datetime.moment(this.props.start_date);
 		var end_date = Datetime.moment(this.props.end_date);
-		var first_break = Datetime.moment(this.props.start_date).add(20, 'm');
-		var second_break = Datetime.moment(this.props.start_date).add(40, 'm');
+		var break_length = (this.state.timeframe / 3);
+		var first_break = Datetime.moment(this.props.start_date).add(break_length, 'm');
+		var second_break = Datetime.moment(this.props.start_date).add((break_length * 2), 'm');
 
 		var curr_tabs =  this.getTabs(props);
 		this.setState({
@@ -112,7 +113,7 @@ class LookBack extends Component {
 
 	jumpToNow(){
 		var now_end = Datetime.moment();
-		var now_begin = Datetime.moment().subtract(1, 'h');
+		var now_begin = Datetime.moment().subtract(this.state.timeframe, 'm');
 		this.props.lookback_actions.changeTimeframe(now_begin.toDate(), now_end.toDate());
 		this.props.tab_actions.getAllTabs(now_begin.toJSON(), now_end.toJSON(), this.props.currentUser.token);
 	}
@@ -143,7 +144,7 @@ class LookBack extends Component {
 		})
 		var start_date = Datetime.moment(this.props.start_date).subtract(this.state.timeframe, 'm');
 		this.changeStartTime(start_date);
-		
+
 
 	}
 
@@ -152,7 +153,7 @@ class LookBack extends Component {
 		var date = this.props.start_date;
 
 		var timeframeSlider = <div id="slider-wrapper">
-														<Slider
+														<Slider id="lookback-slider"
 															tipFormatter={formatter}
 															marks={marks}
 															step={1}
@@ -188,7 +189,7 @@ class LookBack extends Component {
 	      <div className="lookback-graph-container">
 		        <div className="time-labels">
 							<div className="timeline-label-row" id="timeline-label-row-top">
-								<a className="btn btn-primary" type="button" onClick={this.jumpToNow.bind(this)}>Jump to now</a>
+								<div className="jump-btn" onClick={this.jumpToNow.bind(this)}>Jump to now</div>
 								{timeframeSlider}
 							</div>
 							<div className="timeline-label-row" id="timeline-label-row-btm">
