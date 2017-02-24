@@ -17,7 +17,8 @@ function getState() {
     end_date_formatted:"",
 		first_time_break_formatted:"",
 		second_time_break_formatted:"",
-		tabs:""
+		tabs:"",
+		timeframe:60
 	}
 }
 
@@ -47,11 +48,17 @@ class LookBack extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
-		this.getFormattedTimeBreaks(this.props.start_date, this.props.end_date);
+		var start_date = Datetime.moment(this.props.start_date);
+		var end_date = Datetime.moment(this.props.end_date);
+		var first_break = Datetime.moment(this.props.start_date).add(20, 'm');
+		var second_break = Datetime.moment(this.props.start_date).add(40, 'm');
+
 		var curr_tabs =  this.getTabs(props);
 		this.setState({
-			tabs: curr_tabs
+			tabs: curr_tabs,
+			end_date_formatted: end_date.format("MMM D h:mm A"),
+			first_time_break_formatted: first_break.format("h:mm A"),
+			second_time_break_formatted: second_break.format("h:mm A")
 		});
 
   }
@@ -95,63 +102,6 @@ class LookBack extends Component {
 	}
 
 
-  getFormattedTime(date_string){
-    if(date_string){
-      var date = new Date(date_string);
-
-      var hour = date.getHours() - (date.getHours() >= 13 ? 12 : 0);
-			if(hour == 0){
-				hour = 12;
-			}
-      var period = date.getHours() >= 12 ? 'PM' : 'AM';
-      var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-
-      var datetext = (hour +  ':' + minutes + ' ' +period);
-      return datetext;
-    }else{return "";}
-
-  }
-
-  getFormattedDate(date_string){
-    if(date_string){
-      var date = new Date(date_string);
-      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-      var month = months[(date.getMonth())];
-      var datetext = (month + " " + date.getDate());
-
-      return datetext;
-    }else{return "";}
-
-  }
-
-  getFormattedStartEnd(s_date_string, e_date_string){
-    var formatted_start = this.getFormattedDate(s_date_string) + " " + this.getFormattedTime(s_date_string);
-    var formatted_end = this.getFormattedDate(e_date_string) + " " + this.getFormattedTime(e_date_string);
-    this.setState({
-        start_date_formatted: formatted_start,
-        end_date_formatted: formatted_end
-      });
-  }
-
-
-  getFormattedTimeBreaks(s_date_string, e_date_string){
-		var second_break_minute = new Date(e_date_string).getMinutes() - 20;
-		var first_break_minute = second_break_minute - 20;
-
-		var first_break = new Date(e_date_string).setMinutes(first_break_minute);
-		var second_break = new Date(e_date_string).setMinutes(second_break_minute);
-
-
-    var formatted_first = this.getFormattedTime(first_break);
-		var formatted_second = this.getFormattedTime(second_break);
-
-    this.setState({
-        first_time_break_formatted: formatted_first,
-        second_time_break_formatted: formatted_second
-      });
-  }
-
   getTabs(currProps){
 
     if (Object.keys(currProps.tabs).length) {
@@ -193,9 +143,7 @@ class LookBack extends Component {
 	}
 
 	clickOutside(input){
-		console.log("click outside, moment:", input);
 		if(!Datetime.moment.isMoment(input)){
-			console.log("start date changed", this.props.start_date);
 			this.props.lookback_actions.changeTimeframe(this.props.start_date, this.props.end_date);
 
 		}
@@ -219,6 +167,16 @@ class LookBack extends Component {
 
   render() {
 		var date = this.props.start_date;
+
+		var timeframeSlider = <div id="slider-wrapper">
+														<Slider
+															tipFormatter={formatter}
+															marks={marks}
+															step={1}
+															defaultValue={3}
+															max={15}
+															onAfterChange={this.onAfterChange.bind(this)}/>
+													</div>;
 
 		if(this.props.currentDomainDisplayed.clicked){
 			return(
@@ -248,15 +206,7 @@ class LookBack extends Component {
 		        <div className="time-labels">
 							<div className="timeline-label-row" id="timeline-label-row-top">
 								<a className="btn btn-primary" type="button" onClick={this.jumpToNow.bind(this)}>Jump to now</a>
-								<div id="slider-wrapper">
-									<Slider
-										tipFormatter={formatter}
-										marks={marks}
-										step={1}
-										defaultValue={3}
-										max={15}
-										onAfterChange={this.onAfterChange.bind(this)}/>
-								</div>
+								{timeframeSlider}
 							</div>
 							<div className="timeline-label-row" id="timeline-label-row-btm">
 								<div className="date-picker" >
