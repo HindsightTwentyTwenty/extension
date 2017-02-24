@@ -33,16 +33,12 @@ class SidebarComponent extends Component {
     if (this.props.button) {
       return (<div className="control-buttons">
         <div className = "checkbox">
-          <label> <input type="checkbox" id="check-select"
-            onChange={() => {
-              this.props.category_actions.toggleSearchSelector();
-            }}
-            value="first_checkbox"/> select multiple </label>
+          clear selection
         </div>
         <div className={className} onClick={() => {
           this.props.category_actions.toggleShowStarred();
         }}>
-            <i className='fa fa-star fa-2x star side-bar-star ' id='starred'></i>
+          only show starred
           </div>
       </div>)
     }
@@ -52,7 +48,6 @@ class SidebarComponent extends Component {
     var categories = this.getCategories();
     return (
       <div className="side-bar-container">
-        <div className="side-bar-title">{this.props.title}</div>
         {this.getCheckBox()}
         <div className="all-categories">{categories}</div>
       </div>
