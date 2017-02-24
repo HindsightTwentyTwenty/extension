@@ -68,39 +68,14 @@ class LookBack extends Component {
   }
 
 	getPrevPage(){
-		var new_start_hour = new Date(this.props.start_date).getHours() - 1;
-		var new_start_date = new Date(this.props.start_date);
-		new_start_date.setHours(new_start_hour);
-
-		var new_end_hour = new Date(this.props.end_date).getHours() - 1;
-		var new_end_date = new Date(this.props.end_date);
-		new_end_date.setHours(new_end_hour);
-		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON() , this.props.currentUser.token);
-
+		var start_date = Datetime.moment(this.props.start_date).subtract(this.state.timeframe, 'm');
+		this.changeStartTime(start_date);
 	}
 
 	getNextPage(){
-		var curr_Date = new Date();
-
-		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
-		var new_start_date = new Date(this.props.start_date);
-		new_start_date.setHours(new_start_hour);
-
-		var new_end_hour = new Date(this.props.end_date).getHours() + 1;
-		var new_end_date = new Date(this.props.end_date)
-		new_end_date.setHours(new_end_hour);
-
-		if(new_end_date > curr_Date){
-			return;
-		}
-
-		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
-
+		var start_date = Datetime.moment(this.props.start_date).add(this.state.timeframe, 'm');
+		this.changeStartTime(start_date);
 	}
-
 
   getTabs(currProps){
 
@@ -117,17 +92,17 @@ class LookBack extends Component {
   }
 
 	changeStartTime(input){
-		var today = Datetime.moment();
+		var today = Datetime.moment().subtract(1, 'm');
 		if(Datetime.moment.isMoment(input) && input.isBefore( today )){
-			var one_hour_ago = today.subtract(1, 'h');
+			var one_timeframe_ago = today.subtract((this.state.timeframe), 'm');
 
-			if(input.isAfter(one_hour_ago)){
-				today.add(1, 'h');
+			if(input.isAfter(one_timeframe_ago)){
+				today.add(this.state.timeframe, 'm');
 				this.props.lookback_actions.changeTimeframe(input.toDate(), today.toDate());
 				this.props.tab_actions.getAllTabs(input.toJSON(), today.toJSON(), this.props.currentUser.token);
 			}else{
 				var new_end_date = Datetime.moment(input);
-				new_end_date.add(1, 'h');
+				new_end_date.add(this.state.timeframe, 'm');
 				this.props.lookback_actions.changeTimeframe(input.toDate(), new_end_date.toDate());
 				this.props.tab_actions.getAllTabs(input.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
 			}
