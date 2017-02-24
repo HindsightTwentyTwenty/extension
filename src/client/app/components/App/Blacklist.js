@@ -37,7 +37,6 @@ class Blacklist extends Component {
     if(input != ''){
       this.props.blacklist_actions.addToBlacklist(input, this.props.currentUser.token);
       this.input.value = '';
-      console.log("send");
     }
 
 
