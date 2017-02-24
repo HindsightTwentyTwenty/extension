@@ -6,6 +6,7 @@ import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 import Datetime from 'react-datetime';
+import { Slider } from 'antd';
 
 
 import TabComponent from './TabComponent.js';
@@ -19,6 +20,23 @@ function getState() {
 		tabs:""
 	}
 }
+
+function formatter(value) {
+	var hours = Math.floor((value + 1 )/4);
+	var minutes = (value + 1 - (hours*4)) * 15;
+	if(minutes == 0){
+		minutes = '00';
+	}
+	return `${hours}:${minutes}`;
+}
+
+const marks = {
+  0: '15 min',
+  3: '1 hr',
+  7: '2 hr',
+	11: '3 hr',
+  15: '4 hr'
+};
 
 class LookBack extends Component {
 
@@ -194,6 +212,10 @@ class LookBack extends Component {
     return currentDate.isBefore( today );
 	}
 
+	onAfterChange(value) {
+  	console.log('onAfterChange: ', value);
+	}
+
 
   render() {
 		var date = this.props.start_date;
@@ -226,6 +248,15 @@ class LookBack extends Component {
 		        <div className="time-labels">
 							<div className="timeline-label-row" id="timeline-label-row-top">
 								<a className="btn btn-primary" type="button" onClick={this.jumpToNow.bind(this)}>Jump to now</a>
+								<div id="slider-wrapper">
+									<Slider
+										tipFormatter={formatter}
+										marks={marks}
+										step={1}
+										defaultValue={3}
+										max={15}
+										onAfterChange={this.onAfterChange.bind(this)}/>
+								</div>
 							</div>
 							<div className="timeline-label-row" id="timeline-label-row-btm">
 								<div className="date-picker" >

@@ -336,6 +336,11 @@ start-time-label .end-time-label{
   width: 100%;
 }
 
+#slider-wrapper{
+  width:30%;
+  margin-left: 30px;
+}
+
 #timeline-label-row-top{
   height: 40px;
   display: flex;
