@@ -97,6 +97,23 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
         });
       });
         closed = false;
-      });
-    }
-  });
+      }
+    );
+  }
+});
+
+// Send tabUpdate to backend on startup to close any tabs still open
+// due to a chrome quit
+chrome.runtime.onStartup.addListener(function (){
+  if (token) {
+    fetch(url + 'tabupdate/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "POST",
+      body: JSON.stringify({"tab_ids": []})
+    });
+  }
+});
