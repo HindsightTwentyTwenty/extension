@@ -44,7 +44,6 @@ class LookBack extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
   }
 
   componentWillReceiveProps(props) {
@@ -108,7 +107,6 @@ class LookBack extends Component {
 				this.props.tab_actions.getAllTabs(input.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
 			}
 		}
-
 	}
 
 	jumpToNow(){
@@ -138,14 +136,12 @@ class LookBack extends Component {
 
 	onAfterChange(value) {
 		var new_timeframe = (value + 1)*15;
-  	console.log('onAfterChange: ', new_timeframe);
 		this.setState({
 			timeframe: new_timeframe
 		})
-		var start_date = Datetime.moment(this.props.start_date).subtract(this.state.timeframe, 'm');
-		this.changeStartTime(start_date);
-
-
+		var start_date = Datetime.moment(this.props.end_date).subtract(new_timeframe, 'm');
+		this.props.lookback_actions.changeTimeframe(start_date.toDate(), this.props.end_date);
+		this.props.tab_actions.getAllTabs(start_date.toJSON(), this.props.end_date.toJSON(), this.props.currentUser.token);
 	}
 
 

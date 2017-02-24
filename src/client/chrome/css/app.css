@@ -360,6 +360,11 @@ start-time-label .end-time-label{
   background-color: #FAFAFA;
 }
 
+.ant-slider{
+  border-top-color: #FAFAFA;
+  border-bottom-color: #FAFAFA;
+}
+
 #timeline-label-row-top{
   height: 40px;
   display: flex;
@@ -373,7 +378,7 @@ start-time-label .end-time-label{
 }
 
 .time-labels{
-  margin: 10px 15px;
+  margin: 10px 15px 0px 15px;
   height: 80px;
   min-width: 800px;
 }
