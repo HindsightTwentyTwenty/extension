@@ -136,7 +136,15 @@ class LookBack extends Component {
 	}
 
 	onAfterChange(value) {
-  	console.log('onAfterChange: ', value);
+		var new_timeframe = (value + 1)*15;
+  	console.log('onAfterChange: ', new_timeframe);
+		this.setState({
+			timeframe: new_timeframe
+		})
+		var start_date = Datetime.moment(this.props.start_date).subtract(this.state.timeframe, 'm');
+		this.changeStartTime(start_date);
+		
+
 	}
 
 
