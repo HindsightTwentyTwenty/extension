@@ -18,8 +18,6 @@ const unauthorizedCode = "403";
 var curr_token = ""
 
 export function receiveError(error) {
-  console.log("RECEIVE error: ", error);
-
   return {
     type: types.RECEIVE_ERROR,
     error: error
@@ -28,7 +26,6 @@ export function receiveError(error) {
 }
 
 export function receiveLoginError(message){
-  console.log("ERROR:", message);
   return {
     type: types.USER_ERROR,
     error_message: message
@@ -37,11 +34,9 @@ export function receiveLoginError(message){
 }
 
 export function receiveCreateUserError(message, error_type){
-  console.log("ERROR:", message);
   return {
     type: error_type,
     error_message: message
-
   }
 }
 
@@ -72,7 +67,6 @@ export function checkCurrentPage(token){
   return dispatch => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
-      console.log("Current tab is", tab);
 
       if(Url.isUrlBlacklisted(tab.url)){
         // Display message to navigate to a different page
@@ -110,7 +104,6 @@ export function getPageInformation(url, token, count){
 
           switch (e) {
             case 404:
-              console.log("404 caught");
               // Page does not exist in backend at this moment
               // Retry up to 5 times before displaying error message
               if(count < 5){
@@ -121,12 +114,10 @@ export function getPageInformation(url, token, count){
               break;
             case 204:
               // User has blacklisted this url
-              console.log("204 Blacklist caught");
               dispatch(updatePopupStatus(PopupConstants.Blacklist));
               break;
             default:
               // Defualt in case of non-expected error code
-              console.log("default");
               dispatch(updatePopupStatus(PopupConstants.Error));
               break;
          }

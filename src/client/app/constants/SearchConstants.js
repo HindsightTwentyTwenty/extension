@@ -10,3 +10,6 @@ export const Custom = 6;
 // Sort by constants
 export const Relevance = "relevance";
 export const Date = "date";
+
+// General constants
+export const ResultsPerPage = 10;

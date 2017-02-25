@@ -71,7 +71,8 @@ let store = createStore(
     popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
     search: {
       results: [],
-      dom: ""
+      dom: "",
+      loading: true
     }
   },
   applyMiddleware(

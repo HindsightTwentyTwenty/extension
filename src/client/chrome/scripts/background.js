@@ -43,7 +43,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         if (lastError) {
           var dom = "";
         }else{
-          var strippedDom = dom.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi);
+          var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
         }
         var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
         fetch(url + 'newpage/', {
@@ -97,6 +97,23 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
         });
       });
         closed = false;
-      });
-    }
-  });
+      }
+    );
+  }
+});
+
+// Send tabUpdate to backend on startup to close any tabs still open
+// due to a chrome quit
+chrome.runtime.onStartup.addListener(function (){
+  if (token) {
+    fetch(url + 'tabupdate/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "POST",
+      body: JSON.stringify({"tab_ids": []})
+    });
+  }
+});

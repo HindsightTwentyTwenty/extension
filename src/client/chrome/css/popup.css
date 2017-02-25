@@ -305,3 +305,9 @@ $canteloupe-dark: #F68828;
 .new-session-info {
   margin-top: 5px;
 }
+
+#loading_page {
+  position: absolute;
+  top: 40%;
+  left:5%;
+}
