@@ -24,8 +24,8 @@ let store = createStore(
       cats: [],
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false,
-      editCategory: "",
-      newCategoryName: ""
+      confirmDelete: "",
+      editCategory: ""
     },
     currentPage: {
       url: "",

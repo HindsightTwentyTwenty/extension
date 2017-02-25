@@ -457,6 +457,9 @@ start-time-label .end-time-label{
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .color-square-small {
@@ -620,6 +623,11 @@ hr{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.edit-category {
+  width: 40px;
+  justify-content: space-between;;
 }
 
 .star-div{
