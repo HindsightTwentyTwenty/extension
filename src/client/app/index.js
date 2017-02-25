@@ -46,7 +46,6 @@ let store = createStore(
       showStarred: false
     },
     currentSearchCategories: {
-      multiSelect: false,
       searchCats: []
     },
     sessions: {
