@@ -428,6 +428,7 @@ start-time-label .end-time-label{
 .error_message { color: blue; }
 
 .right-sidebar-button {
+  color: $electric-blue;
   float: right;
   width: 15px;
   height: 25px;
@@ -435,6 +436,7 @@ start-time-label .end-time-label{
 }
 
 .left-sidebar-button {
+  color: $electric-blue;
   float: left;
   width: 15px;
   height: 25px;
@@ -469,6 +471,20 @@ start-time-label .end-time-label{
   width: 18px;
   height: 18px;
   margin: 6px 7px;
+}
+
+.side-bar-single-button {
+  color: $electric-blue-dark;
+  display: inline-flex;
+  border-radius: 3px;
+  width: 18px;
+  line-height: 18px;
+  padding-left: 3px;
+  margin: 6px 7px;
+  &.selected {
+    color: $banana;
+  }
+
 }
 
 .side-bar-category{
@@ -584,10 +600,6 @@ start-time-label .end-time-label{
   display: flex;
 }
 
-.side-bar-star{
-  margin: 0 auto;
-}
-
 hr{
   margin: 0 auto;
   border-color: $watermelon-dark;
@@ -629,7 +641,6 @@ hr{
 .side-bar-buttons {
   width: 40px;
   justify-content: space-between;
-  color: $electric-blue;
 }
 
 .star-div{

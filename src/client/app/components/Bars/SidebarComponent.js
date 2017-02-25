@@ -28,27 +28,35 @@ class SidebarComponent extends Component {
     }
   }
 
-  getCheckBox() {
-    var className = this.props.categoriesAndPages.showStarred ? 'star-checkbox checked' : 'star-checkbox';
-    if (this.props.button) {
-      return (<div className="control-buttons">
-        <div className = "checkbox">
-          clear selection
-        </div>
-        <div className={className} onClick={() => {
-          this.props.category_actions.toggleShowStarred();
-        }}>
-          only show starred
-          </div>
-      </div>)
-    }
-  }
-
   render() {
     var categories = this.getCategories();
+    var showStarredStyle = this.props.categoriesAndPages.showStarred ? {"fontWeight" : "bold"} : {};
+    var starClass = this.props.categoriesAndPages.showStarred ? 'fa fa-star side-bar-single-button selected' : 'fa fa-star side-bar-single-button';
     return (
       <div className="side-bar-container">
-        {this.getCheckBox()}
+        <div className='side-bar-category'>
+          <div className='category-info'>
+            <i className='fa fa-times side-bar-single-button'/>
+            <div className='category-title'
+              onClick={() => {
+                this.props.category_actions.clearSearchCategories();
+              }}>
+              clear selection
+            </div>
+          </div>
+        </div>
+        <div className='side-bar-category'>
+          <div className='category-info'>
+            <i className={starClass}/>
+            <div className='category-title'
+              style={showStarredStyle}
+              onClick={() => {
+                this.props.category_actions.toggleShowStarred();
+              }}>
+              only show starred
+            </div>
+          </div>
+        </div>
         <div className="all-categories">{categories}</div>
       </div>
     )
@@ -62,10 +70,8 @@ let mapStateToProps = (state) => ({
   categoriesAndPages: state.categoriesAndPages
 })
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    category_actions: bindActionCreators(CategoryActions, dispatch),
-  }
-}
+let mapDispatchToProps = (dispatch) => ({
+  category_actions: bindActionCreators(CategoryActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarComponent);
