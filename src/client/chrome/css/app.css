@@ -336,6 +336,35 @@ start-time-label .end-time-label{
   width: 100%;
 }
 
+#slider-wrapper{
+  width:30%;
+  margin-left: 30px;
+}
+
+.jump-btn{
+  background-color: #4897D8;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  vertical-align: middle;
+  color: #FAFAFA;
+  padding: 5px 6px;
+}
+.jump-btn:hover{
+  background-color: $electric-blue-dark;
+  cursor:pointer;
+}
+
+#lookback-slider{
+  background-color: #FAFAFA;
+}
+
+.ant-slider{
+  border-top-color: #FAFAFA;
+  border-bottom-color: #FAFAFA;
+}
+
 #timeline-label-row-top{
   height: 40px;
   display: flex;
@@ -349,7 +378,7 @@ start-time-label .end-time-label{
 }
 
 .time-labels{
-  margin: 10px 15px;
+  margin: 10px 15px 0px 15px;
   height: 80px;
   min-width: 800px;
 }
@@ -369,11 +398,13 @@ start-time-label .end-time-label{
 
 #time-break-line-label1, #time-break-line-label2{
   position: relative;
+  font-size: larger;
 }
 
 
 #end-date-label{
   margin-left: auto;
+  font-size: larger;
 }
 
 #time-break-container{
