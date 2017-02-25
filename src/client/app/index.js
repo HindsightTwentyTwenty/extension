@@ -24,8 +24,8 @@ let store = createStore(
       cats: [],
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false,
-      editCategory: "",
-      newCategoryName: ""
+      confirmDelete: "",
+      editCategory: ""
     },
     currentPage: {
       url: "",
@@ -46,8 +46,16 @@ let store = createStore(
       showStarred: false
     },
     currentSearchCategories: {
-      multiSelect: false,
       searchCats: []
+    },
+    sessions: {
+      ongoingSession: false,
+      durationId: PopupConstants.DURATION_OPTIONS[3].id, //indefinitely
+      currentSession:{
+        title: "title",
+        start: "start",
+        end: "end"
+      }
     },
     currentUser: {
       user_name:"",
@@ -60,6 +68,7 @@ let store = createStore(
       selection: 0,
       searchTerm: ""
     },
+    popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
     search: {
       results: [],
       dom: "",

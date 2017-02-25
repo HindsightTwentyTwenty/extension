@@ -9,8 +9,6 @@ function lookBackNavReducer(state = {selection: 0, searchTerm: ""}, action){
       if(state.selection != LookBackSections.Search){
         document.getElementById("nav-bar-button-" + state.selection).classList.remove('nav-bar-button-selected');
       }
-      console.log("action.lookbackSelection", action.lookBackSelection);
-      console.log("Search", LookBackSections.Search);
       if(action.lookBackSelection != LookBackSections.Search){
         document.getElementById("nav-bar-button-" + action.lookBackSelection).classList.add('nav-bar-button-selected');
       }

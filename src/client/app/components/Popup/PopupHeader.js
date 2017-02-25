@@ -26,7 +26,7 @@ class PopupHeader extends Component {
 
   render () {
     return (
-      <div className="electric-blue popup-header-wrapper flex-row">
+      <div className="popup-header-wrapper">
         <div className="popup-header" onMouseDown={()=>{this.openTab()}}>
           <img className="logo header zero-margin"  src="../../assets/img/logo-light.png"/>
           <p className="popup-header-text zero-margin">hindsite</p>
