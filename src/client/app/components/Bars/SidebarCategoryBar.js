@@ -28,12 +28,12 @@ class SidebarCategoryBar extends Component {
             {categoryTitle}
           </div>
         </div>
-        <div className='edit-category'>
+        <div className='side-bar-buttons'>
           <a onClick={() => {this.props.category_actions.toggleEditCategory(categoryTitle);}}>
-            <i className='fa fa-pencil edit-category-button'/>
+            <i className='fa fa-pencil left-sidebar-button'/>
           </a>
           <a onClick={() => {this.props.category_actions.toggleDeleteCategory(categoryTitle);}}>
-            <i className='fa fa-trash delete-category-button'/>
+            <i className='fa fa-trash right-sidebar-button'/>
           </a>
         </div>
       </div>
@@ -44,53 +44,63 @@ class SidebarCategoryBar extends Component {
     var categoryTitle = this.props.categoryInfo.title;
     var userToken = this.props.currentUser.token;
     return(
-      <div className='edit-category-entry'>
-        CONFIRM DELETE
-        <a onClick={() => {
-          this.props.category_actions.updateSearchCategory(categoryTitle, false);
-          this.props.category_actions.deleteCategory(categoryTitle, userToken);
-        }}>
-          <i className='fa fa-check edit-category-button'/>
-        </a>
-        <a onClick={() => {
-          this.props.category_actions.toggleDeleteCategory('');
-        }}>
-          <i className='fa fa-times edit-category-button'/>
-        </a>
+      <div className='side-bar-category'>
+        <div className='category-title'>
+          are you sure?
+        </div>
+        <div className='side-bar-buttons'>
+          <a onClick={() => {
+            this.props.category_actions.updateSearchCategory(categoryTitle, false);
+            this.props.category_actions.deleteCategory(categoryTitle, userToken);
+          }}>
+            <i className='fa fa-check left-sidebar-button'/>
+          </a>
+          <a onClick={() => {
+            this.props.category_actions.toggleDeleteCategory('');
+          }}>
+            <i className='fa fa-times right-sidebar-button'/>
+          </a>
+        </div>
       </div>
     )
   }
 
   getEditCategory() {
     var categoryTitle = this.props.categoryInfo.title;
+    var categoryColor = this.props.categoryInfo.color;
     var userToken = this.props.currentUser.token;
     return (
-      <div className='edit-category-entry'>
-        <input className='edit-category-input' defaultValue={categoryTitle}
-          ref={node => {this.input = node;}}
-        />
-        <a onClick={() => {
-          var input = this.input.value.trim();
-          var categoriesSet = new Set();
-          this.props.categories.cats.map(function(category) {
-            categoriesSet.add(category.title);
-          })
-          if (input == categoryTitle) {
+      <div className='side-bar-category'>
+        <div className='category-info'>
+          <div className='color-square-small' style={{"backgroundColor" : categoryColor}}/>
+          <input className='edit-category-input' defaultValue={categoryTitle}
+            ref={node => {this.input = node;}}
+          />
+        </div>
+        <div className='side-bar-buttons'>
+          <a onClick={() => {
+            var input = this.input.value.trim();
+            var categoriesSet = new Set();
+            this.props.categories.cats.map(function(category) {
+              categoriesSet.add(category.title);
+            })
+            if (input == categoryTitle) {
+              this.props.category_actions.toggleEditCategory('');
+            } else if (categoriesSet.has(input)) {
+              alert("Category name already exists!");
+            } else {
+              this.props.category_actions.editCategoryTitle(categoryTitle, input, userToken);
+              this.props.category_actions.toggleEditCategory('');
+            }
+          }}>
+            <i className='fa fa-check left-sidebar-button'/>
+          </a>
+          <a onClick={() => {
             this.props.category_actions.toggleEditCategory('');
-          } else if (categoriesSet.has(input)) {
-            alert("Category name already exists!");
-          } else {
-            this.props.category_actions.editCategoryTitle(categoryTitle, input, userToken);
-            this.props.category_actions.toggleEditCategory('');
-          }
-        }}>
-          <i className='fa fa-check edit-category-button'/>
-        </a>
-        <a onClick={() => {
-          this.props.category_actions.toggleEditCategory('');
-        }}>
-          <i className='fa fa-times edit-category-button'/>
-        </a>
+          }}>
+            <i className='fa fa-times right-sidebar-button'/>
+          </a>
+        </div>
       </div>
     );
   }
