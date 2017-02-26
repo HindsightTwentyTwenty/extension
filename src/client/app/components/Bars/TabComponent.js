@@ -4,6 +4,7 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import DomainBar from '../Bars/DomainBar.js';
+import Datetime from 'react-datetime';
 
 class TabComponent extends Component {
 
@@ -17,6 +18,7 @@ class TabComponent extends Component {
     var bar_style = {"width" : width_style, "background" : active_times_style}
     return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
+
   getFirstDomainBar(domain, width, margin, tab_id) {
     var width_style = width;
     var active_times_style = this.getActiveTimesStyle(domain);
@@ -55,18 +57,31 @@ class TabComponent extends Component {
   }
 
   calculateDomainWidth(time_elapsed, created, closed){
-    var d_created_date = new Date(created);
-    var d_closed_date = new Date(closed);
-
-    if(d_created_date < this.props.start_date){
-      d_created_date = this.props.start_date;
+    console.log("CLOSED", closed);
+    var start_date = Datetime.moment(this.props.start_date);
+    var end_date = Datetime.moment(this.props.end_date);
+    var d_created_date = Datetime.moment(created);
+    var d_closed_date;
+    if(closed == null){
+      d_closed_date = end_date;
+    }else{
+      d_closed_date = Datetime.moment(closed);
     }
-    if(d_closed_date > this.props.end_date || d_closed_date == null){
-      d_closed_date = this.props.end_date;
+
+    if(d_created_date.isBefore(start_date)){
+      d_created_date = start_date;
+    }
+    if(d_closed_date.isAfter(end_date)){
+      d_closed_date = end_date;
     }
 
 
-    var domain_time_elapsed = d_closed_date.getTime() - d_created_date.getTime();
+    var domain_time_elapsed = d_closed_date.diff(d_created_date);
+    console.log("NEW DOMAIN BAR");
+    console.log("created date", d_created_date.format("MMM D h:mm A"));
+    console.log("closed date", d_closed_date.format("MMM D h:mm A"));
+    console.log("domain time elapsed", domain_time_elapsed);
+    console.log("time_elapsed", time_elapsed);
 
     if((domain_time_elapsed/time_elapsed)*100 > 2){
       return (domain_time_elapsed/time_elapsed)*100 -2;
@@ -92,28 +107,41 @@ class TabComponent extends Component {
 
   }
 
+  /* top level function to get the domains into the html */
   getDomains() {
-    if(this.props){
-      var index = this.props.curr_index
+    var index = this.props.curr_index
+    if(this.props.start_date && this.props.end_date && this.props.tabs[index]){
       if (Object.keys(this.props.tabs).length) {
+        if(index == 0 || index == 1){
+          console.log("this.props", this.props);
+          console.log("index of tab component", index);
+          console.log("tabs on component", this.props.tabs[index]);
+        }
+
         let results = []
+        /* domains: the different domains hit on this tab */
         let domains = this.props.tabs[index].domains;
         var numDomains = Object.keys(domains).length;
 
-        var start_date = new Date(this.props.start_date);
-        var end_date;
-        if(this.props.end_date != null){
-          end_date = new Date(this.props.end_date);
-        }else{
-          end_date == null;
-        }
-        var time_elapsed = end_date.getTime() - start_date.getTime();
+        var start_date = Datetime.moment(this.props.start_date);
+        // var end_date;
+        // var time_elapsed;
+        //if(this.props.end_date != null){
+        var end_date = Datetime.moment(this.props.end_date);
+        var time_elapsed = start_date.diff(end_date);
 
-        if (this.props.tabs[index]) {
+        // }else{
+        //   end_date == null;
+        //   var time_elapsed = end_date.getTime() - start_date.getTime();
+        //   console.log("NULL time elapsed:", time_elapsed);
+        //   //time_elapsed
+        // }
+
+        // if (this.props.tabs[index]) {
             for (let dIndex in domains) {
 
-              var created = domains[dIndex].created;
-              var closed = domains[dIndex].closed;
+              var created = Datetime.moment(domains[dIndex].created);
+              var closed = Datetime.moment(domains[dIndex].closed);
               if (closed == null){
                 closed = end_date;
               }
@@ -134,7 +162,7 @@ class TabComponent extends Component {
               }
             }
           return results;
-        }
+        // }
       }
     }
   }
@@ -143,7 +171,9 @@ class TabComponent extends Component {
     var domains = this.getDomains();
     return (
       <div>
-        {domains}
+        <div className="tab-component-wrapper">
+          {domains}
+        </div>
       </div>
     )
   }
