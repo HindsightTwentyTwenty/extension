@@ -774,9 +774,15 @@ hr{
 #date-select-text{
   border-width: 1px;
   border-radius: 5px;
-  border: gray;
+  /*border: gray;*/
   border-style: solid;
   padding: 2px 4px;
+}
+
+.search-selection-col {
+  vertical-align: middle;
+  display: inline-block;
+  float: none;
 }
 
 .advanced-search{

@@ -176,18 +176,18 @@ class Search extends Component {
             <div id="search-selection-container" className="container">
             <div className="col-xs-10 col-xs-offset-1">
               <div className="row">
-                <div className="col-xs-4">
+                <div className="col-xs-4 search-selection-col">
                   <DateRangePicker id="search-date-select-dropdown" onApply={this.handleTimeEvent.bind(this)} timePicker={true} startDate={moment()} endDate={moment()} ranges={dateRanges}>
                     <div id="date-select-text">{this.state.date_message}</div>
                   </DateRangePicker>
                 </div>
-                <div className="col-xs-4">
+                <div className="col-xs-4 search-selection-col">
                   <select id="category-selection" name="category-selection" className="search-select-dropdown" onChange={this.handleCategoryChange.bind(this)}>
                     <option value="" >Any Category</option>
                     { this.getCategories() }
                   </select>
                 </div>
-                <div className="col-xs-4">
+                <div className="col-xs-4 search-selection-col">
                   <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange.bind(this)}>
                     <option value={SearchConstants.Relevance}>Sort by Relevance</option>
                     <option value={SearchConstants.Date}>Sort by Date</option>
