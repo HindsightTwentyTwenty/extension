@@ -308,7 +308,7 @@ start-time-label .end-time-label{
 #time-change-btn-buffer-rt{
   width: 3px;
   min-height: 60px;
-  height: calc(50% - 80px);
+  height: calc(50% - 83px);
   position: relative;
 }
 
@@ -339,6 +339,7 @@ start-time-label .end-time-label{
   vertical-align: middle;
   color: #FAFAFA;
   padding: 5px 6px;
+  border-radius: 5px;
 }
 .jump-btn:hover{
   background-color: $electric-blue-dark;
@@ -358,6 +359,7 @@ start-time-label .end-time-label{
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 #timeline-label-row-btm{

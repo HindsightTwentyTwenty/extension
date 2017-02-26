@@ -68,7 +68,9 @@ class LookBackNavBar extends Component {
         <div className="site-title"
           onClick={() => {
             this.switchLookBackSelection(LookBackSections.LookBack);
-          }}>hindsite</div>
+          }}>
+          <p>hindsite</p>
+          </div>
       </div>
     );
   }
