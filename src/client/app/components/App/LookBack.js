@@ -189,8 +189,8 @@ class LookBack extends Component {
 	      <div className="lookback-graph-container">
 		        <div className="time-labels">
 							<div className="timeline-label-row" id="timeline-label-row-top">
-								<div className="jump-btn" onClick={this.jumpToNow.bind(this)}>Jump to now</div>
 								{timeframeSlider}
+								<div className="jump-btn" onClick={this.jumpToNow.bind(this)}>Jump to now</div>
 							</div>
 							<div className="timeline-label-row" id="timeline-label-row-btm">
 								<div className="date-picker" >
