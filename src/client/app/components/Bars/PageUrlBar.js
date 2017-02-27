@@ -58,13 +58,17 @@ class PageUrlBar extends Component {
     //   </div>
     //   )
     // }
-    if(this.props.page.s3 == ""){
+    if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
       return(<div className="iframe-msg-box">
         <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
       )
     }else{
-      return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
+      if(this.props.origin == "search" ){
+        return(<iframe className="m-iframe" src={this.props.s3}></iframe>)
+      }else{
+        return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
+      }
     }
   }
 

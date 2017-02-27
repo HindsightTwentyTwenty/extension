@@ -93,16 +93,13 @@ class Search extends Component {
       )
     }
 
-    console.log("Results:", this.props.search.results);
     if(this.props.search.results.length > 0){
-      console.log("Displaying");
       var firstIndexDisplayed = (this.state.page_selection - 1) * SearchConstants.ResultsPerPage;
       var lastIndexDisplayed = firstIndexDisplayed + SearchConstants.ResultsPerPage;
       return this.props.search.results.slice(firstIndexDisplayed,lastIndexDisplayed).map(function(result) {
-        return <PageUrlBar origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
+        return <PageUrlBar s3={result.s3} origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
       });
     } else {
-      console.log("Nothing");
       return <div id="no-search-results-message">No Results Were Found</div>
     }
 
