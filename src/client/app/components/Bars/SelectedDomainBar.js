@@ -12,7 +12,11 @@ class SelectedDomainBar extends Component {
   }
 
   getPageBar(pageVisit, width, key){
-    var barStyle = {"width" : width + "%"};
+    if(key == 0 ){
+      var barStyle = {"width" : width + "%", "borderLeft": "none"};
+    }else{
+      var barStyle = {"width" : width + "%"};
+    }
     return <PageBar page={pageVisit.page} visited={pageVisit.visited} style={barStyle} key={key}/>;
   }
 
@@ -25,11 +29,10 @@ class SelectedDomainBar extends Component {
       this.props.domain.end = new Date().getTime();
     }
     var domainOpenTime = this.getTimeOpen(this.props.domain.created, this.props.domain.closed);
-
     var minWidth = 100;
     for(var i = 0; i < pageVisits.length; i++){
       var pageOpenTime;
-      if(i < pageVisits.length -1){
+      if(i < pageVisits.length - 1){
         pageOpenTime = this.getTimeOpen(pageVisits[i].visited, pageVisits[i+1].visited);
       }else{
         pageOpenTime = this.getTimeOpen(pageVisits[i].visited, this.props.domain.closed);
@@ -53,8 +56,7 @@ class SelectedDomainBar extends Component {
       if(adjWidth > MAXWIDTH){
         adjWidth = MAXWIDTH;
       }
-
-      var pageBar = this.getPageBar(pageVisits[i], adjWidth, i);
+      var pageBar = this.getPageBar(pageVisits[i], adjWidth, i, true);
       pageBars.push(pageBar);
     }
     return pageBars;

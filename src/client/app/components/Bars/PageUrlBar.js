@@ -88,7 +88,7 @@ class PageUrlBar extends Component {
     : ''
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
     var visited = this.props.visited ? <p>visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
-    var domain= this.props.domain ? <p>{this.props.domain}</p> : '';
+    var domain = this.props.domain ? <p>{this.props.domain}</p> : '';
 
     return (
       <div className="page-url-bar">

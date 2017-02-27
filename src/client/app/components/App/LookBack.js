@@ -175,11 +175,8 @@ class LookBack extends Component {
 	}
 
 	clickOutside(input){
-		console.log("click outside, moment:", input);
 		if(!Datetime.moment.isMoment(input)){
-			console.log("start date changed", this.props.start_date);
 			this.props.lookback_actions.changeTimeframe(this.props.start_date, this.props.end_date);
-
 		}
 	}
 
@@ -197,25 +194,26 @@ class LookBack extends Component {
 
   render() {
 		var date = this.props.start_date;
+    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
+		var modal = this.props.currentDomainDisplayed.clicked ?
+				<div className="modal-base" id="domain-modal">
+					<div className="domain-modal-header">
+							<div className="close-detail-view-btn" onClick={() => {
+							this.props.lookback_actions.toggleDomainClicked();
+							this.props.lookback_actions.setCurrentPage({});}}>
 
-		if(this.props.currentDomainDisplayed.clicked){
-			return(
-				<div className="domainBar-zoom-container">
-					<div className="row">
-					<button className='close-detail-view-btn' onClick={() => {
-						this.props.lookback_actions.toggleDomainClicked();
-						this.props.lookback_actions.setCurrentPage({});
-					}}><i className="fa fa-window-close-o" aria-hidden="true"></i></button>
+								<i className="fa fa-times fa-lg" aria-hidden="true"></i>
+							</div>
 					</div>
-					<div className="row">
+					<div>
 						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
 					</div>
-				</div>
-			)
-		}
+				</div> : '';
 
     return (
+
 			<div id="graph-plus-buttons">
+			{modal}
 				<div className="time-change-button">
 					<div id="time-change-btn-buffer-lft"></div>
 					<div id="time-change-btn-wrapper">
