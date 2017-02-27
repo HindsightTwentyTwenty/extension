@@ -201,24 +201,13 @@ body {
     color: red;
 }
 
-.side-bar-title{
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  color: $base-white;
-  background-color: $canteloupe;
-  font-size: large;
-
-}
-
 .side-bar-container{
   color: $canteloupe;
   display: inline-block;
-  width: 18%;
+  width: 220px;
+  min-width: 220px;
   height: 100%;
   background-color: $base-white;
-  border: solid 3px $canteloupe;
-  border-top: 0px;
   overflow-y: scroll;
 }
 
@@ -286,10 +275,10 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
-  width: 80%;
+  width: auto;
   height: 97%;
   margin: 5px auto;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .categories-page {
@@ -336,6 +325,35 @@ start-time-label .end-time-label{
   width: 100%;
 }
 
+#slider-wrapper{
+  width:30%;
+  margin-left: 30px;
+}
+
+.jump-btn{
+  background-color: #4897D8;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  vertical-align: middle;
+  color: #FAFAFA;
+  padding: 5px 6px;
+}
+.jump-btn:hover{
+  background-color: $electric-blue-dark;
+  cursor:pointer;
+}
+
+#lookback-slider{
+  background-color: #FAFAFA;
+}
+
+.ant-slider{
+  border-top-color: #FAFAFA;
+  border-bottom-color: #FAFAFA;
+}
+
 #timeline-label-row-top{
   height: 40px;
   display: flex;
@@ -349,7 +367,7 @@ start-time-label .end-time-label{
 }
 
 .time-labels{
-  margin: 10px 15px;
+  margin: 10px 15px 0px 15px;
   height: 80px;
   min-width: 800px;
 }
@@ -369,11 +387,13 @@ start-time-label .end-time-label{
 
 #time-break-line-label1, #time-break-line-label2{
   position: relative;
+  font-size: larger;
 }
 
 
 #end-date-label{
   margin-left: auto;
+  font-size: larger;
 }
 
 #time-break-container{
@@ -459,14 +479,20 @@ start-time-label .end-time-label{
   padding: 10px;
   outline: none;
 }
+
+.blacklist-entry{
+  width: 95%;
+  margin: 0 auto;
+}
+
 .blacklist-text-entry {
-  margin: 3px 5px;
   border-radius: 4px;
   border: none;
-  width: 98%;
-}
-.all-categories {
-  overflow: scroll;
+  height: 40px;
+  outline: none;
+  &:focus {
+    outline:none;
+  }
 }
 
 .section-title {
@@ -523,43 +549,71 @@ start-time-label .end-time-label{
 
 .error_message { color: blue; }
 
-.delete-category-button {
+.right-sidebar-button {
+  color: $electric-blue;
   float: right;
-  color: $canteloupe;
   width: 15px;
   height: 25px;
   line-height: 25px;
 }
 
-.edit-category-button {
-  color: $canteloupe;
+.left-sidebar-button {
+  color: $electric-blue;
+  float: left;
   width: 15px;
   height: 25px;
   line-height: 25px;
 }
 
 .edit-category-input {
-  height: 20px;
-  width: 150px;
+  border: none;
+  line-height: 30px;
+  max-width: 120px;
+  display: inline-flex;
+}
+
+.category-info {
+  display: flex;
 }
 
 .category-title {
-  color: $canteloupe;
-  text-align: center;
-  width: 150px;
+  line-height: 30px;
+  display: inline-flex;
+  padding-left: 7px;
+  color: $electric-blue;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.color-square-small {
+  display: inline-flex;
+  border-radius: 3px;
+  width: 18px;
+  height: 18px;
+  margin: 6px 7px;
+}
+
+.side-bar-single-button {
+  color: $electric-blue-dark;
+  display: inline-flex;
+  border-radius: 3px;
+  width: 18px;
+  line-height: 18px;
+  padding-left: 3px;
+  margin: 6px 7px;
+  &.selected {
+    color: $banana;
+  }
+
 }
 
 .side-bar-category{
   width: 100%;
-  height: 25px;
+  height: 30px;
   display: flex;
-  line-height: 25px;
-  border-bottom: solid thin $canteloupe;
   justify-content: space-between;
-}
-
-.checked {
-  background-color: $banana;
 }
 
 .date-picker {
@@ -668,10 +722,6 @@ start-time-label .end-time-label{
   display: flex;
 }
 
-.side-bar-star{
-  margin: 0 auto;
-}
-
 hr{
   margin: 0 auto;
   border-color: $watermelon-dark;
@@ -708,6 +758,11 @@ hr{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.side-bar-buttons {
+  width: 40px;
+  justify-content: space-between;
 }
 
 .star-div{

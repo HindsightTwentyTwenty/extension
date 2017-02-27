@@ -4,6 +4,7 @@ import fetch from 'isomorphic-fetch'
 
 const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
+const newSessionEndpoint = urls.BASE_URL + "addsession/"
 
 export function getPageInfo(token){
   return dispatch => {
@@ -46,5 +47,47 @@ export function pushCategory(category, color, token){
         category_added: json
       })
     )
+  }
+}
+
+export function changePopupTab(id) {
+  return dispatch => {
+    dispatch({
+      type: types.CHANGE_POPUP_TAB,
+      tabId: id
+    })
+  }
+}
+
+export function setDuration(id) {
+  return dispatch => {
+    dispatch({
+      type: types.SET_DURATION_ID,
+      durationId: id
+    })
+  }
+}
+
+export function addSession(token, sessionTitle, sessionStart, sessionEnd) {
+  return dispatch => {
+    return fetch(newSessionEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token
+           },
+           method: "POST",
+           body: JSON.stringify({title: sessionTitle, start: sessionStart, end: sessionEnd})
+         }
+       )
+      .then(response => response.json())
+      .then(json => dispatch({
+        type: types.RECEIVE_ADDED_SESSION,
+        currentSession: {
+          title: json.title,
+          start: json.start,
+          end: json.end
+        }
+      }))
   }
 }
