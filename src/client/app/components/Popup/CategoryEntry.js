@@ -46,8 +46,8 @@ class CategoryEntry extends Component {
     return (
     <div className="create-category-bar">
       {this.getCurrentColor()}
-      <div className="input-group popup-category-entry">
-        <input type="text" className="category-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
+      <div className="input-group popup-form-entry">
+        <input type="text" className="popup-form form-control" placeholder="New Category..." onKeyPress={this.keyPressed.bind(this)} ref={node => {
           this.input = node;
         }} />
         <span className="input-group-btn">

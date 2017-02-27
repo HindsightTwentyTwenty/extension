@@ -22,22 +22,16 @@ class CategoriesPage extends Component {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
-      // if (showStarred) {
-      //   for (let page in starred) {
-      //     if (!pageSet.has(starred[page].pk)) {
-      //       result.push(<PageUrlBar key={starred[page].pk} page={starred[page]}/>);
-      //       pageSet.add(starred[page].pk);
-      //     }
-      //   }
-      // }
-      // console.log("PROPS FOR CAT", this.props);
       for (let searchCat of searchCatSet.values()) {
         for (var pagePk in categoriesPages[searchCat]) {
-          // console.log("cat pages", categoriesPages);
-          // console.log("pagepk", pagePk);
           if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar visit_pk={pagePk} key={pagePk} origin="categories" page={categoriesPages[searchCat][pagePk]} domain={categoriesPages[searchCat][pagePk].domain} visited={categoriesPages[searchCat][pagePk].last_visited}/>)
-            pageSet.add(pagePk);
+            if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
+              result.push(<PageUrlBar key={pagePk}
+                page={categoriesPages[searchCat][pagePk]}
+                domain={categoriesPages[searchCat][pagePk].domain}
+                visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+              pageSet.add(pagePk);
+            }
           }
         }
       }

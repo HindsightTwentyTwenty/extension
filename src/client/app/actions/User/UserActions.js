@@ -215,15 +215,12 @@ export function sendCurrentPage(token) {
         .then(
           ({ status, json }) => {
             if(status == 204){
-              // console.log("No content");
             } else {
-              // console.log("valid receive", json);
               dispatch(receivePageInfo(json));
             }
           }
         )
       } else {
-        // console.log("DISPATCHING NO CONTENT", tab.url)
         dispatch(updatePopupStatus(PopupConstants.NoContent));
       }
     });
@@ -231,7 +228,6 @@ export function sendCurrentPage(token) {
 }
 
 export function error(response){
-  // console.log("error", response.json());
   return {
     type: types.TEST
   }
@@ -354,10 +350,8 @@ export function changeMyPassword(current_password, new_password, token){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          // console.log("Invalid password for password change");
           dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
         } else {
-          // console.log("valid post");
           dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))
         }
       }

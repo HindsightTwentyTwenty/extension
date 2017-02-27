@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux'
 
+import PopupMenu from './PopupMenu.js';
 import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
 import LoginPage from './LoginPage.js';
@@ -31,6 +32,8 @@ class Popup extends Component {
 				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
+              <PopupHeader/>
+              <PopupMenu/>
 		          <PopupBody/>
 		        </div>
 		      );

@@ -118,14 +118,6 @@ export function toggleEditCategory(categoryTitle) {
   }
 }
 
-export function toggleSearchSelector() {
-  return dispatch => {
-    dispatch({
-      type: types.TOGGLE_SEARCH_SELECTOR
-    })
-  }
-}
-
 export function toggleColorPicker(show) {
   return dispatch => {
     dispatch({
@@ -153,15 +145,6 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
   }
 }
 
-export function updateCategoryEditField(newCategoryTitle) {
-  return dispatch => {
-    dispatch({
-      type: types.UPDATE_CATEGORY_EDIT_FIELD,
-      categoryTitle: newCategoryTitle
-    })
-  }
-}
-
 export function toggleShowStarred() {
   return dispatch => {
     dispatch({
@@ -175,6 +158,15 @@ export function setEditCatColor(color) {
     dispatch({
       type: types.SET_EDIT_CAT_COLOR,
       color: color
+    })
+  }
+}
+
+export function toggleDeleteCategory(category) {
+  return dispatch => {
+    dispatch({
+      type: types.CONFIRM_DELETE,
+      categoryTitle: category
     })
   }
 }

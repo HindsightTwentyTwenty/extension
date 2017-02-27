@@ -10,7 +10,6 @@ function getState() {
     current_password: "",
     new_password: "",
     confirm_password: "",
-		done:false
 	}
 }
 
