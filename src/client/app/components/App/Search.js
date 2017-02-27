@@ -52,6 +52,15 @@ class Search extends Component {
     }
   }
 
+  // After changing an advanced search item, reload the search results
+  advancedSearchChange(start_date, end_date, category, sort){
+    console.log("Auto Search", moment(start_date).tz("UTC").format(), moment(end_date).tz("UTC").format(), category, sort);
+    var search_term = document.getElementById("search-input-bar").value;
+    this.props.lookback_actions.clearSearchResults();
+    this.props.lookback_actions.searchTerm(search_term, moment(start_date).tz("UTC").format(), moment(end_date).tz("UTC").format(), category, sort, this.props.currentUser.token);
+    this.pageSelectionChange(1);
+  }
+
   getCategories() {
     return this.props.categories.cats.map(function(category) {
       return <option key={category.title}> {category.title} </option>;
@@ -101,16 +110,22 @@ class Search extends Component {
 
   handleCategoryChange(event) {
     this.setState({category_selection: event.target.value});
+    this.advancedSearchChange(this.state.start_date, this.state.end_date, event.target.value, this.state.sort_selection);
   }
 
   handleTimeEvent(event, picker) {
-    this.setState({start_date: picker.startDate});
-    this.setState({end_date: picker.endDate});
-    this.setState({date_message: moment(this.state.start_date).format("MMM Do YY") + " - " + moment(this.state.end_date).format("MMM Do YY")});
+    var start = picker.startDate;
+    var end = picker.endDate;
+
+    this.setState({start_date: start});
+    this.setState({end_date: end});
+    this.setState({date_message: moment(start).format("MMM Do YY") + " - " + moment(end).format("MMM Do YY")});
+    this.advancedSearchChange(start, end, this.state.category_selection, this.state.sort_selection);
   }
 
   handleSortChange(event) {
     this.setState({sort_selection: event.target.value});
+    this.advancedSearchChange(this.state.start_date, this.state.end_date, this.state.category_selection, event.target.value,);
   }
 
   resultsDisplayedMessage(){
@@ -169,7 +184,7 @@ class Search extends Component {
             <div className="row">
               <div className="input-group advanced-search">
                 <i className="fa fa-search" aria-hidden="true"></i>
-                <input type="text" className="advanced-search-bar" defaultValue={this.props.lookbackNav.searchTerm} placeholder="Search..." onKeyPress={this.searchBarInput.bind(this)} />
+                <input id="search-input-bar" type="text" className="advanced-search-bar" defaultValue={this.props.lookbackNav.searchTerm} placeholder="Search..." onKeyPress={this.searchBarInput.bind(this)} />
               </div>
             </div>
             </div>
