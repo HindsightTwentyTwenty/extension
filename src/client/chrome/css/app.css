@@ -1020,6 +1020,37 @@ hr{
   color: black;
 }
 
+/* Manage Page */
+
+#change-password-response {
+  margin: 5px 15px;
+}
+
+#account-options {
+  margin:1px 30px;
+}
+
+#change-password-fields {
+  margin: 5px 15px;
+}
+
+#change-password-inputs {
+  max-width: 400px;
+}
+
+.account-button {
+  margin: 1px 1px;
+  background-color: $electric-blue;
+}
+
+.account-button:hover {
+  background-color: $electric-blue-dark;
+}
+
+.account-button:focus {
+  background-color: $electric-blue;
+}
+
 #domain-modal{
   display: flex;
   flex-direction: column;

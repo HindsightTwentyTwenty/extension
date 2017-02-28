@@ -15,9 +15,8 @@ class Manage extends Component {
   render() {
     return (
       <div>
-        <Blacklist/>
-        <Preferences/>
         <Account/>
+        <Blacklist/>
       </div>
     )
   }
