@@ -80,16 +80,21 @@ class Search extends Component {
   }
 
   searchResults(){
+    console.log("search", this.props.search.results);
+    console.log("selection", this.state.page_selection);
     //Activate / Deactive Prev & Next Buttons as neccessary based on results being displayed
     if(document.getElementById("previous-btn")){
+      console.log("got prev");
       if(this.state.page_selection == 1){
+        console.log("disabling prev");
         document.getElementById("previous-btn").disabled=true;
       } else {
+        console.log("enabling prev");
         document.getElementById("previous-btn").disabled=false;
       }
     }
     if(document.getElementById("next-btn")){
-      if(this.state.page_selection == Math.ceil(this.props.search.results.length / SearchConstants.ResultsPerPage)){
+      if(this.state.page_selection == Math.ceil(this.props.search.results.length / SearchConstants.ResultsPerPage) || this.props.search.results.length == 0){
         document.getElementById("next-btn").disabled=true;
       } else {
         document.getElementById("next-btn").disabled=false;
@@ -252,13 +257,13 @@ class Search extends Component {
               <div className="container">
                 <div className="row">
                   <div id="page-selector-container" className="col-xs-10 col-xs-offset-1">
-                    <button id="previous-btn" className="page-selector-element" onClick={() => {
+                    <button disabled id="previous-btn" className="page-selector-element" onClick={() => {
                       this.pageSelectionChange(this.state.page_selection - 1);
                     }}><i id="previous-chevron" className="fa fa-chevron-left" aria-hidden="true"></i>Previous</button>
                     <ul className="page-selector-element list-inline ">
                       { this.getPageNumbers() }
                     </ul>
-                    <button id="next-btn" className="page-selector-element" onClick={() => {
+                    <button disabled id="next-btn" className="page-selector-element" onClick={() => {
                       this.pageSelectionChange(this.state.page_selection + 1);
                     }}>Next<i id="next-chevron" className="fa fa-chevron-right" aria-hidden="true"></i></button>
                   </div>
