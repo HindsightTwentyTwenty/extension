@@ -501,7 +501,7 @@ start-time-label .end-time-label{
 
 .selected-domain-bar {
   margin: 0 auto;
-  margin-top: 7%;
+  margin-top: 3%;
   width: 95%;
   border: $watermelon 1px solid;
   height: 100px;
@@ -631,7 +631,7 @@ start-time-label .end-time-label{
 
 .page-details{
   width: 100%;
-  height: 20%;
+  height: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -698,6 +698,10 @@ start-time-label .end-time-label{
   color: white;
 }
 
+.electric-blue-text{
+  color: $electric-blue;
+}
+
 .electric-blue-border {
   border: solid 2px $electric-blue;
 }
@@ -758,7 +762,7 @@ hr{
   height:45px;
   line-height: 55px;
   width: 45px;
-  color: $base-white;
+  color: black;
   margin-left: 1%;
   &:hover{
     color: $banana;
@@ -894,7 +898,7 @@ hr{
 
 .iframe-open-button{
   background: none;
-  color: $base-white;
+  color: black;
   font-size: x-large;
   border: none;
   outline: none;
