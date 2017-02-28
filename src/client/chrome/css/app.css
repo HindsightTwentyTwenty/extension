@@ -1,4 +1,5 @@
 @import url("./daterangepicker.css");
+/*@import url("~react-select/dist/react-select.css");*/
 
 $banana: #FFDB5C;
 $banana-dark: #F9D34A;
@@ -820,6 +821,7 @@ hr{
 
 .search-select-dropdown {
   margin: 1px 19px;
+  border-color: #4897D8;
 }
 
 #search-date-select-dropdown{

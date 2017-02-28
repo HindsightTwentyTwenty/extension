@@ -7,6 +7,8 @@ import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as SearchConstants from '../../constants/SearchConstants.js';
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -58,6 +60,17 @@ class Search extends Component {
     });
   }
 
+  getCategoryOptions() {
+    var options = [{ value: "", label: "Any Category", }];
+
+    this.props.categories.cats.map(function(category) {
+      console.log("adding cat:", category);
+      options.push({ value: category.title, label: category.title })
+    });
+
+    return options;
+  }
+
   searchResults(){
     //Activate / Deactive Prev & Next Buttons as neccessary based on results being displayed
     if(document.getElementById("previous-btn")){
@@ -99,8 +112,13 @@ class Search extends Component {
 
   }
 
-  handleCategoryChange(event) {
-    this.setState({category_selection: event.target.value});
+  handleCategoryChange(category) {
+    console.log("Cat changed:", category);
+    if(category){
+      this.setState({category_selection: category.value});
+    } else {
+      this.setState({category_selection: ""});
+    }
   }
 
   handleTimeEvent(event, picker) {
@@ -161,6 +179,11 @@ class Search extends Component {
   }
 
 
+                    // <select id="category-selection" name="category-selection" className="search-select-dropdown" onChange={this.handleCategoryChange.bind(this)}>
+                    //   <option value="" >Any Category</option>
+                    //   { this.getCategories() }
+                    // </select>
+
   render() {
     return (
       <div>
@@ -182,10 +205,12 @@ class Search extends Component {
                   </DateRangePicker>
                 </div>
                 <div className="col-xs-4 search-selection-col">
-                  <select id="category-selection" name="category-selection" className="search-select-dropdown" onChange={this.handleCategoryChange.bind(this)}>
-                    <option value="" >Any Category</option>
-                    { this.getCategories() }
-                  </select>
+                <Select
+                  name="form-field-name"
+                  value={ this.state.category_selection }
+                  options={ this.getCategoryOptions() }
+                  onChange={ this.handleCategoryChange.bind(this) }
+                />
                 </div>
                 <div className="col-xs-4 search-selection-col">
                   <select id="sort-selection" className="search-select-dropdown" value={this.state.sort_selection} onChange={this.handleSortChange.bind(this)}>
