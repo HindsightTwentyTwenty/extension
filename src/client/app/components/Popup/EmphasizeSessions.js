@@ -87,15 +87,15 @@ class EmphasizeSessions extends Component {
     )
   }
 
-  render () {
-    return (
-      <div className="container popup-body electric-blue">
-        <div className="popup-main-form">
-          {this.props.sessions.ongoingSession ? this.getCurrentSession() : this.getNewSession()}
-        </div>
-      </div>
-    )
-  }
+  // render () {
+  //   return (
+  //     <div className="container popup-body electric-blue">
+  //       <div className="popup-main-form">
+  //         {this.props.sessions.ongoingSession ? this.getCurrentSession() : this.getNewSession()}
+  //       </div>
+  //     </div>
+  //   )
+  // }
 }
 
 let mapStateToProps = (state) => ({
