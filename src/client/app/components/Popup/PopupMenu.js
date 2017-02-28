@@ -23,10 +23,13 @@ class PopupMenu extends Component {
 
   render () {
     return (
-      <div className="popup-menu">
-        {this.getMenuItems()}
-      </div>
+      <div/>
     )
+    // return (
+    //   <div className="popup-menu">
+    //     {this.getMenuItems()}
+    //   </div>
+    // )
   }
 }
 

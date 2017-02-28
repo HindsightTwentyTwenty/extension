@@ -15,8 +15,8 @@ class PopupBody extends Component {
 
   getPopupBody() {
     switch (this.props.popupSelection) {
-      case PopupConstants.POPUP_MENU_ITEMS[1].id: // Sessions
-        return <EmphasizeSessions/>
+      // case PopupConstants.POPUP_MENU_ITEMS[1].id: // Sessions
+      //   return <EmphasizeSessions/>
       default:
         return <PopupCategories/> // Categories
     }
