@@ -29,6 +29,12 @@ var config = {
         loaders: ["json-loader"]
       }
     ]
+  },
+  resolve: {
+    extensions: ['', '.js', '.css', '.scss'],
+    alias: {
+        reactselect: path.join(__dirname, '/node_modules/react-select/dist/react-select.css'),
+    }
   }
 };
 
