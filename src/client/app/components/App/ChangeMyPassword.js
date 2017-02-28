@@ -30,21 +30,25 @@ class ChangeMyPassword extends Component {
     }
   }
 
+	closePasswordFields(){
+		this.props.user_actions.changeMyPasswordToggle(PasswordConstants.Close);
+	}
+
   render () {
 
     return (
-      <div>
+      <div className="container">
         <div className ="row">
           <div className="col-xs-12">
-            <div className="input-group">
+            <div id="change-password-inputs" className="input-group">
               <input type="password" className="form-control" id="current_password" placeholder="Current Password" onChange={this.updateField.bind(this)} />
               <input type="password" className="form-control" id="new_password" placeholder="New Password" onChange={this.updateField.bind(this)} />
               <input type="password" className="form-control" id="confirm_password" placeholder="Confirm New Password" onChange={this.updateField.bind(this)} />
             </div>
-            <br/>
-            <span className="input-group-btn">
-            <button className="btn btn-primary canteloupe add-category-btn" type="button" onClick={this.changePassword.bind(this)}>Submit</button>
-            </span>
+            <div id="password-change-buttons">
+							<button className="btn btn-primary account-button" onClick={this.closePasswordFields.bind(this)}>Cancel</button>
+            	<button className="btn btn-primary account-button" onClick={this.changePassword.bind(this)}>Submit</button>
+            </div>
           </div>
         </div>
       </div>
