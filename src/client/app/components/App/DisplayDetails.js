@@ -19,7 +19,7 @@ class DisplayDetails extends Component {
   render() {
     var currentDomain = this.props.currentDomainDisplayed;
     if(currentDomain.clicked == undefined){
-      return(<div className="lookback-details-container"><h3>Hover over timeline for detailed domain information. Click to zoom.</h3></div>);
+      return(<div className="lookback-details-container"><h3 className="horizontal-center vertical-center">Hover over timeline for detailed domain information. Click to zoom.</h3></div>);
     } else {
         return(
           <div className="lookback-details-container">

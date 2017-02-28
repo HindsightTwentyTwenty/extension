@@ -109,6 +109,11 @@ body {
   line-height: 30px;
 }
 
+.bar-category{
+  margin: 5px auto;
+  max-width: 150px;
+}
+
 .url-bar-category-times {
   display: inline;
   position: relative;
@@ -141,7 +146,6 @@ body {
 
 .lookback-container{
   width: 98%;
-  /*top/bottom, left/right*/
   margin: 5px 1%;
   height: calc(100% - 290px);
   overflow: scroll;
@@ -154,6 +158,7 @@ body {
 .domain-info {
   padding-left: 5px;
   padding-right: 5px;
+  font-size: small;
 }
 
 .lookback-graph-container{
@@ -167,20 +172,13 @@ body {
 
 .lookback-details-container{
   text-align: center;
-  position: relative;
+  display: flex;
   padding: 10px;
   width: 100%;
   height: 135px;
   background-color: $canteloupe;
   min-width: 400px;
   color: $base-white;
-  .h4{
-    color: $canteloupe;
-    margin: 5px;
-  }
-  .p{
-    margin-right: 30px;
-  }
 }
 
 /*BUTTONS*/
@@ -531,15 +529,9 @@ start-time-label .end-time-label{
   width: 50%;
 }
 
-.domainBar-zoom-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.hidden {
+  display:none;
 }
-
-.hidden { display:none; }
-
-.error_message { color: blue; }
 
 .right-sidebar-button {
   color: $electric-blue;
@@ -643,17 +635,9 @@ start-time-label .end-time-label{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-left: solid $base-white 2px;
+  text-align: center;
 }
 
-#page-domain-details{
-  margin: 0 auto;
-}
-
-#page-lookback{
-  display: flex;
-  flex-direction: row;
-}
 .watermelon {
   background-color: $watermelon;
   color: $base-white;
@@ -800,7 +784,7 @@ hr{
 }
 
 .page-title{
-  margin: 0 auto;
+  margin: 0;
   font-size: large;
   text-align: center;
 }
@@ -1012,9 +996,11 @@ hr{
   text-decoration: none;
   margin-left: 5%;
 }
+
 .go-to-site-btn:hover{
   color: $canteloupe-dark;
 }
+
 #iframe-title{
   text-align: left;
   margin-left: 5%;
@@ -1029,13 +1015,29 @@ hr{
   margin-top: -10px;
   color: black;
 }
+
 #domain-modal{
   display: flex;
   flex-direction: column;
   height: 80%;
   width: 100%;
-  opacity: .9;
   margin: 0;
   left: inherit;
   top: inherit;
+  text-align: center;
+  font-size: small;
+  background-color:rgba(229, 238, 252, .9);
+}
+
+
+
+.domain-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.horizontal-center{
+  margin: 0 auto;
 }

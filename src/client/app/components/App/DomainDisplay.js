@@ -24,7 +24,7 @@ class DomainDetails extends Component {
       favicon = <img className="display-favicon" src={currentDomain.favicon}/>
     }
     return (
-        <div>
+        <div className="domain-details">
             <div className="row flex-row">
               <div>
                 {favicon}

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 import Datetime from 'react-datetime';
 import Star from '../Star/Star.js';
@@ -145,10 +146,40 @@ class LookBack extends Component {
 		this.props.tab_actions.getAllTabs(start_date.toJSON(), this.props.end_date.toJSON(), this.props.currentUser.token);
 	}
 
+	getCategories() {
+    if (this.props.displayPage.categories) {
+      return this.props.displayPage.categories.map((category) => {
+        return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
+            <div className="hide-overflow"><p>{category.title}</p></div>
+            <div className='url-bar-category-times' onClick={()=>{
+                this.props.category_actions.toggleCategory(this.props.displayPage.url, category, false, this.props.currentUser.token);
+              }}>
+            <i className='fa fa-times'></i>
+            </div>
+          </div>;
+      });
+    }
+  }
 
   render() {
 		var date = this.props.start_date;
-    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
+    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
+		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.displayPage.url != "") ? <div className="page-details">
+				<div className="row flex-row">
+				<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
+				<div className='url-buttons vertical-center'>
+					<Star/>
+					<button className="iframe-open-button">
+						<i className="fa fa-eye" aria-hidden="true"></i>
+					</button>
+					</div>
+				</div>
+				<div className='url-categories vertical-center'>
+					{this.getCategories()}
+				</div>
+				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
+			</div>
+			: <h4>Hover for detailed page information</h4>;
 		var modal = this.props.currentDomainDisplayed.clicked ?
 				<div className="modal-base" id="domain-modal">
 					<div className="domain-modal-header">
@@ -157,25 +188,12 @@ class LookBack extends Component {
 							this.props.lookback_actions.setCurrentPage({});}}>
 								<i className="fa fa-times fa-lg" aria-hidden="true"></i>
 							</div>
-							</div>
-							<div className="page-details">
-		              <a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
-									<div className='url-buttons vertical-center'>
-				            <div className='star-div' onClick={()=>{
-				            this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
-				            }}>
-				              <i className={starred}></i>
-				            </div>
-				            <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
-				              <i className="fa fa-eye" aria-hidden="true"></i>
-				            </button>
-										</div>
-		              <p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
-								</div>
-								<div>
-								<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
-							</div>
-						</div> : '';
+						</div>
+						{pageDetails}
+						<div>
+							<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
+						</div>
+					</div> : '';
 
 		var timeframeSlider = <div id="slider-wrapper">
 														<Slider id="lookback-slider"
@@ -256,7 +274,8 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => {
   return {
     tab_actions: bindActionCreators(TabActions, dispatch),
-		lookback_actions: bindActionCreators(LookbackActions, dispatch)
+		lookback_actions: bindActionCreators(LookbackActions, dispatch),
+		category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 
