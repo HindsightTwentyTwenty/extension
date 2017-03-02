@@ -73,6 +73,11 @@ let store = createStore(
       results: [],
       dom: "",
       loading: true
+    },
+    autoSuggest: {
+      value: '',
+      suggestions: [],
+      isLoading: false
     }
   },
   applyMiddleware(
