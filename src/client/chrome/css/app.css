@@ -201,7 +201,7 @@ body {
 }
 
 .side-bar-container{
-  margin: 10px 0;
+  margin: 2px;
   color: $canteloupe;
   display: inline-block;
   width: 220px;
@@ -209,6 +209,8 @@ body {
   height: 100%;
   background-color: $base-white;
   overflow-y: scroll;
+  border-right: solid 1px $electric-blue;
+  padding-right: 5px;
 }
 
 .hide-overflow{
