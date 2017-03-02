@@ -201,6 +201,7 @@ body {
 }
 
 .side-bar-container{
+  margin: 10px 0;
   color: $canteloupe;
   display: inline-block;
   width: 220px;
