@@ -30,7 +30,21 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
         });
         catsToPagesDict[category.title] = pagesToCatsDict;
       });
-      return {catsToPages: catsToPagesDict, starred: {}, showStarred: state.showStarred};
+      var starredPagesDict = {};
+      action.json.starred.map(function(page) {
+        starredPagesDict[page.pk] = {
+          "pk": page.pk,
+          "title": page.title,
+          "url": page.url,
+          "star": page.star,
+          "categories": page.categories,
+          "created": page.created,
+          "domain": page.domain,
+          "last_visited": page.last_visited,
+          "s3": page.s3,
+        };
+      });
+      return {catsToPages: catsToPagesDict, starred: starredPagesDict, showStarred: state.showStarred};
     case types.TOGGLE_SHOW_STARRED:
       return {...state, showStarred: !state.showStarred};
     default:
