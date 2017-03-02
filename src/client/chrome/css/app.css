@@ -208,8 +208,16 @@ body {
   min-width: 220px;
   height: 100%;
   background-color: $base-white;
-  overflow-y: scroll;
   border-right: solid 1px $electric-blue;
+  padding-right: 5px;
+}
+
+.fixed-header {
+  position: fixed;
+}
+
+.all-categories {
+  overflow-y: auto;
   padding-right: 5px;
 }
 
