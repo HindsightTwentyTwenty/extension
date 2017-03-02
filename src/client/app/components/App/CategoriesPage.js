@@ -27,6 +27,7 @@ class CategoriesPage extends Component {
           if (!pageSet.has(pagePk)) {
             if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
               result.push(<PageUrlBar key={pagePk}
+                source="categories"
                 page={categoriesPages[searchCat][pagePk]}
                 domain={categoriesPages[searchCat][pagePk].domain}
                 visited={categoriesPages[searchCat][pagePk].last_visited}/>)

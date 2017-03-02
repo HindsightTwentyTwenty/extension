@@ -35,6 +35,7 @@
     "react-hot-loader": "^3.0.0-beta.5",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
+    "react-select": "^1.0.0-rc.3",
     "react-timestamp": "^3.1.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
