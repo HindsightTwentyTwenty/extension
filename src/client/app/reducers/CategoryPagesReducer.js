@@ -4,9 +4,13 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
   switch(action.type){
     case types.REMOVE_CAT_FROM_PAGE:
       var newPageInfo = action.json;
+      var removedCat = action.categoryTitle;
       var catsToPagesDict = Object.assign({}, state.catsToPages);
       for (let cat in catsToPagesDict) {
-        if (catsToPagesDict[cat][newPageInfo.pk]) {
+        if (cat == removedCat) {
+          delete catsToPagesDict[cat][newPageInfo.pk];
+        }
+        else if (catsToPagesDict[cat][newPageInfo.pk]) {
           catsToPagesDict[cat][newPageInfo.pk] = newPageInfo;
         }
       }

@@ -67,6 +67,7 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
       .then(json => dispatch({
         type: types.REMOVE_CAT_FROM_PAGE,
         json: json,
+        categoryTitle: category.title
       }))
   }
 }
