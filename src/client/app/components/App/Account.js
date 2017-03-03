@@ -10,6 +10,7 @@ class Account extends Component {
 
   constructor(props) {
     super(props);
+    this.props.user_actions.getUserInfo(this.props.currentUser.token);
   }
 
   logoutUser(){
@@ -57,14 +58,29 @@ class Account extends Component {
     }
   }
 
+  getAccountTitle(){
+    if(this.props.currentUser.first_name){
+      return (
+        <div className="section-title">
+          {this.props.currentUser.first_name}&quot;s Account
+        </div>
+      )
+    } else {
+      console.log("NO NAME")
+      return (
+        <div className="section-title">
+          Account
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         <div className="row">
           <div className="col-xs-10">
-            <div className="section-title">
-              Account
-            </div>
+            { this.getAccountTitle() }
             <div id="account-options">
               <div>
                 <button className="btn btn-primary account-button" onClick={this.logoutUser.bind(this)}>Log Out</button>
