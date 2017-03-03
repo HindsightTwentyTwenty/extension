@@ -28,7 +28,7 @@ class ColorPicker extends Component {
 
   render () {
     return (
-    <div className="cateogries-container">
+    <div className="categories-container">
       {this.getColors()}
     </div>
     )

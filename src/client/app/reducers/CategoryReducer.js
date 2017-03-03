@@ -12,12 +12,13 @@ function categoryReducer(state = {cats: [], editCatColor: GlobalConstants.DEFAUL
       return {...state, showColorPicker: action.showColorPicker}
     case types.TOGGLE_EDIT_CATEGORY:
       return {...state, editCategory: action.editCategory}
-    case types.UPDATE_CATEGORY_TITLE:
+    case types.UPDATE_CATEGORY:
       var newCategoryList = [];
       var currentCategories = state.cats;
       for(var i = 0; i < currentCategories.length; i++) {
         if (currentCategories[i].title === action.old) {
           currentCategories[i].title = action.updated;
+          currentCategories[i].color = action.color; 
         }
         newCategoryList.push(currentCategories[i]);
       }

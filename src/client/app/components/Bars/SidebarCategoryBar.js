@@ -3,11 +3,24 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
+
+function getState(){
+  return{
+    editColor:""
+  }
+}
 
 class SidebarCategoryBar extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      editColor:this.props.categoryInfo.color
+    })
   }
 
   getCategoryTitle() {
@@ -65,41 +78,64 @@ class SidebarCategoryBar extends Component {
     )
   }
 
+  getColors() {
+    return GlobalConstants.CAT_COLORS.map((color) => {
+      return <div className='color-square-small'
+      onClick={this.changeEditColor.bind(this, color.code)}
+      style={{"backgroundColor" : color.code}}
+      key={color.name}></div>
+    });
+  }
+
+  changeEditColor(color) {
+    this.setState({
+      editColor: color
+    });
+  }
+
   getEditCategory() {
     var categoryTitle = this.props.categoryInfo.title;
-    var categoryColor = this.props.categoryInfo.color;
+    var categoryColor = this.state.editColor;
     var userToken = this.props.currentUser.token;
     return (
-      <div className='side-bar-category'>
-        <div className='category-info'>
-          <div className='color-square-small' style={{"backgroundColor" : categoryColor}}/>
-          <input className='edit-category-input' defaultValue={categoryTitle}
-            ref={node => {this.input = node;}}
-          />
+      <div>
+        <div className='side-bar-category'>
+          <div className='category-info'>
+            <div className='color-square-small' style={{"backgroundColor" : categoryColor}}/>
+            <input className='edit-category-input' defaultValue={categoryTitle}
+              ref={node => {this.input = node;}}
+            />
+          </div>
+          <div className='side-bar-buttons'>
+            <a onClick={() => {
+              var input = this.input.value.trim();
+              var categoriesSet = new Set();
+              this.props.categories.cats.map(function(category) {
+                categoriesSet.add(category.title);
+              })
+              if (input == categoryTitle && this.props.categoryInfo.color == this.state.editColor) {
+                this.props.category_actions.toggleEditCategory('');
+              } else if (input == categoryTitle && this.props.categoryInfo.color != this.state.editColor) {
+                this.props.category_actions.editCategory(categoryTitle, input, this.state.editColor, userToken);
+                this.props.category_actions.toggleEditCategory('');
+              } else if (categoriesSet.has(input)) {
+                alert("Category name already exists!");
+              } else {
+                this.props.category_actions.editCategory(categoryTitle, input, this.state.editColor, userToken);
+                this.props.category_actions.toggleEditCategory('');
+              }
+            }}>
+              <i className='fa fa-check left-sidebar-button'/>
+            </a>
+            <a onClick={() => {
+              this.props.category_actions.toggleEditCategory('');
+            }}>
+              <i className='fa fa-times right-sidebar-button'/>
+            </a>
+          </div>
         </div>
-        <div className='side-bar-buttons'>
-          <a onClick={() => {
-            var input = this.input.value.trim();
-            var categoriesSet = new Set();
-            this.props.categories.cats.map(function(category) {
-              categoriesSet.add(category.title);
-            })
-            if (input == categoryTitle) {
-              this.props.category_actions.toggleEditCategory('');
-            } else if (categoriesSet.has(input)) {
-              alert("Category name already exists!");
-            } else {
-              this.props.category_actions.editCategoryTitle(categoryTitle, input, userToken);
-              this.props.category_actions.toggleEditCategory('');
-            }
-          }}>
-            <i className='fa fa-check left-sidebar-button'/>
-          </a>
-          <a onClick={() => {
-            this.props.category_actions.toggleEditCategory('');
-          }}>
-            <i className='fa fa-times right-sidebar-button'/>
-          </a>
+        <div className='side-bar-color-picker'>
+          {this.getColors()}
         </div>
       </div>
     );

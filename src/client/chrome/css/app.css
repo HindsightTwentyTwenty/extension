@@ -203,7 +203,6 @@ body {
 .side-bar-container{
   margin: 2px;
   color: $canteloupe;
-  display: inline-block;
   width: 220px;
   min-width: 220px;
   height: 100%;
@@ -213,6 +212,10 @@ body {
   overflow-y: scroll;
   display: flex;
   flex-flow: column;
+}
+
+.side-bar-color-picker {
+  display: inline-block;
 }
 
 .fixed-header {

@@ -18,5 +18,5 @@ export const CAT_COLORS = [
   {name:'green apple', code:'#03C03C'},
   {name:'cornflower', code: '#007FFF'},
   {name:'blueberry', code:'#064490'},
-  {name:'blackberry', code:'#04235A'},
+  {name:'blackberry', code:'#04235A'}
 ];
