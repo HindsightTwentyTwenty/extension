@@ -201,14 +201,12 @@ body {
 }
 
 .side-bar-container{
-  margin: 2px;
-  color: $canteloupe;
-  width: 220px;
+  margin-top: 2px;
   min-width: 220px;
+  width: 220px;
   height: 100%;
   background-color: $base-white;
   border-right: solid 1px $electric-blue;
-  padding-right: 5px;
   overflow-y: scroll;
   display: flex;
   flex-flow: column;
@@ -219,12 +217,12 @@ body {
 }
 
 .fixed-header {
-  position: fixed;
+  position: relative;
+  margin: 5px 0;
 }
 
 .all-categories {
   overflow-y: auto;
-  padding-right: 5px;
 }
 
 .hide-overflow{
@@ -554,6 +552,7 @@ start-time-label .end-time-label{
 .right-sidebar-button {
   color: $electric-blue;
   float: right;
+  margin-right: 6px;
   width: 15px;
   height: 25px;
   line-height: 25px;
@@ -568,7 +567,7 @@ start-time-label .end-time-label{
 }
 
 .edit-category-input {
-  border: none;
+  border: solid 2px whitesmoke;
   line-height: 30px;
   max-width: 120px;
   display: inline-flex;
@@ -616,6 +615,9 @@ start-time-label .end-time-label{
   height: 30px;
   display: flex;
   justify-content: space-between;
+  &.checked {
+    background-color: whitesmoke;
+  }
 }
 
 .date-picker {

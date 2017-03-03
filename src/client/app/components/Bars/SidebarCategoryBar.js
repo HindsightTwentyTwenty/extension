@@ -29,8 +29,9 @@ class SidebarCategoryBar extends Component {
     var checkedTitleStyle = this.props.checked ? {"color" : categoryColor, "fontWeight" : "bold"} : {};
     var checkedBoxStyle = this.props.checked ? {"backgroundColor" : categoryColor, "opacity" : "1"} : {"backgroundColor" : categoryColor, "opacity" : "0.5"};
     var editCategory = this.props.categories.editCategory;
+    var barClassName = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
     return (
-      <div className='side-bar-category'>
+      <div className={barClassName}>
         <div className='category-info'>
           <div className='color-square-small' style={checkedBoxStyle}/>
           <div className='category-title'
