@@ -210,6 +210,9 @@ body {
   background-color: $base-white;
   border-right: solid 1px $electric-blue;
   padding-right: 5px;
+  overflow-y: scroll;
+  display: flex;
+  flex-flow: column;
 }
 
 .fixed-header {
