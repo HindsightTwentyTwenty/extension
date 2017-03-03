@@ -34,8 +34,8 @@ class SidebarComponent extends Component {
     var starClass = this.props.categoriesAndPages.showStarred ? 'fa fa-star side-bar-single-button selected' : 'fa fa-star side-bar-single-button';
     return (
       <div className="side-bar-container">
-        <div className='side-bar-category'>
-          <div className='category-info fixed-header'>
+        <div className='side-bar-category fixed-header'>
+          <div className='category-info'>
             <i className='fa fa-times side-bar-single-button'/>
             <div className='category-title'
               onClick={() => {
@@ -48,8 +48,8 @@ class SidebarComponent extends Component {
             </div>
           </div>
         </div>
-        <div className='side-bar-category'>
-          <div className='category-info fixed-header'>
+        <div className='side-bar-category fixed-header'>
+          <div className='category-info'>
             <i className={starClass}/>
             <div className='category-title'
               style={showStarredStyle}
