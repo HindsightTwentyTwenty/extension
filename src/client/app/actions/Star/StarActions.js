@@ -4,15 +4,12 @@ import fetch from 'isomorphic-fetch'
 
 const updateStarEndpoint = urls.BASE_URL + "updatestar/";
 
-export function updateStar() {
-  return {
-    type: types.UPDATE_CURRENT_STAR,
-  }
-}
-
 export function toggleStar(page, token){
   return dispatch => {
-    dispatch(updateStar())
+    dispatch({
+      type: types.UPDATE_CURRENT_STAR,
+      page: page
+    })
     return fetch(updateStarEndpoint, {
             headers: {
                'Accept': 'application/json',
@@ -20,7 +17,7 @@ export function toggleStar(page, token){
                'Authorization': "Token " + token
              },
              method: "POST",
-             body: JSON.stringify({url: page.url, star: !page.star})
+             body: JSON.stringify({url: page.url, star: page.star})
            }
       )
       .then(response => response.json())

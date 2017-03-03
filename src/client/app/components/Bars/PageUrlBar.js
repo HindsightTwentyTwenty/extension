@@ -71,6 +71,9 @@ class PageUrlBar extends Component {
     }
   }
 
+  toggleStar() {
+    this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
+  }
 
   render() {
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
@@ -108,9 +111,7 @@ class PageUrlBar extends Component {
             {this.getCategories()}
           </div>
           <div className='url-buttons vertical-center'>
-            <div className='star-div' onClick={()=>{
-            this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
-            }}>
+            <div className='star-div' onClick={this.toggleStar.bind(this)}>
               <i className={starred}></i>
             </div>
             <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
@@ -125,7 +126,8 @@ class PageUrlBar extends Component {
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
     currentPage : state.currentPage,
-    search_items: state.search
+    search_items: state.search,
+    categoriesAndPages: state.categoriesAndPages
 })
 
 let mapDispatchToProps = (dispatch) => ({

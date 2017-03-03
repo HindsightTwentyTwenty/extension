@@ -1,5 +1,7 @@
 import * as types from '../constants/ActionTypes';
 
+
+//WC TODO: SEEMS LIKE CAN DELETE THIS TAB THING?
 const tab = (state, action) => {
   switch (action.type) {
     default:
