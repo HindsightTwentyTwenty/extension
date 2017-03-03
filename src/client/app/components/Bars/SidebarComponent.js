@@ -40,6 +40,9 @@ class SidebarComponent extends Component {
             <div className='category-title'
               onClick={() => {
                 this.props.category_actions.clearSearchCategories();
+                if (this.props.categoriesAndPages.showStarred) {
+                  this.props.category_actions.toggleShowStarred();
+                }
               }}>
               clear selection
             </div>
@@ -53,7 +56,7 @@ class SidebarComponent extends Component {
               onClick={() => {
                 this.props.category_actions.toggleShowStarred();
               }}>
-              only show starred
+              show starred
             </div>
           </div>
         </div>

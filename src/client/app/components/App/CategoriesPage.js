@@ -22,17 +22,30 @@ class CategoriesPage extends Component {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
-      for (let searchCat of searchCatSet.values()) {
-        for (var pagePk in categoriesPages[searchCat]) {
-          if (!pageSet.has(pagePk)) {
-            if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
-              result.push(<PageUrlBar key={pagePk}
-                source="categories"
-                page={categoriesPages[searchCat][pagePk]}
-                domain={categoriesPages[searchCat][pagePk].domain}
-                visited={categoriesPages[searchCat][pagePk].last_visited}/>)
-              pageSet.add(pagePk);
+      if (searchCatSet.size) {
+        for (let searchCat of searchCatSet.values()) {
+          for (var pagePk in categoriesPages[searchCat]) {
+            if (!pageSet.has(pagePk)) {
+              if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
+                result.push(<PageUrlBar key={pagePk}
+                  source="categories"
+                  page={categoriesPages[searchCat][pagePk]}
+                  domain={categoriesPages[searchCat][pagePk].domain}
+                  visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+                pageSet.add(pagePk);
+              }
             }
+          }
+        }
+      } else if (showStarred) {
+        for (var pagePk in starred) {
+          if (!pageSet.has(pagePk)) {
+            result.push(<PageUrlBar key={pagePk}
+              source="categories"
+              page={starred[pagePk]}
+              domain={starred[pagePk].domain}
+              visited={starred[pagePk].last_visited}/>)
+            pageSet.add(pagePk);
           }
         }
       }
