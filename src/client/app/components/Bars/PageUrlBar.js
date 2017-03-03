@@ -72,7 +72,7 @@ class PageUrlBar extends Component {
   }
 
   toggleStar() {
-    this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
+    this.props.star_actions.toggleStar(false, this.props.page, this.props.currentUser.token);
   }
 
   render() {

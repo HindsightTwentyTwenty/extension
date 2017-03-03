@@ -16,7 +16,7 @@ function pageObject(page) {
 
 function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred: false}, action){
   switch(action.type){
-    case types.UPDATE_CURRENT_STAR:
+    case types.TOGGLE_STAR:
       var catsToPagesDict = Object.assign({}, state.catsToPages);
       var starredPagesToCatsDict = Object.assign({}, state.starred);
       var page = action.page;
