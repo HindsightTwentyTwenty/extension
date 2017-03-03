@@ -7,7 +7,7 @@ const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
-const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
+const editCategoryEndpoint = urls.BASE_URL + "editcategory/";
 
 export function fetchCategories(token){
   return dispatch => {
@@ -91,21 +91,22 @@ export function deleteCategory(title, token) {
   }
 }
 
-export function editCategoryTitle(oldTitle, updatedTitle, token) {
+export function editCategory(oldTitle, updatedTitle, updatedColor, token) {
   return dispatch => {
     dispatch({
-      type: types.UPDATE_CATEGORY_TITLE,
+      type: types.UPDATE_CATEGORY,
       old: oldTitle,
-      updated: updatedTitle
+      updated: updatedTitle,
+      color: updatedColor
     })
-    return fetch(editCategoryTitleEndpoint, {
+    return fetch(editCategoryEndpoint, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Token ' + token
       },
       method: "POST",
-      body: JSON.stringify({old: oldTitle, updated: updatedTitle})
+      body: JSON.stringify({old: oldTitle, updated: updatedTitle, color: updatedColor})
     })
   }
 }

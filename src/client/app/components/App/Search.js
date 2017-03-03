@@ -80,16 +80,11 @@ class Search extends Component {
   }
 
   searchResults(){
-    console.log("search", this.props.search.results);
-    console.log("selection", this.state.page_selection);
     //Activate / Deactive Prev & Next Buttons as neccessary based on results being displayed
     if(document.getElementById("previous-btn")){
-      console.log("got prev");
       if(this.state.page_selection == 1){
-        console.log("disabling prev");
         document.getElementById("previous-btn").disabled=true;
       } else {
-        console.log("enabling prev");
         document.getElementById("previous-btn").disabled=false;
       }
     }
@@ -131,7 +126,6 @@ class Search extends Component {
 
     this.setState({category_selection: category});
     this.advancedSearchChange(this.state.start_date, this.state.end_date, category, this.state.sort_selection);
-
   }
 
   handleTimeEvent(event, picker) {
@@ -145,7 +139,6 @@ class Search extends Component {
   }
 
   handleSortChange(sort_object) {
-    console.log("sort change", sort_object);
     this.setState({sort_selection: sort_object.value});
     this.advancedSearchChange(this.state.start_date, this.state.end_date, this.state.category_selection, sort_object.value);
   }
@@ -167,14 +160,12 @@ class Search extends Component {
 
   getPageNumbers(){
     var resultsCount = this.props.search.results.length;
-
     let pages = [];
     pages.push(<li id="page-selector-1" key={1} className="page-number-selector page-number-selected" onClick={this.pageSelectionChange.bind(this, 1)}>1</li>)
     var count;
     for (count = 2; count <= Math.ceil(resultsCount / SearchConstants.ResultsPerPage); count++){
       pages.push(<li id={"page-selector-" + count} key={count} className="page-number-selector" onClick={this.pageSelectionChange.bind(this, count)}>{count}</li>)
     }
-
     return pages;
   }
 
