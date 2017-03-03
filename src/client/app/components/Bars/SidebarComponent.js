@@ -35,7 +35,7 @@ class SidebarComponent extends Component {
     return (
       <div className="side-bar-container">
         <div className='side-bar-category'>
-          <div className='category-info'>
+          <div className='category-info fixed-header'>
             <i className='fa fa-times side-bar-single-button'/>
             <div className='category-title'
               onClick={() => {
@@ -49,7 +49,7 @@ class SidebarComponent extends Component {
           </div>
         </div>
         <div className='side-bar-category'>
-          <div className='category-info'>
+          <div className='category-info fixed-header'>
             <i className={starClass}/>
             <div className='category-title'
               style={showStarredStyle}

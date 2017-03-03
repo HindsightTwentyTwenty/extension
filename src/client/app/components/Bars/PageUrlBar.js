@@ -22,7 +22,6 @@ class PageUrlBar extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   getCategories() {
@@ -127,7 +126,6 @@ let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
     currentPage : state.currentPage,
     search_items: state.search
-
 })
 
 let mapDispatchToProps = (dispatch) => ({
