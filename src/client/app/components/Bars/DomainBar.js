@@ -27,7 +27,7 @@ class DomainBar extends Component {
         style = {this.props.style}
         width = {this.props.width}
         onMouseDown={()=>{
-          this.selectDomain();
+          // this.selectDomain();
         }}
         onMouseOver={() => {
           this.previewDomain();

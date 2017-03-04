@@ -66,7 +66,7 @@ class LookBack extends Component {
   getTabComponent(index) {
 		//pass it key so that there is no "unique key" error
 		//also need to pass curr_index, for some reason cannot index off of the key
-    return <TabComponent key={index} curr_index={index}/>;
+    return <TabComponent key={index} curr_index={index} timeframe={this.state.timeframe}/>;
   }
 
 	getPrevPage(){
@@ -79,12 +79,14 @@ class LookBack extends Component {
 		this.changeStartTime(start_date);
 	}
 
+	//Get the html tabs
   getTabs(currProps){
     if (Object.keys(currProps.tabs).length) {
       let results = []
       let curr_tabs = currProps.tabs;
 			//console.log('curr tabs are: ', curr_tabs);
       //let numTabs = curr_tabs.length;
+			console.log("tab start time:")
 
       for (let tIndex in curr_tabs) {
 					results.push(this.getTabComponent(tIndex))

@@ -217,6 +217,19 @@ body {
   text-overflow: ellipsis;
 }
 
+.tab-component-wrapper{
+  width:100%;
+  display: flex;
+}
+
+.tab-lt-buffer{
+
+}
+
+.tab-rt-buffer{
+
+}
+
 .domain-bar{
   height: 22px;
   border: solid 1px $electric-blue;

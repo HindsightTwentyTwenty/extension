@@ -6,10 +6,27 @@ import * as TabActions from '../../actions/Tabs/TabActions.js';
 import DomainBar from '../Bars/DomainBar.js';
 import Datetime from 'react-datetime';
 
+
+function getState(){
+  return{
+    lft_buffer_id:"",
+    rt_buffer_id:""
+  }
+}
+
 class TabComponent extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillReceiveProps(){
+    var left_buff = "left_buffer_" + this.props.curr_id;
+    var right_buff = "right_buffer_" + this.props.curr_id;
+    this.setState({
+      lft_buffer_id: left_buff,
+      rt_buffer_id: right_buff
+    })
   }
 
   getDomainBar(domain, width, tab_id) {
@@ -19,11 +36,11 @@ class TabComponent extends Component {
     return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
 
-  getFirstDomainBar(domain, width, margin, tab_id) {
-    var width_style = width;
-    var active_times_style = this.getActiveTimesStyle(domain);
-    var bar_style = {"width" : width_style, "marginLeft": margin, "background" : active_times_style}
-    return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
+
+
+  getLeftBuffer(margin) {
+    var bar_style = {"width" : margin};
+    return <div className="tab-lt-buffer" id="left_tab_buffer" style={bar_style}></div>
   }
 
   getActiveTimesStyle(domain){
@@ -57,54 +74,56 @@ class TabComponent extends Component {
   }
 
   calculateDomainWidth(time_elapsed, created, closed){
-    console.log("CLOSED", closed);
     var start_date = Datetime.moment(this.props.start_date);
     var end_date = Datetime.moment(this.props.end_date);
     var d_created_date = Datetime.moment(created);
     var d_closed_date;
-    if(closed == null){
+    console.log("closed date", closed);
+    if(!closed.isValid()){
       d_closed_date = end_date;
+      console.log("CLOSED DATE", d_closed_date);
     }else{
       d_closed_date = Datetime.moment(closed);
+      console.log("real closed", d_closed_date);
     }
 
     if(d_created_date.isBefore(start_date)){
       d_created_date = start_date;
     }
     if(d_closed_date.isAfter(end_date)){
+      console.log("CLOSED DATE", d_closed_date);
       d_closed_date = end_date;
     }
 
 
-    var domain_time_elapsed = d_closed_date.diff(d_created_date);
-    console.log("NEW DOMAIN BAR");
-    console.log("created date", d_created_date.format("MMM D h:mm A"));
-    console.log("closed date", d_closed_date.format("MMM D h:mm A"));
-    console.log("domain time elapsed", domain_time_elapsed);
-    console.log("time_elapsed", time_elapsed);
-
-    if((domain_time_elapsed/time_elapsed)*100 > 2){
-      return (domain_time_elapsed/time_elapsed)*100 -2;
+    var domain_time_elapsed = d_closed_date.diff(d_created_date, "seconds");
+    var timeframe_in_secs = this.props.timeframe * 60;
+    // console.log("NEW DOMAIN BAR");
+    // console.log("created date", d_created_date.format("MMM D h:mm A"));
+    // console.log("closed date", d_closed_date.format("MMM D h:mm A"));
+    // console.log("domain time elapsed", domain_time_elapsed);
+    // console.log("time_elapsed", time_elapsed);
+    if(domain_time_elapsed == timeframe_in_secs){
+      return 100;
     }
-    return (domain_time_elapsed/time_elapsed)*100;
+    // }else if((domain_time_elapsed/timeframe_in_secs)*100 > 2){
+    //   return (domain_time_elapsed/timeframe_in_secs)*100 -2;
+    // }
+    return (domain_time_elapsed/timeframe_in_secs)*100;
 
   }
 
+  //calculate the buffer on the left side
   calculateLeftMargin(time_elapsed, created, start_date){
+    var start_date = Datetime.moment(start_date);
+    var created_date = Datetime.moment(created);
 
-    var start_date = new Date(start_date);
-    var created_date = new Date(created);
-    if(created_date < start_date){
+    if(created_date.isBefore(start_date)){
       return 0;
     }
-
-    var time_between = created_date.getTime() - start_date.getTime();
-
-    if(((time_between/time_elapsed)*100) > 5){
-      return Math.floor((time_between/time_elapsed)*100)-5;
-    }
-    return Math.floor((time_between/time_elapsed)*100);
-
+    var time_between_left = created_date.diff(start_date, "seconds");
+    var timeframe_in_secs = this.props.timeframe * 60;
+    return Math.floor((time_between_left/timeframe_in_secs)*100);
   }
 
   /* top level function to get the domains into the html */
@@ -124,8 +143,7 @@ class TabComponent extends Component {
         var numDomains = Object.keys(domains).length;
 
         var start_date = Datetime.moment(this.props.start_date);
-        // var end_date;
-        // var time_elapsed;
+
         //if(this.props.end_date != null){
         var end_date = Datetime.moment(this.props.end_date);
         var time_elapsed = start_date.diff(end_date);
@@ -137,32 +155,31 @@ class TabComponent extends Component {
         //   //time_elapsed
         // }
 
-        // if (this.props.tabs[index]) {
-            for (let dIndex in domains) {
+        console.log("# domains:", domains.length);
+        for (let dIndex in domains) {
 
-              var created = Datetime.moment(domains[dIndex].created);
-              var closed = Datetime.moment(domains[dIndex].closed);
-              if (closed == null){
-                closed = end_date;
-              }
+          var created = Datetime.moment(domains[dIndex].created);
+          var closed = Datetime.moment(domains[dIndex].closed);
+          if (closed == null){
+            closed = end_date;
+          }
 
-              var width = this.calculateDomainWidth(time_elapsed, created, closed);
-              width += "%";
-              // console.log("width: ", width);
+          var width = this.calculateDomainWidth(time_elapsed, created, closed);
+          width += "%";
 
-              if(dIndex == 0){
-                var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
-                margin += "%";
-                // console.log("margin: ", margin);
+          if(dIndex == 0){
+            var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
+            margin += "%";
 
-                results.push(this.getFirstDomainBar(domains[dIndex], width, margin, this.props.tabs[index].tab_id))
-              }
-              else{
-                results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id))
-              }
-            }
-          return results;
-        // }
+            results.push(
+                this.getLeftBuffer(margin),
+                this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id)
+            );
+          }else{
+            results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id));
+          }
+        }
+      return results;
       }
     }
   }
@@ -173,6 +190,7 @@ class TabComponent extends Component {
       <div>
         <div className="tab-component-wrapper">
           {domains}
+          <div className="tab-rt-buffer" id="right_tab_buffer"></div>
         </div>
       </div>
     )
