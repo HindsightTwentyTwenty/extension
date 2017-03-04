@@ -12,7 +12,7 @@ class CategoryEntry extends Component {
   }
 
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+      this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
         var categoryObject;
         var categories = this.props.categories.cats;
         for(var i = categories.length-1; i >= 0; i--){

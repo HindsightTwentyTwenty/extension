@@ -120,7 +120,6 @@ body {
 .url-bar-add-category {
   background-color: $electric-blue-dark;
   color: $base-white;
-  float: left;
   border-radius: 2px;
   padding: 0 10px;
   height: 30px;

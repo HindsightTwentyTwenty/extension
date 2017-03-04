@@ -5,14 +5,15 @@ import {render} from 'react-dom';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
-
 
 function getState() {
   return {
     iframe_show:false,
-    iframehider_show:false
+    iframehider_show:false,
+    editColor: GlobalConstants.DEFAULT_CAT_COLOR.code
   }
 }
 
@@ -23,10 +24,26 @@ class PageUrlBar extends Component {
     this.state = getState();
   }
 
+  //WC SPRING TODO: REWORK TO USE CATEGORY ENTRY COMPONENT, JUST CHANGE CSS
+  addNewCategory(categoryTitle){
+      this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
+        var categoryObject;
+        var categories = this.props.categories.cats;
+        for(var i = categories.length-1; i >= 0; i--){
+          if(categories[i].title == categoryTitle){
+            categoryObject = categories[i];
+            break;
+          }
+        }
+        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject, true, this.props.currentUser.token);
+    });
+  }
+
   getCategoryEntry() {
     return (
       <div className='url-bar-add-category'>
-        <input type="text" className="url-bar-form" placeholder="add category" ref={node => {
+        <input type="text" className="url-bar-form" placeholder="add category"
+        onKeyPress={this.keyPressed.bind(this)} ref={node => {
           this.input = node;
         }} />
         <div className='url-bar-category-button' onClick={()=> {
@@ -38,6 +55,17 @@ class PageUrlBar extends Component {
         </div>
       </div>
     );
+  }
+
+  keyPressed(event){
+    var keycode = event.keyCode || event.which;
+    if(keycode == '13') {
+        if (this.input.value.trim() !== '') {
+          this.addNewCategory(this.input.value);
+          this.input.value = '';
+        }
+        this.props.addNewCategory(new_category);
+    }
   }
 
   getCategories() {
@@ -128,6 +156,7 @@ class PageUrlBar extends Component {
         </div>
         <div className='url-categories-col vertical-center'>
           <div className='url-bar-input'>
+            <div className='color-square-small' style={{"backgroundColor" : this.state.editColor}}/>
             {this.getCategoryEntry()}
             <div className='url-bar-star-div' onClick={this.toggleStar.bind(this)}>
               <i className={starred}></i>
