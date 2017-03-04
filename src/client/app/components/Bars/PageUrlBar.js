@@ -35,7 +35,10 @@ class PageUrlBar extends Component {
             break;
           }
         }
-        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject, true, this.props.currentUser.token);
+        if (categoryObject) {
+          console.log(this);
+          this.props.category_actions.toggleCategory(this.props.page.url, categoryObject, true, this.props.currentUser.token);
+        }
     });
   }
 
@@ -47,8 +50,9 @@ class PageUrlBar extends Component {
           this.input = node;
         }} />
         <div className='url-bar-category-button' onClick={()=> {
-          if (this.input.value.trim() !== '') {
-            this.addNewCategory(this.input.value);
+          var inputValue = this.input.value.trim();
+          if (inputValue !== '') {
+            this.addNewCategory(inputValue);
             this.input.value = '';
           }
         }}><i className="fa fa-plus" aria-hidden="true"></i>
@@ -60,11 +64,11 @@ class PageUrlBar extends Component {
   keyPressed(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
-        if (this.input.value.trim() !== '') {
-          this.addNewCategory(this.input.value);
+      var inputValue = this.input.value.trim();
+        if (inputValue !== '') {
+          this.addNewCategory(inputValue);
           this.input.value = '';
         }
-        this.props.addNewCategory(new_category);
     }
   }
 
@@ -173,8 +177,8 @@ class PageUrlBar extends Component {
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
-    currentPage : state.currentPage,
     search_items: state.search,
+    categories: state.categories,
     categoriesAndPages: state.categoriesAndPages
 })
 

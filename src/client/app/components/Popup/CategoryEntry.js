@@ -28,11 +28,11 @@ class CategoryEntry extends Component {
   keyPressed(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
-        if (this.input.value.trim() !== '') {
-          this.addNewCategory(this.input.value);
-          this.input.value = '';
-        }
-        this.props.addNewCategory(new_category);
+      var inputValue = this.input.value.trim();
+      if (inputValue !== '') {
+        this.addNewCategory(inputValue);
+        this.input.value = '';
+      }
     }
   }
 
@@ -52,8 +52,9 @@ class CategoryEntry extends Component {
         }} />
         <span className="input-group-btn">
           <button className="btn add-category-btn" type="button" onClick={() => {
-            if (this.input.value.trim() !== '') {
-              this.addNewCategory(this.input.value);
+            var inputValue = this.input.value.trim();
+            if (inputValue !== '') {
+              this.addNewCategory(inputValue);
               this.input.value = '';
             }
           }}><i className="fa fa-plus" aria-hidden="true"></i></button>
