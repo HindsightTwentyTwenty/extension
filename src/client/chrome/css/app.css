@@ -255,8 +255,7 @@ body {
 .domain-favicon {
   width: 15px;
   height: 15px;
-  margin-bottom: 4px;
-  margin-right: 8px;
+  margin:2px 5px 2px 2px;
 }
 
 .display-favicon {
