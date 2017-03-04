@@ -12,7 +12,7 @@ const Timestamp = require('react-timestamp');
 import { Slider } from 'antd';
 
 
-import TabComponent from './TabComponent.js';
+import TabComponent from '../Bars/TabComponent.js';
 
 function getState() {
 	return {
@@ -67,7 +67,9 @@ class LookBack extends Component {
   }
 
   getTabComponent(index) {
-    return <TabComponent key={index} curr_index={index}/>;
+		//pass it key so that there is no "unique key" error
+		//also need to pass curr_index, for some reason cannot index off of the key
+    return <TabComponent key={index} curr_index={index} timeframe={this.state.timeframe}/>;
   }
 
 	getPrevPage(){
@@ -80,12 +82,11 @@ class LookBack extends Component {
 		this.changeStartTime(start_date);
 	}
 
+	//Get the html tabs
   getTabs(currProps){
-
     if (Object.keys(currProps.tabs).length) {
       let results = []
       let curr_tabs = currProps.tabs;
-      let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
 					results.push(this.getTabComponent(tIndex))
@@ -94,6 +95,8 @@ class LookBack extends Component {
     }
   }
 
+	/* change the start time of the timeline, taking into consideration that its a valid start date
+	it also changes the end time, updates the props, and gets tabs in new timeframe */
 	changeStartTime(input){
 		var today = Datetime.moment().subtract(1, 'm');
 		if(Datetime.moment.isMoment(input) && input.isBefore( today )){
@@ -220,8 +223,8 @@ class LookBack extends Component {
 	      <div className="lookback-graph-container">
 		        <div className="time-labels">
 							<div className="timeline-label-row" id="timeline-label-row-top">
-								<div className="jump-btn" onClick={this.jumpToNow.bind(this)}>Jump to now</div>
 								{timeframeSlider}
+								<div className="jump-btn" onClick={this.jumpToNow.bind(this)}>Jump to now</div>
 							</div>
 							<div className="timeline-label-row" id="timeline-label-row-btm">
 								<div className="date-picker" >

@@ -231,6 +231,21 @@ body {
   text-overflow: ellipsis;
 }
 
+.tab-component-wrapper{
+  width:100%;
+  display: flex;
+}
+
+.tab-lt-buffer{
+  position: relative;
+  height:5px;
+}
+
+.tab-rt-buffer{
+  position: relative;
+  height:5px;
+}
+
 .domain-bar{
   height: 22px;
   border: solid 1px $electric-blue;
@@ -242,9 +257,10 @@ body {
   margin: 1px;
   border-radius: 2px;
   padding: 0 2px;
-  position:flex;
+  position: relative;
   z-index: 10;
-  min-width: 24px;
+  /* account for the domains smaller than the favicon size */
+  flex-basis:24px;
   &:hover {
     border-color: $canteloupe;
   }
@@ -253,8 +269,7 @@ body {
 .domain-favicon {
   width: 15px;
   height: 15px;
-  margin-bottom: 4px;
-  margin-right: 8px;
+  margin:2px 5px 2px 2px;
 }
 
 .display-favicon {
@@ -322,7 +337,7 @@ start-time-label .end-time-label{
 #time-change-btn-buffer-rt{
   width: 3px;
   min-height: 60px;
-  height: calc(50% - 80px);
+  height: calc(50% - 83px);
   position: relative;
 }
 
@@ -341,7 +356,7 @@ start-time-label .end-time-label{
 
 #slider-wrapper{
   width:30%;
-  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .jump-btn{
@@ -353,6 +368,7 @@ start-time-label .end-time-label{
   vertical-align: middle;
   color: #FAFAFA;
   padding: 5px 6px;
+  border-radius: 5px;
 }
 .jump-btn:hover{
   background-color: $electric-blue-dark;
@@ -372,6 +388,7 @@ start-time-label .end-time-label{
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 #timeline-label-row-btm{
