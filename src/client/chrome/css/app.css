@@ -43,7 +43,7 @@ body {
 }
 
 .page-url-bar {
-  height: 60px;
+  height: 70px;
   line-height: 35px;
   margin: 5px auto;
   border-radius: 3px;
@@ -70,8 +70,25 @@ body {
   margin: 0;
 }
 
+.url-bar-form {
+  border-radius: 2px;
+  border: none;
+  width: 100px;
+  margin: auto;
+  height: 30px;
+  color: $base-white;
+  background-color: $watermelon;
+  &:focus{
+    box-shadow: none;
+    &::-webkit-input-placeholder {
+      color: $electric-blue;
+    }
+  }
+  &::-webkit-input-placeholder {
+    color: $base-white;
+  }
+}
 
-//WC TODO: change css of blacklist bar and url bar to common component?
 .blacklist-bar {
   height: 40px;
   line-height: 40px;
@@ -100,14 +117,24 @@ body {
 .url-bar-category {
   color: $base-white;
   float: left;
-  background-color: $canteloupe;
+  border-radius: 2px;
   padding: 0 10px;
   height: 30px;
-  border-radius: 2px;
   margin: 5px;
   display: flex;
   justify-content: space-between;
   line-height: 30px;
+}
+
+.url-bar-category-thin {
+  color: $base-white;
+  border-radius: 2px;
+  padding: 0 5px;
+  height: 25px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 25px;
 }
 
 .bar-category{
@@ -115,13 +142,17 @@ body {
   max-width: 150px;
 }
 
-.url-bar-category-times {
+.url-bar-category-button {
   display: inline;
   position: relative;
   padding-left: 10px;
 }
-.url-bar-category-times:hover{
+.url-bar-category-button:hover{
   color: $watermelon;
+}
+
+.url-bar-input{
+  display: inline-flex;
 }
 
 .url{
@@ -143,6 +174,19 @@ body {
   overflow: auto;
   margin-right: 1%;
   width: 45%;
+}
+
+.url-categories-col {
+  display: flex;
+  float:right;
+  flex-flow: column;
+  overflow: auto;
+  width: 45%;
+}
+
+.url-bar-categories {
+  display: inline-flex;
+  flex-direction: row;
 }
 
 .lookback-container{
