@@ -43,6 +43,7 @@ body {
 }
 
 .page-url-bar {
+  min-width: 400px;
   height: 70px;
   line-height: 35px;
   margin: 5px auto;
@@ -71,17 +72,19 @@ body {
 }
 
 .url-bar-form {
-  border-radius: 2px;
   border: none;
   width: 100px;
   margin: auto;
   height: 30px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0px;
   color: $base-white;
-  background-color: $watermelon;
+  background-color: $electric-blue-dark;
   &:focus{
     box-shadow: none;
     &::-webkit-input-placeholder {
-      color: $electric-blue;
+      color: $banana;
     }
   }
   &::-webkit-input-placeholder {
@@ -114,6 +117,17 @@ body {
   justify-content: space-between;
 }
 
+.url-bar-add-category {
+  background-color: $electric-blue-dark;
+  color: $base-white;
+  float: left;
+  border-radius: 2px;
+  padding: 0 10px;
+  height: 30px;
+  margin: 0;
+  line-height: 30px;
+}
+
 .url-bar-category {
   color: $base-white;
   float: left;
@@ -131,7 +145,7 @@ body {
   border-radius: 2px;
   padding: 0 5px;
   height: 25px;
-  margin: 5px;
+  margin: 3px 7px 2px 0px;
   display: flex;
   justify-content: space-between;
   line-height: 25px;
@@ -180,12 +194,13 @@ body {
   display: flex;
   float:right;
   flex-flow: column;
-  overflow: auto;
+  height: 100%;
   width: 45%;
 }
 
 .url-bar-categories {
   display: inline-flex;
+  overflow: auto;
   flex-direction: row;
 }
 
@@ -826,8 +841,19 @@ hr{
   height:45px;
   line-height: 55px;
   width: 45px;
-  color: black;
+  color: $banana;
   margin-left: 1%;
+  &:hover{
+    color: $banana;
+  }
+}
+
+.url-bar-star-div{
+  height:30px;
+  line-height: 30px;
+  width: 30px;
+  color: $banana;
+  margin: 2px 0 0 5px;
   &:hover{
     color: $banana;
   }

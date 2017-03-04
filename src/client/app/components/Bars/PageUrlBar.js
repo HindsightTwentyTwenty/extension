@@ -25,12 +25,10 @@ class PageUrlBar extends Component {
 
   getCategoryEntry() {
     return (
-      <div className='url-bar-category'>
-        <div className="hide-overflow">
-          <input type="text" className="url-bar-form" placeholder="add category" ref={node => {
-            this.input = node;
-          }} />
-        </div>
+      <div className='url-bar-add-category'>
+        <input type="text" className="url-bar-form" placeholder="add category" ref={node => {
+          this.input = node;
+        }} />
         <div className='url-bar-category-button' onClick={()=> {
           if (this.input.value.trim() !== '') {
             this.addNewCategory(this.input.value);
@@ -131,7 +129,7 @@ class PageUrlBar extends Component {
         <div className='url-categories-col vertical-center'>
           <div className='url-bar-input'>
             {this.getCategoryEntry()}
-            <div className='star-div' onClick={this.toggleStar.bind(this)}>
+            <div className='url-bar-star-div' onClick={this.toggleStar.bind(this)}>
               <i className={starred}></i>
             </div>
           </div>
