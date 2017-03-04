@@ -243,12 +243,10 @@ body {
   margin: 1px;
   border-radius: 2px;
   padding: 0 2px;
-  /*position:flex;*/
   position: relative;
   z-index: 10;
-  /*min-width: 24px;*/
+  /* account for the domains smaller than the favicon size */
   flex-basis:24px;
-  /*width: 100%;*/
   &:hover {
     border-color: $canteloupe;
   }

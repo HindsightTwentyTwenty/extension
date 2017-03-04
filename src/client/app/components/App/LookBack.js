@@ -84,9 +84,6 @@ class LookBack extends Component {
     if (Object.keys(currProps.tabs).length) {
       let results = []
       let curr_tabs = currProps.tabs;
-			//console.log('curr tabs are: ', curr_tabs);
-      //let numTabs = curr_tabs.length;
-			console.log("tab start time:")
 
       for (let tIndex in curr_tabs) {
 					results.push(this.getTabComponent(tIndex))

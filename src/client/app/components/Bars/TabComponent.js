@@ -29,6 +29,10 @@ class TabComponent extends Component {
     })
   }
 
+  /*
+    The value specific for this domainbar will be the "flex-grow" size not simply a percentage to take
+    into consideration the items less than 24px size, which need to be 24px to account for favicon.
+  */
   getDomainBar(domain, width, tab_id) {
     var width_style = Math.floor(width * 100);
     var active_times_style = this.getActiveTimesStyle(domain);
@@ -36,17 +40,22 @@ class TabComponent extends Component {
     return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
   }
 
-
-
+  /*
+    get the width of the left buffer (represents time before the tab was opened in this
+    timeframe), this is a width element on the div
+  */
   getLeftBuffer(margin) {
     margin += "%";
     var bar_style = {"width" : margin};
     return <div className="tab-lt-buffer" id="left_tab_buffer" style={bar_style}></div>
   }
 
+  /*
+    get the width of the right buffer (represents time after the tab was closed in this
+    timeframe), this is a width element on the div
+  */
   getRightBuffer(margin){
     margin += "%";
-    console.log("RIGHT BUFFER MARGIN:", margin);
     var bar_style = {"width" : margin};
     return <div className="tab-rt-buffer" id="rt_tab_buffer" style={bar_style}></div>
   }
@@ -81,6 +90,9 @@ class TabComponent extends Component {
     return base;
   }
 
+  /*Returns the valid created date if an item was created before the time frame
+    curr_created_date = what the created_date is on the domain item currently
+    timeframe_start_date = the start date of the timeframe */
   getValidCreatedDate(curr_created_date, timeframe_start_date){
     var d_created_date;
     if(curr_created_date.isBefore(timeframe_start_date)){
@@ -88,34 +100,39 @@ class TabComponent extends Component {
     }else{
       d_created_date = curr_created_date;
     }
-
     return d_created_date;
   }
 
+  /*Returns the valid closed date if an item was closed after the time frame (or still open)
+    curr_closed_date = what the closed_date is on the domain item currently
+    timeframe_end_date = the end date of the timeframe */
   getValidClosedDate(curr_closed_date, timeframe_end_date){
     var d_closed_date;
-    /* if the domain never closed, give it a closed date */
-    if(!curr_closed_date.isValid() ){
+    /* if the domain never closed, give it a closed date
+      or if the domain closes after the timeframe ends*/
+    if(!curr_closed_date.isValid() || curr_closed_date.isAfter(timeframe_end_date)){
       d_closed_date = timeframe_end_date;
     }else{
       d_closed_date = curr_closed_date;
     }
-    /* if the domain closes after the timeframe ends */
-    if(curr_closed_date.isAfter(timeframe_end_date)){
-      d_closed_date = timeframe_end_date;
-    }
-
     return d_closed_date;
   }
 
+  /*
+    calculate the width of each domain- we are calculating the percentage of the total
+    tab open time in the timeframe (not the timeframe)
+    The value returned will be the "flex-grow" size not simply a percentage to take
+    into consideration the items less than 24px size, which need to be 24px to account for favicon.
+    parameters:
+      tab_timeframe_opened = amount of time that the TAB is open in the timeframe
+      created = when the domain was opened on this tab in the timeframe
+      closed = when the domain was closed on this tab IN the timeframe
+  */
   calculateDomainWidth(tab_timeframe_opened, created, closed){
     var start_date = Datetime.moment(this.props.start_date);
     var end_date = Datetime.moment(this.props.end_date);
     var d_created_date = created;
     var d_closed_date = closed;
-
-    // var d_created_date = this.getValidCreatedDate(Datetime.moment(created), start_date);
-    // var d_closed_date = this.getValidClosedDate(Datetime.moment(closed), end_date);
 
     var domain_time_elapsed = d_closed_date.diff(d_created_date, "seconds");
     var timeframe_in_secs = this.props.timeframe * 60;
@@ -124,17 +141,10 @@ class TabComponent extends Component {
       return 100/24;
     }
     return((domain_time_elapsed/ tab_timeframe_opened)*110)/24;
-    //return (domain_time_elapsed/timeframe_in_secs)*100;
-
-
-
   }
 
-  //calculate the buffer on the left side
-  calculateLeftMargin(time_elapsed, created, start_date){
-    var start_date = Datetime.moment(start_date);
-    var created_date = Datetime.moment(created);
-
+  /*calculate the buffer on the left side */
+  calculateLeftMargin(created_date, start_date){
     if(created_date.isBefore(start_date)){
       return 0;
     }
@@ -144,19 +154,14 @@ class TabComponent extends Component {
   }
 
   /*
-  closed = time the domain is closed
-  end_date = the time that the timeframe ends
+    closed = time the domain is closed
+    end_date = the time that the timeframe ends
   */
-  calculateRightMargin(time_elapsed, closed, end_date){
-    // var end_date = Datetime.moment(end_date);
-    // var closed_date = Datetime.moment(closed);
-
+  calculateRightMargin(closed, end_date){
     if(closed.isAfter(end_date) || closed.isSame(end_date)){
-      console.log("closed date SAME as END DATE:", closed.format("MMM D h:mm A"), end_date.format("MMM D h:mm A") );
       return 0;
     }
     var time_between_right = end_date.diff(closed, "seconds");
-    console.log("time between with end date", time_between_right);
     var timeframe_in_secs = this.props.timeframe * 60;
     return Math.floor((time_between_right/timeframe_in_secs)*100);
   }
@@ -170,27 +175,20 @@ class TabComponent extends Component {
     var index = this.props.curr_index
     if(this.props.start_date && this.props.end_date && this.props.tabs[index]){
       if (Object.keys(this.props.tabs).length) {
-        // if(index == 0 || index == 1){
-        //   console.log("this.props", this.props);
-        //   console.log("index of tab component", index);
-        //   console.log("tabs on component", this.props.tabs[index]);
-        // }
 
         let results = []
         /* domains: the different domains hit on this tab */
         var domains = this.props.tabs[index].domains;
         var numDomains = domains.length;
 
+        /* the start and end date of the timeframe */
         var start_date = Datetime.moment(this.props.start_date);
         var end_date = Datetime.moment(this.props.end_date);
-        //#TODO: GAM take out time elapsed??
-        var time_elapsed = start_date.diff(end_date);
 
+        /* the open, closed, and duration, of the tab opened in the timeframe */
         var tab_opened_date = this.getValidCreatedDate(Datetime.moment(domains[0].created), start_date);
         var tab_closed_date = this.getValidClosedDate(Datetime.moment(domains[(domains.length -1)].closed), end_date);
         var tab_timeframe_opened = tab_closed_date.diff(tab_opened_date, "seconds");
-        // console.log("tab opened date and closed date: ", tab_opened_date.format("MMM D h:mm A"), tab_closed_date.format("MMM D h:mm A"));
-        // console.log("timeframe tab opened seconds", tab_timeframe_opened);
 
         for (var dIndex in domains) {
 
@@ -198,10 +196,10 @@ class TabComponent extends Component {
           var closed = this.getValidClosedDate(Datetime.moment(domains[dIndex].closed), end_date);
           var width = this.calculateDomainWidth(tab_timeframe_opened, created, closed);
 
+          /* if this is the first domain on the tab, get the left buffer to account for time before
+            the tab was opened in this timeframe */
           if(dIndex == 0){
-            var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
-
-
+            var margin = this.calculateLeftMargin(created, start_date);
             results.push(
                 this.getLeftBuffer(margin),
                 this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id)
@@ -209,8 +207,10 @@ class TabComponent extends Component {
           }else{
             results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id));
           }
+          /* if this is the last domain on the tab, get the right buffer to account for the time after
+            the tab was closed in this timeframe */
           if(dIndex == (numDomains -1)){
-            var margin = this.calculateRightMargin(time_elapsed, closed, end_date);
+            var margin = this.calculateRightMargin(closed, end_date);
             results.push(
                 this.getRightBuffer(margin)
             );
