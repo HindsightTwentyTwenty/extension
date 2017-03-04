@@ -248,7 +248,7 @@ body {
   z-index: 10;
   /*min-width: 24px;*/
   flex-basis:24px;
-  width: 100%;
+  /*width: 100%;*/
   &:hover {
     border-color: $canteloupe;
   }

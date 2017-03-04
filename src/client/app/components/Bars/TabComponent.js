@@ -46,6 +46,7 @@ class TabComponent extends Component {
 
   getRightBuffer(margin){
     margin += "%";
+    console.log("RIGHT BUFFER MARGIN:", margin);
     var bar_style = {"width" : margin};
     return <div className="tab-rt-buffer" id="rt_tab_buffer" style={bar_style}></div>
   }
@@ -110,9 +111,11 @@ class TabComponent extends Component {
   calculateDomainWidth(tab_timeframe_opened, created, closed){
     var start_date = Datetime.moment(this.props.start_date);
     var end_date = Datetime.moment(this.props.end_date);
+    var d_created_date = created;
+    var d_closed_date = closed;
 
-    var d_created_date = this.getValidCreatedDate(Datetime.moment(created), start_date);
-    var d_closed_date = this.getValidClosedDate(Datetime.moment(closed), end_date);
+    // var d_created_date = this.getValidCreatedDate(Datetime.moment(created), start_date);
+    // var d_closed_date = this.getValidClosedDate(Datetime.moment(closed), end_date);
 
     var domain_time_elapsed = d_closed_date.diff(d_created_date, "seconds");
     var timeframe_in_secs = this.props.timeframe * 60;
@@ -145,13 +148,15 @@ class TabComponent extends Component {
   end_date = the time that the timeframe ends
   */
   calculateRightMargin(time_elapsed, closed, end_date){
-    var end_date = Datetime.moment(end_date);
-    var closed_date = Datetime.moment(closed);
+    // var end_date = Datetime.moment(end_date);
+    // var closed_date = Datetime.moment(closed);
 
-    if(closed_date.isAfter(end_date)){
+    if(closed.isAfter(end_date) || closed.isSame(end_date)){
+      console.log("closed date SAME as END DATE:", closed.format("MMM D h:mm A"), end_date.format("MMM D h:mm A") );
       return 0;
     }
-    var time_between_right = end_date.diff(closed_date, "seconds");
+    var time_between_right = end_date.diff(closed, "seconds");
+    console.log("time between with end date", time_between_right);
     var timeframe_in_secs = this.props.timeframe * 60;
     return Math.floor((time_between_right/timeframe_in_secs)*100);
   }
@@ -165,48 +170,33 @@ class TabComponent extends Component {
     var index = this.props.curr_index
     if(this.props.start_date && this.props.end_date && this.props.tabs[index]){
       if (Object.keys(this.props.tabs).length) {
-        if(index == 0 || index == 1){
-          console.log("this.props", this.props);
-          console.log("index of tab component", index);
-          console.log("tabs on component", this.props.tabs[index]);
-        }
+        // if(index == 0 || index == 1){
+        //   console.log("this.props", this.props);
+        //   console.log("index of tab component", index);
+        //   console.log("tabs on component", this.props.tabs[index]);
+        // }
 
         let results = []
         /* domains: the different domains hit on this tab */
-        let domains = this.props.tabs[index].domains;
-        //var numDomains = Object.keys(domains).length;
+        var domains = this.props.tabs[index].domains;
+        var numDomains = domains.length;
 
         var start_date = Datetime.moment(this.props.start_date);
         var end_date = Datetime.moment(this.props.end_date);
         //#TODO: GAM take out time elapsed??
         var time_elapsed = start_date.diff(end_date);
 
-        //var tab_opened_date = ;
         var tab_opened_date = this.getValidCreatedDate(Datetime.moment(domains[0].created), start_date);
         var tab_closed_date = this.getValidClosedDate(Datetime.moment(domains[(domains.length -1)].closed), end_date);
-        //var tab_closed_date = Datetime.moment(domains[(domains.length -1)].closed);
         var tab_timeframe_opened = tab_closed_date.diff(tab_opened_date, "seconds");
-        console.log("tab opened date and closed date: ", tab_opened_date.format("MMM D h:mm A"), tab_closed_date.format("MMM D h:mm A"));
-        console.log("timeframe tab opened seconds", tab_timeframe_opened);
+        // console.log("tab opened date and closed date: ", tab_opened_date.format("MMM D h:mm A"), tab_closed_date.format("MMM D h:mm A"));
+        // console.log("timeframe tab opened seconds", tab_timeframe_opened);
 
+        for (var dIndex in domains) {
 
-        // }else{
-        //   end_date == null;
-        //   var time_elapsed = end_date.getTime() - start_date.getTime();
-        //   console.log("NULL time elapsed:", time_elapsed);
-        //   //time_elapsed
-        // }
-
-        for (let dIndex in domains) {
-
-          var created = Datetime.moment(domains[dIndex].created);
-          var closed = Datetime.moment(domains[dIndex].closed);
-          if (closed == null){
-            closed = end_date;
-          }
-
+          var created = this.getValidCreatedDate(Datetime.moment(domains[dIndex].created), start_date);
+          var closed = this.getValidClosedDate(Datetime.moment(domains[dIndex].closed), end_date);
           var width = this.calculateDomainWidth(tab_timeframe_opened, created, closed);
-          //width += "%";
 
           if(dIndex == 0){
             var margin = this.calculateLeftMargin(time_elapsed, created, start_date);
@@ -216,18 +206,16 @@ class TabComponent extends Component {
                 this.getLeftBuffer(margin),
                 this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id)
             );
-          }else if(dIndex = (domains.length -1)){
+          }else{
+            results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id));
+          }
+          if(dIndex == (numDomains -1)){
             var margin = this.calculateRightMargin(time_elapsed, closed, end_date);
-            //margin += "%";
-
             results.push(
-              this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id),
                 this.getRightBuffer(margin)
             );
           }
-          else{
-            results.push(this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id));
-          }
+
         }
       return results;
       }
