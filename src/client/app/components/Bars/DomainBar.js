@@ -20,6 +20,7 @@ class DomainBar extends Component {
 
   render() {
     var id_code = this.props.tab_id + "-" + this.props.domain.pk;
+    console.log("THIS IS THE STYLE", this.props.style);
     return (
       <div
         id = {id_code}
