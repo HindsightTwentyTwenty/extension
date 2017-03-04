@@ -56,7 +56,7 @@ class LookBackNavBar extends Component {
           <div className="btn-toolbar">
             <button id="nav-bar-button-0" className="nav-bar-button nav-bar-button-selected" type="button" onClick={() => {
               this.switchLookBackSelection(LookBackSections.LookBack);
-            }}>lookback</button>
+            }}>timeline</button>
             <button id="nav-bar-button-1" className="nav-bar-button" type="button" onClick={() => {
               this.switchLookBackSelection(LookBackSections.Categories);
             }}>categories</button>

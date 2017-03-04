@@ -223,11 +223,11 @@ body {
 }
 
 .tab-lt-buffer{
-
+  position: relative;
 }
 
 .tab-rt-buffer{
-
+  position: relative;
 }
 
 .domain-bar{
@@ -241,9 +241,11 @@ body {
   margin: 1px;
   border-radius: 2px;
   padding: 0 2px;
-  position:flex;
+  /*position:flex;*/
+  position: relative;
   z-index: 10;
   min-width: 24px;
+  width: 100%;
   &:hover {
     border-color: $canteloupe;
   }
