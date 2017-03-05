@@ -376,7 +376,7 @@ export function receiveUserInfo(json) {
     email: json.email,
     first_name: json.first_name,
     last_name: json.last_name,
-    creation_date: json.creation_date
+    created_at: json.created_at
   }
 }
 

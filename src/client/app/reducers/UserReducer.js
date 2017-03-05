@@ -3,7 +3,7 @@ import * as PasswordConstants from '../constants/PasswordConstants.js'
 import * as PopupConstants from '../constants/PopupConstants.js'
 
 //if no valid username:
-function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"", creation_date:"", token:"", invalid_login:false, change_password: PasswordConstants.Closed, popup_status: PopupConstants.Loading}, action){
+function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"", created_at:"", token:"", invalid_login:false, change_password: PasswordConstants.Closed, popup_status: PopupConstants.Loading}, action){
 
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
@@ -27,7 +27,7 @@ function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"
       return { ...state, popup_status: PopupConstants.Received }
     case types.RECEIVE_USER_INFO:
       console.log("recieve user name", action.first_name)
-      return { ...state, user_name:action.username, first_name:action.first_name, last_name:action.last_name, email:action.email, creation_date: action.creation_date }
+      return { ...state, user_name:action.username, first_name:action.first_name, last_name:action.last_name, email:action.email, created_at: action.created_at }
     default:
         return state;
   }

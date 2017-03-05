@@ -62,7 +62,7 @@ let store = createStore(
       first_name:"",
       last_name:"",
       email:"",
-      creation_date:"",
+      created_at:"",
       token:"",
       invalid_login:false,
       change_password:false,

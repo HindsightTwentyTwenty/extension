@@ -5,12 +5,16 @@ import { bindActionCreators} from 'redux';
 import * as UserActions from '../../actions/User/UserActions.js';
 import ChangeMyPassword from './ChangeMyPassword.js';
 import * as PasswordConstants from '../../constants/PasswordConstants.js'
+import moment from 'moment';
+import 'moment-timezone';
 
 class Account extends Component {
 
   constructor(props) {
     super(props);
-    this.props.user_actions.getUserInfo(this.props.currentUser.token);
+    if(!this.props.currentUser.first_name){
+      this.props.user_actions.getUserInfo(this.props.currentUser.token);
+    }
   }
 
   logoutUser(){
@@ -62,7 +66,7 @@ class Account extends Component {
     if(this.props.currentUser.first_name){
       return (
         <div className="section-title">
-          {this.props.currentUser.first_name}&quot;s Account
+          {this.props.currentUser.first_name}&#39;s Account
         </div>
       )
     } else {
@@ -75,12 +79,27 @@ class Account extends Component {
     }
   }
 
+  displayUserInfo(){
+    console.log("displayUserInfo", this.props.currentUser);
+    return (
+      <div id="account-info">
+        <div>
+          Email: { this.props.currentUser.email }
+        </div>
+        <div>
+          Account Created On: { moment(this.props.currentUser.created_at).format("MMM Do YY") }
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
         <div className="row">
           <div className="col-xs-10">
             { this.getAccountTitle() }
+            { this.displayUserInfo() }
             <div id="account-options">
               <div>
                 <button className="btn btn-primary account-button" onClick={this.logoutUser.bind(this)}>Log Out</button>
