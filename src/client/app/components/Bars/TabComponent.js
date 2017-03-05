@@ -7,26 +7,10 @@ import DomainBar from '../Bars/DomainBar.js';
 import Datetime from 'react-datetime';
 
 
-function getState(){
-  return{
-    lft_buffer_id:"",
-    rt_buffer_id:""
-  }
-}
-
 class TabComponent extends Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentWillReceiveProps(){
-    var left_buff = "left_buffer_" + this.props.curr_id;
-    var right_buff = "right_buffer_" + this.props.curr_id;
-    this.setState({
-      lft_buffer_id: left_buff,
-      rt_buffer_id: right_buff
-    })
   }
 
   /*
@@ -37,7 +21,14 @@ class TabComponent extends Component {
     var width_style = Math.floor(width * 100);
     var active_times_style = this.getActiveTimesStyle(domain);
     var bar_style = {"flexGrow": width_style, "background" : active_times_style}
-    return <DomainBar key={domain.pk} domain={domain} style={bar_style} tab_id={tab_id}/>;
+    /* give domains without a favicon a default favicon */
+    var favicon;
+    if(domain.favicon == ""){
+      favicon = "../../assets/img/default-favicon.png"
+    }else{
+      favicon = domain.favicon;
+    }
+    return <DomainBar key={domain.pk} domain={domain} favicon={favicon} style={bar_style} tab_id={tab_id}/>;
   }
 
   /*
