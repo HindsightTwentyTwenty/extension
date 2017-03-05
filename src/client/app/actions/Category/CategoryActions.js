@@ -133,15 +133,6 @@ export function editCategory(oldTitle, updatedTitle, updatedColor, token) {
   }
 }
 
-export function toggleEditCategory(categoryTitle) {
-  return dispatch => {
-    dispatch({
-      type: types.TOGGLE_EDIT_CATEGORY,
-      editCategory: categoryTitle
-    })
-  }
-}
-
 export function toggleColorPicker(show) {
   return dispatch => {
     dispatch({
@@ -182,15 +173,6 @@ export function setEditCatColor(color) {
     dispatch({
       type: types.SET_EDIT_CAT_COLOR,
       color: color
-    })
-  }
-}
-
-export function toggleDeleteCategory(category) {
-  return dispatch => {
-    dispatch({
-      type: types.CONFIRM_DELETE,
-      categoryTitle: category
     })
   }
 }
