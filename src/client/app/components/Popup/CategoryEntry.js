@@ -13,15 +13,11 @@ class CategoryEntry extends Component {
 
   addNewCategory(categoryTitle){
       this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-        var categoryObject;
-        var categories = this.props.categories.cats;
-        for(var i = categories.length-1; i >= 0; i--){
-          if(categories[i].title == categoryTitle){
-            categoryObject = categories[i];
-            break;
-          }
+        var category = this.props.categories.cats[categoryTitle];
+        if (category) {
+          this.props.category_actions.toggleCategory(this.props.currentPage.url,
+            category, true, this.props.currentUser.token);  
         }
-        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject, true, this.props.currentUser.token);
     });
   }
 

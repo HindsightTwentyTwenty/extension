@@ -57,7 +57,7 @@ class CategoriesPage extends Component {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent title={"Categories"} button={true}/>
+        <SidebarComponent button={true}/>
         <div className="search-results-container">
           <div className="section-title"></div>
           {searchResults}

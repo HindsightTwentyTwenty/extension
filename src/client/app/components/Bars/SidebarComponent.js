@@ -17,12 +17,9 @@ class SidebarComponent extends Component {
     if (Object.keys(allCategories).length) {
       let result = [];
       let searchCategorySet = new Set(currentSearchCategories);
-      for (var i = 0; i < allCategories.length; i++) {
-        if (!searchCategorySet.has(allCategories[i].title)) {
-          result.push(<SidebarCategoryBar categoryInfo={allCategories[i]} checked={false} key={allCategories[i].title}/>)
-        } else {
-          result.push(<SidebarCategoryBar categoryInfo={allCategories[i]} checked={true} key={allCategories[i].title}/>)
-        }
+      for (var key in allCategories) {
+        var checked = searchCategorySet.has(allCategories[key].title);
+        result.push(<SidebarCategoryBar categoryInfo={allCategories[key]} checked={checked} key={allCategories[key].title}/>)
       }
       return result
     }
