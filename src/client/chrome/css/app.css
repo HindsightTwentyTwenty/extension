@@ -917,8 +917,10 @@ hr{
 /* ----- */
 
 .advanced-search{
+  min-width: 350px;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
-  width: 50%;
   font-size: large;
 }
 
