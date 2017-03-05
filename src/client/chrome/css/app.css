@@ -499,6 +499,7 @@ start-time-label .end-time-label{
   display: flex;
   width: 100%;
   justify-content: flex-start;
+  min-width: 477px;
 }
 
 .search-bar {
