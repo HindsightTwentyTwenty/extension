@@ -398,12 +398,8 @@ export function getUserInfo(token){
     ))
     .then(
       ({ status, json }) => {
-        console.log("Info status", status);
-        console.log("Info json", json);
         if(status == 200){
           dispatch(receiveUserInfo(json))
-        } else {
-          // Implement Error Handling
         }
       }
     )

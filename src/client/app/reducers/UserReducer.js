@@ -26,7 +26,6 @@ function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"
     case types.RECEIVE_PAGE_INFO:
       return { ...state, popup_status: PopupConstants.Received }
     case types.RECEIVE_USER_INFO:
-      console.log("recieve user name", action.first_name)
       return { ...state, user_name:action.username, first_name:action.first_name, last_name:action.last_name, email:action.email, created_at: action.created_at }
     default:
         return state;

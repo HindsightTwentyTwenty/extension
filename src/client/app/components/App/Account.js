@@ -12,7 +12,7 @@ class Account extends Component {
 
   constructor(props) {
     super(props);
-    if(!this.props.currentUser.first_name){
+    if(!this.props.currentUser.first_name || !this.props.currentUser.email){
       this.props.user_actions.getUserInfo(this.props.currentUser.token);
     }
   }
@@ -70,7 +70,6 @@ class Account extends Component {
         </div>
       )
     } else {
-      console.log("NO NAME")
       return (
         <div className="section-title">
           Account
@@ -80,7 +79,6 @@ class Account extends Component {
   }
 
   displayUserInfo(){
-    console.log("displayUserInfo", this.props.currentUser);
     return (
       <div id="account-info">
         <div>
