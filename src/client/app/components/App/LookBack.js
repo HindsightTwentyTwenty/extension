@@ -51,7 +51,8 @@ class LookBack extends Component {
   }
 
 	componentWillMount(){
-		var intervalId = setInterval(this.jumpToNow.bind(this), 60000);
+		/* refreshes and pulls tabs into the timeline every 5 miuntes */
+		var intervalId = setInterval(this.jumpToNow.bind(this), 300000);
 	}
 
   componentWillReceiveProps(props) {
