@@ -6,6 +6,9 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
+import Toggle from 'react-toggle'
+import 'react-toggle/style.css';
+
 class PopupHeader extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +21,8 @@ class PopupHeader extends Component {
     }
   }
 
-  logoutUser(){
-    chrome.storage.local.remove("hindsite-token");
-    this.props.user_actions.logoutUser(this.props.currentUser.token);
-    window.close();
+  toggleChange(event) {
+    console.log("toggle change", event.target.checked);
   }
 
   render () {
@@ -31,8 +32,14 @@ class PopupHeader extends Component {
           <img className="logo header zero-margin"  src="../../assets/img/logo-light.png"/>
           <p className="popup-header-text zero-margin">hindsite</p>
         </div>
-        <p className="sign-out" onMouseDown={()=>{this.logoutUser()}}>Sign Out</p>
+        <div id="tracking-toggle-wrapper">
+          <span id="tracking-toggle-label">Tracking: </span>
+          <Toggle id="tracking-toggle"
+            defaultChecked={true}
+            onChange={ this.toggleChange.bind(this) } />
+        </div>
       </div>
+
     )
   }
 }

@@ -1170,3 +1170,18 @@ hr{
 .horizontal-center{
   margin: 0 auto;
 }
+
+#tracking-toggle-wrapper {
+  float: right;
+  vertical-align: middle;
+}
+
+#tracking-toggle-label {
+  color: $base-white;
+  vertical-align: bottom;
+  font-size: 15px;
+}
+
+#tracking-toggle {
+  vertical-align: inherit;
+}
