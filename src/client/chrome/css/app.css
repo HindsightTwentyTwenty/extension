@@ -1109,6 +1109,11 @@ hr{
 
 /* Manage Page */
 
+#account-info {
+  font-size: 15px;
+  margin: 5px 30px;
+}
+
 #change-password-response {
   margin: 5px 15px;
 }

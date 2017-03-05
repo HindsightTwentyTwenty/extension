@@ -59,6 +59,10 @@ let store = createStore(
     },
     currentUser: {
       user_name:"",
+      first_name:"",
+      last_name:"",
+      email:"",
+      created_at:"",
       token:"",
       invalid_login:false,
       change_password:false,
