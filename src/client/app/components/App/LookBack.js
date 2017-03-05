@@ -42,12 +42,18 @@ const marks = {
   15: '4 hr'
 };
 
-class LookBack extends Component {
 
+
+class LookBack extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
   }
+
+	componentWillMount(){
+		/* refreshes and pulls tabs into the timeline every 5 miuntes */
+		var intervalId = setInterval(this.jumpToNow.bind(this), 300000);
+	}
 
   componentWillReceiveProps(props) {
 		var start_date = Datetime.moment(this.props.start_date);
