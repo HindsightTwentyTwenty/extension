@@ -1,43 +1,46 @@
 import * as types from '../constants/ActionTypes';
 import * as GlobalConstants from '../constants/GlobalConstants';
 
-function categoryReducer(state = {cats: [], editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
-      showColorPicker: false, confirmDelete: '', editCategory: ''}, action){
+function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
+      showColorPicker: false}, action){
   switch(action.type){
-    case types.CONFIRM_DELETE:
-      return {...state, confirmDelete: action.categoryTitle}
     case types.SET_EDIT_CAT_COLOR:
       return {...state, editCatColor: action.color}
     case types.TOGGLE_COLOR_PICKER:
       return {...state, showColorPicker: action.showColorPicker}
-    case types.TOGGLE_EDIT_CATEGORY:
-      return {...state, editCategory: action.editCategory}
     case types.UPDATE_CATEGORY:
-      var newCategoryList = [];
-      var currentCategories = state.cats;
-      for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title === action.old) {
-          currentCategories[i].title = action.updated;
-          currentCategories[i].color = action.color; 
-        }
-        newCategoryList.push(currentCategories[i]);
+      var newCategoryList = Object.assign({}, state.cats);
+      var oldCatTitle = action.old;
+      var updatedCatTitle = action.updated;
+      var updatedColor = action.color;
+      if(newCategoryList[oldCatTitle]) {
+          newCategoryList[oldCatTitle].color = updatedColor;
+      }
+      if (newCategoryList[oldCatTitle] && updatedCatTitle != oldCatTitle) {
+        newCategoryList[updatedCatTitle] = newCategoryList[oldCatTitle];
+        delete newCategoryList[oldCatTitle];
       }
       return {...state, cats: newCategoryList};
     case types.DELETE_CATEGORY:
-      var newCategoryList = [];
-      var currentCategories = state.cats;
-      for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title !== action.categoryTitle) {
-          newCategoryList.push(currentCategories[i]);
-        }
+      var newCategoryList = Object.assign({}, state.cats);
+      var deleteCat = action.categoryTitle;
+      if (newCategoryList[deleteCat]) {
+        delete newCategoryList[deleteCat];
       }
       return {...state, cats: newCategoryList};
     case types.RECEIVE_CATEGORIES:
-      return {...state, cats: action.categories};
+      var categoryObject = {};
+      action.categories.map(function(category) {
+        categoryObject[category.title] = category;
+      })
+      return {...state, cats: categoryObject};
     case types.RECEIVE_PUSH_CATEGORY:
-      return {...state, cats: [...state.cats, action.category_added]};
+      var newCategoryList = Object.assign({}, state.cats);
+      var newCategory = action.category_added;
+      newCategoryList[newCategory.title] = newCategory;
+      return {...state, cats: newCategoryList};
     default:
-        return state;
+      return state;
   }
 }
 
