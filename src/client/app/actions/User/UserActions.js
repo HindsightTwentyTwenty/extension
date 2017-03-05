@@ -12,6 +12,7 @@ const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const activePageInfoEndpoint = urls.BASE_URL + "activepage/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
+const userInfoEndpoint = urls.BASE_URL + 'userinfo/';
 
 const unauthorizedCode = "403";
 
@@ -365,5 +366,42 @@ export function changeMyPasswordToggle(value){
       type: types.CHANGE_PASSWORD,
       change_password: value
     })
+  }
+}
+
+export function receiveUserInfo(json) {
+  return {
+    type: types.RECEIVE_USER_INFO,
+    username: json.username,
+    email: json.email,
+    first_name: json.first_name,
+    last_name: json.last_name,
+    created_at: json.created_at
+  }
+}
+
+export function getUserInfo(token){
+  return dispatch => {
+    return fetch(userInfoEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "GET"
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+      })
+    ))
+    .then(
+      ({ status, json }) => {
+        if(status == 200){
+          dispatch(receiveUserInfo(json))
+        }
+      }
+    )
   }
 }
