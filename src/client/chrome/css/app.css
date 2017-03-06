@@ -43,8 +43,8 @@ body {
 }
 
 .page-url-bar {
-  min-width: 400px;
-  height: 70px;
+  min-width: 500px;
+  height: 75px;
   line-height: 35px;
   margin: 5px auto;
   border-radius: 3px;
@@ -274,9 +274,12 @@ body {
   display: inline-block;
 }
 
-.fixed-header {
-  position: relative;
-  margin: 5px 0;
+.side-bar-header {
+  height: auto;
+}
+
+.side-bar-input {
+  border: none;
 }
 
 .all-categories {
@@ -629,7 +632,7 @@ start-time-label .end-time-label{
 .right-sidebar-button {
   color: $electric-blue;
   float: right;
-  margin-right: 6px;
+  margin-right: 10px;
   width: 15px;
   height: 25px;
   line-height: 25px;
@@ -652,21 +655,20 @@ start-time-label .end-time-label{
 
 .category-info {
   display: flex;
+  width: 170px;
 }
 
 .category-title {
+  width: 130px;
   line-height: 30px;
-  display: inline-flex;
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .color-square-small {
-  display: inline-flex;
+  display: inline-table;
   border-radius: 3px;
   width: 18px;
   height: 18px;
@@ -845,7 +847,7 @@ hr{
 }
 
 .side-bar-buttons {
-  width: 40px;
+  width: 45px;
   justify-content: space-between;
 }
 

@@ -13,12 +13,12 @@ function getState() {
   return {
     iframe_show:false,
     iframehider_show:false,
-    editColor: GlobalConstants.DEFAULT_CAT_COLOR.code
+    editColor: GlobalConstants.DEFAULT_CAT_COLOR.code,
+    showColorPicker: false
   }
 }
 
 class PageUrlBar extends Component {
-
   constructor(props) {
     super(props);
     this.state = getState();
@@ -33,6 +33,9 @@ class PageUrlBar extends Component {
               this.props.categories.cats[key], true, this.props.currentUser.token);
             break;
           }
+        }
+        if (this.state.showColorPicker) {
+          this.toggleColorPicker(); 
         }
     });
   }
@@ -67,8 +70,16 @@ class PageUrlBar extends Component {
     }
   }
 
-  getCategories() {
-    if (this.props.page.categories) {
+  getCategoriesOrColors() {
+    if (this.state.showColorPicker) {
+      return GlobalConstants.CAT_COLORS.map((color) => {
+        return <div className='color-square-small'
+        onClick={this.changeEditColor.bind(this, color.code)}
+        style={{"backgroundColor" : color.code}}
+        key={color.name}></div>
+      });
+    }
+    else if (this.props.page.categories) {
       return this.props.page.categories.map((category) => {
         return <div className='url-bar-category-thin' key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow">{category.title}</div>
@@ -80,14 +91,6 @@ class PageUrlBar extends Component {
           </div>
       });
     }
-  }
-
-  openIframe(event){
-    this.setState({ iframehider_show: true, iframe_show: true});
-  }
-
-  closeIframe(event){
-    this.setState({ iframehider_show: false, iframe_show: false});
   }
 
   getIframe(){
@@ -116,6 +119,25 @@ class PageUrlBar extends Component {
     this.props.star_actions.toggleStar(false, this.props.page, this.props.currentUser.token);
   }
 
+  toggleColorPicker() {
+    this.setState({
+      showColorPicker: !this.state.showColorPicker
+    });
+  }
+
+  changeEditColor(color) {
+    this.setState({
+      editColor: color
+    });
+  }
+
+  openIframe(event){
+    this.setState({ iframehider_show: true, iframe_show: true});
+  }
+
+  closeIframe(event){
+    this.setState({ iframehider_show: false, iframe_show: false});
+  }
   render() {
     var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
@@ -153,14 +175,15 @@ class PageUrlBar extends Component {
         </div>
         <div className='url-categories-col vertical-center'>
           <div className='url-bar-input'>
-            <div className='color-square-small' style={{"backgroundColor" : this.state.editColor}}/>
+            <div className='color-square-small' onClick={this.toggleColorPicker.bind(this)}
+            style={{"backgroundColor" : this.state.editColor}}/>
             {this.getCategoryEntry()}
             <div className='url-bar-star-div' onClick={this.toggleStar.bind(this)}>
               <i className={starred}></i>
             </div>
           </div>
           <div className='url-bar-categories'>
-            {this.getCategories()}
+            {this.getCategoriesOrColors()}
           </div>
         </div>
       </div>
