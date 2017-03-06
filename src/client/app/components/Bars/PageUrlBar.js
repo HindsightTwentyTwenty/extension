@@ -27,17 +27,12 @@ class PageUrlBar extends Component {
   //WC SPRING TODO: REWORK TO USE CATEGORY ENTRY COMPONENT, JUST CHANGE CSS
   addNewCategory(categoryTitle){
       this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
-        var categoryObject;
-        var categories = this.props.categories.cats;
-        for(var i = categories.length-1; i >= 0; i--){
-          if(categories[i].title == categoryTitle){
-            categoryObject = categories[i];
+        for (var key in this.props.categories.cats) {
+          if (categoryTitle == this.props.categories.cats[key].title) {
+            this.props.category_actions.toggleCategory(this.props.page.url,
+              this.props.categories.cats[key], true, this.props.currentUser.token);
             break;
           }
-        }
-        if (categoryObject) {
-          console.log(this);
-          this.props.category_actions.toggleCategory(this.props.page.url, categoryObject, true, this.props.currentUser.token);
         }
     });
   }
