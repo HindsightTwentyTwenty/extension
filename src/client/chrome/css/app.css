@@ -175,10 +175,9 @@ body {
   text-overflow: ellipsis;
   width: 95%;
   font-size: 15px;
-}
-
-.url:hover {
-  color: $base-white;
+  &:hover {
+    color: $base-white;
+  }
 }
 
 .url-categories{
@@ -251,11 +250,10 @@ body {
   margin-right: 5px;
   margin-left: 5px;
   height: 27px;
-}
-
-#back-botton:hover {
-    background: red;
-    color: red;
+  &:hover {
+      background: red;
+      color: red;
+  }
 }
 
 .side-bar-container{
@@ -521,7 +519,6 @@ start-time-label .end-time-label{
   float: left;
 }
 
-
 .nav-bar-button {
   border: none;
   background-color: $electric-blue;
@@ -531,10 +528,11 @@ start-time-label .end-time-label{
   font-size: medium;
   padding: 0px;
   outline: none;
+  &:hover {
+    color: $base-white;
+  }
 }
-.nav-bar-button:hover {
-  color: $base-white;
-}
+
 .nav-bar-button-selected {
   color: $base-white;
   border-bottom: solid $base-white 1px;
@@ -721,10 +719,6 @@ start-time-label .end-time-label{
   margin: 20px 40%;
 }
 
-.star-display{
-  margin-top: 10px;
-}
-
 .display-view {
   width:50%;
   margin: 0 auto;
@@ -754,45 +748,6 @@ start-time-label .end-time-label{
 
 .watermelon-border {
   border: solid 2px $watermelon;
-}
-
-.canteloupe {
-  background-color: $canteloupe;
-  color: white;
-  &:hover {
-    border: $canteloupe-dark;
-    background-color: $canteloupe-dark;
-  }
-}
-
-.canteloupe-border {
-  border: solid 2px $canteloupe;
-}
-
-.lime {
-  background-color: $lime;
-  color: white;
-  &:hover {
-    border: $lime-dark;
-    background-color: $lime-dark;
-  }
-}
-
-.lime-border {
-  border: solid 2px $lime;
-}
-
-.banana {
-  background-color: $banana;
-  color: white;
-  &:hover {
-    border: $banana-dark;
-    background-color: $banana-dark;
-  }
-}
-
-.banana-border {
-  border: solid 2px $banana;
 }
 
 .electric-blue {
@@ -1139,11 +1094,10 @@ hr{
 
 .page-number-selected {
   color:black;
-}
-
-.page-number-selected:hover {
-  text-decoration: none !important;
-  cursor: default !important;
+  &:hover {
+    text-decoration: none !important;
+    cursor: default !important;
+  }
 }
 
 #results-displayed-message {
@@ -1160,10 +1114,9 @@ hr{
 .go-to-site-btn{
   text-decoration: none;
   margin-left: 5%;
-}
-
-.go-to-site-btn:hover{
-  color: $canteloupe-dark;
+  &:hover {
+    color: $canteloupe-dark;
+  }
 }
 
 #iframe-title{
@@ -1207,14 +1160,12 @@ hr{
 .account-button {
   margin: 1px 1px;
   background-color: $electric-blue;
-}
-
-.account-button:hover {
+  &:hover {
   background-color: $electric-blue-dark;
-}
-
-.account-button:focus {
-  background-color: $electric-blue;
+  }
+  &:focus {
+    background-color: $electric-blue;
+  }
 }
 
 #domain-modal{
@@ -1229,8 +1180,6 @@ hr{
   font-size: small;
   background-color:rgba(229, 238, 252, .9);
 }
-
-
 
 .domain-details{
   display: flex;
