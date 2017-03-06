@@ -8,6 +8,10 @@ $base-white: #FAFAFA;
 $watermelon-dark: #F95339;
 $canteloupe-dark: #F68828;
 
+.html {
+  height: auto;
+}
+
 .popup-content {
    width:400px;
    max-height: 300px;
@@ -36,9 +40,7 @@ $canteloupe-dark: #F68828;
 .forgot-password-text{
   text-align: center;
   width: 70%;
-  margin: 0 auto;
-  margin-top: 6%;
-  margin-bottom: 3%
+  margin: 20px auto;
 }
 
 .popup-main-form h2 {
@@ -46,6 +48,10 @@ $canteloupe-dark: #F68828;
   margin-top: 0;
 }
 
+.popup-body p{
+  margin: 2px 10px;
+  text-align: center;
+}
 
 .popup-page-title {
   width: 90%;
@@ -211,6 +217,28 @@ $canteloupe-dark: #F68828;
   display: flex;
 }
 
+.paginate-cats {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.change-page-btn {
+  margin: auto;
+}
+
+.categories-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 335px;
+}
+
+.colors-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .popup-form-entry {
   margin: 0 auto;
   width: 89%;
@@ -257,7 +285,6 @@ $canteloupe-dark: #F68828;
     color: $watermelon;
   }
 }
-
 
 .session-btn {
   width: auto;

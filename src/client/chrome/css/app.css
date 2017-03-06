@@ -43,7 +43,8 @@ body {
 }
 
 .page-url-bar {
-  height: 60px;
+  min-width: 400px;
+  height: 70px;
   line-height: 35px;
   margin: 5px auto;
   border-radius: 3px;
@@ -70,8 +71,27 @@ body {
   margin: 0;
 }
 
+.url-bar-form {
+  border: none;
+  width: 100px;
+  margin: auto;
+  height: 30px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0px;
+  color: $base-white;
+  background-color: $electric-blue-dark;
+  &:focus{
+    box-shadow: none;
+    &::-webkit-input-placeholder {
+      color: $banana;
+    }
+  }
+  &::-webkit-input-placeholder {
+    color: $base-white;
+  }
+}
 
-//WC TODO: change css of blacklist bar and url bar to common component?
 .blacklist-bar {
   height: 40px;
   line-height: 40px;
@@ -97,17 +117,37 @@ body {
   justify-content: space-between;
 }
 
+.url-bar-add-category {
+  background-color: $electric-blue-dark;
+  color: $base-white;
+  border-radius: 2px;
+  padding: 0 10px;
+  height: 30px;
+  margin: 0;
+  line-height: 30px;
+}
+
 .url-bar-category {
   color: $base-white;
   float: left;
-  background-color: $canteloupe;
+  border-radius: 2px;
   padding: 0 10px;
   height: 30px;
-  border-radius: 2px;
   margin: 5px;
   display: flex;
   justify-content: space-between;
   line-height: 30px;
+}
+
+.url-bar-category-thin {
+  color: $base-white;
+  border-radius: 2px;
+  padding: 0 5px;
+  height: 25px;
+  margin: 3px 7px 2px 0px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 25px;
 }
 
 .bar-category{
@@ -115,13 +155,17 @@ body {
   max-width: 150px;
 }
 
-.url-bar-category-times {
+.url-bar-category-button {
   display: inline;
   position: relative;
   padding-left: 10px;
 }
-.url-bar-category-times:hover{
+.url-bar-category-button:hover{
   color: $watermelon;
+}
+
+.url-bar-input{
+  display: inline-flex;
 }
 
 .url{
@@ -143,6 +187,20 @@ body {
   overflow: auto;
   margin-right: 1%;
   width: 45%;
+}
+
+.url-categories-col {
+  display: flex;
+  float:right;
+  flex-flow: column;
+  height: 100%;
+  width: 45%;
+}
+
+.url-bar-categories {
+  display: inline-flex;
+  overflow: auto;
+  flex-direction: row;
 }
 
 .lookback-container{
@@ -786,12 +844,6 @@ hr{
   }
 }
 
-.categories-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .side-bar-buttons {
   width: 40px;
   justify-content: space-between;
@@ -801,8 +853,19 @@ hr{
   height:45px;
   line-height: 55px;
   width: 45px;
-  color: black;
+  color: $banana;
   margin-left: 1%;
+  &:hover{
+    color: $banana;
+  }
+}
+
+.url-bar-star-div{
+  height:30px;
+  line-height: 30px;
+  width: 30px;
+  color: $banana;
+  margin: 2px 0 0 5px;
   &:hover{
     color: $banana;
   }

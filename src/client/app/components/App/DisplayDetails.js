@@ -3,11 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
-import CategoriesDisplay from './CategoriesDisplay.js'
 import DomainDisplay from './DomainDisplay.js'
-import Star from '../Star/Star.js';
-import CategoriesContainer from '../Popup/CategoriesContainer';
-import CategoryEntry from '../Popup/CategoryEntry.js'
 const Timestamp = require('react-timestamp');
 class DisplayDetails extends Component {
 

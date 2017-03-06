@@ -70,12 +70,9 @@ class Search extends Component {
 
   getCategoryOptions() {
     var options = [{ value: "", label: "Any Category", }];
-
-    this.props.categories.cats.map(function(category) {
-      console.log("adding cat:", category);
-      options.push({ value: category.title, label: category.title })
+    (Object.keys(this.props.categories.cats)).map(function(pk) {
+      options.push({ value: this.props.categories.cats[pk].title, label: this.props.categories.cats[pk].title })
     });
-
     return options;
   }
 

@@ -7,7 +7,9 @@ import * as GlobalConstants from '../../constants/GlobalConstants.js';
 
 function getState(){
   return{
-    editColor:""
+    editColor:"",
+    confirmDelete: false,
+    editCat: false
   }
 }
 
@@ -15,9 +17,10 @@ class SidebarCategoryBar extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState();
   }
 
-  componentWillReceiveProps() {
+  componentWillMount() {
     this.setState({
       editColor:this.props.categoryInfo.color
     })
@@ -28,7 +31,6 @@ class SidebarCategoryBar extends Component {
     var categoryColor = this.props.categoryInfo.color;
     var checkedTitleStyle = this.props.checked ? {"color" : categoryColor, "fontWeight" : "bold"} : {};
     var checkedBoxStyle = this.props.checked ? {"backgroundColor" : categoryColor, "opacity" : "1"} : {"backgroundColor" : categoryColor, "opacity" : "0.5"};
-    var editCategory = this.props.categories.editCategory;
     var barClassName = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
     return (
       <div className={barClassName}>
@@ -43,10 +45,10 @@ class SidebarCategoryBar extends Component {
           </div>
         </div>
         <div className='side-bar-buttons'>
-          <a onClick={() => {this.props.category_actions.toggleEditCategory(categoryTitle);}}>
+          <a onClick={() => {this.toggleEditStatus(true);}}>
             <i className='fa fa-pencil left-sidebar-button'/>
           </a>
-          <a onClick={() => {this.props.category_actions.toggleDeleteCategory(categoryTitle);}}>
+          <a onClick={() => {this.toggleDeleteStatus(true)}}>
             <i className='fa fa-trash right-sidebar-button'/>
           </a>
         </div>
@@ -65,12 +67,12 @@ class SidebarCategoryBar extends Component {
         <div className='side-bar-buttons'>
           <a onClick={() => {
             this.props.category_actions.updateSearchCategory(categoryTitle, false);
-            this.props.category_actions.deleteCategory(categoryTitle, userToken);
+            this.props.category_actions.deleteCategory(this.props.categoryInfo.pk, categoryTitle, userToken);
           }}>
             <i className='fa fa-check left-sidebar-button'/>
           </a>
           <a onClick={() => {
-            this.props.category_actions.toggleDeleteCategory('');
+            this.toggleDeleteStatus(false);
           }}>
             <i className='fa fa-times right-sidebar-button'/>
           </a>
@@ -85,6 +87,18 @@ class SidebarCategoryBar extends Component {
       onClick={this.changeEditColor.bind(this, color.code)}
       style={{"backgroundColor" : color.code}}
       key={color.name}></div>
+    });
+  }
+
+  toggleDeleteStatus(deleteStatus) {
+    this.setState({
+      confirmDelete: deleteStatus
+    });
+  }
+
+  toggleEditStatus(editStatus) {
+    this.setState({
+      editCat: editStatus
     });
   }
 
@@ -111,25 +125,25 @@ class SidebarCategoryBar extends Component {
             <a onClick={() => {
               var input = this.input.value.trim();
               var categoriesSet = new Set();
-              this.props.categories.cats.map(function(category) {
-                categoriesSet.add(category.title);
-              })
+              (Object.keys(this.props.categories.cats)).map(function(pk) {
+                categoriesSet.add(this.props.categories.cats[pk].title);
+              }, this);
               if (input == categoryTitle && this.props.categoryInfo.color == this.state.editColor) {
-                this.props.category_actions.toggleEditCategory('');
+                this.toggleEditStatus(false);
               } else if (input == categoryTitle && this.props.categoryInfo.color != this.state.editColor) {
-                this.props.category_actions.editCategory(categoryTitle, input, this.state.editColor, userToken);
-                this.props.category_actions.toggleEditCategory('');
+                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
+                this.toggleEditStatus(false);
               } else if (categoriesSet.has(input)) {
                 alert("Category name already exists!");
               } else {
-                this.props.category_actions.editCategory(categoryTitle, input, this.state.editColor, userToken);
-                this.props.category_actions.toggleEditCategory('');
+                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
+                this.toggleEditStatus(false);
               }
             }}>
               <i className='fa fa-check left-sidebar-button'/>
             </a>
             <a onClick={() => {
-              this.props.category_actions.toggleEditCategory('');
+              this.toggleEditStatus(false);
             }}>
               <i className='fa fa-times right-sidebar-button'/>
             </a>
@@ -143,11 +157,9 @@ class SidebarCategoryBar extends Component {
   }
 
   render() {
-    var editCat = this.props.categories.editCategory == this.props.categoryInfo.title ? true : false;
-    var deleteCat = this.props.categories.confirmDelete == this.props.categoryInfo.title ? true : false;
-    if (editCat) {
+    if (this.state.editCat) {
       return this.getEditCategory();
-    } else if (deleteCat) {
+    } else if (this.state.confirmDelete) {
       return this.getDeleteCategory();
     } else {
       return this.getCategoryTitle();
