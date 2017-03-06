@@ -844,21 +844,6 @@ hr{
   }
 }
 
-.categories-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 335px;
-  height: 135px;
-}
-
-.colors-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  height: 135px; 
-}
-
 .side-bar-buttons {
   width: 40px;
   justify-content: space-between;

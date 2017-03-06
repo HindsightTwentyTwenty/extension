@@ -27,13 +27,20 @@ class CategoriesContainer extends Component {
     })
   }
 
+  componentWillUpdate() {
+    if(this.state.startIndex + GlobalConstants.MAX_DISPLAY_CATS >= this.props.numCats
+      && this.state.endIndex != this.props.numCats){
+      this.setState({endIndex: this.props.numCats});
+    }
+  }
+
   getCategoryBar(category, checked) {
     return <CategoryBar categoryInfo={category} checked={checked} key={category.title}/>;
   }
 
   getCategories() {
     var categories = this.props.categories.cats;
-    if (categories != null && Object.keys(categories).length) {
+    if (categories != null && this.props.numCats) {
       let result = []
       var currentPageCategories = this.props.currentPage.categories;
       for(var key in categories) {
@@ -45,42 +52,44 @@ class CategoriesContainer extends Component {
   }
 
   incrementPage(){
-    if (this.props.numCats > this.state.endIndex + 1) {
-      var newStartIndex = this.state.endIndex + 1;
-      var newEndIndex = this.state.endIndex + GlobalConstants.MAX_DISPLAY_CATS + 1;
+    if (this.props.numCats > this.state.endIndex) {
+      var newStartIndex = this.state.endIndex;
+      var newEndIndex = this.state.endIndex + GlobalConstants.MAX_DISPLAY_CATS;
       if (newEndIndex > this.props.numCats) {
         newEndIndex = this.props.numCats;
       }
-      console.log(newStartIndex, newEndIndex);
       this.setState({startIndex: newStartIndex, endIndex: newEndIndex});
     }
   }
 
   decrementPage(){
-    if (this.state.startIndex > 0) {
-      var newStartIndex = this.state.startIndex - GlobalConstants.MAX_DISPLAY_CATS - 1;
+    if (this.state.startIndex >= GlobalConstants.MAX_DISPLAY_CATS) {
+      var newStartIndex = this.state.startIndex - GlobalConstants.MAX_DISPLAY_CATS;
       var newEndIndex = newStartIndex + GlobalConstants.MAX_DISPLAY_CATS;
       if (newEndIndex > this.props.numCats) {
         newEndIndex = this.props.numCats;
       }
-      console.log(newStartIndex, newEndIndex);
       this.setState({startIndex: newStartIndex, endIndex: newEndIndex});
     }
   }
 
 
   render() {
+    var rightArrowClassName = this.state.startIndex == 0 ? 'fa fa-angle-left fa-3x arrow-btn' : 'fa fa-angle-left fa-3x arrow-btn';
     return (
-      <div className='paginate-cats'>
-        <div className="change-page-btn" onClick={()=> {this.decrementPage()}}>
-          <i className="fa fa-angle-left fa-3x arrow-btn" aria-hidden="true"></i>
+      <div>
+        <div className='paginate-cats'>
+          <div className='change-page-btn' onClick={()=> {this.decrementPage()}}>
+            <i className={rightArrowClassName} aria-hidden="true"></i>
+          </div>
+          <div className ='categories-container'>
+            {this.getCategories()}
+          </div>
+          <div className="change-page-btn" onClick={()=> {this.incrementPage()}}>
+            <i className="fa fa-angle-right fa-3x arrow-btn" aria-hidden="true"></i>
+          </div>
         </div>
-        <div className ='categories-container'>
-          {this.getCategories()}
-        </div>
-        <div className="change-page-btn" onClick={()=> {this.incrementPage()}}>
-          <i className="fa fa-angle-right fa-3x arrow-btn" aria-hidden="true"></i>
-        </div>
+        <p>Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>
       </div>
     )
   };
