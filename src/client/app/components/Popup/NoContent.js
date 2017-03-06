@@ -12,11 +12,12 @@ class NoContent extends Component {
 
   render () {
     return (
-      <div className="container popup-body electric-blue">
-        <PopupHeader/>
-        <div className="error-message">
-          <h4> hindsite can only be used on pages with urls beginning with http:// or https://</h4>
-          <h5> Please navigate to another page. </h5>
+      <div className="popup-body electric-blue">
+        <div id="popup-error">
+          <i className="fa fa-exclamation-triangle" id="fa-error" aria-hidden="true"></i>
+          <p className="popup-header-text zero-margin">hindsite</p>
+          <p>is only meant for pages with urls beginning with http:// or https://. Please navigate to another page or </p>
+          <p id="go-to-link">go to timeline.</p>
         </div>
       </div>
     )

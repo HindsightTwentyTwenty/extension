@@ -1,6 +1,6 @@
 var closed = false;
 var token = "";
-var url = 'https://hindsite-develop.herokuapp.com/';
+var url = 'https://hindsite2020.herokuapp.com/';
 
 var tabAlarmName = 'tabAlarm';
 

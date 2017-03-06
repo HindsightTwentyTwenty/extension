@@ -70,8 +70,8 @@ class LookBackNavBar extends Component {
                 onClick={() => {
                   this.switchLookBackSelection(LookBackSections.LookBack);
                 }}>
-                <img className="logo header zero-margin"  src="../../assets/img/logo-light.png"/>
-                <p className="popup-header-text zero-margin">hindsite</p>
+                <img className="logo site-logo"  src="../../assets/img/logo-light.png"/>
+                <p className="popup-header-text">hindsite</p>
               </div>
           </div>
       </div>

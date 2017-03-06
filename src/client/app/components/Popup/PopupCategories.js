@@ -19,8 +19,8 @@ class PopupCategories extends Component {
     if (this.props.categories.showColorPicker) {
       return <ColorPicker/>;
     }
-    else if (this.props.categories.cats) {
-      return <CategoriesContainer/>;
+    else if (Object.keys(this.props.categories.cats).length) {
+      return <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length}/>;
     }
   }
 

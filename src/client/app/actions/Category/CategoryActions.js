@@ -2,12 +2,34 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
+const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const categoriesAndPagesEndpoint = urls.BASE_URL + "getcategories/";
 const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
 const editCategoryEndpoint = urls.BASE_URL + "editcategory/";
+
+export function pushCategory(category, color, token){
+  return dispatch => {
+    return fetch(addCategoryEndpoint, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': 'Token ' + token
+             },
+             method: "POST",
+             body: JSON.stringify({category: category, color: color})
+           }
+      )
+      .then(response => response.json())
+      .then(json => dispatch({
+        type: types.RECEIVE_PUSH_CATEGORY,
+        category_added: json
+      })
+    )
+  }
+}
 
 export function fetchCategories(token){
   return dispatch => {
@@ -73,11 +95,11 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
 }
 
 //TODO: WC talked with GM about receiving confirmation from backend before deleting from frontend
-export function deleteCategory(title, token) {
+export function deleteCategory(pk, title, token) {
   return dispatch => {
     dispatch({
       type: types.DELETE_CATEGORY,
-      categoryTitle: title
+      pk: pk
     })
     return fetch(deleteCategoryEndpoint, {
       headers: {
@@ -91,12 +113,12 @@ export function deleteCategory(title, token) {
   }
 }
 
-export function editCategory(oldTitle, updatedTitle, updatedColor, token) {
+export function editCategory(pk, oldTitle, updatedTitle, updatedColor, token) {
   return dispatch => {
     dispatch({
       type: types.UPDATE_CATEGORY,
-      old: oldTitle,
-      updated: updatedTitle,
+      pk: pk,
+      title: updatedTitle,
       color: updatedColor
     })
     return fetch(editCategoryEndpoint, {
@@ -107,15 +129,6 @@ export function editCategory(oldTitle, updatedTitle, updatedColor, token) {
       },
       method: "POST",
       body: JSON.stringify({old: oldTitle, updated: updatedTitle, color: updatedColor})
-    })
-  }
-}
-
-export function toggleEditCategory(categoryTitle) {
-  return dispatch => {
-    dispatch({
-      type: types.TOGGLE_EDIT_CATEGORY,
-      editCategory: categoryTitle
     })
   }
 }
@@ -160,15 +173,6 @@ export function setEditCatColor(color) {
     dispatch({
       type: types.SET_EDIT_CAT_COLOR,
       color: color
-    })
-  }
-}
-
-export function toggleDeleteCategory(category) {
-  return dispatch => {
-    dispatch({
-      type: types.CONFIRM_DELETE,
-      categoryTitle: category
     })
   }
 }

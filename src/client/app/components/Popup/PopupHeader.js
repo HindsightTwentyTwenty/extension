@@ -28,10 +28,12 @@ class PopupHeader extends Component {
     return (
       <div className="popup-header-wrapper">
         <div className="popup-header" onMouseDown={()=>{this.openTab()}}>
-          <img className="logo header zero-margin"  src="../../assets/img/logo-light.png"/>
-          <p className="popup-header-text zero-margin">hindsite</p>
+            <img className="header-height logo zero-margin"  src="../../assets/img/logo-light.png"/>
+            <div id="logo-text-wrap">
+              <p className="header-height popup-header-text">hindsite</p>
+              <p id="go-to-timeline"> go to timeline</p>
+            </div>
         </div>
-        <p className="sign-out" onMouseDown={()=>{this.logoutUser()}}>Sign Out</p>
       </div>
     )
   }
