@@ -53,7 +53,7 @@ body {
   padding: 6px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .bar-text-col{
@@ -64,7 +64,7 @@ body {
   color: $base-white;
   font-size: 12px;
   line-height: 15px;
-  width: 45%;
+  width: 50%;
 }
 
 .bar-text-col p{
@@ -175,10 +175,9 @@ body {
   text-overflow: ellipsis;
   width: 95%;
   font-size: 15px;
-}
-
-.url:hover {
-  color: $base-white;
+  &:hover {
+    color: $base-white;
+  }
 }
 
 .url-categories{
@@ -251,11 +250,10 @@ body {
   margin-right: 5px;
   margin-left: 5px;
   height: 27px;
-}
-
-#back-botton:hover {
-    background: red;
-    color: red;
+  &:hover {
+      background: red;
+      color: red;
+  }
 }
 
 .side-bar-container{
@@ -521,7 +519,6 @@ start-time-label .end-time-label{
   float: left;
 }
 
-
 .nav-bar-button {
   border: none;
   background-color: $electric-blue;
@@ -531,10 +528,11 @@ start-time-label .end-time-label{
   font-size: medium;
   padding: 0px;
   outline: none;
+  &:hover {
+    color: $base-white;
+  }
 }
-.nav-bar-button:hover {
-  color: $base-white;
-}
+
 .nav-bar-button-selected {
   color: $base-white;
   border-bottom: solid $base-white 1px;
@@ -545,10 +543,6 @@ start-time-label .end-time-label{
   display: block;
   color: $canteloupe;
   font-weight: bold;
-}
-
-.checkbox {
-  text-align: center;
 }
 
 .nav-bar-container {
@@ -625,6 +619,13 @@ start-time-label .end-time-label{
   width: 50%;
 }
 
+.welcome-message {
+  text-align: center;
+  margin: auto;
+  top: 40%;
+  position: relative;
+}
+
 .hidden {
   display:none;
 }
@@ -664,7 +665,6 @@ start-time-label .end-time-label{
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
-  cursor: pointer;
 }
 
 .color-square-small {
@@ -694,6 +694,7 @@ start-time-label .end-time-label{
   height: 30px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   &.checked {
     background-color: whitesmoke;
   }
@@ -716,10 +717,6 @@ start-time-label .end-time-label{
 #loading_page {
   display: table;
   margin: 20px 40%;
-}
-
-.star-display{
-  margin-top: 10px;
 }
 
 .display-view {
@@ -751,45 +748,6 @@ start-time-label .end-time-label{
 
 .watermelon-border {
   border: solid 2px $watermelon;
-}
-
-.canteloupe {
-  background-color: $canteloupe;
-  color: white;
-  &:hover {
-    border: $canteloupe-dark;
-    background-color: $canteloupe-dark;
-  }
-}
-
-.canteloupe-border {
-  border: solid 2px $canteloupe;
-}
-
-.lime {
-  background-color: $lime;
-  color: white;
-  &:hover {
-    border: $lime-dark;
-    background-color: $lime-dark;
-  }
-}
-
-.lime-border {
-  border: solid 2px $lime;
-}
-
-.banana {
-  background-color: $banana;
-  color: white;
-  &:hover {
-    border: $banana-dark;
-    background-color: $banana-dark;
-  }
-}
-
-.banana-border {
-  border: solid 2px $banana;
 }
 
 .electric-blue {
@@ -1055,6 +1013,7 @@ hr{
 .iframe-open-button{
   background: none;
   color: black;
+  margin: 5px;
   font-size: x-large;
   border: none;
   outline: none;
@@ -1085,6 +1044,7 @@ hr{
   width: 7%;
   display: flex;
   margin-left: 1%;
+  justify-content: space-between;
 }
 
 .iframe-msg-box{
@@ -1134,11 +1094,10 @@ hr{
 
 .page-number-selected {
   color:black;
-}
-
-.page-number-selected:hover {
-  text-decoration: none !important;
-  cursor: default !important;
+  &:hover {
+    text-decoration: none !important;
+    cursor: default !important;
+  }
 }
 
 #results-displayed-message {
@@ -1155,10 +1114,9 @@ hr{
 .go-to-site-btn{
   text-decoration: none;
   margin-left: 5%;
-}
-
-.go-to-site-btn:hover{
-  color: $canteloupe-dark;
+  &:hover {
+    color: $canteloupe-dark;
+  }
 }
 
 #iframe-title{
@@ -1202,14 +1160,12 @@ hr{
 .account-button {
   margin: 1px 1px;
   background-color: $electric-blue;
-}
-
-.account-button:hover {
+  &:hover {
   background-color: $electric-blue-dark;
-}
-
-.account-button:focus {
-  background-color: $electric-blue;
+  }
+  &:focus {
+    background-color: $electric-blue;
+  }
 }
 
 #domain-modal{
@@ -1224,8 +1180,6 @@ hr{
   font-size: small;
   background-color:rgba(229, 238, 252, .9);
 }
-
-
 
 .domain-details{
   display: flex;
