@@ -25,6 +25,11 @@ class PageUrlBar extends Component {
     this.state = getState();
   }
 
+  componentWillMount() {
+    /* reset the iframe box to a loading page until async call for decryption is made */
+    this.props.iframe_actions.receiveDecrypted("loading");
+  }
+
   getCategories() {
     if (this.props.page.categories) {
       return this.props.page.categories.map((category) => {
@@ -41,6 +46,7 @@ class PageUrlBar extends Component {
   }
 
   openIframe(event){
+    this.getDom();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
   }
@@ -48,30 +54,35 @@ class PageUrlBar extends Component {
   closeIframe(event){
     this.setState({ iframehider_show: false });
     this.setState({ iframe_show: false });
+    this.props.iframe_actions.receiveDecrypted("loading");
+
+  }
+
+  /* async get the dom from s3 with decryption */
+  getDom(){
+    if(this.props.origin == "search" ){
+      this.props.iframe_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+    }else{
+      this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+    }
   }
 
   getIframe(){
-    //GAM: DONT DELETE- LOADING PAGE INTERFACE
-    // if(this.props.search_items.dom == "loading"){
-    //   return(<div className="iframe-msg-box">
-    //     <Loading/>
-    //   </div>
-    //   )
-    // }
-      if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
+    /* if the decryption hasn't finished yet, show loading */
+    if(this.props.currentPage.s3_decrypted == "loading"){
+      return(<div className="iframe-msg-box">
+        <Loading/>
+      </div>
+      )
+    }
+    /* if this page has no s3 page */
+    if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
       return(<div className="iframe-msg-box">
         <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
       )
     }else{
-      if(this.props.origin == "search" ){
-        return(<iframe className="m-iframe" src={this.props.s3}></iframe>)
-      }else{
-        console.log("trying!, with urL:", this.props.page.s3);
-        this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
-
-        //return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
-      }
+        return(<iframe className="m-iframe" srcDoc={this.props.currentPage.s3_decrypted}></iframe>)
     }
   }
 

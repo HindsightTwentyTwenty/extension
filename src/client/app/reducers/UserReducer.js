@@ -12,9 +12,6 @@ function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"
 
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
-      console.log(action);
-      console.log("md5", action.md5);
-      console.log("ekey", action.ekey);
       chrome.storage.local.set({"hindsite-token": action.token, "md5":action.md5, "ekey":action.ekey});
       return { ...state, user_name:action.user_name, token:action.token, md5:action.md5, ekey:action.ekey}
     case types.USER_ERROR:

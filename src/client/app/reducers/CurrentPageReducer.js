@@ -50,6 +50,9 @@ const pageInfo = (state, action) => {
 
 function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
   switch(action.type){
+    /* get decrypted page from s3 */
+    case types.RECEIVE_DECRYPTED:
+      return {...state, s3_decrypted:action.html}
     case types.RECEIVE_PAGE_INFO:
     case types.UPDATE_CURRENT_STAR:
     case types.ADD_PAGE_CATEGORY:
