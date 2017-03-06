@@ -43,8 +43,8 @@ body {
 }
 
 .page-url-bar {
-  min-width: 400px;
-  height: 70px;
+  min-width: 500px;
+  height: 75px;
   line-height: 35px;
   margin: 5px auto;
   border-radius: 3px;
@@ -664,6 +664,7 @@ start-time-label .end-time-label{
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
+  cursor: pointer;
 }
 
 .color-square-small {
