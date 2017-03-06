@@ -6,28 +6,28 @@ const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const newSessionEndpoint = urls.BASE_URL + "addsession/"
 
-export function getPageInfo(token){
-  return dispatch => {
-    return fetch(pageInfoEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': 'Token ' + token
-           },
-           method: "POST"
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch({
-        type: types.RECEIVE_PAGE_INFO,
-        categories: json.categories,
-        url: json.url,
-        star: json.star,
-        title: json.title
-      })
-    )
-  }
-}
+// export function getPageInfo(token){
+//   return dispatch => {
+//     return fetch(pageInfoEndpoint, {
+//           headers: {
+//              'Accept': 'application/json',
+//              'Content-Type': 'application/json',
+//              'Authorization': 'Token ' + token
+//            },
+//            method: "POST"
+//          }
+//        )
+//       .then(response => response.json())
+//       .then(json => dispatch({
+//         type: types.RECEIVE_PAGE_INFO,
+//         categories: json.categories,
+//         url: json.url,
+//         star: json.star,
+//         title: json.title
+//       })
+//     )
+//   }
+// }
 
 export function pushCategory(category, color, token){
   return dispatch => {

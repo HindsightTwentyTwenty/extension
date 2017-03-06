@@ -64,6 +64,12 @@ export function receiveUserTokenFromChrome(token) {
   }
 }
 
+export function setTabUrl(url){
+  return {
+
+  }
+}
+
 export function checkCurrentPage(token){
   return dispatch => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -151,33 +157,33 @@ export function logoutUser(token) {
   }
 }
 
-function receivePageInfo(json) {
-  return {
-    type: types.RECEIVE_PAGE_INFO,
-    categories: json.categories,
-    url: json.url,
-    star: json.star,
-    title: json.title
-  }
-}
+// function receivePageInfo(json) {
+//   return {
+//     type: types.RECEIVE_PAGE_INFO,
+//     categories: json.categories,
+//     url: json.url,
+//     star: json.star,
+//     title: json.title
+//   }
+// }
 
-function getPageInfo(url, token){
-
-  return dispatch => {
-    return fetch(pageInfoEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': "Token " + token
-           },
-           method: "POST",
-           body: JSON.stringify({url: url})
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch(receivePageInfo(json)))
-  }
-}
+// function getPageInfo(url, token){
+//
+//   return dispatch => {
+//     return fetch(pageInfoEndpoint, {
+//           headers: {
+//              'Accept': 'application/json',
+//              'Content-Type': 'application/json',
+//              'Authorization': "Token " + token
+//            },
+//            method: "POST",
+//            body: JSON.stringify({url: url})
+//          }
+//        )
+//       .then(response => response.json())
+//       .then(json => dispatch(receivePageInfo(json)))
+//   }
+// }
 
 export function updatePopupStatus(status){
   return {
@@ -399,6 +405,7 @@ export function getUserInfo(token){
     .then(
       ({ status, json }) => {
         if(status == 200){
+          console.log("User info", json);
           dispatch(receiveUserInfo(json))
         }
       }
