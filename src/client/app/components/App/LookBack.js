@@ -8,6 +8,8 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 import CategoryAutoSuggest from './CategoryAutoSuggest.js';
 
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import Datetime from 'react-datetime';
 import Star from '../Star/Star.js';
 const Timestamp = require('react-timestamp');
@@ -23,7 +25,8 @@ function getState() {
 		first_time_break_formatted:"",
 		second_time_break_formatted:"",
 		tabs:"",
-		timeframe:60
+		timeframe:60,
+		category_selection: "",
 	}
 }
 
@@ -172,6 +175,31 @@ class LookBack extends Component {
     }
   }
 
+	handleCategoryChange(category_object) {
+    var category = "";
+		var categories = this.props.categories.cats;
+    if(category_object){
+      category = category_object.value
+    }
+		console.log(category);
+    this.setState({category_selection: ""});
+		for (var i = categories.length-1; i >= 0; i--) {
+			if(categories[i].title == category){
+				this.props.category_actions.toggleCategory(this.props.displayPage.url, categories[i], true, this.props.currentUser.token);
+			}
+		}
+  }
+
+	getCategoryOptions() {
+    var options = [];
+
+    this.props.categories.cats.map(function(category) {
+      options.push({ value: category.title, label: category.title })
+    });
+
+    return options;
+  }
+
   render() {
 		var date = this.props.start_date;
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
@@ -185,7 +213,13 @@ class LookBack extends Component {
 				<div className='url-categories vertical-center'>
 					{this.getCategories()}
 				</div>
-				<CategoryAutoSuggest/>
+				<Select
+					name="category-select"
+					className="search-select-dropdown"
+					value={ this.state.category_selection }
+					options={ this.getCategoryOptions() }
+					onChange={ this.handleCategoryChange.bind(this) }
+				/>
 				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
 			</div>
 			: <h4>Hover for detailed page information</h4>;
@@ -277,7 +311,8 @@ let mapStateToProps = (state) => ({
     end_date:state.currentTime.end_date,
 		currentDomainDisplayed: state.currentDomainDisplayed,
 		currentUser : state.currentUser,
-		displayPage: state.currentPage
+		displayPage: state.currentPage,
+		categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {
