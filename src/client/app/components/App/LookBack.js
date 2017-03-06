@@ -6,6 +6,8 @@ import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
+import CategoryAutoSuggest from './CategoryAutoSuggest.js';
+
 import Datetime from 'react-datetime';
 import Star from '../Star/Star.js';
 const Timestamp = require('react-timestamp');
@@ -178,12 +180,12 @@ class LookBack extends Component {
 					<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
 					<div className='url-buttons vertical-center'>
 						<Star/>
-
 					</div>
 				</div>
 				<div className='url-categories vertical-center'>
 					{this.getCategories()}
 				</div>
+				<CategoryAutoSuggest/>
 				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
 			</div>
 			: <h4>Hover for detailed page information</h4>;
