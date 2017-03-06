@@ -53,7 +53,7 @@ body {
   padding: 6px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .bar-text-col{
@@ -64,7 +64,7 @@ body {
   color: $base-white;
   font-size: 12px;
   line-height: 15px;
-  width: 45%;
+  width: 50%;
 }
 
 .bar-text-col p{
@@ -664,7 +664,6 @@ start-time-label .end-time-label{
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
-  cursor: pointer;
 }
 
 .color-square-small {
@@ -694,6 +693,7 @@ start-time-label .end-time-label{
   height: 30px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   &.checked {
     background-color: whitesmoke;
   }
@@ -1055,6 +1055,7 @@ hr{
 .iframe-open-button{
   background: none;
   color: black;
+  margin: 5px;
   font-size: x-large;
   border: none;
   outline: none;
@@ -1085,6 +1086,7 @@ hr{
   width: 7%;
   display: flex;
   margin-left: 1%;
+  justify-content: space-between;
 }
 
 .iframe-msg-box{
