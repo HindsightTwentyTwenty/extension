@@ -20,7 +20,7 @@ class SidebarCategoryBar extends Component {
     this.state = getState();
   }
 
-  componentWillReceiveProps() {
+  componentWillMount() {
     this.setState({
       editColor:this.props.categoryInfo.color
     })
@@ -67,7 +67,7 @@ class SidebarCategoryBar extends Component {
         <div className='side-bar-buttons'>
           <a onClick={() => {
             this.props.category_actions.updateSearchCategory(categoryTitle, false);
-            this.props.category_actions.deleteCategory(categoryTitle, userToken);
+            this.props.category_actions.deleteCategory(this.props.categoryInfo.pk, categoryTitle, userToken);
           }}>
             <i className='fa fa-check left-sidebar-button'/>
           </a>
@@ -124,16 +124,19 @@ class SidebarCategoryBar extends Component {
           <div className='side-bar-buttons'>
             <a onClick={() => {
               var input = this.input.value.trim();
-              var categoriesSet = new Set(Object.keys(this.props.categories.cats));
+              var categoriesSet = new Set();
+              (Object.keys(this.props.categories.cats)).map(function(pk) {
+                categoriesSet.add(this.props.categories.cats[pk].title);
+              }, this);
               if (input == categoryTitle && this.props.categoryInfo.color == this.state.editColor) {
                 this.toggleEditStatus(false);
               } else if (input == categoryTitle && this.props.categoryInfo.color != this.state.editColor) {
-                this.props.category_actions.editCategory(categoryTitle, input, this.state.editColor, userToken);
+                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
                 this.toggleEditStatus(false);
               } else if (categoriesSet.has(input)) {
                 alert("Category name already exists!");
               } else {
-                this.props.category_actions.editCategory(categoryTitle, input, this.state.editColor, userToken);
+                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
                 this.toggleEditStatus(false);
               }
             }}>

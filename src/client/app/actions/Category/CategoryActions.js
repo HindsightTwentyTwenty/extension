@@ -95,11 +95,11 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
 }
 
 //TODO: WC talked with GM about receiving confirmation from backend before deleting from frontend
-export function deleteCategory(title, token) {
+export function deleteCategory(pk, title, token) {
   return dispatch => {
     dispatch({
       type: types.DELETE_CATEGORY,
-      categoryTitle: title
+      pk: pk
     })
     return fetch(deleteCategoryEndpoint, {
       headers: {
@@ -113,12 +113,12 @@ export function deleteCategory(title, token) {
   }
 }
 
-export function editCategory(oldTitle, updatedTitle, updatedColor, token) {
+export function editCategory(pk, oldTitle, updatedTitle, updatedColor, token) {
   return dispatch => {
     dispatch({
       type: types.UPDATE_CATEGORY,
-      old: oldTitle,
-      updated: updatedTitle,
+      pk: pk,
+      title: updatedTitle,
       color: updatedColor
     })
     return fetch(editCategoryEndpoint, {

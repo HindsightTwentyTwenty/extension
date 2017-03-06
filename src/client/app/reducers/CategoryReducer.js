@@ -10,34 +10,31 @@ function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAUL
       return {...state, showColorPicker: action.showColorPicker}
     case types.UPDATE_CATEGORY:
       var newCategoryList = Object.assign({}, state.cats);
-      var oldCatTitle = action.old;
-      var updatedCatTitle = action.updated;
-      var updatedColor = action.color;
-      if(newCategoryList[oldCatTitle]) {
-          newCategoryList[oldCatTitle].color = updatedColor;
-      }
-      if (newCategoryList[oldCatTitle] && updatedCatTitle != oldCatTitle) {
-        newCategoryList[updatedCatTitle] = newCategoryList[oldCatTitle];
-        delete newCategoryList[oldCatTitle];
+      var pk = action.pk;
+      var title = action.title;
+      var color = action.color;
+      if(newCategoryList[pk]) {
+          newCategoryList[pk].color = color;
+          newCategoryList[pk].title = title;
       }
       return {...state, cats: newCategoryList};
     case types.DELETE_CATEGORY:
       var newCategoryList = Object.assign({}, state.cats);
-      var deleteCat = action.categoryTitle;
-      if (newCategoryList[deleteCat]) {
-        delete newCategoryList[deleteCat];
+      var pk = action.pk;
+      if (newCategoryList[pk]) {
+        delete newCategoryList[pk];
       }
       return {...state, cats: newCategoryList};
     case types.RECEIVE_CATEGORIES:
       var categoryObject = {};
       action.categories.map(function(category) {
-        categoryObject[category.title] = category;
+        categoryObject[category.pk] = category;
       })
       return {...state, cats: categoryObject};
     case types.RECEIVE_PUSH_CATEGORY:
       var newCategoryList = Object.assign({}, state.cats);
       var newCategory = action.category_added;
-      newCategoryList[newCategory.title] = newCategory;
+      newCategoryList[newCategory.pk] = newCategory;
       return {...state, cats: newCategoryList};
     default:
       return state;

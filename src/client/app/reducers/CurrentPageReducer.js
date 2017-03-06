@@ -5,7 +5,7 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.RECEIVE_PAGE_INFO:
       var categoryObject = {};
       action.categories.map(function(category) {
-        categoryObject[category.title] = category;
+        categoryObject[category.pk] = category;
       })
       return {
         url: action.url,
@@ -19,13 +19,13 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:
       var newCategoryList = Object.assign({}, state.categories);
-      newCategoryList[action.category.title] = action.category;
+      newCategoryList[action.category.pk] = action.category;
       return {...state, categories: newCategoryList};
     case types.DELETE_PAGE_CATEGORY:
       var newCategoryList = Object.assign({}, state.categories);
-      var deleteCat = action.category.title;
-      if (newCategoryList[deleteCat]) {
-        delete newCategoryList[deleteCat];
+      var pk = action.category.pk;
+      if (newCategoryList[pk]) {
+        delete newCategoryList[pk];
       }
       return {...state, categories: newCategoryList};
     case types.SET_CURRENT_PAGE:
