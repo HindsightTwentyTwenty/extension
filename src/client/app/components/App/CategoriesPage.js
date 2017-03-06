@@ -37,7 +37,7 @@ class CategoriesPage extends Component {
       return (
         <div className="welcome-message">
           <h4>Select categories from the sidebar to see your categorized pages.</h4>
-          <h4>Use the pencil and trashcan icons to edit and delete your categories.</h4>
+          <h4>Use the <i className='fa fa-pencil'/> and <i className='fa fa-trash'/> to edit and delete your categories.</h4>
         </div>
       )
     } else if (categoriesPages && Object.keys(categoriesPages).length) {
