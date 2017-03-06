@@ -1,4 +1,6 @@
-export const BASE_URL = "https://hindsite2020.herokuapp.com/";
+//export const BASE_URL = "https://hindsite2020.herokuapp.com/";
+export const BASE_URL = "https://hindsite-develop.herokuapp.com/";
+
 export const DEFAULT_CAT_COLOR = {name: 'canteloupe', code: '#F8A055'};
 export const CAT_COLORS = [
   {name:'red grape', code:'#5A2326'},
