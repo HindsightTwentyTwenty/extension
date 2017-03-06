@@ -275,7 +275,11 @@ body {
 }
 
 .side-bar-header {
-  height: auto; 
+  height: auto;
+}
+
+.side-bar-input {
+  border: none;
 }
 
 .all-categories {
@@ -663,7 +667,7 @@ start-time-label .end-time-label{
 }
 
 .color-square-small {
-  display: inline-flex;
+  display: inline-table;
   border-radius: 3px;
   width: 18px;
   height: 18px;
