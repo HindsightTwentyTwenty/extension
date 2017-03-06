@@ -547,10 +547,6 @@ start-time-label .end-time-label{
   font-weight: bold;
 }
 
-.checkbox {
-  text-align: center;
-}
-
 .nav-bar-container {
   display: flex;
   justify-content: space-between;
@@ -623,6 +619,13 @@ start-time-label .end-time-label{
 
 .category-entry-wrapper{
   width: 50%;
+}
+
+.welcome-message {
+  text-align: center;
+  margin: auto;
+  top: 40%;
+  position: relative;
 }
 
 .hidden {

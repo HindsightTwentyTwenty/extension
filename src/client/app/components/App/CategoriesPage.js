@@ -6,11 +6,26 @@ import SidebarComponent from '../Bars/SidebarComponent.js';
 import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
+function getState(){
+  return{
+    displayWelcomeMessage: true
+  }
+}
+
 class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+  }
+
+  componentDidUpdate() {
+    if (this.props.currentSearchCategories.searchCats &&
+      this.props.currentSearchCategories.searchCats.length &&
+      this.state.displayWelcomeMessage) {
+      this.setState({displayWelcomeMessage: false});
+    }
   }
 
   fetchPages() {
@@ -18,7 +33,14 @@ class CategoriesPage extends Component {
     var categoriesPages = this.props.categoriesAndPages.catsToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
-    if (categoriesPages && Object.keys(categoriesPages).length) {
+    if (this.state.displayWelcomeMessage) {
+      return (
+        <div className="welcome-message">
+          <h4>Select categories from the sidebar to see your categorized pages.</h4>
+          <h4>Use the pencil and trashcan icons to edit and delete your categories.</h4>
+        </div>
+      )
+    } else if (categoriesPages && Object.keys(categoriesPages).length) {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
@@ -57,9 +79,8 @@ class CategoriesPage extends Component {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent button={true}/>
+        <SidebarComponent/>
         <div className="search-results-container">
-          <div className="section-title"></div>
           {searchResults}
         </div>
       </div>
