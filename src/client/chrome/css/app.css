@@ -148,7 +148,7 @@ body {
 .lookback-container{
   width: 98%;
   margin: 5px 1%;
-  height: calc(100% - 290px);
+  height: calc(100% - 260px);
   overflow: scroll;
   background-color: white;
   border:solid 1px $electric-blue;
@@ -176,7 +176,7 @@ body {
   display: flex;
   padding: 10px;
   width: 100%;
-  height: 135px;
+  height: 100px;
   background-color: $canteloupe;
   min-width: 400px;
   color: $base-white;
