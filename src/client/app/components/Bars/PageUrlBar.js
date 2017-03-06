@@ -60,25 +60,32 @@ class PageUrlBar extends Component {
 
   /* async get the dom from s3 with decryption */
   getDom(){
-    if(this.props.origin == "search" ){
-      this.props.iframe_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
-    }else{
-      this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+    /* only try to get the dom if not a 404 message */
+    if(this.props.page.s3 != "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+      if(this.props.origin == "search" ){
+        this.props.iframe_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+      }else{
+        this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+      }
     }
   }
 
   getIframe(){
-    /* if the decryption hasn't finished yet, show loading */
-    if(this.props.currentPage.s3_decrypted == "loading"){
+    if(this.props.page.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+      /* this page is not an encrypted page, so just send back link to "bad page" message */
+      return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
+    }
+    /* if this page has no s3 page */
+    else if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
       return(<div className="iframe-msg-box">
-        <Loading/>
+        <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
       )
     }
-    /* if this page has no s3 page */
-    if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
+    /* if the decryption hasn't finished yet, show loading */
+    else if(this.props.currentPage.s3_decrypted == "loading"){
       return(<div className="iframe-msg-box">
-        <div className="iframe-error">Sorry, No html available for this page.</div>
+        <Loading/>
       </div>
       )
     }else{
