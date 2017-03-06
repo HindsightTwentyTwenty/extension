@@ -632,7 +632,7 @@ start-time-label .end-time-label{
 .right-sidebar-button {
   color: $electric-blue;
   float: right;
-  margin-right: 6px;
+  margin-right: 10px;
   width: 15px;
   height: 25px;
   line-height: 25px;
@@ -846,7 +846,7 @@ hr{
 }
 
 .side-bar-buttons {
-  width: 40px;
+  width: 45px;
   justify-content: space-between;
 }
 
