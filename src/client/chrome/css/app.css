@@ -840,7 +840,7 @@ hr{
   padding: 0 6px;
   &:hover{
     font-weight: bold;
-    border: solid 2px $base-white;
+    border: solid 2px $electric-blue;
   }
 }
 
