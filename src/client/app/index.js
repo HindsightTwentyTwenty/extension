@@ -21,16 +21,16 @@ let store = createStore(
       urls: []
     },
     categories: {
-      cats: [],
+      cats: {},
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
-      showColorPicker: false,
-      confirmDelete: "",
-      editCategory: ""
+      showColorPicker: false
     },
     currentPage: {
       url: "",
       title: "",
-      categories: [],
+      created: "",
+      visited: "", 
+      categories: {},
       star: false
     },
     currentTabs:[],

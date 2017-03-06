@@ -8,6 +8,10 @@ $base-white: #FAFAFA;
 $watermelon-dark: #F95339;
 $canteloupe-dark: #F68828;
 
+.html {
+  height: auto;
+}
+
 .popup-content {
    width:400px;
    max-height: 300px;
@@ -33,35 +37,10 @@ $canteloupe-dark: #F68828;
   }
 }
 
-.sign-out{
-  color: $base-white;
-  margin: 0px;
-  margin-top: 5px;
-  font-size: small;
-  &:hover{
-    cursor: pointer;
-    color: $banana;
-    font-weight: bold;
-  }
-}
-
-.lookback-btn {
-  float: right;
-  width: 80px;
-  height: 33px;
-  color: white;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  margin-left: 37%;
-}
-
 .forgot-password-text{
   text-align: center;
   width: 70%;
-  margin: 0 auto;
-  margin-top: 6%;
-  margin-bottom: 3%
+  margin: 20px auto;
 }
 
 .popup-main-form h2 {
@@ -69,19 +48,9 @@ $canteloupe-dark: #F68828;
   margin-top: 0;
 }
 
-.popup-body h3{
-  margin-top: 10px;
-  font-size: x-large;
-}
-
-.popup-body h4{
-  font-size: medium;
-  margin-bottom: 5px;
-  color: $canteloupe;
-}
-
 .popup-body p{
   margin: 2px 10px;
+  text-align: center;
 }
 
 .popup-page-title {
@@ -91,6 +60,7 @@ $canteloupe-dark: #F68828;
   color: $base-white;
   align-items: center;
   justify-content: center;
+  text-overflow: ellipsis;
 }
 
 .popup-page-title p{
@@ -192,8 +162,8 @@ $canteloupe-dark: #F68828;
   margin-top: 3%;
 }
 
-.header{
-  height: 25px;
+.header-height{
+  height: 30px;
 }
 
 .electric-blue{
@@ -205,17 +175,18 @@ $canteloupe-dark: #F68828;
 }
 
 .popup-header-text{
-  font-size: xx-large;
+  font-size: 30px;
   margin-left: 2%;
   color: $banana;
   font-family: 'Poiret One', cursive;
+  height: 35px;
 }
 
 .popup-header-wrapper{
   width: inherit;
-  height: 45px;
+  height: 55px;
   display: flex;
-  padding: 0 15px;
+  padding: 0 7px;
   align-items: center;
   background-color: $electric-blue-dark;
   justify-content: space-between;
@@ -246,6 +217,28 @@ $canteloupe-dark: #F68828;
   display: flex;
 }
 
+.paginate-cats {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.change-page-btn {
+  margin: auto;
+}
+
+.categories-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 335px;
+}
+
+.colors-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .popup-form-entry {
   margin: 0 auto;
   width: 89%;
@@ -272,6 +265,11 @@ $canteloupe-dark: #F68828;
   padding-top: 3px;
 }
 
+.site-logo{
+    height: 30px;
+    margin-top: 15%;
+}
+
 .duration-btn {
   width: auto;
   padding: 3px 5px;
@@ -287,7 +285,6 @@ $canteloupe-dark: #F68828;
     color: $watermelon;
   }
 }
-
 
 .session-btn {
   width: auto;
@@ -310,4 +307,35 @@ $canteloupe-dark: #F68828;
   position: absolute;
   top: 40%;
   left:5%;
+}
+
+#popup-error{
+  padding: 2%;
+  text-align: center;
+  font-size: 15px;
+}
+
+#fa-error{
+  font-size: xx-large;
+  margin: 3%;
+  color: $watermelon;
+}
+
+#logo-text-wrap{
+  display: flex;
+  flex-direction: column;
+}
+
+#go-to-timeline{
+  margin-left: 3px;
+  margin-top: 0px;
+  padding-bottom: 5px;
+}
+
+#go-to-link{
+  color: $banana;
+  &:hover{
+    color: $watermelon;
+    cursor: pointer;
+  }
 }

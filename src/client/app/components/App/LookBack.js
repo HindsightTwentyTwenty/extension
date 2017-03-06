@@ -42,12 +42,18 @@ const marks = {
   15: '4 hr'
 };
 
-class LookBack extends Component {
 
+
+class LookBack extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
   }
+
+	componentWillMount(){
+		/* refreshes and pulls tabs into the timeline every 5 miuntes */
+		var intervalId = setInterval(this.jumpToNow.bind(this), 300000);
+	}
 
   componentWillReceiveProps(props) {
 		var start_date = Datetime.moment(this.props.start_date);
@@ -154,7 +160,7 @@ class LookBack extends Component {
       return this.props.displayPage.categories.map((category) => {
         return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
-            <div className='url-bar-category-times' onClick={()=>{
+            <div className='url-bar-category-button' onClick={()=>{
                 this.props.category_actions.toggleCategory(this.props.displayPage.url, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
