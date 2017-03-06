@@ -175,12 +175,10 @@ class LookBack extends Component {
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
 		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.displayPage.url != "") ? <div className="page-details">
 				<div className="row flex-row">
-				<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
-				<div className='url-buttons vertical-center'>
-					<Star/>
-					<button className="iframe-open-button">
-						<i className="fa fa-eye" aria-hidden="true"></i>
-					</button>
+					<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
+					<div className='url-buttons vertical-center'>
+						<Star/>
+
 					</div>
 				</div>
 				<div className='url-categories vertical-center'>
