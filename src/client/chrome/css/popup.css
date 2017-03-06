@@ -246,6 +246,15 @@ $canteloupe-dark: #F68828;
   display: flex;
 }
 
+.paginate-cats {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.change-page-btn {
+  margin: auto; 
+}
+
 .popup-form-entry {
   margin: 0 auto;
   width: 89%;

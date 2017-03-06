@@ -1,4 +1,5 @@
 export const BASE_URL = "https://hindsite2020.herokuapp.com/";
+export const MAX_DISPLAY_CATS = 9; 
 export const DEFAULT_CAT_COLOR = {name: 'canteloupe', code: '#F8A055'};
 export const CAT_COLORS = [
   {name:'red grape', code:'#5A2326'},
