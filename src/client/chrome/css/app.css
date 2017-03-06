@@ -1,5 +1,4 @@
 @import url("./daterangepicker.css");
-/*@import url("~react-select/dist/react-select.css");*/
 
 $banana: #FFDB5C;
 $banana-dark: #F9D34A;
@@ -16,6 +15,7 @@ $base-white: #FAFAFA;
 $bar-height: 40px;
 $modal-background: #e5eefc;
 $hover-color: #F68828;
+$timeline-active-color: #123654;
 
 body {
    width:auto;
@@ -307,12 +307,12 @@ body {
 .domain-bar{
   height: 22px;
   border: solid 1px $electric-blue;
-  color: $canteloupe;
+  color: white;
   display:inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 1px;
+  margin: 2px;
   border-radius: 2px;
   padding: 0 2px;
   position: relative;
@@ -486,11 +486,12 @@ start-time-label .end-time-label{
 }
 
 #time-break-container{
-  height:100%;
+  height:150%;
   width:100%;
   z-index:1;
   position:absolute;
   display: flex;
+  overflow-y: hidden;
 }
 
 #tabs-container{
@@ -557,6 +558,7 @@ start-time-label .end-time-label{
   display: flex;
   width: 100%;
   justify-content: flex-start;
+  min-width: 477px;
 }
 
 .search-bar {
