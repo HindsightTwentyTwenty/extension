@@ -1,6 +1,7 @@
 var closed = false;
 var token = "";
 var url = 'https://hindsite-develop.herokuapp.com/';
+
 var tabAlarmName = 'tabAlarm';
 
 chrome.alarms.create(tabAlarmName, {

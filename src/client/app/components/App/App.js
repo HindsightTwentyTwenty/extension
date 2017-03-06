@@ -16,8 +16,8 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    if(this.props.currentUser.token.length == 0){
-      chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
+    if(this.props.currentUser.token.length == 0 || this.props.currentUser.md5.length == 0 || this.props.currentUser.ekey.length == 0){
+        chrome.storage.local.get(["hindsite-token", "md5", "ekey"], this.props.user_actions.receiveFromChrome);
     }
   }
 

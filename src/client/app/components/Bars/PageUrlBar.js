@@ -6,6 +6,7 @@ import Star from '../Star/Star.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as IFrameActions from '../../actions/User/IFrameActions.js';
 import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
 
@@ -50,14 +51,14 @@ class PageUrlBar extends Component {
   }
 
   getIframe(){
-    //DONT DELETE- LOADING PAGE INTERFACE
+    //GAM: DONT DELETE- LOADING PAGE INTERFACE
     // if(this.props.search_items.dom == "loading"){
     //   return(<div className="iframe-msg-box">
     //     <Loading/>
     //   </div>
     //   )
     // }
-    if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
+      if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
       return(<div className="iframe-msg-box">
         <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
@@ -66,7 +67,10 @@ class PageUrlBar extends Component {
       if(this.props.origin == "search" ){
         return(<iframe className="m-iframe" src={this.props.s3}></iframe>)
       }else{
-        return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
+        console.log("trying!, with urL:", this.props.page.s3);
+        this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+
+        //return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
       }
     }
   }
@@ -133,7 +137,8 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch),
   star_actions: bindActionCreators(StarActions, dispatch),
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  category_actions: bindActionCreators(CategoryActions, dispatch),
+  iframe_actions: bindActionCreators(IFrameActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);

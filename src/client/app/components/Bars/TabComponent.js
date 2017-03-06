@@ -35,7 +35,7 @@ class TabComponent extends Component {
     get the width of the left buffer (represents time before the tab was opened in this
     timeframe), this is a width element on the div
   */
-  getLeftBuffer(margin) {
+  getLeftBuffer(margin, domain) {
     margin += "%";
     var bar_style = {"width" : margin};
     return <div className="tab-lt-buffer" id="left_tab_buffer" style={bar_style}></div>
@@ -45,7 +45,7 @@ class TabComponent extends Component {
     get the width of the right buffer (represents time after the tab was closed in this
     timeframe), this is a width element on the div
   */
-  getRightBuffer(margin){
+  getRightBuffer(margin, domain){
     margin += "%";
     var bar_style = {"width" : margin};
     return <div className="tab-rt-buffer" id="rt_tab_buffer" style={bar_style}></div>
@@ -192,7 +192,7 @@ class TabComponent extends Component {
           if(dIndex == 0){
             var margin = this.calculateLeftMargin(created, start_date);
             results.push(
-                this.getLeftBuffer(margin),
+                this.getLeftBuffer(margin, domains[dIndex]),
                 this.getDomainBar(domains[dIndex], width, this.props.tabs[index].tab_id)
             );
           }else{
@@ -203,7 +203,7 @@ class TabComponent extends Component {
           if(dIndex == (numDomains -1)){
             var margin = this.calculateRightMargin(closed, end_date);
             results.push(
-                this.getRightBuffer(margin)
+                this.getRightBuffer(margin, domains[dIndex])
             );
           }
 
