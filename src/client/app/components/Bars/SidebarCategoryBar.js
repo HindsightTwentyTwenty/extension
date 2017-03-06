@@ -34,13 +34,12 @@ class SidebarCategoryBar extends Component {
     var barClassName = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
     return (
       <div className={barClassName}>
-        <div className='category-info'>
+        <div className='category-info' onClick={() => {
+          this.props.category_actions.updateSearchCategory(categoryTitle, !this.props.checked);
+          }}>
           <div className='color-square-small' style={checkedBoxStyle}/>
-          <div className='category-title'
-            style={checkedTitleStyle}
-            onClick={() => {
-              this.props.category_actions.updateSearchCategory(categoryTitle, !this.props.checked);
-            }}>
+          <div className='category-title hide-overflow'
+            style={checkedTitleStyle}>
             {categoryTitle}
           </div>
         </div>

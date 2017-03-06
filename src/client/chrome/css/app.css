@@ -274,9 +274,8 @@ body {
   display: inline-block;
 }
 
-.fixed-header {
-  position: relative;
-  margin: 5px 0;
+.side-bar-header {
+  height: auto; 
 }
 
 .all-categories {
@@ -652,17 +651,15 @@ start-time-label .end-time-label{
 
 .category-info {
   display: flex;
+  width: 170px;
 }
 
 .category-title {
+  width: 130px;
   line-height: 30px;
-  display: inline-flex;
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .color-square-small {
