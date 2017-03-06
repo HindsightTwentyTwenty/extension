@@ -20,15 +20,8 @@ class SidebarComponent extends Component {
   }
 
   addNewCategory(categoryTitle){
-      this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-        for (var key in this.props.categories.cats) {
-          if (categoryTitle == this.props.categories.cats[key].title) {
-            this.props.category_actions.toggleCategory(this.props.currentPage.url,
-              this.props.categories.cats[key], true, this.props.currentUser.token);
-            break;
-          }
-        }
-    });
+    this.props.category_actions.pushCategory(categoryTitle,
+      this.state.editColor, this.props.currentUser.token);
   }
 
   keyPressed(event){
@@ -124,7 +117,13 @@ class SidebarComponent extends Component {
                 }}/>
               </div>
             </div>
-            <i className='fa fa-plus side-bar-single-button'/>
+            <i className='fa fa-plus side-bar-single-button'onClick={() => {
+              var inputValue = this.input.value.trim();
+              if (inputValue !== '') {
+                this.addNewCategory(inputValue);
+                this.input.value = '';
+              }
+            }}/>
           </div>
         </div>
         <div className='side-bar-color-picker'>
