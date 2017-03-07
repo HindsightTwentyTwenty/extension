@@ -1,9 +1,12 @@
 import * as types from '../constants/ActionTypes';
 
 function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
+  console.log("CURRENT PAGE REDUCER");
   switch(action.type){
+    case types.RECEIVE_DECRYPTED:
+      return {...state, s3_decrypted:action.html}
     case types.RECEIVE_POPUP_INFO:
-      console.log("receive popup info", action);
+      console.log("receive popup info - current page", action);
       var currentPage = action.page;
       var categoryObject = {};
       currentPage.categories.map(function(category) {
@@ -71,19 +74,23 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
   }
 }
 
-function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
-  switch(action.type){
-    /* get decrypted page from s3 */
-    case types.RECEIVE_DECRYPTED:
-      return {...state, s3_decrypted:action.html}
-    case types.RECEIVE_PAGE_INFO:
-    case types.UPDATE_CURRENT_STAR:
-    case types.ADD_PAGE_CATEGORY:
-    case types.DELETE_PAGE_CATEGORY:
-    case types.SET_CURRENT_PAGE:
-      return Object.assign({}, pageInfo(state, action));
-    default:
-      return state;
-  }
-}
+// function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
+//   console.log("CURRENT PAGE REDUCER OUTER CHECK", action);
+//   console.log("action", action.type, "types.", types.RECEIVE_PAGE_INFO, "IF they equal", action.type == types.RECEIVE_PAGE_INFO);
+//   switch(action.type){
+//     /* get decrypted page from s3 */
+//     case types.RECEIVE_DECRYPTED:
+//       return {...state, s3_decrypted:action.html}
+//     case types.RECEIVE_PAGE_INFO:
+//     case types.UPDATE_CURRENT_STAR:
+//     case types.ADD_PAGE_CATEGORY:
+//     case types.DELETE_PAGE_CATEGORY:
+//     case types.RECEIVE_POPUP_INFO:
+//     case types.SET_CURRENT_PAGE:
+//       return Object.assign({}, pageInfo(state, action));
+//     default:
+//       console.log("default");
+//       return state;
+//   }
+// }
 export default currentPageReducer;

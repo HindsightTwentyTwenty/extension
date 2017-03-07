@@ -125,6 +125,8 @@ class PageUrlBar extends Component {
   }
 
   getIframe(){
+    console.log("props:", this.props);
+    console.log("current page", this.props.currentPage);
     if(this.props.page.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
       /* this page is not an encrypted page, so just send back link to "bad page" message */
       return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)

@@ -1,10 +1,12 @@
 import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
-import fetch from 'isomorphic-fetch'
-import * as PasswordConstants from '../../constants/PasswordConstants.js'
-import * as PopupConstants from '../../constants/PopupConstants.js'
-import * as Url from '../../constants/UrlBlacklist.js'
-import ApiUtils from './../ApiUtils.js'
+import fetch from 'isomorphic-fetch';
+import * as PasswordConstants from '../../constants/PasswordConstants.js';
+import * as PopupConstants from '../../constants/PopupConstants.js';
+import * as Url from '../../constants/UrlBlacklist.js';
+import ApiUtils from './../ApiUtils.js';
+
+import * as PopupActions from '../Popup/PopupActions.js';
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
@@ -83,7 +85,8 @@ export function checkCurrentPage(token){
 
       } else {
         // fetch category information to display in the popup
-        return dispatch(getPageInformation(tab.url, token, 0))
+        // return dispatch(getPageInformation(tab.url, token, 0))
+        return dispatch(PopupActions.getPopupInfo(tab.url, token))
       }
 
     });
