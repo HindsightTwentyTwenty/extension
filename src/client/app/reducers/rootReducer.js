@@ -11,8 +11,9 @@ import userReducer from './UserReducer.js';
 import pageDisplayReducer from './PageDisplayReducer.js';
 import blacklistReducer from './BlacklistReducer.js';
 import searchReducer from './SearchReducer.js';
-import popupSelectionReducer from './PopupSelectionReducer';
-import sessionsReducer from './SessionsReducer';
+import popupSelectionReducer from './PopupSelectionReducer.js';
+import sessionsReducer from './SessionsReducer.js';
+import popupNavReducer from './popupNavReducer.js'
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -35,8 +36,9 @@ const appReducer = combineReducers({
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
   search: searchReducer,
-  sessions: sessionsReducer, 
-  popupSelection: popupSelectionReducer
+  sessions: sessionsReducer,
+  popupSelection: popupSelectionReducer,
+  popupStatus: popupNavReducer
 });
 
 export default rootReducer;

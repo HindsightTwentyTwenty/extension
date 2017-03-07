@@ -29,7 +29,7 @@ let store = createStore(
       url: "",
       title: "",
       created: "",
-      visited: "", 
+      visited: "",
       categories: {},
       star: false
     },
@@ -65,8 +65,7 @@ let store = createStore(
       created_at:"",
       token:"",
       invalid_login:false,
-      change_password:false,
-      popup_status:PopupConstants.Loading
+      change_password:false
     },
     lookbackNav: {
       selection: 0,
@@ -77,7 +76,9 @@ let store = createStore(
       results: [],
       dom: "",
       loading: true
-    }
+    },
+    popupStatus: PopupConstants.Loading
+
   },
   applyMiddleware(
     thunkMiddleware

@@ -27,8 +27,9 @@ class Popup extends Component {
   }
 
 	renderContent() {
+    console.log("Props in popup", this.props);
 		if(this.props.currentUser.token.length != 0){ //Logged In
-			switch (this.props.currentUser.popup_status){
+			switch (this.props.popupStatus){
 				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
@@ -67,7 +68,7 @@ class Popup extends Component {
 					);
 			}
 		} else { // Not Logged In
-			switch (this.props.currentUser.popup_status) {
+			switch (this.props.popupStatus) {
 				case PopupConstants.SignIn:
 					return (
             <div>
@@ -104,7 +105,8 @@ class Popup extends Component {
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
-		currentPage : state.currentPage
+		currentPage : state.currentPage,
+    popupStatus: state.popupStatus
 })
 
 let mapDispatchToProps = (dispatch) => {
