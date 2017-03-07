@@ -2,6 +2,8 @@ import * as types from '../constants/ActionTypes';
 
 function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
   switch(action.type){
+    case types.RECEIVE_DECRYPTED:
+      return {...state, s3_decrypted:action.html}
     case types.RECEIVE_PAGE_INFO:
       var categoryObject = {};
       action.categories.map(function(category) {
@@ -55,22 +57,6 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
       }
     default:
       return state
-  }
-}
-
-function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
-  switch(action.type){
-    /* get decrypted page from s3 */
-    case types.RECEIVE_DECRYPTED:
-      return {...state, s3_decrypted:action.html}
-    case types.RECEIVE_PAGE_INFO:
-    case types.UPDATE_CURRENT_STAR:
-    case types.ADD_PAGE_CATEGORY:
-    case types.DELETE_PAGE_CATEGORY:
-    case types.SET_CURRENT_PAGE:
-      return Object.assign({}, pageInfo(state, action));
-    default:
-      return state;
   }
 }
 export default currentPageReducer;
