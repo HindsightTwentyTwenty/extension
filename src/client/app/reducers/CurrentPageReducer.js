@@ -2,19 +2,32 @@ import * as types from '../constants/ActionTypes';
 
 function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
   switch(action.type){
-    case types.RECEIVE_PAGE_INFO:
+    case types.RECEIVE_POPUP_INFO:
+      console.log("receive popup info", action);
+      var currentPage = action.page;
       var categoryObject = {};
-      action.categories.map(function(category) {
+      currentPage.categories.map(function(category) {
         categoryObject[category.pk] = category;
       })
       return {
-        url: action.url,
+        url: currentPage.url,
         categories: categoryObject,
-        star: action.star,
-        title: action.title,
-        created: action.created,
-        visited: action.visited
+        star: currentPage.star,
+        title: currentPage.title
       }
+    // case types.RECEIVE_PAGE_INFO:
+    //   var categoryObject = {};
+    //   action.categories.map(function(category) {
+    //     categoryObject[category.pk] = category;
+    //   })
+    //   return {
+    //     url: action.url,
+    //     categories: categoryObject,
+    //     star: action.star,
+    //     title: action.title,
+    //     created: action.created,
+    //     visited: action.visited
+    //   }
     case types.UPDATE_CURRENT_STAR: //WC TODO: USE TOGGLE STAR INSTEAD???
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:

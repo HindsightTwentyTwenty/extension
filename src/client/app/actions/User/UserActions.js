@@ -6,6 +6,8 @@ import * as PopupConstants from '../../constants/PopupConstants.js'
 import * as Url from '../../constants/UrlBlacklist.js'
 import ApiUtils from './../ApiUtils.js'
 
+import * as PopupActions from '../Popup/PopupActions.js';
+
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
 const newPageEndpoint = urls.BASE_URL + "newpage/";
@@ -55,7 +57,7 @@ export function receiveUserTokenFromChrome(token) {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
          token: token
        }
-      )
+     ),
       dispatch(checkCurrentPage(token['hindsite-token']))
     }
     else {
@@ -81,7 +83,10 @@ export function checkCurrentPage(token){
 
       } else {
         // fetch category information to display in the popup
-        return dispatch(getPageInformation(tab.url, token, 0))
+        return [
+          // dispatch(getPageInformation(tab.url, token, 0)),
+          dispatch(PopupActions.getPopupInfo(tab.url, token))
+        ]
       }
 
     });

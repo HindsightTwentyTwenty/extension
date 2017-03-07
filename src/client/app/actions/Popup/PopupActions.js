@@ -1,9 +1,11 @@
 import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
+import ApiUtils from './../ApiUtils.js';
 
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
-const newSessionEndpoint = urls.BASE_URL + "addsession/"
+const newSessionEndpoint = urls.BASE_URL + "addsession/";
+const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
 
 // export function getPageInfo(token){
 //   return dispatch => {
@@ -27,6 +29,38 @@ const newSessionEndpoint = urls.BASE_URL + "addsession/"
 //     )
 //   }
 // }
+
+export function receivePopupInfo(json){
+  return {
+    type: types.RECEIVE_POPUP_INFO,
+    categories: json.categories,
+    page: json.page,
+    tracking: json.tracking
+  }
+
+}
+
+export function getPopupInfo(url, token){
+  return dispatch => {
+    return fetch(popupInfoEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': 'Token ' + token
+           },
+           method: "POST",
+           body: JSON.stringify({url: url})
+         }
+       )
+       .then(ApiUtils.checkStatus)
+       .then(response => response.json())
+       .then(json => {
+         console.log("info endpt", json);
+         dispatch(receivePopupInfo(json))
+       })
+
+  }
+}
 
 export function changePopupTab(id) {
   return dispatch => {
