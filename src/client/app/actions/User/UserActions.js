@@ -197,8 +197,8 @@ export function updatePopupStatus(status){
   }
 }
 
-export function sendCurrentPage(token) {
 
+export function sendCurrentPage(token) {
   return dispatch => {
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -239,12 +239,6 @@ export function sendCurrentPage(token) {
   }
 }
 
-export function error(response){
-  return {
-    type: types.TEST
-  }
-}
-
 export function receivePageInfo(json) {
   return {
     type: types.RECEIVE_PAGE_INFO,
@@ -278,6 +272,7 @@ export function loginUser(username, password){
         if(status == 401){
           dispatch(receiveLoginError(json['message']));
         } else {
+          console.log("LOGIN JSON", json);
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
@@ -285,7 +280,11 @@ export function loginUser(username, password){
             ekey: json.key,
             json: json,
             user_name: username
-          })
+          }),
+          dispatch({
+            type: types.RECEIVE_CATEGORIES,
+            categories: json.categories
+          }),
           dispatch(sendCurrentPage(json['token']))
         }
       }

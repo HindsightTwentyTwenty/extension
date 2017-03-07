@@ -4,7 +4,9 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
   switch(action.type){
     case types.RECEIVE_DECRYPTED:
       return {...state, s3_decrypted:action.html}
-    case types.RECEIVE_PAGE_INFO:
+    case types.RECEIVE_POPUP_INFO:
+      // Used in regular popup flow
+      var currentPage = action.page;
       var categoryObject = {};
       currentPage.categories.map(function(category) {
         categoryObject[category.pk] = category;
@@ -16,6 +18,7 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         title: currentPage.title
       }
     case types.RECEIVE_PAGE_INFO:
+      // Used on login to get page info
       var categoryObject = {};
       action.categories.map(function(category) {
         categoryObject[category.pk] = category;

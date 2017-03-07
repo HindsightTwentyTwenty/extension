@@ -4,7 +4,10 @@ import * as PopupConstants from '../constants/PopupConstants.js'
 function popupNavReducer(state = PopupConstants.Loading, action){
   switch(action.type){
     case types.RECEIVE_POPUP_INFO:
-      console.log("receive popup info found in reducer");
+      // Used in regular Popup flow
+      return PopupConstants.Received
+    case types.RECEIVE_PAGE_INFO:
+      // Used after receving page during login flow
       return PopupConstants.Received
     case types.POPUP_STATUS:
       return action.popup_status
