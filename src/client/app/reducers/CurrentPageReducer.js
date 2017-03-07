@@ -55,6 +55,33 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           visited: action.visited
         }
       }
+      if(action.page.star == undefined){
+        action.page.star = false;
+      }
+      return {
+        title: action.page.title,
+        url: action.page.url,
+        star: action.page.star,
+        categories: action.page.categories,
+        created: action.page.created,
+        visited: action.visited
+      }
+    default:
+      return state
+  }
+}
+
+function currentPageReducer(state = { url: "", categories: [], star: false, title: ""}, action){
+  switch(action.type){
+    /* get decrypted page from s3 */
+    case types.RECEIVE_DECRYPTED:
+      return {...state, s3_decrypted:action.html}
+    case types.RECEIVE_PAGE_INFO:
+    case types.UPDATE_CURRENT_STAR:
+    case types.ADD_PAGE_CATEGORY:
+    case types.DELETE_PAGE_CATEGORY:
+    case types.SET_CURRENT_PAGE:
+      return Object.assign({}, pageInfo(state, action));
     default:
       return state;
   }

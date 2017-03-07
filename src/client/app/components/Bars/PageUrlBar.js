@@ -5,6 +5,7 @@ import {render} from 'react-dom';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as IFrameActions from '../../actions/User/IFrameActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
@@ -24,6 +25,11 @@ class PageUrlBar extends Component {
     this.state = getState();
   }
 
+  componentWillMount() {
+    /* reset the iframe box to a loading page until async call for decryption is made */
+    this.props.iframe_actions.receiveDecrypted("loading");
+  }
+
   //WC SPRING TODO: REWORK TO USE CATEGORY ENTRY COMPONENT, JUST CHANGE CSS
   addNewCategory(categoryTitle){
       this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
@@ -35,7 +41,7 @@ class PageUrlBar extends Component {
           }
         }
         if (this.state.showColorPicker) {
-          this.toggleColorPicker(); 
+          this.toggleColorPicker();
         }
     });
   }
@@ -93,25 +99,51 @@ class PageUrlBar extends Component {
     }
   }
 
+  openIframe(event){
+    this.getDom();
+    this.setState({ iframehider_show: true });
+    this.setState({ iframe_show: true });
+  }
+
+  closeIframe(event){
+    this.setState({ iframehider_show: false });
+    this.setState({ iframe_show: false });
+    this.props.iframe_actions.receiveDecrypted("loading");
+
+  }
+
+  /* async get the dom from s3 with decryption */
+  getDom(){
+    /* only try to get the dom if not a 404 message */
+    if(this.props.page.s3 != "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+      if(this.props.origin == "search" ){
+        this.props.iframe_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+      }else{
+        this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+      }
+    }
+  }
+
   getIframe(){
-    //DONT DELETE- LOADING PAGE INTERFACE
-    // if(this.props.search_items.dom == "loading"){
-    //   return(<div className="iframe-msg-box">
-    //     <Loading/>
-    //   </div>
-    //   )
-    // }
-    if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
+    if(this.props.page.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+      /* this page is not an encrypted page, so just send back link to "bad page" message */
+      return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
+    }
+    /* if this page has no s3 page */
+    else if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
       return(<div className="iframe-msg-box">
         <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
       )
+    }
+    /* if the decryption hasn't finished yet, show loading */
+    else if(this.props.currentPage.s3_decrypted == "loading"){
+      return(<div className="iframe-msg-box">
+        <Loading/>
+      </div>
+      )
     }else{
-      if(this.props.origin == "search" ){
-        return(<iframe className="m-iframe" src={this.props.s3}></iframe>)
-      }else{
-        return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
-      }
+        return(<iframe className="m-iframe" srcDoc={this.props.currentPage.s3_decrypted}></iframe>)
     }
   }
 
@@ -201,7 +233,8 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch),
   star_actions: bindActionCreators(StarActions, dispatch),
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  category_actions: bindActionCreators(CategoryActions, dispatch),
+  iframe_actions: bindActionCreators(IFrameActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);

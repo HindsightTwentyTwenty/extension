@@ -230,8 +230,8 @@ export function sendCurrentPage(token) {
           ({ status, json }) => {
             if(status == 204){
             } else {
-              // dispatch(receivePageInfo(json));
-              checkCurrentPage(token);
+              dispatch(receivePageInfo(json));
+              // checkCurrentPage(token);
             }
           }
         )

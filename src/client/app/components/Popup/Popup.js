@@ -23,7 +23,7 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
+    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveFromChrome);
   }
 
 	renderContent() {
