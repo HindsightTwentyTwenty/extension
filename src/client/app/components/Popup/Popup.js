@@ -27,7 +27,7 @@ class Popup extends Component {
   }
 
 	renderContent() {
-		if(this.props.currentUser.token.length != 0){ //Logged In
+		if(this.props.currentUser.token.length){ //Logged In
 			switch (this.props.currentUser.popup_status){
 				case PopupConstants.Received: // Display Page
 					return (
@@ -109,8 +109,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    user_actions: bindActionCreators(UserActions, dispatch),
-		popup_actions: bindActionCreators(PopupActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch)
   }
 }
 

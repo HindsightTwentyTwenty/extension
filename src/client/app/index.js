@@ -29,7 +29,7 @@ let store = createStore(
       url: "",
       title: "",
       created: "",
-      visited: "", 
+      visited: "",
       categories: {},
       star: false
     },
@@ -39,6 +39,11 @@ let store = createStore(
       end_date:""
     },
     currentDomainDisplayed:{
+    },
+    categoriesAndPagesNew:{
+      categories: {},
+      pages: {},
+      starred: {}
     },
     categoriesAndPages:{
       catsToPages: {},

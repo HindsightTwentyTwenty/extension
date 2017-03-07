@@ -10,17 +10,25 @@ import CategoriesContainer from './CategoriesContainer';
 import ColorPicker from './ColorPicker.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
+function getState(){
+  return{
+    showColorPicker: false
+  }
+}
+
 class PopupCategories extends Component {
   constructor(props) {
     super(props);
+    this.state = getState();
   }
 
   getBody() {
-    if (this.props.categories.showColorPicker) {
+    var numCats = Object.keys(this.props.categoriesAndPagesNew.categories).length;
+    if (this.state.showColorPicker) {
       return <ColorPicker/>;
     }
-    else if (Object.keys(this.props.categories.cats).length) {
-      return <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length}/>;
+    else if (numCats) {
+      return <CategoriesContainer numCats={numCats}/>;
     }
   }
 
@@ -44,6 +52,7 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     categories: state.categories,
     currentUser : state.currentUser,
+    categoriesAndPagesNew: state.categoriesAndPagesNew,
     popupSelection: state.popupSelection
 })
 

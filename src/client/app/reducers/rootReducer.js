@@ -11,8 +11,9 @@ import userReducer from './UserReducer.js';
 import pageDisplayReducer from './PageDisplayReducer.js';
 import blacklistReducer from './BlacklistReducer.js';
 import searchReducer from './SearchReducer.js';
-import popupSelectionReducer from './PopupSelectionReducer';
-import sessionsReducer from './SessionsReducer';
+import popupSelectionReducer from './PopupSelectionReducer.js';
+import sessionsReducer from './SessionsReducer.js';
+import categoriesPagesReducer from './CategoriesPagesReducer.js';
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -31,11 +32,12 @@ const appReducer = combineReducers({
   currentTime: timeReducer,
   currentDomain: lookBackReducer,
   lookbackNav: lookBackNavReducer,
+  categoriesAndPagesNew: categoriesPagesReducer,
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
   search: searchReducer,
-  sessions: sessionsReducer, 
+  sessions: sessionsReducer,
   popupSelection: popupSelectionReducer
 });
 
