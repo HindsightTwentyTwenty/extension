@@ -73,9 +73,11 @@ export function setTabUrl(url){
 }
 
 export function checkCurrentPage(token){
+  console.log("check current page", token);
   return dispatch => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
+      console.log("got tab", tab);
 
       if(Url.isUrlBlacklisted(tab.url)){
         // Display message to navigate to a different page
@@ -228,7 +230,8 @@ export function sendCurrentPage(token) {
           ({ status, json }) => {
             if(status == 204){
             } else {
-              dispatch(receivePageInfo(json));
+              // dispatch(receivePageInfo(json));
+              checkCurrentPage(token);
             }
           }
         )

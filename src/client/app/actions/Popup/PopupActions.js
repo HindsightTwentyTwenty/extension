@@ -31,6 +31,7 @@ const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
 // }
 
 export function receivePopupInfo(json){
+  console.log("receviedpopupinfo", json)
   return {
     type: types.RECEIVE_POPUP_INFO,
     categories: json.categories,
@@ -41,6 +42,7 @@ export function receivePopupInfo(json){
 }
 
 export function getPopupInfo(url, token){
+  console.log("getting popup info", url, token);
   return dispatch => {
     return fetch(popupInfoEndpoint, {
           headers: {
@@ -57,6 +59,9 @@ export function getPopupInfo(url, token){
        .then(json => {
          console.log("info endpt", json);
          dispatch(receivePopupInfo(json))
+       })
+       .catch(e => {
+         console.log("error in get popup info", e );
        })
 
   }
