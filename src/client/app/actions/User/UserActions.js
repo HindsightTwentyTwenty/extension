@@ -47,20 +47,28 @@ export function endErrorMessage(json){
   }
 }
 
-export function receiveUserTokenFromChrome(token) {
+/* get items from chrome storage- token, encrypt key, md5 */
+export function receiveFromChrome(token) {
   return dispatch => {
     if(token['hindsite-token']){
       dispatch(
         {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-         token: token
+         token: token['hindsite-token']
        }
       )
       dispatch(checkCurrentPage(token['hindsite-token']))
-    }
-    else {
+    }else {
       dispatch(updatePopupStatus(PopupConstants.SignIn))
     }
+    if(token['md5'] && token['ekey']){
+      dispatch({
+          type: types.RECEIVE_ENCRYPT_FROM_CHROME,
+          md5: token['md5'],
+          ekey: token['ekey']
+      })
+    }
+
   }
 }
 
@@ -270,6 +278,9 @@ export function loginUser(username, password){
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
+            md5: json.md5,
+            ekey: json.key,
+            json: json,
             user_name: username
           })
           dispatch(sendCurrentPage(json['token']))
@@ -323,7 +334,7 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
         if(status == 401){
           dispatch(receiveLoginError(json['message']));
         } else {
-          dispatch(receiveUserTokenFromChrome(json['token']))
+          dispatch(receiveFromChrome(json['token']))
         }
       }
     )

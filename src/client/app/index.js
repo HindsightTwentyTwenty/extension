@@ -66,7 +66,9 @@ let store = createStore(
       token:"",
       invalid_login:false,
       change_password:false,
-      popup_status:PopupConstants.Loading
+      popup_status:PopupConstants.Loading,
+      md5:"",
+      ekey:""
     },
     lookbackNav: {
       selection: 0,
