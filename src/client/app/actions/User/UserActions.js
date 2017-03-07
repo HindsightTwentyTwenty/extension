@@ -15,6 +15,7 @@ const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const activePageInfoEndpoint = urls.BASE_URL + "activepage/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
 const userInfoEndpoint = urls.BASE_URL + 'userinfo/';
+const trackingEndpoint = urls.BASE_URL + 'tracking/';
 
 const unauthorizedCode = "403";
 
@@ -50,16 +51,18 @@ export function endErrorMessage(json){
 }
 
 /* get items from chrome storage- token, encrypt key, md5 */
-export function receiveFromChrome(token) {
+export function receiveFromChrome(token_response) {
+  var token = token_response['hindsite-token'];
   return dispatch => {
-    if(token['hindsite-token']){
+    if(token){
       dispatch(
         {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-         token: token['hindsite-token']
+         token: token
        }
-      )
-      dispatch(checkCurrentPage(token['hindsite-token']))
+     ),
+      dispatch(checkCurrentPage(token)),
+      dispatch(getUserInfo(token))
     }else {
       dispatch(updatePopupStatus(PopupConstants.SignIn))
     }
@@ -279,7 +282,8 @@ export function loginUser(username, password){
             md5: json.md5,
             ekey: json.key,
             json: json,
-            user_name: username
+            user_name: username,
+            tracking_on: json.tracking_on
           }),
           dispatch({
             type: types.RECEIVE_CATEGORIES,
@@ -389,7 +393,8 @@ export function receiveUserInfo(json) {
     email: json.email,
     first_name: json.first_name,
     last_name: json.last_name,
-    created_at: json.created_at
+    created_at: json.created_at,
+    tracking_on: json.tracking_on
   }
 }
 
@@ -412,9 +417,39 @@ export function getUserInfo(token){
     .then(
       ({ status, json }) => {
         if(status == 200){
+          console.log("User Info", json)
           dispatch(receiveUserInfo(json))
         }
       }
     )
+  }
+}
+
+export function sendBackendTracking(tracking_on, token){
+  return dispatch => {
+    return fetch (trackingEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "POST",
+      body: JSON.stringify({"tracking": tracking_on })
+    })
+    .then(response => {
+      console.log("tracking response", response);
+    });
+  }
+}
+
+export function toggleTracking(tracking_on, token){
+  return dispatch => {
+    return [
+      dispatch(sendBackendTracking(tracking_on, token)),
+      dispatch({
+        type: types.RECEIVE_TRACKING,
+        tracking_on: tracking_on
+      })
+    ]
   }
 }

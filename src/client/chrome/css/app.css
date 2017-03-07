@@ -714,9 +714,9 @@ start-time-label .end-time-label{
   }
 }
 
-#loading_page {
+#loading_spinner_page {
   display: table;
-  margin: 20px 40%;
+  margin: 75px auto;
 }
 
 .display-view {

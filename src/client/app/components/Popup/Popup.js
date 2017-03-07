@@ -61,7 +61,7 @@ class Popup extends Component {
 				case PopupConstants.Loading:
 				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
-						<div>
+						<div id="loading-wrapper">
 							<PopupHeader/>
 							<Loading/>
 						</div>

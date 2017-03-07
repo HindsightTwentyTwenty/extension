@@ -7,12 +7,12 @@ import * as PopupConstants from '../constants/PopupConstants.js';
 //if no valid username:
 function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"",
         created_at:"", token:"", invalid_login:false, change_password: PasswordConstants.Closed,
-        md5:"", ekey:""}, action){
+        md5:"", ekey:"", tracking_on:false}, action){
 
   switch(action.type){
     case types.RECEIVE_USER_TOKEN:
       chrome.storage.local.set({"hindsite-token": action.token, "md5":action.md5, "ekey":action.ekey});
-      return { ...state, user_name:action.user_name, token:action.token, md5:action.md5, ekey:action.ekey}
+      return { ...state, user_name:action.user_name, token:action.token, md5:action.md5, ekey:action.ekey, tracking_on: action.tracking_on}
     case types.USER_ERROR:
       return { ...state, invalid_login:true, invalid_login_message:action.error_message, create_user: false }
     case types.NO_USER_ERROR:
@@ -28,7 +28,11 @@ function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"
     case types.CHANGE_PASSWORD:
       return { ...state, change_password: action.change_password }
     case types.RECEIVE_USER_INFO:
-      return { ...state, user_name:action.username, first_name:action.first_name, last_name:action.last_name, email:action.email, created_at: action.created_at }
+      return { ...state, user_name:action.username, first_name:action.first_name, last_name:action.last_name, email:action.email, created_at: action.created_at, tracking_on: action.tracking_on }
+    case types.RECEIVE_POPUP_INFO:
+      return { ...state, tracking_on: action.tracking_on }
+    case types.RECEIVE_TRACKING:
+      return { ...state, tracking_on: action.tracking_on }
     default:
         return state;
   }

@@ -67,7 +67,8 @@ let store = createStore(
       invalid_login:false,
       change_password:false,
       md5:"",
-      ekey:""
+      ekey:"",
+      tracking_on:false
     },
     lookbackNav: {
       selection: 0,

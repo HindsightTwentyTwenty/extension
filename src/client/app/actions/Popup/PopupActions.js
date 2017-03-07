@@ -36,7 +36,7 @@ export function receivePopupInfo(json){
     type: types.RECEIVE_POPUP_INFO,
     categories: json.categories,
     page: json.page,
-    tracking: json.tracking
+    tracking_on: json.tracking
   }
 
 }

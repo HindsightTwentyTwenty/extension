@@ -23,6 +23,8 @@ class PopupHeader extends Component {
 
   toggleChange(event) {
     console.log("toggle change", event.target.checked);
+    console.log("toggle token", this.props.currentUser.token);
+    this.props.user_actions.toggleTracking(event.target.checked, this.props.currentUser.token);
   }
 
   render () {
@@ -38,8 +40,8 @@ class PopupHeader extends Component {
         <div id="tracking-toggle-wrapper">
           <span id="tracking-toggle-label">Tracking: </span>
           <Toggle id="tracking-toggle"
-            defaultChecked={true}
-            onChange={ this.toggleChange.bind(this) } />
+            onChange={ this.toggleChange.bind(this) }
+            checked={ this.props.currentUser.tracking_on }/>
         </div>
       </div>
 
