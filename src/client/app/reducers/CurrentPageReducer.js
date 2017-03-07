@@ -18,7 +18,7 @@ const pageInfo = (state, action) => {
       var newCategoryList = [];
       var currentCategories = state.categories;
       for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title !== action.category.title) {
+        if (currentCategories[i].title !== action.categoryTitle) {
           newCategoryList.push(currentCategories[i]);
         }
       }

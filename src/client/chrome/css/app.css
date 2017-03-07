@@ -111,7 +111,6 @@ body {
 }
 
 .bar-category{
-  margin: 5px auto;
   max-width: 150px;
 }
 
@@ -1171,7 +1170,6 @@ hr{
 .url-categories-display{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;;
   width: 45%;
   max-width: 400px;
   overflow:auto;
@@ -1194,4 +1192,10 @@ hr{
 
 .horizontal-center{
   margin: 0 auto;
+}
+
+.title-wrapper{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 }

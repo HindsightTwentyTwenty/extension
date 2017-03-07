@@ -167,7 +167,7 @@ class LookBack extends Component {
         return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
             <div className='url-bar-category-times' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.displayPage, category, false, this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.displayPage.url, category.title, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
@@ -221,7 +221,7 @@ class LookBack extends Component {
 		var date = this.props.start_date;
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
 		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.displayPage.url != "") ? <div className="page-details">
-				<div className="row flex-row">
+				<div className="title-wrapper horizontal-center">
 					<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
 					<div className='url-buttons vertical-center'>
 						<Star/>

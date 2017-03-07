@@ -50,7 +50,7 @@ class CategoriesContainer extends Component {
           }
         }
       }
-      return result
+      return result;
     }
   }
 

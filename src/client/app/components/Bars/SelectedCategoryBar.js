@@ -17,7 +17,7 @@ class SelectedCategoryBar extends Component {
         <label htmlFor='categoryBar' className='category-bar-label selected hide-overflow'> {this.props.categoryInfo.title}</label>
         <button className='category-remove-btn' onClick={() => {
           this.props.category_actions.toggleCategory( this.props.currentPage.url,
-            this.props.categoryInfo, false, this.props.currentUser.token);
+            this.props.categoryInfo.title, false, this.props.currentUser.token);
         }}>X</button>
       </div>
     )

@@ -12,18 +12,8 @@ class CategoryEntry extends Component {
   }
 
   addNewCategory(categoryTitle){
-      this.props.popup_actions.pushCategory(this.props.currentPage, categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-        var categoryObject;
-        var categories = this.props.categories.cats;
-        for(var i = categories.length-1; i >= 0; i--){
-          if(categories[i].title == categoryTitle){
-            categoryObject = categories[i];
-            break;
-          }
-        }
-        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject, true, this.props.currentUser.token);
-    });
-  }
+        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject.title, true, this.props.currentUser.token);
+  };
 
   keyPressed(event){
     var keycode = event.keyCode || event.which;
