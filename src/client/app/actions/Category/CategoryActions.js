@@ -45,30 +45,60 @@ export function fetchCategoriesAndPages(token){
   }
 }
 
-export function toggleCategory(pageUrl, category, addOrDelete, token){
-  var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
+export function deletePageCategory(page, category, token){
   return dispatch => {
-    dispatch({
-      type: dispatchType,
-      category: category
-    })
-    var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;
-    return fetch(endpoint, {
+    return fetch(deletePageCategoryEndpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
                'Authorization': 'Token ' + token
              },
              method: "POST",
-             body: JSON.stringify({url: pageUrl, category: category.title})
+             body: JSON.stringify({url: page.url, category: category.title})
            }
       )
       .then(response => response.json())
+      .then(json => dispatch({
+          type: types.DELETE_PAGE_CATEGORY,
+          category: category
+      }))
       .then(json => dispatch({
         type: types.REMOVE_CAT_FROM_PAGE,
         json: json,
         categoryTitle: category.title
       }))
+  }
+}
+
+export function addPageCategory(url, category_title, token, color){
+  return dispatch => {
+    return fetch(addPageCategoryEndpoint, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': 'Token ' + token
+             },
+             method: "POST",
+             body: JSON.stringify({url: url, category: category_title})
+           }
+      )
+      .then(response => response.json())
+      .then(json => dispatch({
+          type: types.ADD_PAGE_CATEGORY,
+          categories: json.categories
+      }))
+  }
+}
+
+export function toggleCategory(page, category, addOrDelete, token, color){
+  if(addOrDelete){
+    return dispatch => {
+      dispatch(addPageCategory(page, category, token, color))
+    }
+  }else{
+    return dispatch => {
+      dispatch(deletePageCategory(page, category, token))
+    }
   }
 }
 

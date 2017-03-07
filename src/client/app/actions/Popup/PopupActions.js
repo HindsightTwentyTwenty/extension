@@ -2,7 +2,6 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
-const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const newSessionEndpoint = urls.BASE_URL + "addsession/"
 
@@ -29,26 +28,6 @@ export function getPageInfo(token){
   }
 }
 
-export function pushCategory(category, color, token){
-  return dispatch => {
-    return fetch(addCategoryEndpoint, {
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json',
-               'Authorization': 'Token ' + token
-             },
-             method: "POST",
-             body: JSON.stringify({category: category, color: color})
-           }
-      )
-      .then(response => response.json())
-      .then(json => dispatch({
-        type: types.RECEIVE_PUSH_CATEGORY,
-        category_added: json
-      })
-    )
-  }
-}
 
 export function changePopupTab(id) {
   return dispatch => {

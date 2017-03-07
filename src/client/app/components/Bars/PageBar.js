@@ -13,6 +13,7 @@ class PageBar extends Component {
   render() {
     if(this.props.currentPage.url == this.props.page.url){
       this.props.page.star = this.props.currentPage.star;
+      this.props.page.categories = this.props.currentPage.categories;
     }
     return (
       <div

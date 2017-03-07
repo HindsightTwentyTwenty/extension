@@ -1164,7 +1164,21 @@ hr{
   background-color:rgba(229, 238, 252, .9);
 }
 
+.url-categories-display{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;;
+  width: 45%;
+  max-width: 400px;
+  overflow:auto;
+  margin: 0 auto;
+}
 
+.category-select{
+  width: 45%;
+  margin: 0 auto;
+  max-width: 400px;
+}
 
 .domain-details{
   display: flex;

@@ -7,6 +7,7 @@ import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 import CategoryAutoSuggest from './CategoryAutoSuggest.js';
+import { Creatable } from 'react-select';
 
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -166,7 +167,7 @@ class LookBack extends Component {
         return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
             <div className='url-bar-category-times' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.displayPage.url, category, false, this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.displayPage, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
@@ -175,18 +176,34 @@ class LookBack extends Component {
     }
   }
 
-	handleCategoryChange(category_object) {
-    var category = "";
+	getCategoryObject(category_title){
+		var found = false;
 		var categories = this.props.categories.cats;
-    if(category_object){
-      category = category_object.value
-    }
-		console.log(category);
-    this.setState({category_selection: ""});
+
 		for (var i = categories.length-1; i >= 0; i--) {
-			if(categories[i].title == category){
-				this.props.category_actions.toggleCategory(this.props.displayPage.url, categories[i], true, this.props.currentUser.token);
+			if(categories[i].title == category_title){
+				return categories[i];
 			}
+		}
+		if(!found){
+			return null;
+		}
+	}
+
+	handleCategoryChange(category_option) {
+		var category_title = "";
+    if(category_option){
+      category_title = category_option.value
+    }
+		this.setState({category_selection: category_option});
+		var category = this.getCategoryObject(category_title);
+
+		if(category){
+			this.props.category_actions.toggleCategory(this.props.displayPage.url, category.title, true, this.props.currentUser.token);
+			this.setState({category_selection: ""});
+		} else if(category_title.trim() !== "" && category_title.length <= 50) {
+    	this.props.category_actions.toggleCategory(this.props.displayPage.url, category_title, true, this.props.currentUser.token);
+			this.setState({category_selection: ""});
 		}
   }
 
@@ -210,16 +227,20 @@ class LookBack extends Component {
 						<Star/>
 					</div>
 				</div>
-				<div className='url-categories vertical-center'>
+				<div className='url-categories-display'>
 					{this.getCategories()}
 				</div>
-				<Select
+				<div className="category-select">
+				<Creatable
 					name="category-select"
 					className="search-select-dropdown"
 					value={ this.state.category_selection }
 					options={ this.getCategoryOptions() }
-					onChange={ this.handleCategoryChange.bind(this) }
+					onChange={ this.handleCategoryChange.bind(this)}
+					noResultsText= ""
+					placeholder="Add Category..."
 				/>
+				</div>
 				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
 			</div>
 			: <h4>Hover for detailed page information</h4>;
