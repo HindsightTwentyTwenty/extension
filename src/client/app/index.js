@@ -21,16 +21,16 @@ let store = createStore(
       urls: []
     },
     categories: {
-      cats: [],
+      cats: {},
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
-      showColorPicker: false,
-      confirmDelete: "",
-      editCategory: ""
+      showColorPicker: false
     },
     currentPage: {
       url: "",
       title: "",
-      categories: [],
+      created: "",
+      visited: "", 
+      categories: {},
       star: false
     },
     currentTabs:[],
@@ -66,7 +66,9 @@ let store = createStore(
       token:"",
       invalid_login:false,
       change_password:false,
-      popup_status:PopupConstants.Loading
+      popup_status:PopupConstants.Loading,
+      md5:"",
+      ekey:""
     },
     lookbackNav: {
       selection: 0,

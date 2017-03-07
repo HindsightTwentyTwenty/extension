@@ -28,7 +28,6 @@ export function getPageInfo(token){
   }
 }
 
-
 export function changePopupTab(id) {
   return dispatch => {
     dispatch({

@@ -16,6 +16,7 @@ $bar-height: 40px;
 $modal-background: #e5eefc;
 $hover-color: #F68828;
 $timeline-active-color: #123654;
+$timeline-details-color: #046E8F;
 
 body {
    width:auto;
@@ -43,7 +44,8 @@ body {
 }
 
 .page-url-bar {
-  height: 60px;
+  min-width: 500px;
+  height: 75px;
   line-height: 35px;
   margin: 5px auto;
   border-radius: 3px;
@@ -52,7 +54,7 @@ body {
   padding: 6px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .bar-text-col{
@@ -63,15 +65,34 @@ body {
   color: $base-white;
   font-size: 12px;
   line-height: 15px;
-  width: 45%;
+  width: 50%;
 }
 
 .bar-text-col p{
   margin: 0;
 }
 
+.url-bar-form {
+  border: none;
+  width: 100px;
+  margin: auto;
+  height: 30px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0px;
+  color: $base-white;
+  background-color: $electric-blue-dark;
+  &:focus{
+    box-shadow: none;
+    &::-webkit-input-placeholder {
+      color: $banana;
+    }
+  }
+  &::-webkit-input-placeholder {
+    color: $base-white;
+  }
+}
 
-//WC TODO: change css of blacklist bar and url bar to common component?
 .blacklist-bar {
   height: 40px;
   line-height: 40px;
@@ -97,30 +118,54 @@ body {
   justify-content: space-between;
 }
 
+.url-bar-add-category {
+  background-color: $electric-blue-dark;
+  color: $base-white;
+  border-radius: 2px;
+  padding: 0 10px;
+  height: 30px;
+  margin: 0;
+  line-height: 30px;
+}
+
 .url-bar-category {
   color: $base-white;
   float: left;
-  background-color: $canteloupe;
+  border-radius: 2px;
   padding: 0 10px;
   height: 30px;
-  border-radius: 2px;
   margin: 5px;
   display: flex;
   justify-content: space-between;
   line-height: 30px;
 }
 
+.url-bar-category-thin {
+  color: $base-white;
+  border-radius: 2px;
+  padding: 0 5px;
+  height: 25px;
+  margin: 3px 7px 2px 0px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 25px;
+}
+
 .bar-category{
   max-width: 150px;
 }
 
-.url-bar-category-times {
+.url-bar-category-button {
   display: inline;
   position: relative;
   padding-left: 10px;
 }
-.url-bar-category-times:hover{
+.url-bar-category-button:hover{
   color: $watermelon;
+}
+
+.url-bar-input{
+  display: inline-flex;
 }
 
 .url{
@@ -130,10 +175,9 @@ body {
   text-overflow: ellipsis;
   width: 95%;
   font-size: 15px;
-}
-
-.url:hover {
-  color: $base-white;
+  &:hover {
+    color: $base-white;
+  }
 }
 
 .url-categories{
@@ -142,6 +186,20 @@ body {
   overflow: auto;
   margin-right: 1%;
   width: 45%;
+}
+
+.url-categories-col {
+  display: flex;
+  float:right;
+  flex-flow: column;
+  height: 100%;
+  width: 45%;
+}
+
+.url-bar-categories {
+  display: inline-flex;
+  overflow: auto;
+  flex-direction: row;
 }
 
 .lookback-container{
@@ -176,7 +234,7 @@ body {
   padding: 10px;
   width: 100%;
   height: 100px;
-  background-color: $canteloupe;
+  background-color: $timeline-details-color;
   min-width: 400px;
   color: $base-white;
 }
@@ -192,11 +250,10 @@ body {
   margin-right: 5px;
   margin-left: 5px;
   height: 27px;
-}
-
-#back-botton:hover {
-    background: red;
-    color: red;
+  &:hover {
+      background: red;
+      color: red;
+  }
 }
 
 .side-bar-container{
@@ -215,9 +272,12 @@ body {
   display: inline-block;
 }
 
-.fixed-header {
-  position: relative;
-  margin: 5px 0;
+.side-bar-header {
+  height: auto;
+}
+
+.side-bar-input {
+  border: none;
 }
 
 .all-categories {
@@ -324,6 +384,7 @@ start-time-label .end-time-label{
 
 .time-change-button {
   width:35px;
+  color: $timeline-details-color;
 }
 
 #time-change-btn-buffer-lft{
@@ -353,9 +414,19 @@ start-time-label .end-time-label{
   width: 100%;
 }
 
+#slider-label{
+  margin-top: 16px;
+  color: black;
+}
+
 #slider-wrapper{
   width:30%;
   margin-right: 30px;
+  margin-left: 20px;
+}
+
+.ant-slider-mark-text-active{
+  color:black;
 }
 
 .jump-btn{
@@ -459,7 +530,6 @@ start-time-label .end-time-label{
   float: left;
 }
 
-
 .nav-bar-button {
   border: none;
   background-color: $electric-blue;
@@ -469,10 +539,11 @@ start-time-label .end-time-label{
   font-size: medium;
   padding: 0px;
   outline: none;
+  &:hover {
+    color: $base-white;
+  }
 }
-.nav-bar-button:hover {
-  color: $base-white;
-}
+
 .nav-bar-button-selected {
   color: $base-white;
   border-bottom: solid $base-white 1px;
@@ -483,10 +554,6 @@ start-time-label .end-time-label{
   display: block;
   color: $canteloupe;
   font-weight: bold;
-}
-
-.checkbox {
-  text-align: center;
 }
 
 .nav-bar-container {
@@ -571,6 +638,13 @@ start-time-label .end-time-label{
   width: 50%;
 }
 
+.welcome-message {
+  text-align: center;
+  margin: auto;
+  top: 40%;
+  position: relative;
+}
+
 .hidden {
   display:none;
 }
@@ -578,7 +652,7 @@ start-time-label .end-time-label{
 .right-sidebar-button {
   color: $electric-blue;
   float: right;
-  margin-right: 6px;
+  margin-right: 10px;
   width: 15px;
   height: 25px;
   line-height: 25px;
@@ -601,21 +675,19 @@ start-time-label .end-time-label{
 
 .category-info {
   display: flex;
+  width: 170px;
 }
 
 .category-title {
+  width: 130px;
   line-height: 30px;
-  display: inline-flex;
   padding-left: 7px;
   color: $electric-blue;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .color-square-small {
-  display: inline-flex;
+  display: inline-table;
   border-radius: 3px;
   width: 18px;
   height: 18px;
@@ -641,6 +713,7 @@ start-time-label .end-time-label{
   height: 30px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   &.checked {
     background-color: whitesmoke;
   }
@@ -663,10 +736,6 @@ start-time-label .end-time-label{
 #loading_page {
   display: table;
   margin: 20px 40%;
-}
-
-.star-display{
-  margin-top: 10px;
 }
 
 .display-view {
@@ -698,45 +767,6 @@ start-time-label .end-time-label{
 
 .watermelon-border {
   border: solid 2px $watermelon;
-}
-
-.canteloupe {
-  background-color: $canteloupe;
-  color: white;
-  &:hover {
-    border: $canteloupe-dark;
-    background-color: $canteloupe-dark;
-  }
-}
-
-.canteloupe-border {
-  border: solid 2px $canteloupe;
-}
-
-.lime {
-  background-color: $lime;
-  color: white;
-  &:hover {
-    border: $lime-dark;
-    background-color: $lime-dark;
-  }
-}
-
-.lime-border {
-  border: solid 2px $lime;
-}
-
-.banana {
-  background-color: $banana;
-  color: white;
-  &:hover {
-    border: $banana-dark;
-    background-color: $banana-dark;
-  }
-}
-
-.banana-border {
-  border: solid 2px $banana;
 }
 
 .electric-blue {
@@ -793,14 +823,8 @@ hr{
   }
 }
 
-.categories-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .side-bar-buttons {
-  width: 40px;
+  width: 45px;
   justify-content: space-between;
 }
 
@@ -808,8 +832,19 @@ hr{
   height:45px;
   line-height: 55px;
   width: 45px;
-  color: black;
+  color: $banana;
   margin-left: 1%;
+  &:hover{
+    color: $banana;
+  }
+}
+
+.url-bar-star-div{
+  height:30px;
+  line-height: 30px;
+  width: 30px;
+  color: $banana;
+  margin: 2px 0 0 5px;
   &:hover{
     color: $banana;
   }
@@ -997,6 +1032,7 @@ hr{
 .iframe-open-button{
   background: none;
   color: black;
+  margin: 5px;
   font-size: x-large;
   border: none;
   outline: none;
@@ -1027,6 +1063,7 @@ hr{
   width: 7%;
   display: flex;
   margin-left: 1%;
+  justify-content: space-between;
 }
 
 .iframe-msg-box{
@@ -1076,11 +1113,10 @@ hr{
 
 .page-number-selected {
   color:black;
-}
-
-.page-number-selected:hover {
-  text-decoration: none !important;
-  cursor: default !important;
+  &:hover {
+    text-decoration: none !important;
+    cursor: default !important;
+  }
 }
 
 #results-displayed-message {
@@ -1097,10 +1133,9 @@ hr{
 .go-to-site-btn{
   text-decoration: none;
   margin-left: 5%;
-}
-
-.go-to-site-btn:hover{
-  color: $canteloupe-dark;
+  &:hover {
+    color: $canteloupe-dark;
+  }
 }
 
 #iframe-title{
@@ -1144,14 +1179,12 @@ hr{
 .account-button {
   margin: 1px 1px;
   background-color: $electric-blue;
-}
-
-.account-button:hover {
+  &:hover {
   background-color: $electric-blue-dark;
-}
-
-.account-button:focus {
-  background-color: $electric-blue;
+  }
+  &:focus {
+    background-color: $electric-blue;
+  }
 }
 
 #domain-modal{
