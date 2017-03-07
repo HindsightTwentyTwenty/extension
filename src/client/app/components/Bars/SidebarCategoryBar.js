@@ -2,14 +2,18 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as SearchCategoriesActions from '../../actions/SearchCategories/SearchCategoriesActions.js';
+import * as CategoriesPagesActions from '../../actions/CategoriesPages/CategoriesPagesActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 
 function getState(){
   return{
-    editColor:"",
+    checked: false,
+    color: "",
     confirmDelete: false,
-    editCat: false
+    editCat: false,
+    editColor: "",
+    title: ""
   }
 }
 
@@ -21,72 +25,20 @@ class SidebarCategoryBar extends Component {
   }
 
   componentWillMount() {
+    this.updateCategoryState()
+  }
+
+  componentWillReceiveProps() {
+    this.updateCategoryState();
+  }
+
+  updateCategoryState() {
+    var category = this.props.categoriesAndPages.categories[this.props.pk];
     this.setState({
-      editColor:this.props.categoryInfo.color
+      editColor: category.color,
+      title: category.title,
+      color: category.color
     })
-  }
-
-  getCategoryTitle() {
-    var categoryTitle = this.props.categoryInfo.title;
-    var categoryColor = this.props.categoryInfo.color;
-    var checkedTitleStyle = this.props.checked ? {"color" : categoryColor, "fontWeight" : "bold"} : {};
-    var checkedBoxStyle = this.props.checked ? {"backgroundColor" : categoryColor, "opacity" : "1"} : {"backgroundColor" : categoryColor, "opacity" : "0.5"};
-    var barClassName = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
-    return (
-      <div className={barClassName}>
-        <div className='category-info' onClick={() => {
-          this.props.category_actions.updateSearchCategory(categoryTitle, !this.props.checked);
-          }}>
-          <div className='color-square-small' style={checkedBoxStyle}/>
-          <div className='category-title hide-overflow'
-            style={checkedTitleStyle}>
-            {categoryTitle}
-          </div>
-        </div>
-        <div className='side-bar-buttons'>
-          <a onClick={() => {this.toggleEditStatus(true);}}>
-            <i className='fa fa-pencil left-sidebar-button'/>
-          </a>
-          <a onClick={() => {this.toggleDeleteStatus(true)}}>
-            <i className='fa fa-trash right-sidebar-button'/>
-          </a>
-        </div>
-      </div>
-    );
-  }
-
-  getDeleteCategory() {
-    var categoryTitle = this.props.categoryInfo.title;
-    var userToken = this.props.currentUser.token;
-    return(
-      <div className='side-bar-category'>
-        <div className='category-title'>
-          are you sure?
-        </div>
-        <div className='side-bar-buttons'>
-          <a onClick={() => {
-            this.props.category_actions.updateSearchCategory(categoryTitle, false);
-            this.props.category_actions.deleteCategory(this.props.categoryInfo.pk, categoryTitle, userToken);
-          }}>
-            <i className='fa fa-check left-sidebar-button'/>
-          </a>
-          <a onClick={() => {
-            this.toggleDeleteStatus(false);
-          }}>
-            <i className='fa fa-times right-sidebar-button'/>
-          </a>
-        </div>
-      </div>
-    )
-  }
-
-  getColors() {
-    return GlobalConstants.CAT_COLORS.map((color) => {
-      return <div className='color-square-small'
-      onClick={this.changeEditColor.bind(this, color.code)}
-      style={{"backgroundColor" : color.code}}
-      key={color.name}></div>
-    });
   }
 
   toggleDeleteStatus(deleteStatus) {
@@ -107,8 +59,73 @@ class SidebarCategoryBar extends Component {
     });
   }
 
+  getColors() {
+    return GlobalConstants.CAT_COLORS.map((color) => {
+      return <div className='color-square-small'
+      onClick={this.changeEditColor.bind(this, color.code)}
+      style={{"backgroundColor" : color.code}}
+      key={color.name}></div>
+    });
+  }
+
+  getCategoryTitle() {
+    var categoryTitle = this.state.title;
+    var categoryColor = this.state.color;
+    var checkedTitleStyle = this.state.checked ? {"color" : categoryColor, "fontWeight" : "bold"} : {};
+    var checkedBoxStyle = this.state.checked ? {"backgroundColor" : categoryColor, "opacity" : "1"} : {"backgroundColor" : categoryColor, "opacity" : "0.5"};
+    var barClassName = this.state.checked ? 'side-bar-category checked' : 'side-bar-category';
+    return (
+      <div className={barClassName}>
+        <div className='category-info' onClick={() => {
+          var updateChecked = !this.state.checked;
+          this.props.search_categories_actions.toggleSearchCategory(this.props.pk, updateChecked);
+          this.setState({checked: updateChecked})
+          }}>
+          <div className='color-square-small' style={checkedBoxStyle}/>
+          <div className='category-title hide-overflow'
+            style={checkedTitleStyle}>
+            {categoryTitle}
+          </div>
+        </div>
+        <div className='side-bar-buttons'>
+          <a onClick={() => {this.toggleEditStatus(true);}}>
+            <i className='fa fa-pencil left-sidebar-button'/>
+          </a>
+          <a onClick={() => {this.toggleDeleteStatus(true)}}>
+            <i className='fa fa-trash right-sidebar-button'/>
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  getDeleteCategory() {
+    var categoryTitle = this.state.title;
+    var userToken = this.props.currentUser.token;
+    return(
+      <div className='side-bar-category'>
+        <div className='category-title'>
+          are you sure?
+        </div>
+        <div className='side-bar-buttons'>
+          <a onClick={() => {
+            this.props.search_categories_actions.toggleSearchCategory(this.props.pk, false);
+            this.props.categories_pages_actions.deleteCategory(this.props.pk, categoryTitle, userToken);
+          }}>
+            <i className='fa fa-check left-sidebar-button'/>
+          </a>
+          <a onClick={() => {
+            this.toggleDeleteStatus(false);
+          }}>
+            <i className='fa fa-times right-sidebar-button'/>
+          </a>
+        </div>
+      </div>
+    )
+  }
+
   getEditCategory() {
-    var categoryTitle = this.props.categoryInfo.title;
+    var categoryTitle = this.state.title;
     var categoryColor = this.state.editColor;
     var userToken = this.props.currentUser.token;
     return (
@@ -123,19 +140,19 @@ class SidebarCategoryBar extends Component {
           <div className='side-bar-buttons'>
             <a onClick={() => {
               var input = this.input.value.trim();
-              var categoriesSet = new Set();
-              (Object.keys(this.props.categories.cats)).map(function(pk) {
-                categoriesSet.add(this.props.categories.cats[pk].title);
+              var categoryTitles = new Set();
+              (Object.keys(this.props.categoriesAndPages.categories)).map(function(pk) {
+                categoryTitles.add(this.props.categoriesAndPages.categories[pk].title);
               }, this);
-              if (input == categoryTitle && this.props.categoryInfo.color == this.state.editColor) {
+              if (input == categoryTitle && this.state.color == this.state.editColor) {
                 this.toggleEditStatus(false);
-              } else if (input == categoryTitle && this.props.categoryInfo.color != this.state.editColor) {
-                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
+              } else if (input == categoryTitle && this.state.color != this.state.editColor) {
+                this.props.categories_pages_actions.editCategory(this.props.pk, categoryTitle, input, this.state.editColor, userToken);
                 this.toggleEditStatus(false);
-              } else if (categoriesSet.has(input)) {
+              } else if (categoryTitles.has(input)) {
                 alert("Category name already exists!");
               } else {
-                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
+                this.props.categories_pages_actions.editCategory(this.props.pk, categoryTitle, input, this.state.editColor, userToken);
                 this.toggleEditStatus(false);
               }
             }}>
@@ -167,12 +184,13 @@ class SidebarCategoryBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  categories : state.categories,
+  categoriesAndPages : state.categoriesAndPages,
   currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  search_categories_actions: bindActionCreators(SearchCategoriesActions, dispatch),
+  categories_pages_actions: bindActionCreators(CategoriesPagesActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarCategoryBar);

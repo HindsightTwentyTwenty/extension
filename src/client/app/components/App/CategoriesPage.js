@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import SidebarComponent from '../Bars/SidebarComponent.js';
 import PageUrlBar from '../Bars/PageUrlBar.js';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as CategoriesPagesActions from '../../actions/CategoriesPages/CategoriesPagesActions.js';
 
 function getState(){
   return{
@@ -17,22 +17,22 @@ class CategoriesPage extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+    this.props.categories_pages_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
   componentDidUpdate() {
-    if (this.props.currentSearchCategories.searchCats &&
-      this.props.currentSearchCategories.searchCats.length &&
+    if (this.props.searchCategories.categories &&
+      this.props.searchCategories.categories.size &&
       this.state.displayWelcomeMessage) {
       this.setState({displayWelcomeMessage: false});
     }
   }
 
   fetchPages() {
-    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var categoriesPages = this.props.categoriesAndPages.catsToPages;
+    var searchCategories = this.props.searchCategories.categories;
+    var categories = this.props.categoriesAndPages.categories;
     var starred = this.props.categoriesAndPages.starred;
-    var showStarred = this.props.categoriesAndPages.showStarred;
+    var showStarred = this.props.searchCategories.showStarred;
     if (this.state.displayWelcomeMessage) {
       return (
         <div className="welcome-message">
@@ -40,33 +40,24 @@ class CategoriesPage extends Component {
           <h4>Use the <i className='fa fa-pencil'/> and <i className='fa fa-trash'/> to edit and delete your categories.</h4>
         </div>
       )
-    } else if (categoriesPages && Object.keys(categoriesPages).length) {
+    } else if (categories && Object.keys(categories).length) {
       let result = [];
       var pageSet = new Set();
-      let searchCatSet = new Set(currentSearchCategories);
-      if (searchCatSet.size) {
-        for (let searchCat of searchCatSet.values()) {
-          for (var pagePk in categoriesPages[searchCat]) {
+      if (searchCategories.size) {
+        for (let searchCat of searchCategories.values()) {
+          for (let pagePk of categories[searchCat].pages.values()) {
             if (!pageSet.has(pagePk)) {
-              if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
-                result.push(<PageUrlBar key={pagePk}
-                  source="categories"
-                  page={categoriesPages[searchCat][pagePk]}
-                  domain={categoriesPages[searchCat][pagePk].domain}
-                  visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+              if (!showStarred || (showStarred && starred.contains(pagePk))) {
+                result.push(<PageUrlBar key={pagePk} pk={pagePk}/>)
                 pageSet.add(pagePk);
               }
             }
           }
         }
       } else if (showStarred) {
-        for (var pagePk in starred) {
-          if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar key={pagePk}
-              source="categories"
-              page={starred[pagePk]}
-              domain={starred[pagePk].domain}
-              visited={starred[pagePk].last_visited}/>)
+        for (let starredPk of starred.values()) {
+          if (!pageSet.has(starredPk)) {
+            result.push(<PageUrlBar key={pagePk} pk={pagePk}/>)
             pageSet.add(pagePk);
           }
         }
@@ -89,15 +80,14 @@ class CategoriesPage extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    categories: state.categories,
     categoriesAndPages: state.categoriesAndPages,
-    currentSearchCategories : state.currentSearchCategories,
+    searchCategories : state.searchCategories,
     currentUser : state.currentUser
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    category_actions: bindActionCreators(CategoryActions, dispatch)
+    categories_pages_actions: bindActionCreators(CategoriesPagesActions, dispatch)
   }
 }
 

@@ -20,19 +20,14 @@ let store = createStore(
   { blacklist: {
       urls: []
     },
-    categories: {
-      cats: {},
-      editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
-      showColorPicker: false
-    },
     currentPage: {
       url: "",
       title: "",
       created: "",
-      visited: "", 
+      visited: "",
       categories: {},
       star: false
-    },
+    }, //can probs honestly delete this whole thing
     currentTabs:[],
     currentTime:{
       start_date:"",
@@ -41,12 +36,13 @@ let store = createStore(
     currentDomainDisplayed:{
     },
     categoriesAndPages:{
-      catsToPages: {},
-      starred: {},
-      showStarred: false
+      categories: {},
+      pages: {},
+      starred: {}
     },
-    currentSearchCategories: {
-      searchCats: []
+    searchCategories: {
+      categories: new Set(),
+      showStarred: false
     },
     sessions: {
       ongoingSession: false,

@@ -2,9 +2,8 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as CategoriesPagesActions from '../../actions/CategoriesPages/CategoriesPagesActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
@@ -26,18 +25,18 @@ class PageUrlBar extends Component {
 
   //WC SPRING TODO: REWORK TO USE CATEGORY ENTRY COMPONENT, JUST CHANGE CSS
   addNewCategory(categoryTitle){
-      this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
-        for (var key in this.props.categories.cats) {
-          if (categoryTitle == this.props.categories.cats[key].title) {
-            this.props.category_actions.toggleCategory(this.props.page.url,
-              this.props.categories.cats[key], true, this.props.currentUser.token);
-            break;
-          }
-        }
-        if (this.state.showColorPicker) {
-          this.toggleColorPicker(); 
-        }
-    });
+    //   this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
+    //     for (var key in this.props.categories.cats) {
+    //       if (categoryTitle == this.props.categories.cats[key].title) {
+    //         this.props.category_actions.toggleCategory(this.props.page.url,
+    //           this.props.categories.cats[key], true, this.props.currentUser.token);
+    //         break;
+    //       }
+    //     }
+    //     if (this.state.showColorPicker) {
+    //       this.toggleColorPicker();
+    //     }
+    // });
   }
 
   getCategoryEntry() {
@@ -71,6 +70,7 @@ class PageUrlBar extends Component {
   }
 
   getCategoriesOrColors() {
+    var page = this.props.categoriesAndPages.pages[this.props.pk];
     if (this.state.showColorPicker) {
       return GlobalConstants.CAT_COLORS.map((color) => {
         return <div className='color-square-small'
@@ -79,17 +79,20 @@ class PageUrlBar extends Component {
         key={color.name}></div>
       });
     }
-    else if (this.props.page.categories) {
-      return this.props.page.categories.map((category) => {
-        return <div className='url-bar-category-thin' key={category.title} style={{"backgroundColor" : category.color}}>
+    else if (page.categories) {
+      let result = [];
+      page.categories.forEach((categoryPk) => {
+        var category = this.props.categoriesAndPages.categories[categoryPk];
+        result.push(<div className='url-bar-category-thin' key={categoryPk} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow">{category.title}</div>
             <div className='url-bar-category-button' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
+                this.props.categories_pages_actions.removePageCategory(this.props.pk, categoryPk, this.props.currentUser.token, page.url, category.title);
               }}>
             <i className='fa fa-times'></i>
             </div>
-          </div>
+          </div>)
       });
+      return result;
     }
   }
 
@@ -127,7 +130,8 @@ class PageUrlBar extends Component {
 
   changeEditColor(color) {
     this.setState({
-      editColor: color
+      editColor: color,
+      showColorPicker: false
     });
   }
 
@@ -139,6 +143,7 @@ class PageUrlBar extends Component {
     this.setState({ iframehider_show: false, iframe_show: false});
   }
   render() {
+    var page = this.props.categoriesAndPages.pages[this.props.pk];
     var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
           <div className="i-modal-header">
@@ -155,9 +160,9 @@ class PageUrlBar extends Component {
         </div>
     : ''
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
-    var visited = this.props.visited ? <p><Timestamp time={this.props.visited} format="full"/></p> : '';
-    var domain = this.props.domain ? <p>{this.props.domain}</p> : '';
-    var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' :
+    var visited = page.lastVisited ? <p><Timestamp time={page.lastVisited} format="full"/></p> : '';
+    var domain = page.domain ? <p>{page.domain}</p> : '';
+    var starred = page.star ? 'fa fa-star fa-2x star-categories starred' :
     'fa fa-star-o fa-2x star-categories';
     return (
       <div className="page-url-bar">
@@ -167,7 +172,7 @@ class PageUrlBar extends Component {
           <i className="fa fa-eye" aria-hidden="true"></i>
         </button>
         <div className="bar-text-col">
-          <a className="url" target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
+          <a className="url" target="_blank" href={page.url}>{page.title}</a>
           <div>
             {domain}
             {visited}
@@ -194,14 +199,12 @@ class PageUrlBar extends Component {
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
     search_items: state.search,
-    categories: state.categories,
     categoriesAndPages: state.categoriesAndPages
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  lookback_actions: bindActionCreators(LookbackActions, dispatch),
   star_actions: bindActionCreators(StarActions, dispatch),
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  categories_pages_actions: bindActionCreators(CategoriesPagesActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);

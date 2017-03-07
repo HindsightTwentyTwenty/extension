@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import currentPageReducer from './CurrentPageReducer.js';
-import categoryReducer from './CategoryReducer.js';
+// import categoryReducer from './CategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
 import timeReducer from './TimeReducer.js';
 import lookBackNavReducer from './LookBackNavReducer.js';
 import lookBackReducer from './lookBackReducer.js';
-import searchCategoryReducer from './SearchCategoryReducer.js';
-import categoryPagesReducer from './CategoryPagesReducer.js';
+import searchCategoriesReducer from './searchCategoriesReducer.js';
+import categoriesPagesReducer from './CategoriesPagesReducer.js';
 import userReducer from './UserReducer.js';
 import pageDisplayReducer from './PageDisplayReducer.js';
 import blacklistReducer from './BlacklistReducer.js';
@@ -24,18 +24,18 @@ const rootReducer = (state, action) => {
 
 const appReducer = combineReducers({
   blacklist: blacklistReducer,
-  currentSearchCategories: searchCategoryReducer,
-  categories: categoryReducer,
+  searchCategories: searchCategoriesReducer,
+  // categories: categoryReducer,
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
   currentDomain: lookBackReducer,
   lookbackNav: lookBackNavReducer,
-  categoriesAndPages: categoryPagesReducer,
+  categoriesAndPages: categoriesPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
   search: searchReducer,
-  sessions: sessionsReducer, 
+  sessions: sessionsReducer,
   popupSelection: popupSelectionReducer
 });
 

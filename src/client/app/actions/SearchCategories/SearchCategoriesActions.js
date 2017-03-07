@@ -6,6 +6,32 @@ const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
+const editCategoryEndpoint = urls.BASE_URL + "editcategory/";
+
+export function toggleSearchCategory(categoryPk, addOrDelete) {
+  var dispatchType = addOrDelete ? types.ADD_SEARCH_CATEGORY : types.REMOVE_SEARCH_CATEGORY;
+  return dispatch => {
+    dispatch({
+      type: dispatchType,
+      categoryPk: categoryPk,
+    })
+  }
+}
+
+export function clearSearchCategories() {
+  return dispatch => {
+    dispatch({
+      type: types.CLEAR_SEARCH_CATEGORIES
+    })
+  }
+}
+
+
+
+
+
+
+
 
 export function pushCategory(category, color, token){
   return dispatch => {
@@ -45,7 +71,6 @@ export function fetchCategories(token){
       }))
   }
 }
-
 
 export function toggleColorPicker(show) {
   return dispatch => {

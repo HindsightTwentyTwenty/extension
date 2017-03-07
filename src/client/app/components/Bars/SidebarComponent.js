@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import SidebarCategoryBar from './SidebarCategoryBar';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as CategoriesPagesActions from '../../actions/CategoriesPages/CategoriesPagesActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 
 function getState(){
@@ -20,8 +20,8 @@ class SidebarComponent extends Component {
   }
 
   addNewCategory(categoryTitle){
-    this.props.category_actions.pushCategory(categoryTitle,
-      this.state.editColor, this.props.currentUser.token);
+    // this.props.category_actions.pushCategory(categoryTitle,
+    //   this.state.editColor, this.props.currentUser.token);
   }
 
   keyPressed(event){
@@ -59,14 +59,11 @@ class SidebarComponent extends Component {
   }
 
   getCategories() {
-    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var allCategories = this.props.categories.cats;
-    if (Object.keys(allCategories).length) {
+    var categories = this.props.categoriesAndPages.categories;
+    if (Object.keys(categories).length) {
       let result = [];
-      let searchCategorySet = new Set(currentSearchCategories);
-      for (var key in allCategories) {
-        var checked = searchCategorySet.has(allCategories[key].title);
-        result.push(<SidebarCategoryBar categoryInfo={allCategories[key]} checked={checked} key={allCategories[key].title}/>)
+      for (let catPk in categories) {
+        result.push(<SidebarCategoryBar pk={catPk} key={catPk}/>)
       }
       return result
     }
@@ -74,8 +71,8 @@ class SidebarComponent extends Component {
 
   render() {
     var categories = this.getCategories();
-    var showStarredStyle = this.props.categoriesAndPages.showStarred ? {"fontWeight" : "bold"} : {};
-    var starClass = this.props.categoriesAndPages.showStarred ? 'fa fa-star side-bar-single-button selected' : 'fa fa-star side-bar-single-button';
+    var showStarredStyle = this.props.searchCategories.showStarred ? {"fontWeight" : "bold"} : {};
+    var starClass = this.props.searchCategories.showStarred ? 'fa fa-star side-bar-single-button selected' : 'fa fa-star side-bar-single-button';
     var editColor = {"backgroundColor" : this.state.editColor};
     return (
       <div className="side-bar-container">
@@ -134,14 +131,13 @@ class SidebarComponent extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser,
-  categories: state.categories,
-  categoriesAndPages: state.categoriesAndPages
+  categoriesAndPages: state.categoriesAndPages,
+  searchCategories: state.searchCategories
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  categories_pages_actions: bindActionCreators(CategoriesPagesActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarComponent);

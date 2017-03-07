@@ -16,13 +16,13 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    if(this.props.currentUser.token.length == 0){
+    if(this.props.currentUser.token.length){
       chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
     }
   }
 
   renderContent(){
-    if(this.props.currentUser.token.length != 0){
+    if(this.props.currentUser.token.length){
       switch(this.props.lookbackNav.selection){
         case LookBackSections.LookBack:
           return (
