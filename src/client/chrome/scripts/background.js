@@ -1,6 +1,7 @@
 var closed = false;
 var token = "";
-var url = 'http://127.0.0.1:8000/';
+var url = 'https://hindsite2020.herokuapp.com/';
+
 var tabAlarmName = 'tabAlarm';
 
 chrome.alarms.create(tabAlarmName, {
@@ -37,9 +38,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  chrome.tabs.captureVisibleTab(null, function(dataString){
-    // console.log(dataString);
-  });
   if(token && changeInfo.status == 'complete' && tab.title){
       chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
         var lastError = chrome.runtime.lastError;
@@ -92,7 +90,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
         method: "POST",
         body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "url":tab.url})
       }).then(function(response){
-        console.log(response["status"])
+
         if(response["status"] == 404){
           chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
             var lastError = chrome.runtime.lastError;
@@ -102,7 +100,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
               var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
             }
             var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-            console.log(strippedDom.substring(1, 11));
+
             fetch(url + 'active/', {
               headers: {
                 'Accept': 'application/json',
