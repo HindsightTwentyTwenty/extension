@@ -110,7 +110,7 @@ class SidebarComponent extends Component {
                 this.toggleColorPicker();
               }}/>
               <div className='category-title'>
-                <input type="text" className="side-bar-input" placeholder="add category" onKeyPress={this.keyPressed.bind(this)} ref={node => {
+                <input type="text" className="side-bar-input" placeholder="  add category" onKeyPress={this.keyPressed.bind(this)} ref={node => {
                   this.input = node;
                 }}/>
               </div>

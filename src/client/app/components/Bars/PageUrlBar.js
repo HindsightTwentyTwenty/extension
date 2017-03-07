@@ -226,6 +226,7 @@ class PageUrlBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
+    currentPage: state.currentPage,
     currentUser : state.currentUser,
     search_items: state.search,
     categories: state.categories,
