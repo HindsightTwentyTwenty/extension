@@ -413,9 +413,19 @@ start-time-label .end-time-label{
   width: 100%;
 }
 
+#slider-label{
+  margin-top: 16px;
+  color: black;
+}
+
 #slider-wrapper{
   width:30%;
   margin-right: 30px;
+  margin-left: 20px;
+}
+
+.ant-slider-mark-text-active{
+  color:black;
 }
 
 .jump-btn{

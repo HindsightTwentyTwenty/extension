@@ -100,9 +100,9 @@ class PageUrlBar extends Component {
   }
 
   openIframe(event){
-    this.getDom();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
+    this.getDom();
   }
 
   closeIframe(event){
@@ -163,13 +163,6 @@ class PageUrlBar extends Component {
     });
   }
 
-  openIframe(event){
-    this.setState({ iframehider_show: true, iframe_show: true});
-  }
-
-  closeIframe(event){
-    this.setState({ iframehider_show: false, iframe_show: false});
-  }
   render() {
     var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
