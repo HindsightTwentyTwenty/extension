@@ -1,6 +1,6 @@
 var closed = false;
 var token = "";
-var url = 'https://hindsite2020.herokuapp.com/';
+var url = 'http://127.0.0.1:8000/';
 var tabAlarmName = 'tabAlarm';
 
 chrome.alarms.create(tabAlarmName, {
@@ -37,6 +37,9 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  chrome.tabs.captureVisibleTab(null, function(dataString){
+    // console.log(dataString);
+  });
   if(token && changeInfo.status == 'complete' && tab.title){
       chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
         var lastError = chrome.runtime.lastError;
@@ -80,22 +83,41 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 chrome.tabs.onActivated.addListener(function (activeInfo){
   if(token){
     chrome.tabs.get(activeInfo.tabId, function (tab){
-      chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
-        var lastError = chrome.runtime.lastError;
-        if (lastError) {
-          var dom = "";
+      fetch(url + 'active/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Token " + token
+        },
+        method: "POST",
+        body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "url":tab.url})
+      }).then(function(response){
+        console.log(response["status"])
+        if(response["status"] == 404){
+          chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+            var lastError = chrome.runtime.lastError;
+            if (lastError) {
+              var dom = "";
+            }else{
+              var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+            }
+            var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+            console.log(strippedDom.substring(1, 11));
+            fetch(url + 'active/', {
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Token " + token
+              },
+              method: "POST",
+              body: JSON.stringify({"tab":tab.id, "title":tab.title, "closed": closed, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
+            });
+          });
         }
-        var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        fetch(url + 'active/', {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': "Token " + token
-          },
-          method: "POST",
-          body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
-        });
       });
+
+
+
         closed = false;
       }
     );
