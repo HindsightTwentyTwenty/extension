@@ -244,7 +244,9 @@ class LookBack extends Component {
 				</div>
 				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
 			</div>
-			: <h4>Hover for detailed page information</h4>;
+			: <div className="page-details">
+					<h4>Hover for detailed page information</h4>;
+				</div>
 		var modal = this.props.currentDomainDisplayed.clicked ?
 				<div className="modal-base" id="domain-modal">
 					<div className="domain-modal-header">
