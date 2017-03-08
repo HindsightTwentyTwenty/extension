@@ -48,7 +48,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           star: action.page.star,
           categories: categoryObject,
           created: action.page.created,
-          visited: action.visited
+          visited: action.visited,
+          preview: action.preview
         }
       }
       if(action.page.star == undefined){
@@ -60,7 +61,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         star: action.page.star,
         categories: {},
         created: "",
-        visited: ""
+        visited: "",
+        preview: ""
       }
     default:
       return state

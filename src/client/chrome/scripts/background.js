@@ -71,24 +71,29 @@ if(md5 == "" || encrypt_key == ""){
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if(token && changeInfo.status == 'complete' && tab.title){
-      chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
-        var lastError = chrome.runtime.lastError;
-        if (lastError) {
-          var dom = "";
-        }else{
-          var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
-        }
-        var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        fetch(url + 'newpage/', {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': "Token " + token
-          },
-          method: "POST",
-          body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
-        }
-      );
+      var imageData;
+      chrome.tabs.captureVisibleTab(function(dataString){
+        imageData = dataString;
+        console.log(imageData);
+        chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+          var lastError = chrome.runtime.lastError;
+          if (lastError) {
+            var dom = "";
+          }else{
+            var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+          }
+          var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+          fetch(url + 'newpage/', {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': "Token " + token
+            },
+            method: "POST",
+            body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom, "image": imageData})
+          }
+        );
+      });
     });
     closed = false;
   }
@@ -124,6 +129,11 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
       }).then(function(response){
 
         if(response["status"] == 404){
+          var imageData;
+          chrome.tabs.captureVisibleTab(function(dataString){
+            imageData = dataString;
+            console.log(imageData);
+          });
           chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
             var lastError = chrome.runtime.lastError;
             if (lastError) {

@@ -14,6 +14,26 @@ const searchEndpoint = urls.BASE_URL + "search/";
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
+export function getImage(url, md5, ekey){
+  return dispatch => {
+    return fetch(url, {
+          headers: {
+             'Content-Type': 'image/jpeg',
+             'x-amz-server-side-encryption-customer-algorithm': 'AES256',
+             'x-amz-server-side-encryption-customer-key': ekey,
+             'x-amz-server-side-encryption-customer-key-MD5': md5
+           },
+           method: "GET"
+         }
+       )
+       .then(response => response.text())
+       .then(text => {
+         console.log(text);
+       })
+  }
+
+}
+
 export function changeStartDate(new_start_date) {
   return {
     type: types.UPDATE_START_DATE,
@@ -36,11 +56,12 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, visited) {
+export function setCurrentPage(page, visited, preview) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    visited: visited
+    visited: visited,
+    preview: preview
   }
 }
 
