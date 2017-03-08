@@ -1,5 +1,7 @@
 var closed = false;
 var token = "";
+var encrypt_key="";
+var md5="";
 var url = 'https://hindsite2020.herokuapp.com/';
 
 var tabAlarmName = 'tabAlarm';
@@ -35,6 +37,36 @@ chrome.storage.local.get("hindsite-token", get_token);
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   chrome.storage.local.get("hindsite-token", get_token);
 })
+
+function storeEncryption(json){
+  chrome.storage.local.set({"md5":json['md5'], "ekey":json['key']});
+}
+
+/* checks if user has encrpytion key, if not it gets it */
+function get_encrpyt_info(info_return){
+  if(info_return['md5'] && info_return['ekey']){
+    md5 = info_return['md5'];
+    encrypt_key = info_return['ekey'];
+  }
+  else{
+    fetch(url + 'decrypt/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "GET"
+    })
+    .then(response => response.json())
+    .then(json => {
+      storeEncryption(json)
+    })
+  }
+}
+
+if(md5 == "" || encrypt_key == ""){
+  chrome.storage.local.get(["md5", "ekey"], get_encrpyt_info);
+}
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
