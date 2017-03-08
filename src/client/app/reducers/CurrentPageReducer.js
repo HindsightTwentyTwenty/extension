@@ -21,20 +21,13 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:
       var newCategoryList = Object.assign({}, state.categories);
-      for(var key in action.categories) {
-        if (action.categories[key].title === action.categoryTitle) {
-          newCategoryList[action.categories[key].pk] =  action.categories[key];
-          break;
-        }
-      }
-      return {...state, categories: newCategoryList};
+      newCategoryList[action.category.pk] = action.category;
+      return {...state, categories: newCategoryList};
     case types.DELETE_PAGE_CATEGORY:
       var newCategoryList = Object.assign({}, state.categories);
-      for(var key in newCategoryList) {
-        if (newCategoryList[key].title === action.categoryTitle) {
-          delete newCategoryList[key];
-          break;
-        }
+      var pk = action.category.pk;
+      if (newCategoryList[pk]) {
+        delete newCategoryList[pk];
       }
       return {...state, categories: newCategoryList};
     case types.SET_CURRENT_PAGE:
@@ -42,35 +35,25 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         if(action.page.star == undefined){
           action.page.star = false;
         }
-        var categoryObject = {};
-        if(!(Object.keys(action.page.categories).length === 0 && action.page.categories.constructor === Object)){
-          for(var category in action.page.categories){
-            categoryObject[action.page.categories[category].pk] = action.page.categories[category];
-          }
-          // action.page.categories.map(function(category) {
-          //   categoryObject[category.pk] = category;
-          // });
-        }
         return {
           title: action.page.title,
           url: action.page.url,
           star: action.page.star,
-          categories: categoryObject,
+          categories: action.page.categories,
           created: action.page.created,
           visited: action.visited
         }
-      }else{
-        if(action.page.star == undefined){
-          action.page.star = false;
-        }
-        return {
-          title: "",
-          url: "",
-          star: action.page.star,
-          categories: {},
-          created: "",
-          visited: ""
-        }
+      }
+      if(action.page.star == undefined){
+        action.page.star = false;
+      }
+      return {
+        title: action.page.title,
+        url: action.page.url,
+        star: action.page.star,
+        categories: action.page.categories,
+        created: action.page.created,
+        visited: action.visited
       }
     default:
       return state

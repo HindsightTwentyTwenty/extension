@@ -67,69 +67,30 @@ export function fetchCategoriesAndPages(token){
   }
 }
 
-export function deletePageCategory(url, categoryTitle, token){
+export function toggleCategory(pageUrl, category, addOrDelete, token){
+  var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
-    return fetch(deletePageCategoryEndpoint, {
+    dispatch({
+      type: dispatchType,
+      category: category
+    })
+    var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;
+    return fetch(endpoint, {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
                'Authorization': 'Token ' + token
              },
              method: "POST",
-             body: JSON.stringify({url:url, category: categoryTitle})
+             body: JSON.stringify({url: pageUrl, category: category.title})
            }
       )
       .then(response => response.json())
       .then(json => dispatch({
         type: types.REMOVE_CAT_FROM_PAGE,
         json: json,
-        categoryTitle: categoryTitle
+        categoryTitle: category.title
       }))
-      .then(json => dispatch({
-          type: types.DELETE_PAGE_CATEGORY,
-          json: json,
-          categoryTitle: categoryTitle
-      }))
-  }
-}
-
-export function addPageCategory(url, categoryTitle, token, color){
-  return dispatch => {
-    return fetch(addPageCategoryEndpoint, {
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json',
-               'Authorization': 'Token ' + token
-             },
-             method: "POST",
-             body: JSON.stringify({url: url, category: categoryTitle})
-           }
-      )
-      .then(response => response.json())
-      .then(json =>{
-         dispatch({
-          type: types.ADD_PAGE_CATEGORY,
-          categories: json.categories,
-          categoryTitle: categoryTitle
-        })
-        dispatch({
-          type: types.ADD_CAT_TO_PAGE,
-          json: json,
-          categoryTitle: categoryTitle
-        })
-      })
-    }
-  }
-
-export function toggleCategory(pageUrl, category, addOrDelete, token, color){
-  if(addOrDelete){
-    return dispatch => {
-      dispatch(addPageCategory(pageUrl, category, token, color))
-    }
-  }else{
-    return dispatch => {
-      dispatch(deletePageCategory(pageUrl, category, token))
-    }
   }
 }
 

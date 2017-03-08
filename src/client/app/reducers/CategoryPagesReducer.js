@@ -40,28 +40,12 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
       for (let cat in catsToPagesDict) {
         if (cat == removedCat) {
           delete catsToPagesDict[cat][newPageInfo.pk];
-          break;
+        }
+        else if (catsToPagesDict[cat][newPageInfo.pk]) {
+          catsToPagesDict[cat][newPageInfo.pk] = newPageInfo;
         }
       }
       return {...state, catsToPages: catsToPagesDict};
-      case types.ADD_CAT_TO_PAGE:
-        var newPageInfo = action.json;
-        var addCat = action.categoryTitle;
-        var found = false;
-        var catsToPagesDict = Object.assign({}, state.catsToPages);
-        for (let cat in catsToPagesDict) {
-          if (cat == addCat) {
-            found = true;
-            catsToPagesDict[cat][newPageInfo.pk] = newPageInfo;
-            break;
-          }
-        }
-        if(!found && !(Object.keys(catsToPagesDict).length === 0 && catsToPagesDict.constructor === Object)){
-          var pagesDict = {};
-          pagesDict[newPageInfo.pk] = newPageInfo;
-          catsToPagesDict[addCat] = pagesDict;
-        }
-        return {...state, catsToPages: catsToPagesDict};
     case types.RECEIVE_CATEGORIES_AND_PAGES:
       var catsToPagesDict = {};
       action.json.categories.map(function(category) {
