@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as UserActions from '../../actions/User/UserActions.js';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
 class ForgotMyPassword extends Component {
@@ -16,7 +17,7 @@ class ForgotMyPassword extends Component {
   }
 
   back() {
-    this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
+    this.props.popup_actions.updatePopupStatus(PopupConstants.SignIn);
   }
 
   render() {
@@ -41,7 +42,8 @@ class ForgotMyPassword extends Component {
 }
 
 let mapDispatchToProps = (dispatch) => ({
-    user_actions: bindActionCreators(UserActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch),
+    popup_actions: bindActionCreators(PopupActions, dispatch)
 })
 
 export default connect(null, mapDispatchToProps)(ForgotMyPassword);

@@ -36,6 +36,13 @@ function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAUL
       var newCategory = action.category_added;
       newCategoryList[newCategory.pk] = newCategory;
       return {...state, cats: newCategoryList};
+    case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
+    case types.RECEIVE_POPUP_INFO:
+      var categoryObject = {};
+      action.categories.map(function(category) {
+        categoryObject[category.pk] = category;
+      })
+      return {...state, cats: categoryObject};
     default:
       return state;
   }

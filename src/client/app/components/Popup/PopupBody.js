@@ -10,7 +10,6 @@ import EmphasizeSessions from './EmphasizeSessions.js';
 class PopupBody extends Component {
   constructor(props) {
     super(props);
-    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   getPopupBody() {

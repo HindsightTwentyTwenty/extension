@@ -35,12 +35,12 @@ class LoginPage extends Component {
   }
 
 	forgotMyPassword(){
-		this.props.user_actions.updatePopupStatus(PopupConstants.ForgotMyPassword);
+		this.props.popup_actions.updatePopupStatus(PopupConstants.ForgotMyPassword);
 	}
 
 	createUserAccount(){
 		this.props.user_actions.endErrorMessage();
-		this.props.user_actions.updatePopupStatus(PopupConstants.SignUp);
+		this.props.popup_actions.updatePopupStatus(PopupConstants.SignUp);
 	}
 
   loginUser(){
@@ -80,7 +80,8 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    user_actions: bindActionCreators(UserActions, dispatch)
+    user_actions: bindActionCreators(UserActions, dispatch),
+		popup_actions: bindActionCreators(PopupActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

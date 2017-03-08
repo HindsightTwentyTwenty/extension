@@ -66,9 +66,9 @@ let store = createStore(
       token:"",
       invalid_login:false,
       change_password:false,
-      popup_status:PopupConstants.Loading,
       md5:"",
-      ekey:""
+      ekey:"",
+      tracking_on:false
     },
     lookbackNav: {
       selection: 0,
@@ -80,6 +80,7 @@ let store = createStore(
       dom: "",
       loading: true
     },
+    popupStatus: PopupConstants.Loading
   },
   applyMiddleware(
     thunkMiddleware

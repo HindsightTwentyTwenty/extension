@@ -6,6 +6,9 @@ import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 
+import Toggle from 'react-toggle'
+import 'react-toggle/style.css';
+
 class PopupHeader extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +21,8 @@ class PopupHeader extends Component {
     }
   }
 
-  logoutUser(){
-    chrome.storage.local.remove("hindsite-token");
-    this.props.user_actions.logoutUser(this.props.currentUser.token);
-    window.close();
+  toggleChange(event) {
+    this.props.user_actions.toggleTracking(event.target.checked, this.props.currentUser.token);
   }
 
   render () {
@@ -34,7 +35,15 @@ class PopupHeader extends Component {
               <p id="go-to-timeline"> go to timeline</p>
             </div>
         </div>
+        <div id="tracking-toggle-wrapper">
+          <span id="tracking-toggle-label">Autosave: </span>
+          <Toggle id="tracking-toggle"
+            onChange={ this.toggleChange.bind(this) }
+            className={ "popup-tracking-toggle"}
+            checked={ this.props.currentUser.tracking_on }/>
+        </div>
       </div>
+
     )
   }
 }
