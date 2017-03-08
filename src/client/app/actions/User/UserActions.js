@@ -124,42 +124,48 @@ export function logoutUser(token) {
 
 export function sendCurrentPage(token) {
   return dispatch => {
-
+    console.log("starting send current page");
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
-
-      var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-      var closed = false
       if(tab.title && !Url.isUrlBlacklisted(tab.url)){
+        chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+          var lastError = chrome.runtime.lastError;
+          if (lastError) {
+            var dom = "";
+          }else{
+            var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+          }
+          var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
           fetch(newPageEndpoint, {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'Authorization': "Token " + token
-
             },
             method: "POST",
-            body: JSON.stringify({"login": true, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
-          }
-        )
-        .then(response =>
-          response.json().then(json => ({
-            status: response.status,
-            json
+            body: JSON.stringify({"login": true, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
           })
-        ))
-        .then(
-          ({ status, json }) => {
-            if(status == 204){
-            } else {
-              dispatch(receivePageInfo(json));
+          .then(response =>
+            response.json().then(json => ({
+              status: response.status,
+              json
+            })
+          ))
+          .then(
+            ({ status, json }) => {
+              console.log("status - json", status, json);
+              if(status == 204){
+                dispatch(PopupActions.updatePopupStatus(PopupConstants.Blacklist));
+              } else {
+                dispatch(receivePageInfo(json));
+              }
             }
-          }
-        )
+          )
+        });
       } else {
         dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent));
       }
-    });
+    })
   }
 }
 
