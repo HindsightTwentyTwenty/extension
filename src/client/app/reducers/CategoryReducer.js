@@ -4,6 +4,11 @@ import * as GlobalConstants from '../constants/GlobalConstants';
 function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false}, action){
   switch(action.type){
+    case types.ADD_PAGE_CATEGORY:
+      var newCatsList = Object.assign({}, state.cats);
+      var newCat = action.categories[Object.keys(action.categories).length-1];
+      newCatsList[newCat.pk] =  newCat;
+      return {...state, cats: newCatsList};
     case types.SET_EDIT_CAT_COLOR:
       return {...state, editCatColor: action.color}
     case types.TOGGLE_COLOR_PICKER:

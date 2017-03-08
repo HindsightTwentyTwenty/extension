@@ -12,16 +12,25 @@ class CategoryEntry extends Component {
   }
 
   addNewCategory(categoryTitle){
-        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryTitle, true, this.props.currentUser.token);
-  };
+      this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+        for (var key in this.props.categories.cats) {
+          if (categoryTitle == this.props.categories.cats[key].title) {
+            this.props.category_actions.toggleCategory(this.props.currentPage.url,
+              this.props.categories.cats[key], true, this.props.currentUser.token);
+            break;
+          }
+        }
+    });
+  }
 
   keyPressed(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
-        if (this.input.value.trim() !== '') {
-          this.addNewCategory(this.input.value);
-          this.input.value = '';
-        }
+      var inputValue = this.input.value.trim();
+      if (inputValue !== '') {
+        this.addNewCategory(inputValue);
+        this.input.value = '';
+      }
     }
   }
 

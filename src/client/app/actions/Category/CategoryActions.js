@@ -106,15 +106,18 @@ export function addPageCategory(url, categoryTitle, token, color){
            }
       )
       .then(response => response.json())
-      .then(json => dispatch({
+      .then(json =>{
+         dispatch({
           type: types.ADD_PAGE_CATEGORY,
-          categories: json.categories
-      }))
-      .then(json => dispatch({
-        type: types.REMOVE_CAT_FROM_PAGE,
-        json: json,
-        categoryTitle: categoryTitle
-      }))
+          categories: json.categories,
+          categoryTitle: categoryTitle
+        })
+        dispatch({
+          type: types.ADD_CAT_TO_PAGE,
+          json: json,
+          categoryTitle: categoryTitle
+        })
+      })
     }
   }
 

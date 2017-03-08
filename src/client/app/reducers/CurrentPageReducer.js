@@ -20,18 +20,21 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.UPDATE_CURRENT_STAR: //WC TODO: USE TOGGLE STAR INSTEAD???
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:
-      var newCategoryList = Object.assign({}, action.categories);
+      var newCategoryList = Object.assign({}, state.categories);
+      for(var key in action.categories) {
+        if (action.categories[key].title === action.categoryTitle) {
+          newCategoryList[action.categories[key].pk] =  action.categories[key];
+          break;
+        }
+      }
       return {...state, categories: newCategoryList};
     case types.DELETE_PAGE_CATEGORY:
       var newCategoryList = Object.assign({}, state.categories);
-      var pk;
-      for(var i = 0; i < newCategoryList.length; i++) {
-        if (newCategoryList[i].title === action.categoryTitle) {
-          pk = newCategoryList[i].pk;
+      for(var key in newCategoryList) {
+        if (newCategoryList[key].title === action.categoryTitle) {
+          delete newCategoryList[key];
+          break;
         }
-      }
-      if (pk && newCategoryList[pk]) {
-        delete newCategoryList[pk];
       }
       return {...state, categories: newCategoryList};
     case types.SET_CURRENT_PAGE:
@@ -50,6 +53,18 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           categories: categoryObject,
           created: action.page.created,
           visited: action.visited
+        }
+      }else{
+        if(action.page.star == undefined){
+          action.page.star = false;
+        }
+        return {
+          title: "",
+          url: "",
+          star: action.page.star,
+          categories: [],
+          created: "",
+          visited: ""
         }
       }
     default:
