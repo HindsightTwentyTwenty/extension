@@ -163,8 +163,9 @@ class LookBack extends Component {
 
 	getCategories() {
     if (this.props.displayPage.categories) {
-      return this.props.displayPage.categories.map((category) => {
-        return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
+      return Object.keys(this.props.displayPage.categories).map((pk) => {
+				var category = this.props.displayPage.categories[pk];
+				return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
             <div className='url-bar-category-times' onClick={()=>{
                 this.props.category_actions.toggleCategory(this.props.displayPage.url, category.title, false, this.props.currentUser.token);
@@ -172,7 +173,7 @@ class LookBack extends Component {
             <i className='fa fa-times'></i>
             </div>
           </div>;
-      });
+      }, this);
     }
   }
 
@@ -210,10 +211,10 @@ class LookBack extends Component {
 	getCategoryOptions() {
     var options = [];
 
-    this.props.categories.cats.map(function(category) {
+    Object.keys(this.props.categories.cats).map(function(pk) {
+			var category = this.props.categories.cats[pk];
       options.push({ value: category.title, label: category.title })
-    });
-
+    }, this);
     return options;
   }
 

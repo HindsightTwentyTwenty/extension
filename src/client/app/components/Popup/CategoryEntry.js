@@ -12,7 +12,7 @@ class CategoryEntry extends Component {
   }
 
   addNewCategory(categoryTitle){
-        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryObject.title, true, this.props.currentUser.token);
+        this.props.category_actions.toggleCategory(this.props.currentPage.url, categoryTitle, true, this.props.currentUser.token);
   };
 
   keyPressed(event){

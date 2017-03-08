@@ -81,13 +81,14 @@ export function deletePageCategory(url, categoryTitle, token){
       )
       .then(response => response.json())
       .then(json => dispatch({
-          type: types.DELETE_PAGE_CATEGORY,
-          categoryTitle: categoryTitle
-      }))
-      .then(json => dispatch({
         type: types.REMOVE_CAT_FROM_PAGE,
         json: json,
         categoryTitle: categoryTitle
+      }))
+      .then(json => dispatch({
+          type: types.DELETE_PAGE_CATEGORY,
+          json: json,
+          categoryTitle: categoryTitle
       }))
   }
 }
@@ -109,8 +110,13 @@ export function addPageCategory(url, categoryTitle, token, color){
           type: types.ADD_PAGE_CATEGORY,
           categories: json.categories
       }))
+      .then(json => dispatch({
+        type: types.REMOVE_CAT_FROM_PAGE,
+        json: json,
+        categoryTitle: categoryTitle
+      }))
+    }
   }
-}
 
 export function toggleCategory(pageUrl, category, addOrDelete, token, color){
   if(addOrDelete){
