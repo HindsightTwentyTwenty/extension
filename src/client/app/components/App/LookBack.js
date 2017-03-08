@@ -6,6 +6,10 @@ import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
+import { Creatable } from 'react-select';
+
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import Datetime from 'react-datetime';
 import Star from '../Star/Star.js';
 const Timestamp = require('react-timestamp');
@@ -21,7 +25,8 @@ function getState() {
 		first_time_break_formatted:"",
 		second_time_break_formatted:"",
 		tabs:"",
-		timeframe:60
+		timeframe:60,
+		category_selection: "",
 	}
 }
 
@@ -156,40 +161,93 @@ class LookBack extends Component {
 	}
 
 	getCategories() {
-    if (this.props.displayPage.categories) {
-      return Object.keys(this.props.displayPage.categories).map((pk) => {
-				var category = this.props.displayPage.categories[pk];
-        return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
+    if (this.props.currentPage.categories) {
+      return Object.keys(this.props.currentPage.categories).map((pk) => {
+				var category = this.props.currentPage.categories[pk];
+				return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
-            <div className='url-bar-category-button' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.displayPage.url, category, false, this.props.currentUser.token);
+            <div className='url-bar-category-times' onClick={()=>{
+                this.props.category_actions.toggleCategory(this.props.currentPage.url, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
           </div>;
-      }, this);
+      });
     }
+  }
+
+	getCategoryObject(category_title){
+		var found = false;
+		var categories = this.props.categories.cats;
+
+		for (var i = categories.length-1; i >= 0; i--) {
+			if(categories[i].title == category_title){
+				return categories[i];
+			}
+		}
+		if(!found){
+			return null;
+		}
+	}
+
+	addNewCategory(categoryTitle){
+      this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+        for (var key in this.props.categories.cats) {
+          if (categoryTitle == this.props.categories.cats[key].title) {
+            this.props.category_actions.toggleCategory(this.props.currentPage.url,
+              this.props.categories.cats[key], true, this.props.currentUser.token);
+            break;
+          }
+        }
+    });
+  }
+
+	handleCategoryChange(category_option) {
+		var category_title = "";
+    if(category_option){
+      category_title = category_option.value;
+			this.addNewCategory(category_title);
+			this.setState({category_selection: ""});
+    }
+  }
+
+	getCategoryOptions() {
+    var options = [];
+
+    Object.keys(this.props.categories.cats).map(function(pk) {
+			var category = this.props.categories.cats[pk];
+      options.push({ value: category.title, label: category.title })
+    }, this);
+    return options;
   }
 
   render() {
 		var date = this.props.start_date;
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
-		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.displayPage.url != "") ? <div className="page-details">
-				<div className="row flex-row">
-				<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
-				<div className='url-buttons vertical-center'>
+		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.currentPage.url != "") ? <div className="page-details">
+				<div className="title-wrapper horizontal-center">
+					<a className="page-title" target="_blank" href={this.props.currentPage.url}><p>{this.props.currentPage.title}</p></a>
 					<Star/>
-					<button className="iframe-open-button">
-						<i className="fa fa-eye" aria-hidden="true"></i>
-					</button>
-					</div>
 				</div>
-				<div className='url-categories vertical-center'>
+				<div className='url-categories-display'>
 					{this.getCategories()}
 				</div>
-				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
+				<div className="category-select">
+					<Creatable
+						name="category-select"
+						className="search-select-dropdown"
+						value={ this.state.category_selection }
+						options={ this.getCategoryOptions() }
+						onChange={ this.handleCategoryChange.bind(this)}
+						noResultsText= ""
+						placeholder="Add Category..."
+					/>
+				</div>
+				<p>visited: <Timestamp time={this.props.currentPage.visited} format="full"/></p>
 			</div>
-			: <h4>Hover for detailed page information</h4>;
+			: <div className="page-details">
+					<h4>Hover for detailed page information</h4>;
+				</div>
 		var modal = this.props.currentDomainDisplayed.clicked ?
 				<div className="modal-base" id="domain-modal">
 					<div className="domain-modal-header">
@@ -279,7 +337,8 @@ let mapStateToProps = (state) => ({
     end_date:state.currentTime.end_date,
 		currentDomainDisplayed: state.currentDomainDisplayed,
 		currentUser : state.currentUser,
-		displayPage: state.currentPage
+		currentPage: state.currentPage,
+		categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {

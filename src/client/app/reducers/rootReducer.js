@@ -8,7 +8,6 @@ import lookBackReducer from './lookBackReducer.js';
 import searchCategoryReducer from './SearchCategoryReducer.js';
 import categoryPagesReducer from './CategoryPagesReducer.js';
 import userReducer from './UserReducer.js';
-import pageDisplayReducer from './PageDisplayReducer.js';
 import blacklistReducer from './BlacklistReducer.js';
 import searchReducer from './SearchReducer.js';
 import popupSelectionReducer from './PopupSelectionReducer';
@@ -35,8 +34,8 @@ const appReducer = combineReducers({
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,
   search: searchReducer,
-  sessions: sessionsReducer, 
-  popupSelection: popupSelectionReducer
+  sessions: sessionsReducer,
+  popupSelection: popupSelectionReducer,
 });
 
 export default rootReducer;

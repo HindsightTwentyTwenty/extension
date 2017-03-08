@@ -21,7 +21,10 @@ class CategoriesPage extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.currentSearchCategories.searchCats &&
+    if (this.props.categoriesAndPages.showStarred  &&
+      this.state.displayWelcomeMessage) {
+      this.setState({displayWelcomeMessage: false});
+    } else if (this.props.currentSearchCategories.searchCats &&
       this.props.currentSearchCategories.searchCats.length &&
       this.state.displayWelcomeMessage) {
       this.setState({displayWelcomeMessage: false});

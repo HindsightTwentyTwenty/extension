@@ -32,7 +32,10 @@ class NoContent extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  currentUser : state.currentUser
+    currentUser : state.currentUser
 })
 
-export default connect(mapStateToProps, null)(NoContent);
+let mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoContent);
