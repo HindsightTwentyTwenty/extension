@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import BlacklistBar from '../Bars/BlacklistBar.js';
 import * as BlacklistActions from '../../actions/Blacklist/BlacklistActions.js';
+import ReactTooltip from 'react-tooltip';
+
 
 class Blacklist extends Component {
 
@@ -46,7 +48,8 @@ class Blacklist extends Component {
     var blacklistedSites = this.fetchSites();
     return (
       <div>
-        <div className="section-title">Blacklisted Sites</div>
+        <ReactTooltip place="right" effect="solid" />
+        <div className="section-title">Blacklisted Sites  <i className="fa fa-question-circle" data-tip="Submit domain names below if you do not want them saved." aria-hidden="true"></i></div>
         <div className="input-group blacklist-entry">
            <span className="input-group-addon electric-blue">https://</span>
            <input type="text" className="form-control blacklist-text-entry" onKeyPress={this.keyPressed.bind(this)} placeholder="www.example.com" ref={node => {
