@@ -172,7 +172,7 @@ class LookBack extends Component {
             <i className='fa fa-times'></i>
             </div>
           </div>;
-      }, this);
+      });
     }
   }
 

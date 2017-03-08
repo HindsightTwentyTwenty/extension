@@ -11,7 +11,7 @@ class NoContent extends Component {
   }
 
   openTab () {
-    if(this.props.currentUser.token.length != 0){
+    if(this.props.currentUser.token.length){
       chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
       });
     }
