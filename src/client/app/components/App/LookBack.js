@@ -157,7 +157,8 @@ class LookBack extends Component {
 
 	getCategories() {
     if (this.props.displayPage.categories) {
-      return this.props.displayPage.categories.map((category) => {
+      return Object.keys(this.props.displayPage.categories).map((pk) => {
+				var category = this.props.displayPage.categories[pk];
         return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
             <div className='url-bar-category-button' onClick={()=>{
@@ -166,7 +167,7 @@ class LookBack extends Component {
             <i className='fa fa-times'></i>
             </div>
           </div>;
-      });
+      }, this);
     }
   }
 
