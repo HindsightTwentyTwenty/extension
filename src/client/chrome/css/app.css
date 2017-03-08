@@ -16,6 +16,7 @@ $bar-height: 40px;
 $modal-background: #e5eefc;
 $hover-color: #F68828;
 $timeline-active-color: #123654;
+$timeline-details-color: #046E8F;
 
 body {
    width:auto;
@@ -234,7 +235,7 @@ body {
   padding: 10px;
   width: 100%;
   height: 135px;
-  background-color: $canteloupe;
+  background-color: $timeline-details-color;
   min-width: 400px;
   color: $base-white;
 }
@@ -384,6 +385,7 @@ start-time-label .end-time-label{
 
 .time-change-button {
   width:35px;
+  color: $timeline-details-color;
 }
 
 #time-change-btn-buffer-lft{
@@ -413,9 +415,19 @@ start-time-label .end-time-label{
   width: 100%;
 }
 
+#slider-label{
+  margin-top: 16px;
+  color: black;
+}
+
 #slider-wrapper{
   width:30%;
   margin-right: 30px;
+  margin-left: 20px;
+}
+
+.ant-slider-mark-text-active{
+  color:black;
 }
 
 .jump-btn{
