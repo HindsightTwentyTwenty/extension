@@ -66,11 +66,11 @@ export function receiveFromChrome(token_response) {
     }else {
       dispatch(PopupActions.updatePopupStatus(PopupConstants.SignIn))
     }
-    if(token['md5'] && token['ekey']){
+    if(token_response['md5'] && token_response['ekey']){
       dispatch({
           type: types.RECEIVE_ENCRYPT_FROM_CHROME,
-          md5: token['md5'],
-          ekey: token['ekey']
+          md5: token_response['md5'],
+          ekey: token_response['ekey']
       })
     }
 

@@ -100,9 +100,9 @@ class PageUrlBar extends Component {
   }
 
   openIframe(event){
+    this.getDom();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
-    this.getDom();
   }
 
   closeIframe(event){
