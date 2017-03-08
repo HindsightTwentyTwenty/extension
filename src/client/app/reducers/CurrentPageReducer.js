@@ -36,7 +36,7 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           action.page.star = false;
         }
         var categoryObject = {};
-        if(action.page.categories.length > 0){
+        if(Object.keys(action.page.categories).length > 0){
           for(var category in action.page.categories){
             var curr = action.page.categories[category];
             categoryObject[curr.pk] = curr;
