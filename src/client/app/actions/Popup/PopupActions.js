@@ -66,7 +66,7 @@ export function getPopupInfo(url, title, token, count){
                  dispatch(receiveTrackingOffPopupInfo(json, url, title));
                }
                break;
-             case 204:
+             case 201:
                // User has blacklisted this url
                dispatch(updatePopupStatus(PopupConstants.Blacklist));
                break;
