@@ -52,7 +52,7 @@ class TabComponent extends Component {
   }
 
   getActiveTimesStyle(domain){
-    var active_color = "#206297";
+    var active_color = "#194C76";
     var non_active_color = "#4897D8";
     var base = "linear-gradient(to right, " + non_active_color + " 0%";
 
