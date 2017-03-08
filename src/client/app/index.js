@@ -29,7 +29,7 @@ let store = createStore(
       url: "",
       title: "",
       created: "",
-      visited: "", 
+      visited: "",
       categories: {},
       star: false
     },
@@ -80,11 +80,6 @@ let store = createStore(
       dom: "",
       loading: true
     },
-    autoSuggest: {
-      value: '',
-      suggestions: [],
-      isLoading: false
-    }
   },
   applyMiddleware(
     thunkMiddleware

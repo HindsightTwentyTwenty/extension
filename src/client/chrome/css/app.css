@@ -1203,7 +1203,7 @@ hr{
   max-width: 400px;
   overflow:auto;
   margin: 0 auto;
-  margin-bottom: 2%;
+  margin-bottom: 5px;
 }
 
 .category-select{

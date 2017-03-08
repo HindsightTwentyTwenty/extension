@@ -35,11 +35,17 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         if(action.page.star == undefined){
           action.page.star = false;
         }
+        var categoryObject = {};
+        if(action.page.categories.length > 0){
+          action.page.categories.map(function(category) {
+            categoryObject[category.pk] = category;
+          });
+        }
         return {
           title: action.page.title,
           url: action.page.url,
           star: action.page.star,
-          categories: action.page.categories,
+          categories: categoryObject,
           created: action.page.created,
           visited: action.visited
         }
@@ -48,12 +54,12 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         action.page.star = false;
       }
       return {
-        title: action.page.title,
-        url: action.page.url,
+        title: "",
+        url: "",
         star: action.page.star,
-        categories: action.page.categories,
-        created: action.page.created,
-        visited: action.visited
+        categories: {},
+        created: "",
+        visited: ""
       }
     default:
       return state

@@ -12,7 +12,6 @@ import blacklistReducer from './BlacklistReducer.js';
 import searchReducer from './SearchReducer.js';
 import popupSelectionReducer from './PopupSelectionReducer';
 import sessionsReducer from './SessionsReducer';
-import autoSuggestReducer from './autoSuggestReducer';
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -37,7 +36,6 @@ const appReducer = combineReducers({
   search: searchReducer,
   sessions: sessionsReducer,
   popupSelection: popupSelectionReducer,
-  autoSuggest: autoSuggestReducer
 });
 
 export default rootReducer;

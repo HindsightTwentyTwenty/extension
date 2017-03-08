@@ -56,6 +56,9 @@ class LookBackNavBar extends Component {
           <div className="btn-toolbar">
             <button id="nav-bar-button-0" className="nav-bar-button nav-bar-button-selected" type="button" onClick={() => {
               this.props.lookback_actions.setCurrentPage({});
+              if(this.props.lookbackNav.selection == LookBackSections.LookBack){
+                this.props.lookback_actions.toggleDomainClicked();
+              }
               this.switchLookBackSelection(LookBackSections.LookBack);
             }}>timeline</button>
             <button id="nav-bar-button-1" className="nav-bar-button" type="button" onClick={() => {

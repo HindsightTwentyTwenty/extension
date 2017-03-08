@@ -6,7 +6,6 @@ import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
-import CategoryAutoSuggest from './CategoryAutoSuggest.js';
 import { Creatable } from 'react-select';
 
 import Select from 'react-select';
@@ -162,13 +161,13 @@ class LookBack extends Component {
 	}
 
 	getCategories() {
-    if (this.props.displayPage.categories) {
-      return Object.keys(this.props.displayPage.categories).map((pk) => {
-				var category = this.props.displayPage.categories[pk];
+    if (this.props.currentPage.categories) {
+      return Object.keys(this.props.currentPage.categories).map((pk) => {
+				var category = this.props.currentPage.categories[pk];
 				return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
             <div className='url-bar-category-times' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.displayPage.url, category.title, false, this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.currentPage.url, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
@@ -191,21 +190,25 @@ class LookBack extends Component {
 		}
 	}
 
+	addNewCategory(categoryTitle){
+      this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+        for (var key in this.props.categories.cats) {
+          if (categoryTitle == this.props.categories.cats[key].title) {
+            this.props.category_actions.toggleCategory(this.props.currentPage.url,
+              this.props.categories.cats[key], true, this.props.currentUser.token);
+            break;
+          }
+        }
+    });
+  }
+
 	handleCategoryChange(category_option) {
 		var category_title = "";
     if(category_option){
-      category_title = category_option.value
+      category_title = category_option.value;
+			this.addNewCategory(category_title);
+			this.setState({category_selection: ""});
     }
-		this.setState({category_selection: category_option});
-		var category = this.getCategoryObject(category_title);
-
-		if(category){
-			this.props.category_actions.toggleCategory(this.props.displayPage.url, category.title, true, this.props.currentUser.token);
-			this.setState({category_selection: ""});
-		} else if(category_title.trim() !== "" && category_title.length <= 50) {
-    	this.props.category_actions.toggleCategory(this.props.displayPage.url, category_title, true, this.props.currentUser.token);
-			this.setState({category_selection: ""});
-		}
   }
 
 	getCategoryOptions() {
@@ -221,9 +224,9 @@ class LookBack extends Component {
   render() {
 		var date = this.props.start_date;
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
-		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.displayPage.url != "") ? <div className="page-details">
+		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.currentPage.url != "") ? <div className="page-details">
 				<div className="title-wrapper horizontal-center">
-					<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
+					<a className="page-title" target="_blank" href={this.props.currentPage.url}><p>{this.props.currentPage.title}</p></a>
 					<Star/>
 				</div>
 				<div className='url-categories-display'>
@@ -240,7 +243,7 @@ class LookBack extends Component {
 						placeholder="Add Category..."
 					/>
 				</div>
-				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
+				<p>visited: <Timestamp time={this.props.currentPage.visited} format="full"/></p>
 			</div>
 			: <div className="page-details">
 					<h4>Hover for detailed page information</h4>;
@@ -334,7 +337,7 @@ let mapStateToProps = (state) => ({
     end_date:state.currentTime.end_date,
 		currentDomainDisplayed: state.currentDomainDisplayed,
 		currentUser : state.currentUser,
-		displayPage: state.currentPage,
+		currentPage: state.currentPage,
 		categories: state.categories
 })
 
