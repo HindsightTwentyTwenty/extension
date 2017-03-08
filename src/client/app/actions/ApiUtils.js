@@ -7,7 +7,7 @@ var ApiUtils = {
     } else {
 
       // Bad response. Return the status code for parsing in catch
-      throw response.status;
+      throw response;
 
     }
   }

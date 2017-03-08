@@ -29,6 +29,8 @@ function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"
       return { ...state, change_password: action.change_password }
     case types.RECEIVE_USER_INFO:
       return { ...state, user_name:action.username, first_name:action.first_name, last_name:action.last_name, email:action.email, created_at: action.created_at, tracking_on: action.tracking_on }
+    case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
+      return { ...state, tracking_on: action.tracking_on }
     case types.RECEIVE_POPUP_INFO:
       return { ...state, tracking_on: action.tracking_on }
     case types.RECEIVE_TRACKING:

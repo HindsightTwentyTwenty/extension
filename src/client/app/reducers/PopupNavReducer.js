@@ -3,6 +3,9 @@ import * as PopupConstants from '../constants/PopupConstants.js'
 
 function popupNavReducer(state = PopupConstants.Loading, action){
   switch(action.type){
+    case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
+      // Used in regular popup flow when tracking is off
+      return PopupConstants.Received
     case types.RECEIVE_POPUP_INFO:
       // Used in regular Popup flow
       return PopupConstants.Received

@@ -81,6 +81,7 @@ export function checkCurrentPage(token){
   return dispatch => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
+      console.log("tab from chrome", tab);
 
       if(Url.isUrlBlacklisted(tab.url)){
         // Display message to navigate to a different page
@@ -89,7 +90,7 @@ export function checkCurrentPage(token){
       } else {
         // fetch category information to display in the popup
         // return dispatch(getPageInformation(tab.url, token, 0))
-        return dispatch(PopupActions.getPopupInfo(tab.url, token))
+        return dispatch(PopupActions.getPopupInfo(tab.url, tab.title, token, 0))
       }
 
     });
@@ -117,7 +118,7 @@ export function getPageInformation(url, token, count){
        })
        .catch(e => {
 
-          switch (e) {
+          switch (e.status) {
             case 404:
               // Page does not exist in backend at this moment
               // Retry up to 5 times before displaying error message
