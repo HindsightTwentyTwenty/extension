@@ -10,6 +10,13 @@ class NoContent extends Component {
       super(props);
   }
 
+  openTab () {
+    if(this.props.currentUser.token.length){
+      chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
+      });
+    }
+  }
+
   render () {
     return (
       <div className="popup-body electric-blue">
@@ -17,11 +24,15 @@ class NoContent extends Component {
           <i className="fa fa-exclamation-triangle" id="fa-error" aria-hidden="true"></i>
           <p className="popup-header-text zero-margin">hindsite</p>
           <p>is only meant for pages with urls beginning with http:// or https://. Please navigate to another page or </p>
-          <p id="go-to-link">go to timeline.</p>
+          <p id="go-to-link" onMouseDown={()=>{this.openTab()}}>go to timeline.</p>
         </div>
       </div>
     )
   }
 }
 
-export default connect(null, null)(NoContent);
+let mapStateToProps = (state) => ({
+  currentUser : state.currentUser
+})
+
+export default connect(mapStateToProps, null)(NoContent);
