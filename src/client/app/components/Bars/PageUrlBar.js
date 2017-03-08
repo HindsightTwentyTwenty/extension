@@ -44,7 +44,7 @@ class PageUrlBar extends Component {
           this.toggleColorPicker();
         }
     });
-  }
+}
 
   getCategoryEntry() {
     return (
@@ -89,7 +89,7 @@ class PageUrlBar extends Component {
       return this.props.page.categories.map((category) => {
         return <div className='url-bar-category-thin' key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow">{category.title}</div>
-            <div className='url-bar-category-button' onClick={()=>{
+            <div className='url-bar-category-times' onClick={()=>{
                 this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
