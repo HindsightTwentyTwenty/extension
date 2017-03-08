@@ -64,7 +64,7 @@ export function receiveFromChrome(token_response) {
       dispatch(checkCurrentPage(token)),
       dispatch(getUserInfo(token))
     }else {
-      dispatch(updatePopupStatus(PopupConstants.SignIn))
+      dispatch(PopupActions.updatePopupStatus(PopupConstants.SignIn))
     }
     if(token['md5'] && token['ekey']){
       dispatch({
@@ -85,60 +85,16 @@ export function checkCurrentPage(token){
 
       if(Url.isUrlBlacklisted(tab.url)){
         // Display message to navigate to a different page
-        return dispatch(updatePopupStatus(PopupConstants.NoContent))
+        return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
 
       } else {
         // fetch category information to display in the popup
-        // return dispatch(getPageInformation(tab.url, token, 0))
         return dispatch(PopupActions.getPopupInfo(tab.url, tab.title, token, 0))
       }
 
     });
   }
 
-}
-
-export function getPageInformation(url, token, count){
-
-  return dispatch => {
-    return fetch(pageInfoEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': 'Token ' + token
-           },
-           method: "POST",
-           body: JSON.stringify({url: url})
-         }
-       )
-       .then(ApiUtils.checkStatus)
-       .then(response => response.json())
-       .then(json => {
-         dispatch(receivePageInfo(json))
-       })
-       .catch(e => {
-
-          switch (e.status) {
-            case 404:
-              // Page does not exist in backend at this moment
-              // Retry up to 5 times before displaying error message
-              if(count < 5){
-                setTimeout(function() { dispatch(getPageInformation(url, token, count + 1)); }, 1000);
-              } else {
-                dispatch(updatePopupStatus(PopupConstants.Error));
-              }
-              break;
-            case 204:
-              // User has blacklisted this url
-              dispatch(updatePopupStatus(PopupConstants.Blacklist));
-              break;
-            default:
-              // Defualt in case of non-expected error code
-              dispatch(updatePopupStatus(PopupConstants.Error));
-              break;
-         }
-        })
-  }
 }
 
 export function logoutUser(token) {
@@ -165,42 +121,6 @@ export function logoutUser(token) {
     })
   }
 }
-
-function receivePageInfo(json) {
-  return {
-    type: types.RECEIVE_PAGE_INFO,
-    categories: json.categories,
-    url: json.url,
-    star: json.star,
-    title: json.title
-  }
-}
-
-function getPageInfo(url, token){
-
-  return dispatch => {
-    return fetch(pageInfoEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': "Token " + token
-           },
-           method: "POST",
-           body: JSON.stringify({url: url})
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch(receivePageInfo(json)))
-  }
-}
-
-export function updatePopupStatus(status){
-  return {
-    type: types.POPUP_STATUS,
-    popup_status: status
-  }
-}
-
 
 export function sendCurrentPage(token) {
   return dispatch => {
@@ -237,7 +157,7 @@ export function sendCurrentPage(token) {
           }
         )
       } else {
-        dispatch(updatePopupStatus(PopupConstants.NoContent));
+        dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent));
       }
     });
   }
@@ -426,7 +346,6 @@ export function getUserInfo(token){
   }
 }
 
-
 export function sendBackendTracking(tracking_on, token){
   return dispatch => {
     if(tracking_on){
@@ -472,11 +391,6 @@ export function sendBackendTracking(tracking_on, token){
     }
   }
 }
-
-
-
-
-
 
 export function toggleTracking(tracking_on, token){
   return dispatch => {

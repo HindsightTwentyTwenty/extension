@@ -8,7 +8,6 @@ var ApiUtils = {
 
       // Bad response. Return the status code for parsing in catch
       throw response;
-
     }
   }
 };

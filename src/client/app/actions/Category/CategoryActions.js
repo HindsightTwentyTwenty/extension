@@ -68,8 +68,6 @@ export function fetchCategoriesAndPages(token){
 }
 
 export function toggleCategory(pageUrl, pageTitle, category, addOrDelete, token){
-  console.log("add cat end", pageUrl, pageTitle, category, addOrDelete, token);
-  console.log("JSON SENDING", JSON.stringify({url: pageUrl, title: pageTitle, category: category.title}));
   var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
     dispatch({
@@ -87,13 +85,12 @@ export function toggleCategory(pageUrl, pageTitle, category, addOrDelete, token)
              body: JSON.stringify({url: pageUrl, title: pageTitle, category: category.title})
            }
       )
-      .then(response => console.log(response))
-      // .then(response => response.json())
-      // .then(json => dispatch({
-      //   type: types.REMOVE_CAT_FROM_PAGE,
-      //   json: json,
-      //   categoryTitle: category.title
-      // }))
+      .then(response => response.json())
+      .then(json => dispatch({
+        type: types.REMOVE_CAT_FROM_PAGE,
+        json: json,
+        categoryTitle: category.title
+      }))
   }
 }
 

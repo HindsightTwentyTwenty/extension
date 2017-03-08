@@ -9,31 +9,7 @@ const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const newSessionEndpoint = urls.BASE_URL + "addsession/";
 const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
 
-// export function getPageInfo(token){
-//   return dispatch => {
-//     return fetch(pageInfoEndpoint, {
-//           headers: {
-//              'Accept': 'application/json',
-//              'Content-Type': 'application/json',
-//              'Authorization': 'Token ' + token
-//            },
-//            method: "POST"
-//          }
-//        )
-//       .then(response => response.json())
-//       .then(json => dispatch({
-//         type: types.RECEIVE_PAGE_INFO,
-//         categories: json.categories,
-//         url: json.url,
-//         star: json.star,
-//         title: json.title
-//       })
-//     )
-//   }
-// }
-
 export function receivePopupInfo(json){
-  console.log("receviedpopupinfo", json)
   return {
     type: types.RECEIVE_POPUP_INFO,
     categories: json.categories,
@@ -43,7 +19,6 @@ export function receivePopupInfo(json){
 }
 
 export function receiveTrackingOffPopupInfo(json, url, title){
-  console.log("receviedpopupinfo - tracking off", json)
   return {
     type: types.RECEIVE_TRACKING_OFF_POPUP_INFO,
     categories: json.categories,
@@ -54,7 +29,6 @@ export function receiveTrackingOffPopupInfo(json, url, title){
 }
 
 export function getPopupInfo(url, title, token, count){
-  console.log("getting popup info", url, token);
   return dispatch => {
     return fetch(popupInfoEndpoint, {
           headers: {
@@ -102,7 +76,6 @@ export function getPopupInfo(url, title, token, count){
            }
          }
        )
-
   }
 }
 

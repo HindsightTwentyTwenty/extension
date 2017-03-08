@@ -22,8 +22,6 @@ class PopupHeader extends Component {
   }
 
   toggleChange(event) {
-    console.log("toggle change", event.target.checked);
-    console.log("toggle token", this.props.currentUser.token);
     this.props.user_actions.toggleTracking(event.target.checked, this.props.currentUser.token);
   }
 
@@ -41,6 +39,7 @@ class PopupHeader extends Component {
           <span id="tracking-toggle-label">Autosave: </span>
           <Toggle id="tracking-toggle"
             onChange={ this.toggleChange.bind(this) }
+            className={ "popup-tracking-toggle"}
             checked={ this.props.currentUser.tracking_on }/>
         </div>
       </div>
