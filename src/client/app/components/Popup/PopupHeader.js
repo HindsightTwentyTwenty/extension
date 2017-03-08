@@ -38,7 +38,7 @@ class PopupHeader extends Component {
             </div>
         </div>
         <div id="tracking-toggle-wrapper">
-          <span id="tracking-toggle-label">Tracking: </span>
+          <span id="tracking-toggle-label">Autosave: </span>
           <Toggle id="tracking-toggle"
             onChange={ this.toggleChange.bind(this) }
             checked={ this.props.currentUser.tracking_on }/>

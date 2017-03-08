@@ -426,22 +426,57 @@ export function getUserInfo(token){
   }
 }
 
+
 export function sendBackendTracking(tracking_on, token){
   return dispatch => {
-    return fetch (trackingEndpoint, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': "Token " + token
-      },
-      method: "POST",
-      body: JSON.stringify({"tracking": tracking_on })
-    })
-    .then(response => {
-      console.log("tracking response", response);
-    });
+    if(tracking_on){
+      console.log("tracking coming on. sending current page with it");
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        var tab = tabs[0];
+        chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+          var lastError = chrome.runtime.lastError;
+          if (lastError) {
+            var dom = "";
+          }else{
+            var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+          }
+
+          var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+          return fetch (trackingEndpoint, {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': "Token " + token
+            },
+            method: "POST",
+            body: JSON.stringify({"tracking": tracking_on, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active })
+          })
+          .then(response => {
+            console.log("tracking on response", response);
+          })
+        })
+      })
+    } else {
+      return fetch (trackingEndpoint, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Token " + token
+        },
+        method: "POST",
+        body: JSON.stringify({"tracking": tracking_on })
+      })
+      .then(response => {
+        console.log("tracking off response", response);
+      })
+    }
   }
 }
+
+
+
+
+
 
 export function toggleTracking(tracking_on, token){
   return dispatch => {
