@@ -224,23 +224,21 @@ class LookBack extends Component {
 		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.displayPage.url != "") ? <div className="page-details">
 				<div className="title-wrapper horizontal-center">
 					<a className="page-title" target="_blank" href={this.props.displayPage.url}><p>{this.props.displayPage.title}</p></a>
-					<div className='url-buttons vertical-center'>
-						<Star/>
-					</div>
+					<Star/>
 				</div>
 				<div className='url-categories-display'>
 					{this.getCategories()}
 				</div>
 				<div className="category-select">
-				<Creatable
-					name="category-select"
-					className="search-select-dropdown"
-					value={ this.state.category_selection }
-					options={ this.getCategoryOptions() }
-					onChange={ this.handleCategoryChange.bind(this)}
-					noResultsText= ""
-					placeholder="Add Category..."
-				/>
+					<Creatable
+						name="category-select"
+						className="search-select-dropdown"
+						value={ this.state.category_selection }
+						options={ this.getCategoryOptions() }
+						onChange={ this.handleCategoryChange.bind(this)}
+						noResultsText= ""
+						placeholder="Add Category..."
+					/>
 				</div>
 				<p>visited: <Timestamp time={this.props.displayPage.visited} format="full"/></p>
 			</div>
