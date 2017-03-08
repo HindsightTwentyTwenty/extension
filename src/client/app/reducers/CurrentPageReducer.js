@@ -43,9 +43,14 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           action.page.star = false;
         }
         var categoryObject = {};
-        action.page.categories.map(function(category) {
-          categoryObject[category.pk] = category;
-        });
+        if(!(Object.keys(action.page.categories).length === 0 && action.page.categories.constructor === Object)){
+          for(var category in action.page.categories){
+            categoryObject[action.page.categories[category].pk] = action.page.categories[category];
+          }
+          // action.page.categories.map(function(category) {
+          //   categoryObject[category.pk] = category;
+          // });
+        }
         return {
           title: action.page.title,
           url: action.page.url,
@@ -62,7 +67,7 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           title: "",
           url: "",
           star: action.page.star,
-          categories: [],
+          categories: {},
           created: "",
           visited: ""
         }
