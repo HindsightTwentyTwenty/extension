@@ -28,7 +28,7 @@ class DisplayDetails extends Component {
 
 let mapStateToProps = (state) => ({
   currentDomainDisplayed: state.currentDomainDisplayed,
-  displayPage: state.currentPage,
+  currentPage: state.currentPage,
   currentUser: state.currentUser,
   categories: state.categories
 })

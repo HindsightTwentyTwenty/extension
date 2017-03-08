@@ -81,7 +81,6 @@ let store = createStore(
       loading: true
     },
     popupStatus: PopupConstants.Loading
-
   },
   applyMiddleware(
     thunkMiddleware

@@ -55,12 +55,24 @@ class LookBackNavBar extends Component {
           { this.searchForm() }
           <div className="btn-toolbar">
             <button id="nav-bar-button-0" className="nav-bar-button nav-bar-button-selected" type="button" onClick={() => {
+              if(this.props.currentDomainDisplayed.clicked){
+                  this.props.lookback_actions.toggleDomainClicked();
+                  this.props.lookback_actions.setCurrentPage({});
+              }
               this.switchLookBackSelection(LookBackSections.LookBack);
             }}>timeline</button>
             <button id="nav-bar-button-1" className="nav-bar-button" type="button" onClick={() => {
+              if(this.props.currentDomainDisplayed.clicked){
+                  this.props.lookback_actions.toggleDomainClicked();
+                  this.props.lookback_actions.setCurrentPage({});
+              }
               this.switchLookBackSelection(LookBackSections.Categories);
             }}>categories</button>
             <button id="nav-bar-button-2" className="nav-bar-button" type="button" onClick={() => {
+              if(this.props.currentDomainDisplayed.clicked){
+                  this.props.lookback_actions.toggleDomainClicked();
+                  this.props.lookback_actions.setCurrentPage({});
+              }
               this.switchLookBackSelection(LookBackSections.Manage);
             }}>manage</button>
           </div>
@@ -81,8 +93,8 @@ class LookBackNavBar extends Component {
 
 let mapStateToProps = (state) => ({
   lookbackNav: state.lookbackNav,
-  currentUser : state.currentUser
-
+  currentUser : state.currentUser,
+  currentDomainDisplayed: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {
