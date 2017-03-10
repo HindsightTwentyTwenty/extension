@@ -3,81 +3,171 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
+
+function getState(){
+  return{
+    editColor:"",
+    confirmDelete: false,
+    editCat: false
+  }
+}
 
 class SidebarCategoryBar extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState();
+  }
+
+  componentWillMount() {
+    this.setState({
+      editColor:this.props.categoryInfo.color
+    })
+  }
+
+  getCategoryTitle() {
+    var categoryTitle = this.props.categoryInfo.title;
+    var categoryColor = this.props.categoryInfo.color;
+    var checkedTitleStyle = this.props.checked ? {"color" : categoryColor, "fontWeight" : "bold"} : {};
+    var checkedBoxStyle = this.props.checked ? {"backgroundColor" : categoryColor, "opacity" : "1"} : {"backgroundColor" : categoryColor, "opacity" : "0.5"};
+    var barClassName = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
+    return (
+      <div className={barClassName}>
+        <div className='category-info' onClick={() => {
+          this.props.category_actions.updateSearchCategory(categoryTitle, !this.props.checked);
+          }}>
+          <div className='color-square-small' style={checkedBoxStyle}/>
+          <div className='category-title hide-overflow'
+            style={checkedTitleStyle}>
+            {categoryTitle}
+          </div>
+        </div>
+        <div className='side-bar-buttons'>
+          <a onClick={() => {this.toggleEditStatus(true);}}>
+            <i className='fa fa-pencil left-sidebar-button'/>
+          </a>
+          <a onClick={() => {this.toggleDeleteStatus(true)}}>
+            <i className='fa fa-trash right-sidebar-button'/>
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  getDeleteCategory() {
+    var categoryTitle = this.props.categoryInfo.title;
+    var userToken = this.props.currentUser.token;
+    return(
+      <div className='side-bar-category'>
+        <div className='category-title'>
+          are you sure?
+        </div>
+        <div className='side-bar-buttons'>
+          <a onClick={() => {
+            this.props.category_actions.updateSearchCategory(categoryTitle, false);
+            this.props.category_actions.deleteCategory(this.props.categoryInfo.pk, categoryTitle, userToken);
+          }}>
+            <i className='fa fa-check left-sidebar-button'/>
+          </a>
+          <a onClick={() => {
+            this.toggleDeleteStatus(false);
+          }}>
+            <i className='fa fa-times right-sidebar-button'/>
+          </a>
+        </div>
+      </div>
+    )
+  }
+
+  getColors() {
+    return GlobalConstants.CAT_COLORS.map((color) => {
+      return <div className='color-square-small'
+      onClick={this.changeEditColor.bind(this, color.code)}
+      style={{"backgroundColor" : color.code}}
+      key={color.name}></div>
+    });
+  }
+
+  toggleDeleteStatus(deleteStatus) {
+    this.setState({
+      confirmDelete: deleteStatus
+    });
+  }
+
+  toggleEditStatus(editStatus) {
+    this.setState({
+      editCat: editStatus
+    });
+  }
+
+  changeEditColor(color) {
+    this.setState({
+      editColor: color
+    });
+  }
+
+  getEditCategory() {
+    var categoryTitle = this.props.categoryInfo.title;
+    var categoryColor = this.state.editColor;
+    var userToken = this.props.currentUser.token;
+    return (
+      <div>
+        <div className='side-bar-category'>
+          <div className='category-info'>
+            <div className='color-square-small' style={{"backgroundColor" : categoryColor}}/>
+            <input className='edit-category-input' defaultValue={categoryTitle}
+              ref={node => {this.input = node;}}
+            />
+          </div>
+          <div className='side-bar-buttons'>
+            <a onClick={() => {
+              var input = this.input.value.trim();
+              var categoriesSet = new Set();
+              (Object.keys(this.props.categories.cats)).map(function(pk) {
+                categoriesSet.add(this.props.categories.cats[pk].title);
+              }, this);
+              if (input == categoryTitle && this.props.categoryInfo.color == this.state.editColor) {
+                this.toggleEditStatus(false);
+              } else if (input == categoryTitle && this.props.categoryInfo.color != this.state.editColor) {
+                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
+                this.toggleEditStatus(false);
+              } else if (categoriesSet.has(input)) {
+                alert("Category name already exists!");
+              } else {
+                this.props.category_actions.editCategory(this.props.categoryInfo.pk, categoryTitle, input, this.state.editColor, userToken);
+                this.toggleEditStatus(false);
+              }
+            }}>
+              <i className='fa fa-check left-sidebar-button'/>
+            </a>
+            <a onClick={() => {
+              this.toggleEditStatus(false);
+            }}>
+              <i className='fa fa-times right-sidebar-button'/>
+            </a>
+          </div>
+        </div>
+        <div className='side-bar-color-picker'>
+          {this.getColors()}
+        </div>
+      </div>
+    );
   }
 
   render() {
-    var className = this.props.checked ? 'side-bar-category checked' : 'side-bar-category';
-    var currentSearchCategories = this.props.currentSearchCategories.searchCats;
-    var multiSelect = this.props.currentSearchCategories.multiSelect;
-    var categoryTitle = this.props.categoryInfo.title;
-    var userToken = this.props.currentUser.token;
-    var editCategory = this.props.categories.editCategory;
-    var inputClass = editCategory == categoryTitle ? 'edit-category-entry' : 'edit-category-entry hidden';
-    var categoryTitleClass = editCategory == categoryTitle ? 'category-title hidden' : 'category-title';
-    var inputCheckButton = editCategory == categoryTitle ? 'fa fa-check edit-category-button' : 'fa fa-check edit-category-button hidden';
-    var editCategoryButton = editCategory == categoryTitle ? 'fa fa-pencil edit-category-button hidden' : 'fa fa-pencil edit-category-button';
-    var textFieldValue = this.props.categories.newCategoryName;
-    return (
-      <div className={className}>
-        <div className={categoryTitleClass}
-          onClick={() => {
-            if (!multiSelect) { // only choose one search category
-              this.props.category_actions.clearSearchCategories();
-            }
-            this.props.category_actions.updateSearchCategory(
-            categoryTitle, !this.props.checked);
-          }}
-        > {categoryTitle} </div>
-        <div className={inputClass}>
-          <input className='edit-category-input' defaultValue={categoryTitle}
-            onChange={(event) => {
-              this.props.category_actions.updateCategoryEditField(event.target.value);
-            }}
-          />
-        </div>
-        <a onClick={() => {
-          this.props.category_actions.updateCategoryEditField(categoryTitle);
-          if (categoryTitle == editCategory) {
-            var currentPageCategories = this.props.categories.cats;
-            var existingCategoryName = false;
-            for (let cat in currentPageCategories) {
-              if (currentPageCategories[cat].title.trim() == textFieldValue.trim()) {
-                existingCategoryName = true;
-                break;
-              }
-            }
-            if (!existingCategoryName) {
-              this.props.category_actions.editCategoryTitle(categoryTitle, textFieldValue, userToken);
-              this.props.category_actions.toggleEditCategory('');
-            } else {
-              alert("Category name already exists!");
-            }
-          } else {
-            this.props.category_actions.toggleEditCategory(categoryTitle)
-          }
-        }}>
-          <i className={editCategoryButton}/>
-          <i className={inputCheckButton}/>
-        </a>
-        <a>
-          <i className='fa fa-trash delete-category-button' onClick={() => {
-            this.props.category_actions.updateSearchCategory(categoryTitle, false);
-            this.props.category_actions.deleteCategory(categoryTitle, userToken); }}>
-          </i>
-        </a>
-      </div>
-    )
+    if (this.state.editCat) {
+      return this.getEditCategory();
+    } else if (this.state.confirmDelete) {
+      return this.getDeleteCategory();
+    } else {
+      return this.getCategoryTitle();
+    }
   }
 }
 
 let mapStateToProps = (state) => ({
   categories : state.categories,
-  currentSearchCategories : state.currentSearchCategories,
   currentUser : state.currentUser
 })
 

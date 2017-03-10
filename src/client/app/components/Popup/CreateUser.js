@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as UserActions from '../../actions/User/UserActions.js';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 import * as types from '../../constants/ActionTypes';
 
@@ -92,12 +93,12 @@ class CreateUser extends Component {
 
 		if(!error){
 	    this.props.user_actions.createNewUser(this.state.email, this.state.password_1, this.state.password_2, this.state.first_name, this.state.last_name);
-	    this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
+	    this.props.popup_actions.updatePopupStatus(PopupConstants.SignIn);
 		}
   }
 
 	back() {
-		this.props.user_actions.updatePopupStatus(PopupConstants.SignIn);
+		this.props.popup_actions.updatePopupStatus(PopupConstants.SignIn);
 	}
 
 	CreateUserEnter(event){
@@ -135,7 +136,8 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  user_actions: bindActionCreators(UserActions, dispatch)
+  user_actions: bindActionCreators(UserActions, dispatch),
+	popup_actions: bindActionCreators(PopupActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

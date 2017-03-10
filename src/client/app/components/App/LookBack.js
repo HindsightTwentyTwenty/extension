@@ -4,11 +4,19 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as TabActions from '../../actions/Tabs/TabActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
+import { Creatable } from 'react-select';
+
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import Datetime from 'react-datetime';
+import Star from '../Star/Star.js';
+const Timestamp = require('react-timestamp');
+import { Slider } from 'antd';
 
 
-import TabComponent from './TabComponent.js';
+import TabComponent from '../Bars/TabComponent.js';
 
 function getState() {
 	return {
@@ -16,130 +24,80 @@ function getState() {
     end_date_formatted:"",
 		first_time_break_formatted:"",
 		second_time_break_formatted:"",
-		tabs:""
+		tabs:"",
+		timeframe:60,
+		category_selection: "",
 	}
 }
 
-class LookBack extends Component {
+function formatter(value) {
+	var hours = Math.floor((value + 1 )/4);
+	var minutes = (value + 1 - (hours*4)) * 15;
+	if(minutes == 0){
+		minutes = '00';
+	}
+	return `${hours}:${minutes}`;
+}
 
+const marks = {
+  0: '15 min',
+  3: '1 hr',
+  7: '2 hr',
+	11: '3 hr',
+  15: '4 hr'
+};
+
+
+
+class LookBack extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
   }
 
+	componentWillMount(){
+		/* refreshes and pulls tabs into the timeline every 5 miuntes */
+		var intervalId = setInterval(this.jumpToNow.bind(this), 300000);
+	}
+
   componentWillReceiveProps(props) {
-    this.getFormattedStartEnd(this.props.start_date, this.props.end_date);
-		this.getFormattedTimeBreaks(this.props.start_date, this.props.end_date);
+		var start_date = Datetime.moment(this.props.start_date);
+		var end_date = Datetime.moment(this.props.end_date);
+		var break_length = (this.state.timeframe / 3);
+		var first_break = Datetime.moment(this.props.start_date).add(break_length, 'm');
+		var second_break = Datetime.moment(this.props.start_date).add((break_length * 2), 'm');
+
 		var curr_tabs =  this.getTabs(props);
 		this.setState({
-			tabs: curr_tabs
+			tabs: curr_tabs,
+			end_date_formatted: end_date.format("MMM D h:mm A"),
+			first_time_break_formatted: first_break.format("h:mm A"),
+			second_time_break_formatted: second_break.format("h:mm A")
 		});
 
   }
 
   getTabComponent(index) {
-    return <TabComponent key={index} curr_index={index}/>;
+		//pass it key so that there is no "unique key" error
+		//also need to pass curr_index, for some reason cannot index off of the key
+    return <TabComponent key={index} curr_index={index} timeframe={this.state.timeframe}/>;
   }
 
 	getPrevPage(){
-		var new_start_hour = new Date(this.props.start_date).getHours() - 1;
-		var new_start_date = new Date(this.props.start_date);
-		new_start_date.setHours(new_start_hour);
-
-		var new_end_hour = new Date(this.props.end_date).getHours() - 1;
-		var new_end_date = new Date(this.props.end_date);
-		new_end_date.setHours(new_end_hour);
-		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON() , this.props.currentUser.token);
-
+		var start_date = Datetime.moment(this.props.start_date).subtract(this.state.timeframe, 'm');
+		this.changeStartTime(start_date);
 	}
 
 	getNextPage(){
-		var curr_Date = new Date();
-
-		var new_start_hour = new Date(this.props.start_date).getHours() + 1;
-		var new_start_date = new Date(this.props.start_date);
-		new_start_date.setHours(new_start_hour);
-
-		var new_end_hour = new Date(this.props.end_date).getHours() + 1;
-		var new_end_date = new Date(this.props.end_date)
-		new_end_date.setHours(new_end_hour);
-
-		if(new_end_date > curr_Date){
-			return;
-		}
-
-		this.props.lookback_actions.changeTimeframe(new_start_date, new_end_date);
-		this.props.tab_actions.getAllTabs(new_start_date.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
-
+		var start_date = Datetime.moment(this.props.start_date).add(this.state.timeframe, 'm');
+		this.changeStartTime(start_date);
 	}
 
-
-  getFormattedTime(date_string){
-    if(date_string){
-      var date = new Date(date_string);
-
-      var hour = date.getHours() - (date.getHours() >= 13 ? 12 : 0);
-			if(hour == 0){
-				hour = 12;
-			}
-      var period = date.getHours() >= 12 ? 'PM' : 'AM';
-      var minutes = ( date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-
-      var datetext = (hour +  ':' + minutes + ' ' +period);
-      return datetext;
-    }else{return "";}
-
-  }
-
-  getFormattedDate(date_string){
-    if(date_string){
-      var date = new Date(date_string);
-      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-      var month = months[(date.getMonth())];
-      var datetext = (month + " " + date.getDate());
-
-      return datetext;
-    }else{return "";}
-
-  }
-
-  getFormattedStartEnd(s_date_string, e_date_string){
-    var formatted_start = this.getFormattedDate(s_date_string) + " " + this.getFormattedTime(s_date_string);
-    var formatted_end = this.getFormattedDate(e_date_string) + " " + this.getFormattedTime(e_date_string);
-    this.setState({
-        start_date_formatted: formatted_start,
-        end_date_formatted: formatted_end
-      });
-  }
-
-
-  getFormattedTimeBreaks(s_date_string, e_date_string){
-		var second_break_minute = new Date(e_date_string).getMinutes() - 20;
-		var first_break_minute = second_break_minute - 20;
-
-		var first_break = new Date(e_date_string).setMinutes(first_break_minute);
-		var second_break = new Date(e_date_string).setMinutes(second_break_minute);
-
-
-    var formatted_first = this.getFormattedTime(first_break);
-		var formatted_second = this.getFormattedTime(second_break);
-
-    this.setState({
-        first_time_break_formatted: formatted_first,
-        second_time_break_formatted: formatted_second
-      });
-  }
-
+	//Get the html tabs
   getTabs(currProps){
-
     if (Object.keys(currProps.tabs).length) {
       let results = []
       let curr_tabs = currProps.tabs;
-      let numTabs = curr_tabs.length;
 
       for (let tIndex in curr_tabs) {
 					results.push(this.getTabComponent(tIndex))
@@ -148,31 +106,36 @@ class LookBack extends Component {
     }
   }
 
+	/* change the start time of the timeline, taking into consideration that its a valid start date
+	it also changes the end time, updates the props, and gets tabs in new timeframe */
 	changeStartTime(input){
-		var today = Datetime.moment();
+		var today = Datetime.moment().subtract(1, 'm');
 		if(Datetime.moment.isMoment(input) && input.isBefore( today )){
-			var one_hour_ago = today.subtract(1, 'h');
+			var one_timeframe_ago = today.subtract((this.state.timeframe), 'm');
 
-			if(input.isAfter(one_hour_ago)){
-				today.add(1, 'h');
+			if(input.isAfter(one_timeframe_ago)){
+				today.add(this.state.timeframe, 'm');
 				this.props.lookback_actions.changeTimeframe(input.toDate(), today.toDate());
 				this.props.tab_actions.getAllTabs(input.toJSON(), today.toJSON(), this.props.currentUser.token);
 			}else{
 				var new_end_date = Datetime.moment(input);
-				new_end_date.add(1, 'h');
+				new_end_date.add(this.state.timeframe, 'm');
 				this.props.lookback_actions.changeTimeframe(input.toDate(), new_end_date.toDate());
 				this.props.tab_actions.getAllTabs(input.toJSON(), new_end_date.toJSON(), this.props.currentUser.token);
 			}
 		}
+	}
 
+	jumpToNow(){
+		var now_end = Datetime.moment();
+		var now_begin = Datetime.moment().subtract(this.state.timeframe, 'm');
+		this.props.lookback_actions.changeTimeframe(now_begin.toDate(), now_end.toDate());
+		this.props.tab_actions.getAllTabs(now_begin.toJSON(), now_end.toJSON(), this.props.currentUser.token);
 	}
 
 	clickOutside(input){
-		console.log("click outside, moment:", input);
 		if(!Datetime.moment.isMoment(input)){
-			console.log("start date changed", this.props.start_date);
 			this.props.lookback_actions.changeTimeframe(this.props.start_date, this.props.end_date);
-
 		}
 	}
 
@@ -187,32 +150,149 @@ class LookBack extends Component {
     return currentDate.isBefore( today );
 	}
 
+	onAfterChange(value) {
+		var new_timeframe = (value + 1)*15;
+		this.setState({
+			timeframe: new_timeframe
+		})
+		var start_date = Datetime.moment(this.props.end_date).subtract(new_timeframe, 'm');
+		this.props.lookback_actions.changeTimeframe(start_date.toDate(), this.props.end_date);
+		this.props.tab_actions.getAllTabs(start_date.toJSON(), this.props.end_date.toJSON(), this.props.currentUser.token);
+	}
+
+	getCategories() {
+    if (this.props.currentPage.categories) {
+      return Object.keys(this.props.currentPage.categories).map((pk) => {
+				var category = this.props.currentPage.categories[pk];
+				return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
+            <div className="hide-overflow"><p>{category.title}</p></div>
+            <div className='url-bar-category-times' onClick={()=>{
+                this.props.category_actions.toggleCategory(this.props.currentPage.url, this.props.displayPage.title, category, false, this.props.currentUser.token);
+              }}>
+            <i className='fa fa-times'></i>
+            </div>
+          </div>;
+      });
+    }
+  }
+
+	getCategoryObject(category_title){
+		var found = false;
+		var categories = this.props.categories.cats;
+
+		for (var i = categories.length-1; i >= 0; i--) {
+			if(categories[i].title == category_title){
+				return categories[i];
+			}
+		}
+		if(!found){
+			return null;
+		}
+	}
+
+	addNewCategory(categoryTitle){
+      this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+        for (var key in this.props.categories.cats) {
+          if (categoryTitle == this.props.categories.cats[key].title) {
+            this.props.category_actions.toggleCategory(this.props.currentPage.url,
+              this.props.categories.cats[key], true, this.props.currentUser.token);
+            break;
+          }
+        }
+    });
+  }
+
+	handleCategoryChange(category_option) {
+		var category_title = "";
+    if(category_option){
+      category_title = category_option.value;
+			this.addNewCategory(category_title);
+			this.setState({category_selection: ""});
+    }
+  }
+
+	getCategoryOptions() {
+    var options = [];
+
+    Object.keys(this.props.categories.cats).map(function(pk) {
+			var category = this.props.categories.cats[pk];
+      options.push({ value: category.title, label: category.title })
+    }, this);
+    return options;
+  }
+
   render() {
 		var date = this.props.start_date;
+    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
+		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.currentPage.url != "") ? <div className="page-details">
+				<div className="title-wrapper horizontal-center">
+					<a className="page-title" target="_blank" href={this.props.currentPage.url}><p>{this.props.currentPage.title}</p></a>
+					<Star/>
+				</div>
+				<div className='url-categories-display'>
+					{this.getCategories()}
+				</div>
+				<div className="category-select">
+					<Creatable
+						name="category-select"
+						className="search-select-dropdown"
+						value={ this.state.category_selection }
+						options={ this.getCategoryOptions() }
+						onChange={ this.handleCategoryChange.bind(this)}
+						noResultsText= ""
+						placeholder="Add Category..."
+					/>
+				</div>
+				<p>visited: <Timestamp time={this.props.currentPage.visited} format="full"/></p>
+			</div>
+			: <div className="page-details">
+					<h4>Hover for detailed page information</h4>;
+				</div>
+		var modal = this.props.currentDomainDisplayed.clicked ?
+				<div className="modal-base" id="domain-modal">
+					<div className="domain-modal-header">
+							<div className="close-detail-view-btn" onClick={() => {
+							this.props.lookback_actions.toggleDomainClicked();
+							this.props.lookback_actions.setCurrentPage({});}}>
+								<i className="fa fa-times fa-lg" aria-hidden="true"></i>
+							</div>
+						</div>
+						{pageDetails}
+						<div>
+							<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
+						</div>
+					</div> : '';
 
-		if(this.props.currentDomainDisplayed.clicked){
-			return(
-				<div className="domainBar-zoom-container">
-					<div className="row">
-					<button className='close-detail-view-btn' onClick={() => {
-						this.props.lookback_actions.toggleDomainClicked();
-						this.props.lookback_actions.setCurrentPage({});
-					}}><i className="fa fa-window-close-o" aria-hidden="true"></i></button>
-					</div>
-					<div className="row">
-						<SelectedDomainBar domain={this.props.currentDomainDisplayed}/>
+		var timeframeSlider = <div id="slider-wrapper">
+														<Slider id="lookback-slider"
+															tipFormatter={formatter}
+															marks={marks}
+															step={1}
+															defaultValue={3}
+															max={15}
+															onAfterChange={this.onAfterChange.bind(this)}/>
+													</div>;
+
+
+    return (
+			<div>
+			{modal}
+			<div id="graph-plus-buttons">
+
+				<div className="time-change-button">
+					<div id="time-change-btn-buffer-lft"></div>
+					<div id="time-change-btn-wrapper">
+						<i className="fa fa-angle-left fa-5x arrow-btn" aria-hidden="true" onClick={this.getPrevPage.bind(this)}></i>
 					</div>
 				</div>
-			)
-		}
-    return (
-      <div className="lookback-graph-container">
-        <div className="vertical-axis-label">Tabs</div>
-	        <div className="time-labels">
-	          <div className="start-time-label" >
-								<button id="back-button" onClick={this.getPrevPage.bind(this)}>
-									back
-								</button>
+	      <div className="lookback-graph-container">
+		        <div className="time-labels">
+							<div className="timeline-label-row" id="timeline-label-row-top">
+								<p id="slider-label" >timeframe: </p>
+								{timeframeSlider}
+								<div className="jump-btn" onClick={this.jumpToNow.bind(this)}>Jump to now</div>
+							</div>
+							<div className="timeline-label-row" id="timeline-label-row-btm">
 								<div className="date-picker" >
 									<Datetime
 										value={this.props.start_date}
@@ -222,27 +302,31 @@ class LookBack extends Component {
 										onBlur={this.clickOutside.bind(this)}
 									/>
 								</div>
+								<div id="time-break-min-box-left"></div>
+								<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
+								<div id="time-break-min-box-right"></div>
+								<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
+								<div id="end-date-label">{this.state.end_date_formatted}</div>
 						</div>
-						<div id="time-break-line-label1">{this.state.first_time_break_formatted}</div>
-						<div id="time-break-line-label2">{this.state.second_time_break_formatted}</div>
-	          <div className="end-time-label">
-								{this.state.end_date_formatted}
-								<button id="back-button" onClick={this.getNextPage.bind(this)}>
-									next
-								</button>
-						</div>
+		        </div>
+	        <div className="lookback-container">
+							<div id="time-break-container">
+								<div className="time-break-line" id="first-time-break"></div>
+								<div className="time-break-line" id="second-time-break"></div>
+							</div>
+							<div id="tabs-container">
+								{this.state.tabs}
+							</div>
 	        </div>
-        <div className="lookback-container">
-						<div id="time-break-container">
-							<div className="time-break-line" id="first-time-break"></div>
-							<div className="time-break-line" id="second-time-break"></div>
-						</div>
-						<div id="tabs-container">
-							{this.state.tabs}
-						</div>
-        </div>
-
-      </div>
+	      </div>
+				<div className="time-change-button">
+					<div id="time-change-btn-buffer-rt"></div>
+					<div id="time-change-btn-wrapper">
+						<i className="fa fa-angle-right fa-5x arrow-btn" aria-hidden="true" onClick={this.getNextPage.bind(this)}></i>
+					</div>
+				</div>
+			</div>
+			</div>
     );
   }
 }
@@ -252,14 +336,16 @@ let mapStateToProps = (state) => ({
     start_date: state.currentTime.start_date,
     end_date:state.currentTime.end_date,
 		currentDomainDisplayed: state.currentDomainDisplayed,
-		currentUser : state.currentUser
-
+		currentUser : state.currentUser,
+		currentPage: state.currentPage,
+		categories: state.categories
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
     tab_actions: bindActionCreators(TabActions, dispatch),
-		lookback_actions: bindActionCreators(LookbackActions, dispatch)
+		lookback_actions: bindActionCreators(LookbackActions, dispatch),
+		category_actions: bindActionCreators(CategoryActions, dispatch)
   }
 }
 

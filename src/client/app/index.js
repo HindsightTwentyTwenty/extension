@@ -21,16 +21,16 @@ let store = createStore(
       urls: []
     },
     categories: {
-      cats: [],
+      cats: {},
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
-      showColorPicker: false,
-      editCategory: "",
-      newCategoryName: ""
+      showColorPicker: false
     },
     currentPage: {
       url: "",
       title: "",
-      categories: [],
+      created: "",
+      visited: "",
+      categories: {},
       star: false
     },
     currentTabs:[],
@@ -46,24 +46,41 @@ let store = createStore(
       showStarred: false
     },
     currentSearchCategories: {
-      multiSelect: false,
       searchCats: []
+    },
+    sessions: {
+      ongoingSession: false,
+      durationId: PopupConstants.DURATION_OPTIONS[3].id, //indefinitely
+      currentSession:{
+        title: "title",
+        start: "start",
+        end: "end"
+      }
     },
     currentUser: {
       user_name:"",
+      first_name:"",
+      last_name:"",
+      email:"",
+      created_at:"",
       token:"",
       invalid_login:false,
       change_password:false,
-      popup_status:PopupConstants.Loading
+      md5:"",
+      ekey:"",
+      tracking_on:false
     },
     lookbackNav: {
       selection: 0,
       searchTerm: ""
     },
+    popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
     search: {
       results: [],
-      dom: ""
-    }
+      dom: "",
+      loading: true
+    },
+    popupStatus: PopupConstants.Loading
   },
   applyMiddleware(
     thunkMiddleware

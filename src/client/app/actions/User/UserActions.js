@@ -1,10 +1,12 @@
 import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
-import fetch from 'isomorphic-fetch'
-import * as PasswordConstants from '../../constants/PasswordConstants.js'
-import * as PopupConstants from '../../constants/PopupConstants.js'
-import * as Url from '../../constants/UrlBlacklist.js'
-import ApiUtils from './../ApiUtils.js'
+import fetch from 'isomorphic-fetch';
+import * as PasswordConstants from '../../constants/PasswordConstants.js';
+import * as PopupConstants from '../../constants/PopupConstants.js';
+import * as Url from '../../constants/UrlBlacklist.js';
+import ApiUtils from './../ApiUtils.js';
+
+import * as PopupActions from '../Popup/PopupActions.js';
 
 const loginUserEndpoint = urls.BASE_URL + "login/";
 const logoutEndpoint = urls.BASE_URL + "logout/";
@@ -12,6 +14,8 @@ const newPageEndpoint = urls.BASE_URL + "newpage/";
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const activePageInfoEndpoint = urls.BASE_URL + "activepage/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
+const userInfoEndpoint = urls.BASE_URL + 'userinfo/';
+const trackingEndpoint = urls.BASE_URL + 'tracking/';
 
 const unauthorizedCode = "403";
 
@@ -46,20 +50,30 @@ export function endErrorMessage(json){
   }
 }
 
-export function receiveUserTokenFromChrome(token) {
+/* get items from chrome storage- token, encrypt key, md5 */
+export function receiveFromChrome(token_response) {
+  var token = token_response['hindsite-token'];
   return dispatch => {
-    if(token['hindsite-token']){
+    if(token){
       dispatch(
         {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
          token: token
        }
-      )
-      dispatch(checkCurrentPage(token['hindsite-token']))
+     ),
+      dispatch(checkCurrentPage(token)),
+      dispatch(getUserInfo(token))
+    }else {
+      dispatch(PopupActions.updatePopupStatus(PopupConstants.SignIn))
     }
-    else {
-      dispatch(updatePopupStatus(PopupConstants.SignIn))
+    if(token_response['md5'] && token_response['ekey']){
+      dispatch({
+          type: types.RECEIVE_ENCRYPT_FROM_CHROME,
+          md5: token_response['md5'],
+          ekey: token_response['ekey']
+      })
     }
+
   }
 }
 
@@ -67,62 +81,20 @@ export function checkCurrentPage(token){
   return dispatch => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
+      console.log("tab from chrome", tab);
 
       if(Url.isUrlBlacklisted(tab.url)){
         // Display message to navigate to a different page
-        return dispatch(updatePopupStatus(PopupConstants.NoContent))
+        return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
 
       } else {
         // fetch category information to display in the popup
-        return dispatch(getPageInformation(tab.url, token, 0))
+        return dispatch(PopupActions.getPopupInfo(tab.url, tab.title, token, 0))
       }
 
     });
   }
 
-}
-
-export function getPageInformation(url, token, count){
-
-  return dispatch => {
-    return fetch(pageInfoEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': 'Token ' + token
-           },
-           method: "POST",
-           body: JSON.stringify({url: url})
-         }
-       )
-       .then(ApiUtils.checkStatus)
-       .then(response => response.json())
-       .then(json => {
-         dispatch(receivePageInfo(json))
-       })
-       .catch(e => {
-
-          switch (e) {
-            case 404:
-              // Page does not exist in backend at this moment
-              // Retry up to 5 times before displaying error message
-              if(count < 5){
-                setTimeout(function() { dispatch(getPageInformation(url, token, count + 1)); }, 1000);
-              } else {
-                dispatch(updatePopupStatus(PopupConstants.Error));
-              }
-              break;
-            case 204:
-              // User has blacklisted this url
-              dispatch(updatePopupStatus(PopupConstants.Blacklist));
-              break;
-            default:
-              // Defualt in case of non-expected error code
-              dispatch(updatePopupStatus(PopupConstants.Error));
-              break;
-         }
-        })
-  }
 }
 
 export function logoutUser(token) {
@@ -150,90 +122,50 @@ export function logoutUser(token) {
   }
 }
 
-function receivePageInfo(json) {
-  return {
-    type: types.RECEIVE_PAGE_INFO,
-    categories: json.categories,
-    url: json.url,
-    star: json.star,
-    title: json.title
-  }
-}
-
-function getPageInfo(url, token){
-
-  return dispatch => {
-    return fetch(pageInfoEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': "Token " + token
-           },
-           method: "POST",
-           body: JSON.stringify({url: url})
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch(receivePageInfo(json)))
-  }
-}
-
-export function updatePopupStatus(status){
-  return {
-    type: types.POPUP_STATUS,
-    popup_status: status
-  }
-}
-
 export function sendCurrentPage(token) {
-
   return dispatch => {
-
+    console.log("starting send current page");
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
-
-      var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-      var closed = false
       if(tab.title && !Url.isUrlBlacklisted(tab.url)){
+        chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+          var lastError = chrome.runtime.lastError;
+          if (lastError) {
+            var dom = "";
+          }else{
+            var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+          }
+          var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
           fetch(newPageEndpoint, {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'Authorization': "Token " + token
-
             },
             method: "POST",
-            body: JSON.stringify({"login": true, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active})
-          }
-        )
-        .then(response =>
-          response.json().then(json => ({
-            status: response.status,
-            json
+            body: JSON.stringify({"login": true, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
           })
-        ))
-        .then(
-          ({ status, json }) => {
-            if(status == 204){
-              // console.log("No content");
-            } else {
-              // console.log("valid receive", json);
-              dispatch(receivePageInfo(json));
+          .then(response =>
+            response.json().then(json => ({
+              status: response.status,
+              json
+            })
+          ))
+          .then(
+            ({ status, json }) => {
+              console.log("status - json", status, json);
+              if(status == 204){
+                dispatch(PopupActions.updatePopupStatus(PopupConstants.Blacklist));
+              } else {
+                dispatch(receivePageInfo(json));
+              }
             }
-          }
-        )
+          )
+        });
       } else {
-        // console.log("DISPATCHING NO CONTENT", tab.url)
-        dispatch(updatePopupStatus(PopupConstants.NoContent));
+        dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent));
       }
-    });
-  }
-}
-
-export function error(response){
-  // console.log("error", response.json());
-  return {
-    type: types.TEST
+    })
   }
 }
 
@@ -270,11 +202,20 @@ export function loginUser(username, password){
         if(status == 401){
           dispatch(receiveLoginError(json['message']));
         } else {
+          console.log("LOGIN JSON", json);
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
-            user_name: username
-          })
+            md5: json.md5,
+            ekey: json.key,
+            json: json,
+            user_name: username,
+            tracking_on: json.tracking_on
+          }),
+          dispatch({
+            type: types.RECEIVE_CATEGORIES,
+            categories: json.categories
+          }),
           dispatch(sendCurrentPage(json['token']))
         }
       }
@@ -326,7 +267,7 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
         if(status == 401){
           dispatch(receiveLoginError(json['message']));
         } else {
-          dispatch(receiveUserTokenFromChrome(json['token']))
+          dispatch(receiveFromChrome(json['token']))
         }
       }
     )
@@ -354,10 +295,8 @@ export function changeMyPassword(current_password, new_password, token){
     .then(
       ({ status, json }) => {
         if(status == 401){
-          // console.log("Invalid password for password change");
           dispatch(changeMyPasswordToggle(PasswordConstants.Unsuccesful))
         } else {
-          // console.log("valid post");
           dispatch(changeMyPasswordToggle(PasswordConstants.Succesful))
         }
       }
@@ -371,5 +310,102 @@ export function changeMyPasswordToggle(value){
       type: types.CHANGE_PASSWORD,
       change_password: value
     })
+  }
+}
+
+export function receiveUserInfo(json) {
+  return {
+    type: types.RECEIVE_USER_INFO,
+    username: json.username,
+    email: json.email,
+    first_name: json.first_name,
+    last_name: json.last_name,
+    created_at: json.created_at,
+    tracking_on: json.tracking_on
+  }
+}
+
+export function getUserInfo(token){
+  return dispatch => {
+    return fetch(userInfoEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "GET"
+    })
+    .then(response =>
+      response.json().then(json => ({
+        status: response.status,
+        json
+      })
+    ))
+    .then(
+      ({ status, json }) => {
+        if(status == 200){
+          console.log("User Info", json)
+          dispatch(receiveUserInfo(json))
+        }
+      }
+    )
+  }
+}
+
+export function sendBackendTracking(tracking_on, token){
+  return dispatch => {
+    if(tracking_on){
+      console.log("tracking coming on. sending current page with it");
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        var tab = tabs[0];
+        chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+          var lastError = chrome.runtime.lastError;
+          if (lastError) {
+            var dom = "";
+          }else{
+            var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+          }
+
+          var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+          return fetch (trackingEndpoint, {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': "Token " + token
+            },
+            method: "POST",
+            body: JSON.stringify({"tracking": tracking_on, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active })
+          })
+          .then(response => {
+            console.log("tracking on response", response);
+          })
+        })
+      })
+    } else {
+      return fetch (trackingEndpoint, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Token " + token
+        },
+        method: "POST",
+        body: JSON.stringify({"tracking": tracking_on })
+      })
+      .then(response => {
+        console.log("tracking off response", response);
+      })
+    }
+  }
+}
+
+export function toggleTracking(tracking_on, token){
+  return dispatch => {
+    return [
+      dispatch(sendBackendTracking(tracking_on, token)),
+      dispatch({
+        type: types.RECEIVE_TRACKING,
+        tracking_on: tracking_on
+      })
+    ]
   }
 }

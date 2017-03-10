@@ -25,7 +25,6 @@ class DomainBar extends Component {
         id = {id_code}
         className="domain-bar"
         style = {this.props.style}
-        width = {this.props.width}
         onMouseDown={()=>{
           this.selectDomain();
         }}
@@ -36,7 +35,7 @@ class DomainBar extends Component {
         onMouseLeave={() => {
           this.unhighlight_previous();
         }}>
-        <img className="domain-favicon" src={this.props.domain.favicon}/>
+        <img className="domain-favicon" src={this.props.favicon}/>
         <label htmlFor='domainBar'>{this.props.domain.title}</label>
       </div>
     )

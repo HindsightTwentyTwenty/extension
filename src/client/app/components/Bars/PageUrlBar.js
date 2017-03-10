@@ -2,60 +2,105 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import Star from '../Star/Star.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as IFrameActions from '../../actions/User/IFrameActions.js';
+import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
-
 
 function getState() {
   return {
     iframe_show:false,
-    iframehider_show:false
+    iframehider_show:false,
+    editColor: GlobalConstants.DEFAULT_CAT_COLOR.code,
+    showColorPicker: false
   }
 }
 
 class PageUrlBar extends Component {
-
   constructor(props) {
     super(props);
     this.state = getState();
-    this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
-  }
-  
-  componentWillMount() {
-    this.props.lookback_actions.clearDOM();
   }
 
-  getCategories() {
-    if (this.props.page.categories) {
+  componentWillMount() {
+    /* reset the iframe box to a loading page until async call for decryption is made */
+    this.props.iframe_actions.receiveDecrypted("loading");
+  }
+
+  //WC SPRING TODO: REWORK TO USE CATEGORY ENTRY COMPONENT, JUST CHANGE CSS
+  addNewCategory(categoryTitle){
+      this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
+        for (var key in this.props.categories.cats) {
+          if (categoryTitle == this.props.categories.cats[key].title) {
+            this.props.category_actions.toggleCategory(this.props.page.url, this.props.currentPage.title,
+              this.props.categories.cats[key], true, this.props.currentUser.token);
+            break;
+          }
+        }
+        if (this.state.showColorPicker) {
+          this.toggleColorPicker();
+        }
+    });
+}
+
+  getCategoryEntry() {
+    return (
+      <div className='url-bar-add-category'>
+        <input type="text" className="url-bar-form" placeholder="add category"
+        onKeyPress={this.keyPressed.bind(this)} ref={node => {
+          this.input = node;
+        }} />
+        <div className='url-bar-category-button' onClick={()=> {
+          var inputValue = this.input.value.trim();
+          if (inputValue !== '') {
+            this.addNewCategory(inputValue);
+            this.input.value = '';
+          }
+        }}><i className="fa fa-plus" aria-hidden="true"></i>
+        </div>
+      </div>
+    );
+  }
+
+  keyPressed(event){
+    var keycode = event.keyCode || event.which;
+    if(keycode == '13') {
+      var inputValue = this.input.value.trim();
+        if (inputValue !== '') {
+          this.addNewCategory(inputValue);
+          this.input.value = '';
+        }
+    }
+  }
+
+  getCategoriesOrColors() {
+    if (this.state.showColorPicker) {
+      return GlobalConstants.CAT_COLORS.map((color) => {
+        return <div className='color-square-small'
+        onClick={this.changeEditColor.bind(this, color.code)}
+        style={{"backgroundColor" : color.code}}
+        key={color.name}></div>
+      });
+    }
+    else if (this.props.page.categories) {
       return this.props.page.categories.map((category) => {
-        return <div className={'url-bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
+        return <div className='url-bar-category-thin' key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow">{category.title}</div>
             <div className='url-bar-category-times' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.page.url, this.props.page.title, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
-          </div>;
+          </div>
       });
     }
   }
 
-  getDOM(){
-    if(this.props.visit_pk){
-      if(this.props.origin == "categories"){
-        this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token, true);
-      }else{
-        this.props.lookback_actions.getDOM(this.props.visit_pk, this.props.currentUser.token, false);
-      }
-    }
-  }
-
   openIframe(event){
-    this.getDOM();
+    this.getDom();
     this.setState({ iframehider_show: true });
     this.setState({ iframe_show: true });
   }
@@ -63,32 +108,64 @@ class PageUrlBar extends Component {
   closeIframe(event){
     this.setState({ iframehider_show: false });
     this.setState({ iframe_show: false });
-    this.props.lookback_actions.clearDOM();
+    this.props.iframe_actions.receiveDecrypted("loading");
+
+  }
+
+  /* async get the dom from s3 with decryption */
+  getDom(){
+    /* only try to get the dom if not a 404 message */
+    if(this.props.page.s3 != "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+      if(this.props.origin == "search" ){
+        this.props.iframe_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+      }else{
+        this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+      }
+    }
   }
 
   getIframe(){
-    if(this.props.search_items.dom == "loading"){
-      return(<div className="iframe-msg-box">
-        <Loading/>
-      </div>
-      )
+    console.log("props:", this.props);
+    console.log("current page", this.props.currentPage);
+    if(this.props.page.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+      /* this page is not an encrypted page, so just send back link to "bad page" message */
+      return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
     }
-    else if(this.props.search_items.dom == ""){
+    /* if this page has no s3 page */
+    else if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
       return(<div className="iframe-msg-box">
         <div className="iframe-error">Sorry, No html available for this page.</div>
       </div>
       )
+    }
+    /* if the decryption hasn't finished yet, show loading */
+    else if(this.props.currentPage.s3_decrypted == "loading"){
+      return(<div className="iframe-msg-box">
+        <Loading/>
+      </div>
+      )
     }else{
-      return(<iframe className="m-iframe" srcDoc={this.props.search_items.dom}></iframe>)
+        return(<iframe className="m-iframe" srcDoc={this.props.currentPage.s3_decrypted}></iframe>)
     }
   }
 
-  goToPage(){
+  toggleStar() {
+    this.props.star_actions.toggleStar(false, this.props.page, this.props.currentUser.token);
+  }
 
+  toggleColorPicker() {
+    this.setState({
+      showColorPicker: !this.state.showColorPicker
+    });
+  }
+
+  changeEditColor(color) {
+    this.setState({
+      editColor: color
+    });
   }
 
   render() {
-    var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' : 'fa fa-star-o fa-2x star-categories';
     var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
           <div className="i-modal-header">
@@ -105,49 +182,55 @@ class PageUrlBar extends Component {
         </div>
     : ''
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
-    var visited = this.props.visited ? <p>visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
-    var domain= this.props.domain ? <p>{this.props.domain}</p> : '';
-
+    var visited = this.props.visited ? <p><Timestamp time={this.props.visited} format="full"/></p> : '';
+    var domain = this.props.domain ? <p>{this.props.domain}</p> : '';
+    var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' :
+    'fa fa-star-o fa-2x star-categories';
     return (
       <div className="page-url-bar">
         {modal}
         {hider}
-          <div className="bar-text-col">
-            <a className="url" target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
-            <div>
-              {visited}
-              {domain}
-            </div>
+        <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
+          <i className="fa fa-eye" aria-hidden="true"></i>
+        </button>
+        <div className="bar-text-col">
+          <a className="url" target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
+          <div>
+            {domain}
+            {visited}
           </div>
-          <div className='url-categories vertical-center'>
-            {this.getCategories()}
-          </div>
-          <div className='url-buttons vertical-center'>
-            <div className='star-div' onClick={()=>{
-            this.props.star_actions.toggleStar(this.props.page, this.props.currentUser.token);
-            }}>
+        </div>
+        <div className='url-categories-col vertical-center'>
+          <div className='url-bar-input'>
+            <div className='color-square-small' onClick={this.toggleColorPicker.bind(this)}
+            style={{"backgroundColor" : this.state.editColor}}/>
+            {this.getCategoryEntry()}
+            <div className='url-bar-star-div' onClick={this.toggleStar.bind(this)}>
               <i className={starred}></i>
             </div>
-            <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
-              <i className="fa fa-eye" aria-hidden="true"></i>
-            </button>
           </div>
+          <div className='url-bar-categories'>
+            {this.getCategoriesOrColors()}
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
+    currentPage: state.currentPage,
     currentUser : state.currentUser,
-    currentPage : state.currentPage,
-    search_items: state.search
-
+    search_items: state.search,
+    categories: state.categories,
+    categoriesAndPages: state.categoriesAndPages
 })
 
 let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch),
   star_actions: bindActionCreators(StarActions, dispatch),
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  category_actions: bindActionCreators(CategoryActions, dispatch),
+  iframe_actions: bindActionCreators(IFrameActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);

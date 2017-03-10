@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux'
 
+import PopupMenu from './PopupMenu.js';
 import PopupHeader from './PopupHeader.js';
 import PopupBody from './PopupBody.js';
 import LoginPage from './LoginPage.js';
@@ -22,15 +23,18 @@ class Popup extends Component {
 
   constructor(props) {
     super(props);
-    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveUserTokenFromChrome);
+    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveFromChrome);
   }
 
 	renderContent() {
+    console.log("Props in popup", this.props);
 		if(this.props.currentUser.token.length != 0){ //Logged In
-			switch (this.props.currentUser.popup_status){
+			switch (this.props.popupStatus){
 				case PopupConstants.Received: // Display Page
 					return (
 		        <div>
+              <PopupHeader/>
+              <PopupMenu/>
 		          <PopupBody/>
 		        </div>
 		      );
@@ -57,14 +61,14 @@ class Popup extends Component {
 				case PopupConstants.Loading:
 				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
-						<div>
+						<div id="loading-wrapper">
 							<PopupHeader/>
 							<Loading/>
 						</div>
 					);
 			}
 		} else { // Not Logged In
-			switch (this.props.currentUser.popup_status) {
+			switch (this.props.popupStatus) {
 				case PopupConstants.SignIn:
 					return (
             <div>
@@ -101,7 +105,8 @@ class Popup extends Component {
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
-		currentPage : state.currentPage
+		currentPage : state.currentPage,
+    popupStatus: state.popupStatus
 })
 
 let mapDispatchToProps = (dispatch) => {

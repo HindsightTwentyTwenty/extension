@@ -6,11 +6,29 @@ import SidebarComponent from '../Bars/SidebarComponent.js';
 import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
+function getState(){
+  return{
+    displayWelcomeMessage: true
+  }
+}
+
 class CategoriesPage extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+  }
+
+  componentDidUpdate() {
+    if (this.props.categoriesAndPages.showStarred  &&
+      this.state.displayWelcomeMessage) {
+      this.setState({displayWelcomeMessage: false});
+    } else if (this.props.currentSearchCategories.searchCats &&
+      this.props.currentSearchCategories.searchCats.length &&
+      this.state.displayWelcomeMessage) {
+      this.setState({displayWelcomeMessage: false});
+    }
   }
 
   fetchPages() {
@@ -18,25 +36,40 @@ class CategoriesPage extends Component {
     var categoriesPages = this.props.categoriesAndPages.catsToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
-    if (categoriesPages && Object.keys(categoriesPages).length) {
+    if (this.state.displayWelcomeMessage) {
+      return (
+        <div className="welcome-message">
+          <h4>Select categories from the sidebar to see your categorized pages.</h4>
+          <h4>Use the <i className='fa fa-pencil'/> and <i className='fa fa-trash'/> to edit and delete your categories.</h4>
+        </div>
+      )
+    } else if (categoriesPages && Object.keys(categoriesPages).length) {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
-      // if (showStarred) {
-      //   for (let page in starred) {
-      //     if (!pageSet.has(starred[page].pk)) {
-      //       result.push(<PageUrlBar key={starred[page].pk} page={starred[page]}/>);
-      //       pageSet.add(starred[page].pk);
-      //     }
-      //   }
-      // }
-      // console.log("PROPS FOR CAT", this.props);
-      for (let searchCat of searchCatSet.values()) {
-        for (var pagePk in categoriesPages[searchCat]) {
-          // console.log("cat pages", categoriesPages);
-          // console.log("pagepk", pagePk);
+      if (searchCatSet.size) {
+        for (let searchCat of searchCatSet.values()) {
+          for (var pagePk in categoriesPages[searchCat]) {
+            if (!pageSet.has(pagePk)) {
+              if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
+                result.push(<PageUrlBar key={pagePk}
+                  source="categories"
+                  page={categoriesPages[searchCat][pagePk]}
+                  domain={categoriesPages[searchCat][pagePk].domain}
+                  visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+                pageSet.add(pagePk);
+              }
+            }
+          }
+        }
+      } else if (showStarred) {
+        for (var pagePk in starred) {
           if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar visit_pk={pagePk} key={pagePk} origin="categories" page={categoriesPages[searchCat][pagePk]} domain={categoriesPages[searchCat][pagePk].domain} visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+            result.push(<PageUrlBar key={pagePk}
+              source="categories"
+              page={starred[pagePk]}
+              domain={starred[pagePk].domain}
+              visited={starred[pagePk].last_visited}/>)
             pageSet.add(pagePk);
           }
         }
@@ -49,9 +82,8 @@ class CategoriesPage extends Component {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent title={"Categories"} button={true}/>
+        <SidebarComponent/>
         <div className="search-results-container">
-          <div className="section-title"></div>
           {searchResults}
         </div>
       </div>

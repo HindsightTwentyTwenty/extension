@@ -1,12 +1,5 @@
 import * as types from '../constants/ActionTypes';
 
-const tab = (state, action) => {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
-
 function currentTabsReducer(state = [], action){
   switch(action.type){
     case types.RECEIVE_TABS:

@@ -1,5 +1,7 @@
 # hindsite
-hindsite is a Chrome extension which helps users track and categorize their browser sessions as they traverse the web. 
+hindsite is a Chrome extension which helps users track, categorize, and search their browser sessions as they traverse the web. 
+visit our website, or visit our wiki, to learn more about downloading and using the app:
+www.hindsitehistory.com
 
 ##Coding Practices
 * use camelCase for function names
@@ -28,6 +30,7 @@ We are currently only locally developing our extension. However, there will soon
 
 start the backend server using the virtual env (detailed in the readme of the backend)
 open a new tab in terminal and go to the frontend directory
+run `npm install` if opening the app for the first time
 run `npm run dev`
 
 ## Authors

@@ -1,6 +1,9 @@
 var closed = false;
 var token = "";
+var encrypt_key="";
+var md5="";
 var url = 'https://hindsite2020.herokuapp.com/';
+
 var tabAlarmName = 'tabAlarm';
 
 chrome.alarms.create(tabAlarmName, {
@@ -34,6 +37,36 @@ chrome.storage.local.get("hindsite-token", get_token);
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   chrome.storage.local.get("hindsite-token", get_token);
 })
+
+function storeEncryption(json){
+  chrome.storage.local.set({"md5":json['md5'], "ekey":json['key']});
+}
+
+/* checks if user has encrpytion key, if not it gets it */
+function get_encrpyt_info(info_return){
+  if(info_return['md5'] && info_return['ekey']){
+    md5 = info_return['md5'];
+    encrypt_key = info_return['ekey'];
+  }
+  else{
+    fetch(url + 'decrypt/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "GET"
+    })
+    .then(response => response.json())
+    .then(json => {
+      storeEncryption(json)
+    })
+  }
+}
+
+if(md5 == "" || encrypt_key == ""){
+  chrome.storage.local.get(["md5", "ekey"], get_encrpyt_info);
+}
 
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
@@ -80,23 +113,59 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 chrome.tabs.onActivated.addListener(function (activeInfo){
   if(token){
     chrome.tabs.get(activeInfo.tabId, function (tab){
-      chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
-        var lastError = chrome.runtime.lastError;
-        if (lastError) {
-          var dom = "";
+      fetch(url + 'active/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Token " + token
+        },
+        method: "POST",
+        body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "url":tab.url})
+      }).then(function(response){
+
+        if(response["status"] == 404){
+          chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+            var lastError = chrome.runtime.lastError;
+            if (lastError) {
+              var dom = "";
+            }else{
+              var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+            }
+            var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+
+            fetch(url + 'active/', {
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Token " + token
+              },
+              method: "POST",
+              body: JSON.stringify({"tab":tab.id, "title":tab.title, "closed": closed, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
+            });
+          });
         }
-        var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-        fetch(url + 'active/', {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': "Token " + token
-          },
-          method: "POST",
-          body: JSON.stringify({"tab": activeInfo.tabId, "closed": closed, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": dom})
-        });
       });
+
+
+
         closed = false;
-      });
-    }
-  });
+      }
+    );
+  }
+});
+
+// Send tabUpdate to backend on startup to close any tabs still open
+// due to a chrome quit
+chrome.runtime.onStartup.addListener(function (){
+  if (token) {
+    fetch(url + 'tabupdate/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Token " + token
+      },
+      method: "POST",
+      body: JSON.stringify({"tab_ids": []})
+    });
+  }
+});

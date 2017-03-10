@@ -2,12 +2,34 @@ import * as types from '../../constants/ActionTypes';
 import * as urls from '../../constants/GlobalConstants';
 import fetch from 'isomorphic-fetch'
 
+const addCategoryEndpoint = urls.BASE_URL + "addcategory/";
 const categoriesAndPagesEndpoint = urls.BASE_URL + "getcategories/";
 const allCategoriesEndpoint = urls.BASE_URL + "categories/";
 const addPageCategoryEndpoint = urls.BASE_URL + "addcategorypage/";
 const deletePageCategoryEndpoint = urls.BASE_URL + "deletecategorypage/";
 const deleteCategoryEndpoint = urls.BASE_URL + "deletecategory/";
-const editCategoryTitleEndpoint = urls.BASE_URL + "editcategory/";
+const editCategoryEndpoint = urls.BASE_URL + "editcategory/";
+
+export function pushCategory(category, color, token){
+  return dispatch => {
+    return fetch(addCategoryEndpoint, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': 'Token ' + token
+             },
+             method: "POST",
+             body: JSON.stringify({category: category, color: color})
+           }
+      )
+      .then(response => response.json())
+      .then(json => dispatch({
+        type: types.RECEIVE_PUSH_CATEGORY,
+        category_added: json
+      })
+    )
+  }
+}
 
 export function fetchCategories(token){
   return dispatch => {
@@ -45,7 +67,7 @@ export function fetchCategoriesAndPages(token){
   }
 }
 
-export function toggleCategory(pageUrl, category, addOrDelete, token){
+export function toggleCategory(pageUrl, pageTitle, category, addOrDelete, token){
   var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
     dispatch({
@@ -60,23 +82,24 @@ export function toggleCategory(pageUrl, category, addOrDelete, token){
                'Authorization': 'Token ' + token
              },
              method: "POST",
-             body: JSON.stringify({url: pageUrl, category: category.title})
+             body: JSON.stringify({url: pageUrl, title: pageTitle, category: category.title})
            }
       )
       .then(response => response.json())
       .then(json => dispatch({
         type: types.REMOVE_CAT_FROM_PAGE,
         json: json,
+        categoryTitle: category.title
       }))
   }
 }
 
 //TODO: WC talked with GM about receiving confirmation from backend before deleting from frontend
-export function deleteCategory(title, token) {
+export function deleteCategory(pk, title, token) {
   return dispatch => {
     dispatch({
       type: types.DELETE_CATEGORY,
-      categoryTitle: title
+      pk: pk
     })
     return fetch(deleteCategoryEndpoint, {
       headers: {
@@ -90,38 +113,22 @@ export function deleteCategory(title, token) {
   }
 }
 
-export function editCategoryTitle(oldTitle, updatedTitle, token) {
+export function editCategory(pk, oldTitle, updatedTitle, updatedColor, token) {
   return dispatch => {
     dispatch({
-      type: types.UPDATE_CATEGORY_TITLE,
-      old: oldTitle,
-      updated: updatedTitle
+      type: types.UPDATE_CATEGORY,
+      pk: pk,
+      title: updatedTitle,
+      color: updatedColor
     })
-    return fetch(editCategoryTitleEndpoint, {
+    return fetch(editCategoryEndpoint, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Token ' + token
       },
       method: "POST",
-      body: JSON.stringify({old: oldTitle, updated: updatedTitle})
-    })
-  }
-}
-
-export function toggleEditCategory(categoryTitle) {
-  return dispatch => {
-    dispatch({
-      type: types.TOGGLE_EDIT_CATEGORY,
-      editCategory: categoryTitle
-    })
-  }
-}
-
-export function toggleSearchSelector() {
-  return dispatch => {
-    dispatch({
-      type: types.TOGGLE_SEARCH_SELECTOR
+      body: JSON.stringify({old: oldTitle, updated: updatedTitle, color: updatedColor})
     })
   }
 }
@@ -149,15 +156,6 @@ export function updateSearchCategory(categoryTitle, addOrDelete) {
     dispatch({
       type: dispatchType,
       categoryTitle: categoryTitle,
-    })
-  }
-}
-
-export function updateCategoryEditField(newCategoryTitle) {
-  return dispatch => {
-    dispatch({
-      type: types.UPDATE_CATEGORY_EDIT_FIELD,
-      categoryTitle: newCategoryTitle
     })
   }
 }

@@ -65,19 +65,12 @@ export function toggleDomainClicked() {
   }
 }
 
-export function domReturned(json){
-  return{
-    type: types.SET_CURR_DOM,
-    dom: json['html']
+export function clearSearchResults(){
+  return {
+    type: types.CLEAR_SEARCH_RESULTS
   }
 }
 
-export function clearDOM(){
-  return{
-    type: types.SET_CURR_DOM,
-    dom: "loading"
-  }
-}
 export function searchTermNav(search_term, token){
   return dispatch => {
     dispatch(searchTerm(search_term, moment().subtract(2, 'year').tz("UTC").format(), moment().tz("UTC").format(), "", SearchConstants.Relevance, token))
@@ -85,12 +78,11 @@ export function searchTermNav(search_term, token){
 }
 
 export function searchTerm(search_term, start_time, end_time, category_selection, sort_selection, token){
-  // This is gross. Will clean up
+
   var bodyInfo;
+  bodyInfo = {"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,start_time.length - 1)};
   if(category_selection){
-    bodyInfo = JSON.stringify({"query": search_term, "category": category_selection, "order": sort_selection, "start_time": start_time.substring(0,start_time.lastIndexOf("-")), "end_time": end_time.substring(0,end_time.lastIndexOf("-"))});
-  } else {
-    bodyInfo = JSON.stringify({"query": search_term, "order": sort_selection, "start_time": start_time.substring(0,start_time.length - 1), "end_time": end_time.substring(0,end_time.length - 1)})
+    bodyInfo["category"] = category_selection;
   }
   return dispatch => {
     return [
@@ -102,29 +94,12 @@ export function searchTerm(search_term, start_time, end_time, category_selection
              'Authorization': "Token " + token
            },
            method: "POST",
-           body: bodyInfo
+           body: JSON.stringify(bodyInfo)
          }
        )
       .then(response => response.json())
       .then(json => dispatch(searchResultsReturned(json)))
     ]
-  }
-}
-
-export function getDOM(pk, token, origin){
-  return dispatch => {
-    return fetch(domEndpoint, {
-          headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'Authorization': "Token " + token
-           },
-           method: "POST",
-           body: JSON.stringify({"pk": pk, "page": origin})
-         }
-       )
-      .then(response => response.json())
-      .then(json => dispatch(domReturned(json)))
   }
 }
 

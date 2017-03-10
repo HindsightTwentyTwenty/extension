@@ -1,42 +1,50 @@
 import * as types from '../constants/ActionTypes';
 import * as GlobalConstants from '../constants/GlobalConstants';
 
-function categoryReducer(state = {cats: [], editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
-      showColorPicker: false, editCategory: '', newCategoryName: ''}, action){
+function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
+      showColorPicker: false}, action){
   switch(action.type){
     case types.SET_EDIT_CAT_COLOR:
       return {...state, editCatColor: action.color}
-    case types.UPDATE_CATEGORY_EDIT_FIELD:
-      return {...state, newCategoryName: action.categoryTitle}
     case types.TOGGLE_COLOR_PICKER:
       return {...state, showColorPicker: action.showColorPicker}
-    case types.TOGGLE_EDIT_CATEGORY:
-      return {...state, editCategory: action.editCategory}
-    case types.UPDATE_CATEGORY_TITLE:
-      var newCategoryList = [];
-      var currentCategories = state.cats;
-      for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title === action.old) {
-          currentCategories[i].title = action.updated;
-        }
-        newCategoryList.push(currentCategories[i]);
+    case types.UPDATE_CATEGORY:
+      var newCategoryList = Object.assign({}, state.cats);
+      var pk = action.pk;
+      var title = action.title;
+      var color = action.color;
+      if(newCategoryList[pk]) {
+          newCategoryList[pk].color = color;
+          newCategoryList[pk].title = title;
       }
       return {...state, cats: newCategoryList};
     case types.DELETE_CATEGORY:
-      var newCategoryList = [];
-      var currentCategories = state.cats;
-      for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i].title !== action.categoryTitle) {
-          newCategoryList.push(currentCategories[i]);
-        }
+      var newCategoryList = Object.assign({}, state.cats);
+      var pk = action.pk;
+      if (newCategoryList[pk]) {
+        delete newCategoryList[pk];
       }
       return {...state, cats: newCategoryList};
     case types.RECEIVE_CATEGORIES:
-      return {...state, cats: action.categories};
+      var categoryObject = {};
+      action.categories.map(function(category) {
+        categoryObject[category.pk] = category;
+      })
+      return {...state, cats: categoryObject};
     case types.RECEIVE_PUSH_CATEGORY:
-      return {...state, cats: [...state.cats, action.category_added]};
+      var newCategoryList = Object.assign({}, state.cats);
+      var newCategory = action.category_added;
+      newCategoryList[newCategory.pk] = newCategory;
+      return {...state, cats: newCategoryList};
+    case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
+    case types.RECEIVE_POPUP_INFO:
+      var categoryObject = {};
+      action.categories.map(function(category) {
+        categoryObject[category.pk] = category;
+      })
+      return {...state, cats: categoryObject};
     default:
-        return state;
+      return state;
   }
 }
 
