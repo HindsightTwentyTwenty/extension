@@ -12,7 +12,7 @@ class Loading extends Component {
 
   render () {
     return (
-      <div id="loading_page">
+      <div id="loading_spinner_page">
         <i className="fa fa-align-center fa-spinner fa-pulse fa-5x fa-fw"></i>
         <span className="sr-only">Loading...</span>
       </div>

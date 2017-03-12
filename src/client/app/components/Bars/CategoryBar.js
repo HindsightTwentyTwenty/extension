@@ -20,7 +20,7 @@ class CategoryBar extends Component {
         style={catStyle}
         className={'category-bar'}
         onClick={() => {
-          this.props.category_actions.toggleCategory( this.props.currentPage.url,
+          this.props.category_actions.toggleCategory( this.props.currentPage.url, this.props.currentPage.title,
             this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);
         }}>
         <label htmlFor='categoryBar' className={'category-bar-label hide-overflow'}> {this.props.categoryInfo.title} </label>

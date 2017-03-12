@@ -733,9 +733,9 @@ start-time-label .end-time-label{
   }
 }
 
-#loading_page {
+#loading_spinner_page {
   display: table;
-  margin: 20px 40%;
+  margin: 75px auto;
 }
 
 .display-view {
@@ -1231,6 +1231,22 @@ hr{
 
 .horizontal-center{
   margin: 0 auto;
+}
+
+
+#tracking-toggle-wrapper {
+  float: right;
+  vertical-align: middle;
+}
+
+#tracking-toggle-label {
+  color: $base-white;
+  vertical-align: bottom;
+  font-size: 15px;
+}
+
+#tracking-toggle {
+  vertical-align: inherit;
 }
 
 .title-wrapper{

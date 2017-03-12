@@ -167,7 +167,7 @@ class LookBack extends Component {
 				return <div className={'url-bar-category bar-category'} key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow"><p>{category.title}</p></div>
             <div className='url-bar-category-times' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.currentPage.url, category, false, this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.currentPage.url, this.props.displayPage.title, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
