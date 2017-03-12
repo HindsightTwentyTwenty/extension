@@ -745,12 +745,22 @@ start-time-label .end-time-label{
 }
 
 .page-details{
-  width: 100%;
+  width: 50%;
   height: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+}
+
+.page-details-wrapper{
+  display: flex;
+  flex-direction: row;
+}
+
+.screenshot{
+  height: 200px;
+  margin: 0 auto;
 }
 
 .watermelon {
@@ -1199,7 +1209,7 @@ hr{
 .url-categories-display{
   display: flex;
   flex-direction: row;
-  width: 45%;
+  width: 100%;
   max-width: 400px;
   overflow:auto;
   margin: 0 auto;
@@ -1207,7 +1217,7 @@ hr{
 }
 
 .category-select{
-  width: 45%;
+  width: 100%;
   margin: 0 auto;
   max-width: 400px;
 }
@@ -1224,7 +1234,7 @@ hr{
 }
 
 .title-wrapper{
-  width:45%;
+  width:100%;
   margin: 0 auto;
   align-items: center;
   display: flex;

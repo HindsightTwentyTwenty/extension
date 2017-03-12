@@ -74,7 +74,6 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       var imageData;
       chrome.tabs.captureVisibleTab(function(dataString){
         imageData = dataString;
-        console.log(imageData);
         chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
           var lastError = chrome.runtime.lastError;
           if (lastError) {
@@ -132,27 +131,26 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
           var imageData;
           chrome.tabs.captureVisibleTab(function(dataString){
             imageData = dataString;
-            console.log(imageData);
+            chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
+              var lastError = chrome.runtime.lastError;
+              if (lastError) {
+                var dom = "";
+              }else{
+                var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
+              }
+              var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+              fetch(url + 'newpage/', {
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': "Token " + token
+                },
+                method: "POST",
+                body: JSON.stringify({"tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom, "image": imageData})
+              }
+            );
           });
-          chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
-            var lastError = chrome.runtime.lastError;
-            if (lastError) {
-              var dom = "";
-            }else{
-              var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
-            }
-            var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-
-            fetch(url + 'active/', {
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': "Token " + token
-              },
-              method: "POST",
-              body: JSON.stringify({"tab":tab.id, "title":tab.title, "closed": closed, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active, "html": strippedDom})
-            });
-          });
+        });
         }
       });
 
