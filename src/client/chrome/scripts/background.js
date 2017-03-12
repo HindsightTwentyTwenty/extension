@@ -139,7 +139,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo){
                 var strippedDom = dom.replace(/<script([^'"]|"(\\.|[^"\\])*"|'(\\.|[^'\\])*')*?<\/script>/gi, "");
               }
               var domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-              fetch(url + 'newpage/', {
+              fetch(url + 'active/', {
                 headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
