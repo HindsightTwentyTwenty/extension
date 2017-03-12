@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import * as constants from '../constants/LookbackConstants';
+import * as LookbackConstants from '../constants/LookbackConstants';
 
 
 function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
@@ -80,7 +80,7 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         categories: {},
         created: "",
         visited: "",
-        preview: constants.DEFAULT_IMG
+        preview: LookbackConstants.DEFAULT_IMG
       }
     default:
       return state

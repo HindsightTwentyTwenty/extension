@@ -760,9 +760,12 @@ start-time-label .end-time-label{
 
 .screenshot{
   height: 200px;
+  width: 300px;
   margin: 0 auto;
 }
-
+.screenshot-wrapper{
+  width: 45%;
+}
 .watermelon {
   background-color: $watermelon;
   color: $base-white;

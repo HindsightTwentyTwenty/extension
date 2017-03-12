@@ -226,7 +226,7 @@ class LookBack extends Component {
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: '';
 		var pageDetails = (this.props.currentDomainDisplayed.clicked && this.props.currentPage.url != "") ?
 			<div className="page-details-wrapper">
-			<div><img className="screenshot" src={this.props.currentPage.preview}/></div>
+			<div className="screenshot-wrapper"><img className="screenshot" src={this.props.currentPage.preview}/></div>
 			<div className="page-details">
 				<div className="title-wrapper horizontal-center">
 					<a className="page-title" target="_blank" href={this.props.currentPage.url}><p>{this.props.currentPage.title}</p></a>

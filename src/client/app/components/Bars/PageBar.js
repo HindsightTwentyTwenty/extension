@@ -4,7 +4,7 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
-import * as constants from '../../constants/LookbackConstants';
+import * as LookBackConstants from '../../constants/LookbackConstants';
 
 class PageBar extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class PageBar extends Component {
         style={style}
         onMouseOver={() => {
           if(this.props.currentPage == undefined || (this.props.page.url !== this.props.currentPage.url)){
-            if(this.props.currentPage == constants.DEFAULT_IMG){
+            if(this.props.currentPage == LookBackConstants.DEFAULT_IMG){
               this.props.lookback_actions.setCurrentPage(this.props.page, this.props.visited, this.props.preview);
 
             }else{
