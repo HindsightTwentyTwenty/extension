@@ -22,6 +22,7 @@ class PageBar extends Component {
       <div
         className="page-bar"
         style={style}
+        onClick={() => {window.open(this.props.page.url)}}
         onMouseOver={() => {
           if(this.props.currentPage == undefined || (this.props.page.url !== this.props.currentPage.url)){
             if(this.props.currentPage == LookBackConstants.DEFAULT_IMG){
