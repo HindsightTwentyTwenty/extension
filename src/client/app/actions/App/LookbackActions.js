@@ -2,7 +2,7 @@ import * as types from '../../constants/ActionTypes';
 import fetch from 'isomorphic-fetch';
 import * as urls from '../../constants/GlobalConstants';
 import * as NavActions from '../LookBackNav/LookBackNavActions.js';
-import * as LookBackSections from '../../constants/LookBackConstants.js';
+import * as LookBackConstants from '../../constants/LookBackConstants.js';
 import * as SearchConstants from '../../constants/SearchConstants.js';
 import moment from 'moment';
 import 'moment-timezone';
@@ -13,6 +13,27 @@ const searchEndpoint = urls.BASE_URL + "search/";
 
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
+
+export function getImage(url, md5, ekey, page, visited){
+  return dispatch => {
+      return fetch(url, {
+            headers: {
+               'Content-Type': 'image/jpeg',
+               'x-amz-server-side-encryption-customer-algorithm': 'AES256',
+               'x-amz-server-side-encryption-customer-key': ekey,
+               'x-amz-server-side-encryption-customer-key-MD5': md5
+             },
+             method: "GET"
+           }
+         )
+         .then(response => response.blob())
+         .then(blob => {
+           var objectURL = URL.createObjectURL(blob);
+           dispatch(setCurrentPage(page, visited, objectURL));
+        });
+  }
+
+}
 
 export function changeStartDate(new_start_date) {
   return {
@@ -36,11 +57,12 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, visited) {
+export function setCurrentPage(page, visited, preview) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    visited: visited
+    visited: visited,
+    preview: preview
   }
 }
 
@@ -86,7 +108,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
   }
   return dispatch => {
     return [
-      dispatch(NavActions.switchLookBackSelection(LookBackSections.Search, search_term)),
+      dispatch(NavActions.switchLookBackSelection(LookBackConstants.Search, search_term)),
       fetch(searchEndpoint, {
           headers: {
              'Accept': 'application/json',

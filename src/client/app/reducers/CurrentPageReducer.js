@@ -1,4 +1,6 @@
 import * as types from '../constants/ActionTypes';
+import * as LookbackConstants from '../constants/LookbackConstants';
+
 
 function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
   switch(action.type){
@@ -64,7 +66,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           star: action.page.star,
           categories: categoryObject,
           created: action.page.created,
-          visited: action.visited
+          visited: action.visited,
+          preview: action.preview
         }
       }
       if(action.page.star == undefined){
@@ -76,7 +79,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         star: action.page.star,
         categories: {},
         created: "",
-        visited: ""
+        visited: "",
+        preview: LookbackConstants.DEFAULT_IMG
       }
     default:
       return state

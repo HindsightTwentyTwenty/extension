@@ -17,7 +17,7 @@ class SelectedDomainBar extends Component {
     }else{
       var barStyle = {"width" : width + "%"};
     }
-    return <PageBar page={pageVisit.page} visited={pageVisit.visited} style={barStyle} key={key}/>;
+    return <PageBar page={pageVisit.page} preview={pageVisit.preview} visited={pageVisit.visited} style={barStyle} key={key}/>;
   }
 
   getPageBars(){
