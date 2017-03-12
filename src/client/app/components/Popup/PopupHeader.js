@@ -5,6 +5,7 @@ import { bindActionCreators} from 'redux';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
+import ReactTooltip from 'react-tooltip';
 
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css';
@@ -35,7 +36,12 @@ class PopupHeader extends Component {
               <p id="go-to-timeline"> go to timeline</p>
             </div>
         </div>
+
         <div id="tracking-toggle-wrapper">
+          <ReactTooltip place="left" effect="solid" />
+          <i className="fa fa-question-circle fa-lg"
+             id="tracking-explanation"
+             data-tip="Keep on to save browsing history" aria-hidden="true"></i>
           <span id="tracking-toggle-label">Autosave: </span>
           <Toggle id="tracking-toggle"
             onChange={ this.toggleChange.bind(this) }

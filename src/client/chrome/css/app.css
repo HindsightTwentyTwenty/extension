@@ -1229,6 +1229,12 @@ hr{
   vertical-align: middle;
 }
 
+#tracking-explanation {
+  color: $base-white;
+  margin-right: 3px;
+  margin-bottom: 5px;
+}
+
 #tracking-toggle-label {
   color: $base-white;
   vertical-align: bottom;
