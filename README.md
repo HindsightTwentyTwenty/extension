@@ -28,7 +28,9 @@ Our chrome extension can be downloaded from the chrome store here: https://chrom
 
 ## Deployment (For Local Testing) 
 open a new tab in terminal and go to the frontend directory
+
 run `npm install` if opening the app for the first time
+
 run `npm run dev`
 
 ## Authors
