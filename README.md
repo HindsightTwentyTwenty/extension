@@ -19,18 +19,18 @@ www.hindsitehistory.com
 * one person must review your pull request before merging
 
 ## Architecture
+The frontend for hindsite is written in redux. 
 
 The frontend src code is currently separated into an `app` folder which contains redux components, actions, and reducers, and a `chrome` folder which contains the `main.html` file and stylistic assets such as fonts and css. 
 
 ## Setup
-
-We are currently only locally developing our extension. However, there will soon be a version of our app available as a chrome extension for beta testing. 
+Our chrome extension can be downloaded from the chrome store here: https://chrome.google.com/webstore/detail/hindsite/ophfekmjofacmldmbficnkbmhnajbmfl
 
 ## Deployment (For Local Testing) 
-
-start the backend server using the virtual env (detailed in the readme of the backend)
 open a new tab in terminal and go to the frontend directory
+
 run `npm install` if opening the app for the first time
+
 run `npm run dev`
 
 ## Authors
@@ -41,3 +41,5 @@ run `npm run dev`
 * Zachary Tannenbaum
 
 ## Acknowledgments
+The links to the various tools we used in development of hindsite frontend can be found here:
+https://github.com/HindsightTwentyTwenty/frontend/wiki/Sources
