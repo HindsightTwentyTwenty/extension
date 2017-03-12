@@ -34,8 +34,10 @@ class DomainDisplay extends Component {
     } else {
         return(
           <div className="lookback-details-container" onClick={() => {
-          this.props.lookback_actions.toggleDomainClicked();
-          this.props.lookback_actions.setCurrentPage({});}}>
+          if(currentDomain.clicked){
+            this.props.lookback_actions.toggleDomainClicked();
+            this.props.lookback_actions.setCurrentPage({});
+          }}}>
             <div className="domain-details">
                 <div className="row flex-row">
                   <div>
