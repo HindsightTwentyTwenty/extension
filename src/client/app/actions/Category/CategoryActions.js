@@ -67,7 +67,7 @@ export function fetchCategoriesAndPages(token){
   }
 }
 
-export function toggleCategory(pageUrl, pageTitle, category, addOrDelete, token){
+export function toggleCategory(pageUrl, category, addOrDelete, token, pageTitle){
   var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
     dispatch({
@@ -82,7 +82,7 @@ export function toggleCategory(pageUrl, pageTitle, category, addOrDelete, token)
                'Authorization': 'Token ' + token
              },
              method: "POST",
-             body: JSON.stringify({url: pageUrl, title: pageTitle, category: category.title})
+             body: JSON.stringify({url: pageUrl, category: category.title, title: pageTitle})
            }
       )
       .then(response => response.json())
