@@ -35,8 +35,7 @@ class PageUrlBar extends Component {
       this.props.category_actions.pushCategory(categoryTitle, this.state.editColor, this.props.currentUser.token).then(() => {
         for (var key in this.props.categories.cats) {
           if (categoryTitle == this.props.categories.cats[key].title) {
-            this.props.category_actions.toggleCategory(this.props.page.url, this.props.currentPage.title,
-              this.props.categories.cats[key], true, this.props.currentUser.token);
+            this.props.category_actions.toggleCategory(this.props.page.url, this.props.categories.cats[key], true, this.props.currentUser.token);
             break;
           }
         }
@@ -90,7 +89,7 @@ class PageUrlBar extends Component {
         return <div className='url-bar-category-thin' key={category.title} style={{"backgroundColor" : category.color}}>
             <div className="hide-overflow">{category.title}</div>
             <div className='url-bar-category-times' onClick={()=>{
-                this.props.category_actions.toggleCategory(this.props.page.url, this.props.page.title, category, false, this.props.currentUser.token);
+                this.props.category_actions.toggleCategory(this.props.page.url, category, false, this.props.currentUser.token);
               }}>
             <i className='fa fa-times'></i>
             </div>
