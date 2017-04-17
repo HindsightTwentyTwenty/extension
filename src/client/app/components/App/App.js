@@ -12,6 +12,20 @@ import * as LookBackSections from '../../constants/LookBackConstants.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
 
+/* allows you to remove classes from html elements
+http://stackoverflow.com/questions/2155737/remove-css-class-from-element-with-javascript-no-jquery */
+HTMLElement.prototype.removeClass = function(remove) {
+	var newClassName = "";
+	var i;
+	var classes = this.className.split(" ");
+	for(i = 0; i < classes.length; i++) {
+			if(classes[i] !== remove) {
+					newClassName += classes[i] + " ";
+			}
+	}
+	this.className = newClassName;
+}
+
 class App extends Component {
 
   constructor(props) {

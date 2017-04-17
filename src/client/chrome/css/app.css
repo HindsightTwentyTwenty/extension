@@ -33,6 +33,35 @@ body {
    font-family: $site-font;
 }
 
+.btn {
+  border-radius: 0px;
+  margin: 4px;
+  color: $base-white;
+  background-color: $base-color;
+  outline: $base-color 3px solid;
+
+  &:hover{
+    color: $base-color;
+    background-color: transparent;
+  }
+  &:active{
+    color: $base-color;
+    background-color: transparent;
+    background: transparent;
+    outline: $base-color 3px solid;
+  }
+}
+
+/*
+keeps the hover look on a btn when selected
+just add this class to the element using +=
+remove this class using removeClass as defined in App.js
+*/
+.btn-selected{
+  color: $base-color;
+  background-color: transparent;
+}
+
 .vertical-center{
   align-self: center;
 }
@@ -245,7 +274,8 @@ body {
   color: $base-white;
 }
 
-/*BUTTONS*/
+/*BUTTONS CSS*/
+
 #back-button{
   border: 0;
   background: $base-color;
@@ -445,20 +475,14 @@ body {
 }
 
 .jump-btn{
-  background-color: #4897D8;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.42857143;
   text-align: center;
   vertical-align: middle;
-  color: #FAFAFA;
   padding: 5px 6px;
-  border-radius: 5px;
 }
-.jump-btn:hover{
-  background-color: $electric-blue-dark;
-  cursor:pointer;
-}
+
 
 #lookback-slider{
   background-color: #FAFAFA;
@@ -599,7 +623,7 @@ body {
 .blacklist-text-entry {
   border-radius: 4px;
   border: none;
-  height: 40px;
+  height: 46px;
   outline: none;
   &:focus {
     outline:none;
@@ -798,14 +822,14 @@ hr{
 }
 
 .add-category-btn{
-  padding-top: 8px;
+  /*padding-top: 8px;
   padding-bottom: 7px;
-  border: 0px;
+  border: 0px;*/
   font-size: large;
-  background: none;
+  /*background: none;
   &:hover{
     color: $secondary-color;
-  }
+  }*/
 }
 
 .category-bar{
@@ -1171,7 +1195,7 @@ hr{
   max-width: 400px;
 }
 
-.account-button {
+/*.account-button {
   margin: 1px 1px;
   background-color: $base-color;
   &:hover {
@@ -1180,7 +1204,7 @@ hr{
   &:focus {
     background-color: $base-color;
   }
-}
+}*/
 
 #domain-modal{
   display: flex;
