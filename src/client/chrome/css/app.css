@@ -18,6 +18,32 @@ $hover-color: #F68828;
 $timeline-active-color: #123654;
 $timeline-details-color: #046E8F;
 
+
+$grace-base: #6184da;
+$grace-second: #00d8cb;
+$grace-accent: #ffcb59;
+
+$shelley-base: #009cc0;
+$shelley-second:#ff0000;
+/*$shelley-accent: lighten($shelley-base, 50%);*/
+
+$zach-base: #0064bc;
+$zach-second: #ff5200;
+$zach-accent: #d3e4f1;
+
+$option-1: #3591FF;
+
+/*electric-blue*/
+$base-color: #628AD7;
+/*timeline-details-color*/
+$secondary-color: #53D1C8;
+
+$accent-color: #FFDD43;
+
+$light-grey: #e1e1e1;
+$dark-grey: #a2a2a2;
+$custom-white: #fafafa;
+
 body {
    width:auto;
    height:auto;
@@ -50,7 +76,7 @@ body {
   margin: 5px auto;
   border-radius: 3px;
   width: 95%;
-  background-color: $electric-blue;
+  background-color: $base-color;
   padding: 6px;
   display: flex;
   flex-direction: row;
@@ -85,7 +111,7 @@ body {
   &:focus{
     box-shadow: none;
     &::-webkit-input-placeholder {
-      color: $banana;
+      color: $accent-color;
     }
   }
   &::-webkit-input-placeholder {
@@ -169,7 +195,7 @@ body {
 }
 
 .url{
-  color: $banana;
+  color: $accent-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -208,7 +234,7 @@ body {
   height: calc(100% - 260px);
   overflow: scroll;
   background-color: white;
-  border:solid 1px $electric-blue;
+  border:solid 1px $base-color;
   position:absolute;
   min-width: 800px;
 }
@@ -234,7 +260,7 @@ body {
   padding: 10px;
   width: 100%;
   height: 100px;
-  background-color: $timeline-details-color;
+  background-color: $secondary-color;
   min-width: 400px;
   color: $base-white;
 }
@@ -242,7 +268,7 @@ body {
 /*BUTTONS*/
 #back-button{
   border: 0;
-  background: $electric-blue;
+  background: $base-color;
   border-radius: 4px;
   color: $base-white;
   font-size: 15;
@@ -262,7 +288,7 @@ body {
   width: 220px;
   height: 100%;
   background-color: $base-white;
-  border-right: solid 1px $electric-blue;
+  border-right: solid 1px $base-color;
   overflow-y: scroll;
   display: flex;
   flex-flow: column;
@@ -307,7 +333,7 @@ body {
 
 .domain-bar{
   height: 22px;
-  border: solid 1px $electric-blue;
+  border: solid 1px $base-color;
   color: white;
   display:inline-block;
   white-space: nowrap;
@@ -345,12 +371,12 @@ body {
 }
 
 .previousPath {
-  border-color: $banana;
+  border-color: $accent-color;
 }
 
 start-time-label .end-time-label{
   font-size: 15;
-  color: $electric-blue;
+  color: $base-color;
   width: auto;
 }
 
@@ -384,7 +410,7 @@ start-time-label .end-time-label{
 
 .time-change-button {
   width:35px;
-  color: $timeline-details-color;
+  color: $secondary-color;
 }
 
 #time-change-btn-buffer-lft{
@@ -515,7 +541,7 @@ start-time-label .end-time-label{
 
 .time-break-line{
   height:100%;
-  border-right: 1px solid $banana;
+  border-right: 1px solid $accent-color;
   position:relative;
   z-index: 1;
 }
@@ -532,8 +558,8 @@ start-time-label .end-time-label{
 
 .nav-bar-button {
   border: none;
-  background-color: $electric-blue;
-  color: $banana;
+  background-color: $base-color;
+  color: $accent-color;
   margin: 10px;
   margin-top: 15px;
   font-size: medium;
@@ -559,7 +585,7 @@ start-time-label .end-time-label{
 .nav-bar-container {
   display: flex;
   justify-content: space-between;
-  background-color: $electric-blue;
+  background-color: $base-color;
 }
 
 .nav-menu-bar {
@@ -604,7 +630,7 @@ start-time-label .end-time-label{
   margin: 0 auto;
   margin-top: 3%;
   width: 95%;
-  border: $electric-blue 3px solid;
+  border: $base-color 3px solid;
   height: 100px;
   border-radius: 5px;
   display:flex;
@@ -617,7 +643,7 @@ start-time-label .end-time-label{
   height:100%;
   display:inline-block;
   margin: 0;
-  background-color: $electric-blue;
+  background-color: $base-color;
 }
 
 .close-detail-view-btn{
@@ -650,7 +676,7 @@ start-time-label .end-time-label{
 }
 
 .right-sidebar-button {
-  color: $electric-blue;
+  color: $base-color;
   float: right;
   margin-right: 10px;
   width: 15px;
@@ -659,7 +685,7 @@ start-time-label .end-time-label{
 }
 
 .left-sidebar-button {
-  color: $electric-blue;
+  color: $base-color;
   float: left;
   width: 15px;
   height: 25px;
@@ -682,7 +708,7 @@ start-time-label .end-time-label{
   width: 130px;
   line-height: 30px;
   padding-left: 7px;
-  color: $electric-blue;
+  color: $base-color;
   text-align: left;
 }
 
@@ -703,7 +729,7 @@ start-time-label .end-time-label{
   padding-left: 3px;
   margin: 6px 7px;
   &.selected {
-    color: $banana;
+    color: $accent-color;
   }
 
 }
@@ -783,16 +809,16 @@ start-time-label .end-time-label{
 }
 
 .electric-blue {
-  background-color: $electric-blue;
+  background-color: $base-color;
   color: white;
 }
 
 .electric-blue-text{
-  color: $electric-blue;
+  color: $base-color;
 }
 
 .electric-blue-border {
-  border: solid 2px $electric-blue;
+  border: solid 2px $base-color;
 }
 
 .star-checkbox{
@@ -832,7 +858,7 @@ hr{
   padding: 0 6px;
   &:hover{
     font-weight: bold;
-    border: solid 2px $electric-blue;
+    border: solid 2px $base-color;
   }
 }
 
@@ -845,10 +871,10 @@ hr{
   height:45px;
   line-height: 55px;
   width: 45px;
-  color: $banana;
+  color: $accent-color;
   margin-left: 1%;
   &:hover{
-    color: $banana;
+    color: $accent-color;
   }
 }
 
@@ -856,17 +882,17 @@ hr{
   height:30px;
   line-height: 30px;
   width: 30px;
-  color: $banana;
+  color: $accent-color;
   margin: 2px 0 0 5px;
   &:hover{
-    color: $banana;
+    color: $accent-color;
   }
 }
 
 .star{
   line-height: 45px;
   &:hover{
-    color: $banana;
+    color: $accent-color;
   }
 }
 
@@ -905,7 +931,7 @@ hr{
 
 .search-select-dropdown {
   margin: 1px 19px;
-  border-color: $electric-blue
+  border-color: $base-color
 }
 
 .Select-control {
@@ -920,7 +946,7 @@ hr{
   padding: 7px 0px;
   margin: 1px 19px;
   color: black;
-  border-color: $electric-blue
+  border-color: $base-color
 }
 
 #search-selection-row {
@@ -981,7 +1007,7 @@ hr{
   width: 90%;
   margin: 7px auto;
   border-radius: 0px;
-  border: $electric-blue;
+  border: $base-color;
   height: 35px;
   padding: 10px;
   outline: none;
@@ -1032,7 +1058,7 @@ hr{
 .iframe-close-button{
   float: right;
   margin: 0 3%;
-  color: $electric-blue;
+  color: $base-color;
   &:hover {
     color: $watermelon;
   }
@@ -1103,7 +1129,7 @@ hr{
   padding: 0px 5px;
   margin-left: 0px;
   text-align:center;
-  border-color:$electric-blue;
+  border-color:$base-color;
   border-radius:6px;
   background-color:inherit;
 }
@@ -1187,12 +1213,12 @@ hr{
 
 .account-button {
   margin: 1px 1px;
-  background-color: $electric-blue;
+  background-color: $base-color;
   &:hover {
   background-color: $electric-blue-dark;
   }
   &:focus {
-    background-color: $electric-blue;
+    background-color: $base-color;
   }
 }
 
