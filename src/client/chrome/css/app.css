@@ -1,6 +1,13 @@
 @import url("./daterangepicker.css");
 
+/*
+Sections of CSS:
+-timeline
+-blacklist
+-nav bar
+-search
 
+*/
 $bar-height: 40px;
 $modal-background: #e5eefc;
 $hover-color: #F68828;
@@ -15,13 +22,15 @@ $light-grey: #e1e1e1;
 $dark-grey: #a2a2a2;
 $base-white: #fafafa;
 
+$site-font: 'Raleway', sans-serif;
+
 body {
    width:auto;
    height:auto;
    overflow: hidden;
    background-color: $base-white;
    color: $base-color;
-   font-family: 'Raleway', sans-serif;
+   font-family: $site-font;
 }
 
 .vertical-center{
@@ -345,11 +354,7 @@ body {
   border-color: $accent-color;
 }
 
-start-time-label .end-time-label{
-  font-size: 15;
-  color: $base-color;
-  width: auto;
-}
+
 
 .site-title{
   font-size: 35px;
@@ -371,6 +376,14 @@ start-time-label .end-time-label{
   display: flex;
   flex-direction: row;
 }
+
+/* TIMELINE CSS */
+.start-time-label .end-time-label{
+  font-size: 15;
+  color: $base-color;
+  width: auto;
+}
+
 #graph-plus-buttons{
   display: flex;
   width: 100%;
@@ -422,6 +435,11 @@ start-time-label .end-time-label{
   margin-left: 20px;
 }
 
+.ant-slider{
+  border-top-color: #FAFAFA;
+  border-bottom-color: #FAFAFA;
+}
+
 .ant-slider-mark-text-active{
   color:black;
 }
@@ -444,11 +462,6 @@ start-time-label .end-time-label{
 
 #lookback-slider{
   background-color: #FAFAFA;
-}
-
-.ant-slider{
-  border-top-color: #FAFAFA;
-  border-bottom-color: #FAFAFA;
 }
 
 #timeline-label-row-top{
@@ -488,7 +501,6 @@ start-time-label .end-time-label{
   font-size: larger;
 }
 
-
 #end-date-label{
   margin-left: auto;
   font-size: larger;
@@ -527,6 +539,8 @@ start-time-label .end-time-label{
   float: left;
 }
 
+
+/*NAV BAR CSS */
 .nav-bar-button {
   border: none;
   background-color: $base-color;
@@ -576,6 +590,7 @@ start-time-label .end-time-label{
   outline: none;
 }
 
+/* BLACKLIST CSS */
 .blacklist-entry{
   width: 95%;
   margin: 0 auto;
@@ -591,6 +606,7 @@ start-time-label .end-time-label{
   }
 }
 
+/* CATEGORIES CSS */
 .section-title {
   font-size: 20px;
   margin: 10px;
@@ -763,34 +779,7 @@ start-time-label .end-time-label{
 .screenshot-wrapper{
   width: 45%;
 }
-.watermelon {
-  background-color: $accent-color;
-  color: $base-white;
-  &:hover {
-    background-color: $accent-color;
-    color: $base-white;
-  }
-  &:focus{
-    color: $base-white;
-  }
-}
 
-.watermelon-border {
-  border: solid 2px $accent-color;
-}
-
-.electric-blue {
-  background-color: $base-color;
-  color: white;
-}
-
-.electric-blue-text{
-  color: $base-color;
-}
-
-.electric-blue-border {
-  border: solid 2px $base-color;
-}
 
 .star-checkbox{
   border-bottom: solid thin $secondary-color;
