@@ -1,55 +1,26 @@
 @import url("./daterangepicker.css");
 
-$banana: #FFDB5C;
-$banana-dark: #F9D34A;
-$electric-blue: #4897D8;
-$electric-blue-dark: #2B82CA;
-$lime: #77f200;
-$lime-dark: #6ad304;
-$light-blue: #dbedfc;
-$watermelon: #FA6E59;
-$watermelon-dark: #F95339;
-$canteloupe: #F8A055;
-$canteloupe-dark: #F68828;
-$base-white: #FAFAFA;
+
 $bar-height: 40px;
 $modal-background: #e5eefc;
 $hover-color: #F68828;
-$timeline-active-color: #123654;
-$timeline-details-color: #046E8F;
+$electric-blue-dark: #2B82CA;
 
 
-$grace-base: #6184da;
-$grace-second: #00d8cb;
-$grace-accent: #ffcb59;
-
-$shelley-base: #009cc0;
-$shelley-second:#ff0000;
-/*$shelley-accent: lighten($shelley-base, 50%);*/
-
-$zach-base: #0064bc;
-$zach-second: #ff5200;
-$zach-accent: #d3e4f1;
-
-$option-1: #3591FF;
-
-/*electric-blue*/
 $base-color: #628AD7;
-/*timeline-details-color*/
 $secondary-color: #53D1C8;
-
 $accent-color: #FFDD43;
 
 $light-grey: #e1e1e1;
 $dark-grey: #a2a2a2;
-$custom-white: #fafafa;
+$base-white: #fafafa;
 
 body {
    width:auto;
    height:auto;
    overflow: hidden;
    background-color: $base-white;
-   color: $electric-blue;
+   color: $base-color;
    font-family: 'Raleway', sans-serif;
 }
 
@@ -125,7 +96,7 @@ body {
   margin: 5px auto;
   border-radius: 3px;
   width: 95%;
-  background-color: $canteloupe;
+  background-color: $secondary-color;
   color: $base-white;
   padding: 0px 6px;
   display: flex;
@@ -187,7 +158,7 @@ body {
   padding-left: 10px;
 }
 .url-bar-category-button:hover{
-  color: $watermelon;
+  color: $accent-color;
 }
 
 .url-bar-input{
@@ -347,7 +318,7 @@ body {
   /* account for the domains smaller than the favicon size */
   flex-basis:24px;
   &:hover {
-    border-color: $canteloupe;
+    border-color: $secondary-color;
   }
 }
 
@@ -578,7 +549,7 @@ start-time-label .end-time-label{
 
 .control-buttons{
   display: block;
-  color: $canteloupe;
+  color: $secondary-color;
   font-weight: bold;
 }
 
@@ -623,7 +594,7 @@ start-time-label .end-time-label{
 .section-title {
   font-size: 20px;
   margin: 10px;
-  color: $canteloupe;
+  color: $secondary-color;
 }
 
 .selected-domain-bar {
@@ -652,7 +623,7 @@ start-time-label .end-time-label{
   margin-right: 30px;
   font-size: medium;
   &:hover{
-    color: $watermelon;
+    color: $accent-color;
   }
 }
 
@@ -754,7 +725,7 @@ start-time-label .end-time-label{
   textarea {
     width: 150px;
     border: none;
-    background-color: $light-blue;
+    background-color: $light-grey;
     text-align: center;
   }
 }
@@ -793,10 +764,10 @@ start-time-label .end-time-label{
   width: 45%;
 }
 .watermelon {
-  background-color: $watermelon;
+  background-color: $accent-color;
   color: $base-white;
   &:hover {
-    background-color: $watermelon-dark;
+    background-color: $accent-color;
     color: $base-white;
   }
   &:focus{
@@ -805,7 +776,7 @@ start-time-label .end-time-label{
 }
 
 .watermelon-border {
-  border: solid 2px $watermelon;
+  border: solid 2px $accent-color;
 }
 
 .electric-blue {
@@ -822,8 +793,8 @@ start-time-label .end-time-label{
 }
 
 .star-checkbox{
-  border-bottom: solid thin $canteloupe;
-  border-top: solid thin $canteloupe;
+  border-bottom: solid thin $secondary-color;
+  border-top: solid thin $secondary-color;
   text-align: center;
   width: 100%;
   height: 50px;
@@ -832,7 +803,7 @@ start-time-label .end-time-label{
 
 hr{
   margin: 0 auto;
-  border-color: $watermelon-dark;
+  border-color: $accent-color;
   border-width: 2px;
   width: 100%;
 }
@@ -844,7 +815,7 @@ hr{
   font-size: large;
   background: none;
   &:hover{
-    color: $canteloupe;
+    color: $secondary-color;
   }
 }
 
@@ -1028,7 +999,7 @@ hr{
 }
 
 .login-error {
-  color: $watermelon-dark;
+  color: $accent-color;
   text-align: center;
   font-weight: bold;
 }
@@ -1060,7 +1031,7 @@ hr{
   margin: 0 3%;
   color: $base-color;
   &:hover {
-    color: $watermelon;
+    color: $accent-color;
   }
 }
 
@@ -1072,12 +1043,12 @@ hr{
   border: none;
   outline: none;
   &:hover{
-    color: $watermelon;
+    color: $accent-color;
   }
 }
 
 #iframe-open-button:hover{
-  background-color: $canteloupe-dark;
+  background-color: $secondary-color;
 }
 
 .i-modal-header {
@@ -1169,7 +1140,7 @@ hr{
   text-decoration: none;
   margin-left: 5%;
   &:hover {
-    color: $canteloupe-dark;
+    color: $secondary-color;
   }
 }
 
