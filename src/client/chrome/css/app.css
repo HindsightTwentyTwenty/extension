@@ -8,19 +8,34 @@ Sections of CSS:
 -search
 
 */
+
+/* tag choice colors */
+$red: #DB3535 ;
+$orange: #EE6955 ;
+$yellow: #F7AC2F ;
+$teal: #34ccbb ;
+$green: #339882 ;
+$azul: #3F8oD9 ;
+$purple: #6454c9 ;
+
+
+
+
+/*app colors */
 $bar-height: 40px;
-$modal-background: #e5eefc;
-$hover-color: #F68828;
-$electric-blue-dark: #2B82CA;
+$modal-background: #e5eefc ;
+$hover-color: #F68828 ;
+$electric-blue-dark: #2B82CA ;
 
 
-$base-color: #628AD7;
-$secondary-color: #53D1C8;
-$accent-color: #FFDD43;
+$base-color: #628AD7 ;
+$secondary-color: #53D1C8 ;
+$accent-color: #FFDD43 ;
 
-$light-grey: #e1e1e1;
-$dark-grey: #a2a2a2;
-$base-white: #fafafa;
+$black: #55524D ;
+$light-grey: #e1e1e1 ;
+$dark-grey: #a2a2a2 ;
+$base-white: #fafafa ;
 
 $site-font: 'Raleway', sans-serif;
 
