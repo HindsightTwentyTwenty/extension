@@ -1266,3 +1266,51 @@ hr{
   justify-content: center;
   text-overflow: ellipsis;
 }
+
+.analytics {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #E1E1E1;
+}
+
+.range-selector {
+  margin-top: 0.5%;
+  margin-right: 2.5%;
+  float: right;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+}
+
+.nav-pills>li>a {
+  color: #A2A2A2;
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover {
+  background-color: #A2A2A2;
+  color: #FAFAFA;
+}
+
+
+
+.page-visits {
+  background-color: #FAFAFA;
+  height: 30%;
+  width: 95%;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding-top: 10px;
+  top: 50px;
+  text-align: left;
+  position: relative;
+}
+
+.word-cloud {
+  background-color: #FAFAFA;
+  height: 32%;
+  margin: 5px;
+  padding-top: 5px;
+  text-align: center;
+  position: relative;
+}

@@ -69,7 +69,12 @@ let store = createStore(
       change_password:false,
       md5:"",
       ekey:"",
-      tracking_on:false
+      tracking_on:true
+    },
+    analytics: {
+      range: 'week',
+      page_visits: [],
+      tag_cloud: []
     },
     lookbackNav: {
       selection: 0,

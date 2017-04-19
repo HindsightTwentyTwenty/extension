@@ -8,6 +8,7 @@ import LookBackNavBar from './LookBackNavBar.js';
 import CategoriesPage from './CategoriesPage.js';
 import Manage from './Manage.js';
 import Search from './Search.js';
+import Analytics from './Analytics.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as UserActions from '../../actions/User/UserActions.js';
@@ -42,6 +43,10 @@ class App extends Component {
         case LookBackSections.Search:
           return (
             <Search />
+          );
+        case LookBackSections.Analytics:
+          return (
+            <Analytics />
           );
         default:
           return (

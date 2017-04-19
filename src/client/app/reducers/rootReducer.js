@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import analyticsReducer from './AnalyticsReducer.js';
 import currentPageReducer from './CurrentPageReducer.js';
 import categoryReducer from './CategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
@@ -12,7 +13,7 @@ import blacklistReducer from './BlacklistReducer.js';
 import searchReducer from './SearchReducer.js';
 import popupSelectionReducer from './PopupSelectionReducer.js';
 import sessionsReducer from './SessionsReducer.js';
-import popupNavReducer from './popupNavReducer.js'
+import popupNavReducer from './popupNavReducer.js';
 
 const rootReducer = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
@@ -23,6 +24,7 @@ const rootReducer = (state, action) => {
 }
 
 const appReducer = combineReducers({
+  analytics: analyticsReducer,
   blacklist: blacklistReducer,
   currentSearchCategories: searchCategoryReducer,
   categories: categoryReducer,
