@@ -3,8 +3,18 @@ var token = "";
 var encrypt_key="";
 var md5="";
 var url = 'https://hindsite2020.herokuapp.com/';
-
 var tabAlarmName = 'tabAlarm';
+
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+  // No tabs or host permissions needed!
+  console.log("HERE2");
+  console.log('Turning ' + tab.url + ' red!');
+
+  //file path is relative to the root of chrome
+  chrome.tabs.executeScript(null, {file: "./scripts/testscript.js"});
+
+});
 
 chrome.alarms.create(tabAlarmName, {
     delayInMinutes: 0,
