@@ -1,19 +1,43 @@
 @import url("./daterangepicker.css");
 
+/*
+Sections of CSS:
+-timeline
+-blacklist
+-nav bar
+-search
 
+*/
+
+/* tag choice colors */
+$red: #DB3535 ;
+$orange: #EE6955 ;
+$yellow: #F7AC2F ;
+$teal: #34ccbb ;
+$green: #339882 ;
+$azul: #3F8oD9 ;
+$purple: #6454c9 ;
+
+
+
+
+/*app colors */
 $bar-height: 40px;
-$modal-background: #e5eefc;
-$hover-color: #F68828;
-$electric-blue-dark: #2B82CA;
+$modal-background: #e5eefc ;
+$hover-color: #F68828 ;
+$electric-blue-dark: #2B82CA ;
 
 
-$base-color: #628AD7;
-$secondary-color: #53D1C8;
-$accent-color: #FFDD43;
+$base-color: #628AD7 ;
+$secondary-color: #53D1C8 ;
+$accent-color: #FFDD43 ;
 
-$light-grey: #e1e1e1;
-$dark-grey: #a2a2a2;
-$base-white: #fafafa;
+$black: #55524D ;
+$light-grey: #e1e1e1 ;
+$dark-grey: #a2a2a2 ;
+$base-white: #fafafa ;
+
+$site-font: 'Raleway', sans-serif;
 
 body {
    width:auto;
@@ -21,7 +45,36 @@ body {
    overflow: hidden;
    background-color: $base-white;
    color: $base-color;
-   font-family: 'Raleway', sans-serif;
+   font-family: $site-font;
+}
+
+.btn {
+  border-radius: 0px;
+  margin: 4px;
+  color: $base-white;
+  background-color: $base-color;
+  outline: $base-color 3px solid;
+
+  &:hover{
+    color: $base-color;
+    background-color: transparent;
+  }
+  &:active{
+    color: $base-color;
+    background-color: transparent;
+    background: transparent;
+    outline: $base-color 3px solid;
+  }
+}
+
+/*
+keeps the hover look on a btn when selected
+just add this class to the element using +=
+remove this class using removeClass as defined in App.js
+*/
+.btn-selected{
+  color: $base-color;
+  background-color: transparent;
 }
 
 .vertical-center{
@@ -236,7 +289,8 @@ body {
   color: $base-white;
 }
 
-/*BUTTONS*/
+/*BUTTONS CSS*/
+
 #back-button{
   border: 0;
   background: $base-color;
@@ -345,11 +399,7 @@ body {
   border-color: $accent-color;
 }
 
-start-time-label .end-time-label{
-  font-size: 15;
-  color: $base-color;
-  width: auto;
-}
+
 
 .site-title{
   font-size: 35px;
@@ -371,6 +421,14 @@ start-time-label .end-time-label{
   display: flex;
   flex-direction: row;
 }
+
+/* TIMELINE CSS */
+.start-time-label .end-time-label{
+  font-size: 15;
+  color: $base-color;
+  width: auto;
+}
+
 #graph-plus-buttons{
   display: flex;
   width: 100%;
@@ -422,33 +480,27 @@ start-time-label .end-time-label{
   margin-left: 20px;
 }
 
+.ant-slider{
+  border-top-color: #FAFAFA;
+  border-bottom-color: #FAFAFA;
+}
+
 .ant-slider-mark-text-active{
   color:black;
 }
 
 .jump-btn{
-  background-color: #4897D8;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.42857143;
   text-align: center;
   vertical-align: middle;
-  color: #FAFAFA;
   padding: 5px 6px;
-  border-radius: 5px;
 }
-.jump-btn:hover{
-  background-color: $electric-blue-dark;
-  cursor:pointer;
-}
+
 
 #lookback-slider{
   background-color: #FAFAFA;
-}
-
-.ant-slider{
-  border-top-color: #FAFAFA;
-  border-bottom-color: #FAFAFA;
 }
 
 #timeline-label-row-top{
@@ -488,7 +540,6 @@ start-time-label .end-time-label{
   font-size: larger;
 }
 
-
 #end-date-label{
   margin-left: auto;
   font-size: larger;
@@ -527,6 +578,8 @@ start-time-label .end-time-label{
   float: left;
 }
 
+
+/*NAV BAR CSS */
 .nav-bar-button {
   border: none;
   background-color: $base-color;
@@ -576,6 +629,7 @@ start-time-label .end-time-label{
   outline: none;
 }
 
+/* BLACKLIST CSS */
 .blacklist-entry{
   width: 95%;
   margin: 0 auto;
@@ -584,13 +638,14 @@ start-time-label .end-time-label{
 .blacklist-text-entry {
   border-radius: 4px;
   border: none;
-  height: 40px;
+  height: 46px;
   outline: none;
   &:focus {
     outline:none;
   }
 }
 
+/* CATEGORIES CSS */
 .section-title {
   font-size: 20px;
   margin: 10px;
@@ -763,34 +818,7 @@ start-time-label .end-time-label{
 .screenshot-wrapper{
   width: 45%;
 }
-.watermelon {
-  background-color: $accent-color;
-  color: $base-white;
-  &:hover {
-    background-color: $accent-color;
-    color: $base-white;
-  }
-  &:focus{
-    color: $base-white;
-  }
-}
 
-.watermelon-border {
-  border: solid 2px $accent-color;
-}
-
-.electric-blue {
-  background-color: $base-color;
-  color: white;
-}
-
-.electric-blue-text{
-  color: $base-color;
-}
-
-.electric-blue-border {
-  border: solid 2px $base-color;
-}
 
 .star-checkbox{
   border-bottom: solid thin $secondary-color;
@@ -809,14 +837,14 @@ hr{
 }
 
 .add-category-btn{
-  padding-top: 8px;
+  /*padding-top: 8px;
   padding-bottom: 7px;
-  border: 0px;
+  border: 0px;*/
   font-size: large;
-  background: none;
+  /*background: none;
   &:hover{
     color: $secondary-color;
-  }
+  }*/
 }
 
 .category-bar{
@@ -1182,7 +1210,7 @@ hr{
   max-width: 400px;
 }
 
-.account-button {
+/*.account-button {
   margin: 1px 1px;
   background-color: $base-color;
   &:hover {
@@ -1191,7 +1219,7 @@ hr{
   &:focus {
     background-color: $base-color;
   }
-}
+}*/
 
 #domain-modal{
   display: flex;
