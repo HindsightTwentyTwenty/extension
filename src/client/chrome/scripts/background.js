@@ -12,7 +12,9 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   console.log('Turning ' + tab.url + ' red!');
 
   //file path is relative to the root of chrome
-  chrome.tabs.executeScript(null, {file: "./scripts/testscript.js"});
+  // chrome.tabs.executeScript(null, {file: "./scripts/testscript.js"});
+  chrome.tabs.executeScript(null, {file: "./public/bundle.js"});
+
 
 });
 
