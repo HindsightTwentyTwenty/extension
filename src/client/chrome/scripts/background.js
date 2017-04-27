@@ -13,11 +13,11 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
   //file path is relative to the root of chrome
   //execute the background script on icon press
-  chrome.tabs.executeScript(null, {file: "./scripts/inject.js"});
+  // chrome.tabs.executeScript(null, {file: "./scripts/inject.js"});
   // chrome.tabs.executeScript(null, {file: "./app/Injection.js"});
   // frontend/src/client/app/Injection.js
 
-  // chrome.tabs.executeScript(null, {file: "./public/bundle.js"});
+  chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
 
 
 });

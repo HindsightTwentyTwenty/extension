@@ -15,7 +15,7 @@ import App from './components/app';
 import './../chrome/css/app.css';
 import './../chrome/css/popup.css';
 
-let store = createStore(
+const store = createStore(
   rootReducer,
   { blacklist: {
       urls: []

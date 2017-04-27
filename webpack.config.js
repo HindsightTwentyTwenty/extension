@@ -7,11 +7,14 @@ var APP_DIR = path.resolve(__dirname, 'src/client/app/');
 //TODO: TAKE OUT TOTAL
 var TOTAL_REACT_DIR = path.resolve(__dirname, 'src/client/');
 var INJECT_DIR = path.resolve(__dirname, 'src/client/chrome/');
+var TEST_LOAD = path.resolve(__dirname, 'src/client/chrome/scripts/inject.js');
+
+
 
 
 var config = {
   entry: {
-    app: APP_DIR + '/index.js',
+    app: [APP_DIR + '/index.js'],
     sidebar: INJECT_DIR + '/scripts/inject.js'
   },
   output: {
@@ -22,7 +25,7 @@ var config = {
     loaders: [
       {
         test: /\.jsx|\.js/ ,
-        include: [APP_DIR, INJECT_DIR],
+        include: [APP_DIR, INJECT_DIR, TEST_LOAD],
         loader: 'babel'
       },
       {
