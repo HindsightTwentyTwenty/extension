@@ -13,7 +13,7 @@ class RangeSelector extends Component {
 
 
   getClassName(range) {
-    if (this.props.analytics.range == range) {
+    if (this.props.analytics.range.length == range) {
       return "active";
     }
   }
@@ -23,13 +23,16 @@ class RangeSelector extends Component {
     return (
       <ul className="nav nav-pills range-selector">
         <li role="presentation" className={this.getClassName('day')}><a onClick={() => {
-          this.props.analytics_actions.changeRange('day');
+          this.props.analytics_actions.changeRange('day', '');
+          this.props.analytics_actions.activeUserDomain(null);
         }}>Day</a></li>
         <li role="presentation" className={this.getClassName('week')}><a onClick={() => {
-          this.props.analytics_actions.changeRange('week');
+          this.props.analytics_actions.changeRange('week', 'current');
+          this.props.analytics_actions.activeUserDomain(null);
         }}>Week</a></li>
         <li role="presentation" className={this.getClassName('month')}><a onClick={() => {
-          this.props.analytics_actions.changeRange('month');
+          this.props.analytics_actions.changeRange('month', '');
+          this.props.analytics_actions.activeUserDomain(null);
         }}>Month</a></li>
       </ul>
     )
@@ -38,7 +41,6 @@ class RangeSelector extends Component {
 }
 
 let mapStateToProps = (state) => ({
-	currentUser : state.currentUser,
   analytics : state.analytics
 })
 

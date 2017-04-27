@@ -13,7 +13,7 @@ class Analytics extends Component {
 
   constructor(props) {
     super(props);
-    if(this.props.analytics.page_visits.length == 0){
+    if(this.props.analytics.page_visits.month.length == 0){
       this.props.analytics_actions.getAnalytics(this.props.currentUser.token);
     }
   }
@@ -22,9 +22,10 @@ class Analytics extends Component {
     return (
       <div className="analytics">
         <RangeSelector/>
-        <PageVisits/>
-
-
+        <div className="analytics-boxes">
+          <PageVisits/>
+          <TopDomains/>
+        </div>
       </div>
     )
   }

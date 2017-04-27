@@ -9,22 +9,20 @@ export function receiveAnalytics(json) {
   return {
     type: types.RECEIVE_ANALYTICS,
     page_visits: json.page_visits,
-    tag_cloud: json.tag_cloud
+    user_domains: json.user_domains,
+    user_pages: json.user_pages
   }
 }
 
 export function getAnalytics(token){
   return dispatch => {
-    var d = new Date()
-    var offset = d.getTimezoneOffset();
     return fetch(analyticsEndpoint, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': "Token " + token
       },
-      method: "POST",
-      body: JSON.stringify({"offset": offset})
+      method: "GET"
     })
     .then(response =>
       response.json().then(json => ({
@@ -44,11 +42,21 @@ export function getAnalytics(token){
 }
 
 
-export function changeRange(range) {
+export function changeRange(period, new_type) {
   return dispatch => {
     dispatch({
       type: types.CHANGE_RANGE,
-      range: range
+      period: period,
+      new_type: new_type
+    })
+  }
+}
+
+export function activeUserDomain(domain) {
+  return dispatch => {
+    dispatch({
+      type: types.CHANGE_USER_DOMAIN,
+      user_domain: domain
     })
   }
 }

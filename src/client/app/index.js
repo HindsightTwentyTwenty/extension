@@ -72,9 +72,30 @@ let store = createStore(
       tracking_on:true
     },
     analytics: {
-      range: 'week',
-      page_visits: [],
-      tag_cloud: []
+      range: {
+        length: 'week',
+        type: 'current'
+      },
+      page_visits: {
+        day: [],
+        week: {
+          current: [],
+          last: [],
+          average: []
+        },
+        month: []
+      },
+      user_domains: {
+        day: [],
+        week: [],
+        month: []
+      },
+      user_pages: {
+        day: [],
+        week: [],
+        month: []
+      },
+      current_user_domain: null
     },
     lookbackNav: {
       selection: 0,

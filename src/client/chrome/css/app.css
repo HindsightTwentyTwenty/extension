@@ -32,7 +32,7 @@ $base-color: #628AD7 ;
 $secondary-color: #53D1C8 ;
 $accent-color: #FFDD43 ;
 
-$black: #55524D ;
+$hindsite-black: #55524D ;
 $light-grey: #e1e1e1 ;
 $dark-grey: #a2a2a2 ;
 $base-white: #fafafa ;
@@ -471,7 +471,7 @@ remove this class using removeClass as defined in App.js
 
 #slider-label{
   margin-top: 16px;
-  color: black;
+  color: $hindsite-black;
 }
 
 #slider-wrapper{
@@ -486,7 +486,7 @@ remove this class using removeClass as defined in App.js
 }
 
 .ant-slider-mark-text-active{
-  color:black;
+  color:$hindsite-black;
 }
 
 .jump-btn{
@@ -944,7 +944,7 @@ hr{
   border-style: solid;
   padding: 7px 0px;
   margin: 1px 19px;
-  color: black;
+  color: $hindsite-black;
   border-color: $base-color
 }
 
@@ -1040,7 +1040,7 @@ hr{
   width:100%;
   height:100%;
   z-index: 99;
-  background-color:Black;
+  background-color:$hindsite-black;
   opacity:0.6; //for transparency
 }
 
@@ -1065,7 +1065,7 @@ hr{
 
 .iframe-open-button{
   background: none;
-  color: black;
+  color: $hindsite-black;
   margin: 5px;
   font-size: x-large;
   border: none;
@@ -1112,7 +1112,7 @@ hr{
   width:100%;
   margin-top:30%;
   font-size:large;
-  color:black;
+  color:$hindsite-black;
 }
 
 #page-selector-container{
@@ -1146,7 +1146,7 @@ hr{
 }
 
 .page-number-selected {
-  color:black;
+  color:$hindsite-black;
   &:hover {
     text-decoration: none !important;
     cursor: default !important;
@@ -1178,13 +1178,13 @@ hr{
   margin-top: -1%;
   text-overflow: ellipsis;
   font-size: medium;
-  color:black;
+  color:$hindsite-black;
 }
 
 #iframe-msg{
   text-align: center;
   margin-top: -10px;
-  color: black;
+  color: $hindsite-black;
 }
 
 /* Manage Page */
@@ -1292,50 +1292,141 @@ hr{
   text-overflow: ellipsis;
 }
 
+/*Analytics Page*/
+
 .analytics {
   width: 100%;
   height: 100%;
-  position: relative;
-  background-color: #E1E1E1;
+  position: absolute;
+  background-color: $light-grey;
+}
+
+.analytics-boxes {
+  height: calc(100% - 50px);
+  width: 95%;
+  top: 50px;
+  margin-left: 2.5%;
+  position: absolute;
+}
+
+.analytics-title {
+  display: flex;
+  margin-left: 20px;
+  align-items: center;
+  height: 13%;
+  line-height: 13%;
+  margin-bottom: 10px;
+  color: $hindsite-black;
 }
 
 .range-selector {
   margin-top: 0.5%;
   margin-right: 2.5%;
   float: right;
-  background-color: #FAFAFA;
+  background-color: $base-white;
   border-radius: 5px;
 }
 
 .nav-pills>li>a {
-  color: #A2A2A2;
+  color: $dark-grey;
 }
 
 .nav-pills>li.active>a,
 .nav-pills>li.active>a:hover {
-  background-color: #A2A2A2;
-  color: #FAFAFA;
+  background-color: $dark-grey;
+  color: $base-white;
 }
 
-
+.btn-default {
+  color: $hindsite-black;
+  background-color: $base-white;
+  border-color: $light-grey;
+}
 
 .page-visits {
-  background-color: #FAFAFA;
+  background-color: $base-white;
   height: 30%;
-  width: 95%;
+  width: 100%;
+  padding: 10px;
   border-radius: 5px;
   margin: 0 auto;
-  padding-top: 10px;
-  top: 50px;
   text-align: left;
   position: relative;
 }
 
-.word-cloud {
-  background-color: #FAFAFA;
-  height: 32%;
-  margin: 5px;
-  padding-top: 5px;
-  text-align: center;
+.top-domains {
+  background-color: $base-white;
+  height: 30%;
+  width: 60%;
+  float: left;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 8px;
+  text-align: left;
   position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.title-info-left {
+  height: 100%;
+  width: 60%;
+  float: left;
+  padding-top: 10px;
+}
+
+.piechart-right {
+  height: 100%;
+  width: 40%;
+  float: right;
+}
+
+.top-list {
+  height: 87%;
+  margin-left: 50px;
+  width: calc(100% - 50px);
+  display: inline-block;
+}
+
+.none-visited {
+  height: 95%;
+  line-height: 95%;
+  margin-top: 2.5%;
+  margin-right: 30px;
+  color: $hindsite-black;
+}
+
+.five-list {
+  height: 95%;
+  width: calc(50% - 50px);
+  margin-top: 2.5%;
+  margin-right: 30px;
+  color: $hindsite-black;
+}
+
+.list-element {
+  height: 17%;
+  line-height: 17%;
+}
+
+.analytics-btn-dropdown {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid $light-grey;
+  border-radius: 4px;
 }

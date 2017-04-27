@@ -7,4 +7,17 @@ export const COLORS = ['#53D1C8',
                        '#91A9E5',
                        '#80E9B7',
                        '#D7FB8A',
-                       '#FFF48C']
+                       '#FFF48C',
+                       '#339882']
+
+ export const COLORS2 = ['#55524D',
+                         '#DB3535',
+                         '#EE6955',
+                         '#F7AC2F',
+                         '#34CCBB',
+                         '#6454C9',
+                         '#339882',
+                         '#3F80D9',
+                         '#FFDD43',
+                         '#53D1C8',
+                         '#628AD7']
