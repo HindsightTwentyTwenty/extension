@@ -3,12 +3,13 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import SidebarComponent from '../Bars/SidebarComponent.js';
-import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import SearchTile from './SearchTile.js';
+import CategoryAutoSuggest from './CategoryAutoSuggest.js';
 
 function getState(){
   return{
-    displayWelcomeMessage: true
+    displayWelcomeMessage: true,
   }
 }
 
@@ -52,7 +53,7 @@ class CategoriesPage extends Component {
           for (var pagePk in categoriesPages[searchCat]) {
             if (!pageSet.has(pagePk)) {
               if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
-                result.push(<PageUrlBar key={pagePk}
+                result.push(<SearchTile key={pagePk}
                   source="categories"
                   page={categoriesPages[searchCat][pagePk]}
                   domain={categoriesPages[searchCat][pagePk].domain}
@@ -65,7 +66,7 @@ class CategoriesPage extends Component {
       } else if (showStarred) {
         for (var pagePk in starred) {
           if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar key={pagePk}
+            result.push(<SearchTile key={pagePk}
               source="categories"
               page={starred[pagePk]}
               domain={starred[pagePk].domain}
@@ -83,6 +84,9 @@ class CategoriesPage extends Component {
     return (
       <div className="categories-page">
         <SidebarComponent/>
+        <div className="category-select">
+					<CategoryAutoSuggest categories={this.props.categories}/>
+				</div>
         <div className="search-results-container">
           {searchResults}
         </div>
