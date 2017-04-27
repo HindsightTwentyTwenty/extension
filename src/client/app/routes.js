@@ -12,6 +12,5 @@ export default(
     <Route path="/popup.html" component={App}>
       <IndexRoute component={Popup}/>
     </Route>
-    <Route path="*" component={Sidebar}/>
   </Router>
 );

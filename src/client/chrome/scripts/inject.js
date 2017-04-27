@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider} from 'react-redux';
+import { Router, hashHistory, browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../../app/reducers/rootReducer';
 import thunkMiddleware from 'redux-thunk'
@@ -11,11 +12,6 @@ import * as GlobalConstants from '../../app/constants/GlobalConstants.js'
 import Sidebar from '../../app/components/Injection/Sidebar.js';
 import Popup from '../../app/components/Popup/Popup.js';
 
-
-import { Router, hashHistory, browserHistory } from 'react-router';
-// import routes from './routes';
-
-// import App from './components/app';
 import '../css/app.css';
 import '../css/popup.css';
 
@@ -92,9 +88,6 @@ const store = createStore(
   )
 );
 
-
-console.log("test script is happening");
-
 const anchor = document.createElement('div');
 anchor.id = 'sbr-anchor';
 
@@ -102,21 +95,7 @@ document.body.insertBefore(anchor, document.body.childNodes[0]);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Popup />
+    <Sidebar />
   </Provider>,
   document.getElementById('sbr-anchor')
 );
-
-
-
-// render(<Sidebar/>, document.getElementById('sbr-anchor'));
-
-//test inject scripts
-// document.body.insertAdjacentHTML( 'beforebegin', '<div id="myCustom"><h1>HI HI HI HI </h1></div>' );
-// var newdiv = document.getElementById("myCustom");
-// newdiv.style.backgroundColor="red";
-
-//TEMP SOLUTION BELOW
-// var iframe  = document.createElement ('iframe');
-// iframe.src  = chrome.extension.getURL ('./app/sidebar.html');
-// document.body.appendChild (iframe);

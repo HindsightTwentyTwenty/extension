@@ -4,13 +4,7 @@ require('es6-promise').polyfill();
 
 var BUILD_DIR = path.resolve(__dirname, 'src/client/chrome/public');
 var APP_DIR = path.resolve(__dirname, 'src/client/app/');
-//TODO: TAKE OUT TOTAL
-var TOTAL_REACT_DIR = path.resolve(__dirname, 'src/client/');
 var INJECT_DIR = path.resolve(__dirname, 'src/client/chrome/');
-var TEST_LOAD = path.resolve(__dirname, 'src/client/chrome/scripts/inject.js');
-
-
-
 
 var config = {
   entry: {
@@ -25,7 +19,7 @@ var config = {
     loaders: [
       {
         test: /\.jsx|\.js/ ,
-        include: [APP_DIR, INJECT_DIR, TEST_LOAD],
+        include: [APP_DIR, INJECT_DIR],
         loader: 'babel'
       },
       {

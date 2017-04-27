@@ -6,20 +6,10 @@ var url = 'https://hindsite2020.herokuapp.com/';
 var tabAlarmName = 'tabAlarm';
 
 
+/* execute the injection script on icon press */
 chrome.browserAction.onClicked.addListener(function(tab) {
-  // No tabs or host permissions needed!
-  console.log("HERE2");
-  console.log('Turning ' + tab.url + ' red!');
-
   //file path is relative to the root of chrome
-  //execute the background script on icon press
-  // chrome.tabs.executeScript(null, {file: "./scripts/inject.js"});
-  // chrome.tabs.executeScript(null, {file: "./app/Injection.js"});
-  // frontend/src/client/app/Injection.js
-
   chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
-
-
 });
 
 chrome.alarms.create(tabAlarmName, {
