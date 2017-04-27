@@ -1,12 +1,12 @@
-$banana: #FFDB5C;
-$electric-blue: #4897D8;
-$electric-blue-dark: #2B82CA;
-$lime: #77f200;
-$watermelon: #FA6E59;
-$canteloupe: #F8A055;
-$base-white: #FAFAFA;
-$watermelon-dark: #F95339;
-$canteloupe-dark: #F68828;
+$base-color: #628AD7;
+$secondary-color: #53D1C8;
+$accent-color: #FFDD43;
+
+$light-grey: #e1e1e1;
+$dark-grey: #a2a2a2;
+$base-white: #fafafa;
+
+$site-font: 'Raleway', sans-serif;
 
 .html {
   height: auto;
@@ -15,9 +15,9 @@ $canteloupe-dark: #F68828;
 .popup-content {
    width:400px;
    max-height: 300px;
-   background-color: $base-white;
-   color: $electric-blue;
-   font-family: 'Raleway';
+   background-color: $base-color;
+   color: $base-color;
+   font-family: $site-font;
    font-weight: normal;
    vertical-align: middle;
 }
@@ -32,7 +32,7 @@ $canteloupe-dark: #F68828;
   float: left;
   &:hover{
     cursor: pointer;
-    color: $banana;
+    color: $accent-color;
     font-weight: bold;
   }
 }
@@ -87,9 +87,9 @@ $canteloupe-dark: #F68828;
   font-family: Raleway, FontAwesome;
   &:focus{
     box-shadow: none;
-    border-bottom: $banana 1.5px solid;
+    border-bottom: $accent-color 1.5px solid;
     &::-webkit-input-placeholder {
-      color: $banana;
+      color: $accent-color;
     }
   }
   &::-webkit-input-placeholder {
@@ -107,12 +107,12 @@ $canteloupe-dark: #F68828;
   height: 40px;
   margin-bottom: 3%;
   color: $base-white;
-  background-color: $electric-blue-dark;
+  background-color: $dark-grey;
   font-family: Raleway, FontAwesome;
   &:focus{
     box-shadow: none;
     &::-webkit-input-placeholder {
-      color: $electric-blue;
+      color: $base-color;
     }
   }
   &::-webkit-input-placeholder {
@@ -150,7 +150,7 @@ $canteloupe-dark: #F68828;
   border:none;
   margin-bottom: 5%;
   &:hover{
-    color: $banana;
+    color: $accent-color;
   }
 }
 
@@ -166,10 +166,6 @@ $canteloupe-dark: #F68828;
   height: 30px;
 }
 
-.electric-blue{
-  background: $electric-blue
-}
-
 .zero-margin{
   margin: 0;
 }
@@ -177,7 +173,7 @@ $canteloupe-dark: #F68828;
 .popup-header-text{
   font-size: 30px;
   margin-left: 2%;
-  color: $banana;
+  color: $accent-color;
   font-family: 'Poiret One', cursive;
   height: 35px;
 }
@@ -188,14 +184,14 @@ $canteloupe-dark: #F68828;
   display: flex;
   padding: 0 7px;
   align-items: center;
-  background-color: $electric-blue-dark;
+  background-color: $dark-grey;
   justify-content: space-between;
 }
 
 .popup-menu {
   display: flex;
   align-items: center;
-  background-color: $watermelon-dark;
+  background-color: $secondary-color;
   justify-content: space-around;
   padding: 5px 15px;
 }
@@ -204,12 +200,12 @@ $canteloupe-dark: #F68828;
   color: $base-white;
   font-size: medium;
   &.selected {
-    color: $banana;
+    color: $accent-color;
     font-weight: bold;
   }
   &:hover{
     cursor: pointer;
-    color: $banana;
+    color: $accent-color;
   }
 }
 
@@ -243,7 +239,7 @@ $canteloupe-dark: #F68828;
   margin: 0 auto;
   width: 89%;
   margin-bottom: 5px;
-  background-color: $electric-blue-dark;
+  background-color: $dark-grey;
 }
 
 .color-square {
@@ -254,7 +250,7 @@ $canteloupe-dark: #F68828;
 }
 
 .current-session {
-  background-color: $electric-blue-dark;
+  background-color: $dark-grey;
   margin: 10px 0;
   border-radius: 3px;
   padding-bottom: 5px;
@@ -273,28 +269,28 @@ $canteloupe-dark: #F68828;
 .duration-btn {
   width: auto;
   padding: 3px 5px;
-  background-color: $electric-blue-dark;
+  background-color: $dark-grey;
   margin: 5px;
   display: inline-flex;
   &:hover{
     cursor: pointer;
-    color: $banana;
+    color: $accent-color;
     font-weight: bold;
   }
   &.active{
-    color: $watermelon;
+    color: $secondary-color;
   }
 }
 
 .session-btn {
   width: auto;
   padding: 0 15px;
-  background-color: $watermelon;
+  background-color: $secondary-color;
   margin: 5px auto;
   display: flex;
   &:hover{
     cursor: pointer;
-    color: $banana;
+    color: $accent-color;
     font-weight: bold;
   }
 }
@@ -318,7 +314,7 @@ $canteloupe-dark: #F68828;
 #fa-error{
   font-size: xx-large;
   margin: 3%;
-  color: $watermelon;
+  color: $secondary-color;
 }
 
 #logo-text-wrap{
@@ -333,9 +329,9 @@ $canteloupe-dark: #F68828;
 }
 
 #go-to-link{
-  color: $banana;
+  color: $accent-color;
   &:hover{
-    color: $watermelon;
+    color: $secondary-color;
     cursor: pointer;
   }
 }
