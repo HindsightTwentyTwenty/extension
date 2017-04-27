@@ -8,6 +8,15 @@ $base-white: #FAFAFA;
 $watermelon-dark: #F95339;
 $canteloupe-dark: #F68828;
 
+$base-color: #628AD7;
+$secondary-color: #53D1C8;
+$accent-color: #FFDD43;
+
+$light-grey: #e1e1e1;
+$dark-grey: #a2a2a2;
+$base-white: #fafafa;
+$custom-black: #55524d;
+
 .html {
   height: auto;
 }
@@ -338,4 +347,36 @@ $canteloupe-dark: #F68828;
     color: $watermelon;
     cursor: pointer;
   }
+}
+
+
+/* SIDEBAR CSS */
+.sidebar{
+  z-index: 200;
+  position: fixed;
+}
+
+.sidebar-box{
+  /*background-color: $light-grey;*/
+  width: 300px;
+  margin: 5px 10px;
+  /*height: 300px;*/
+  /*color: $custom-black;*/
+}
+
+.sidebar-box-header{
+  background-color: $base-color;
+  color: $base-white;
+  width:inherit;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+  font-size: large;
+}
+
+.sidebar-box-content{
+  background-color: $base-white;
+  color: $custom-black;
+  width:inherit;
+  height:250px;
 }

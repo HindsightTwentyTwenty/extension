@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 
+import SidebarBox from './SidebarBox';
+
 class Sidebar extends Component{
   constructor(props){
     super(props);
@@ -9,8 +11,10 @@ class Sidebar extends Component{
 
   render(){
     return(
-      <div>
-        <h1>REACT TEST</h1>
+      <div className="sidebar">
+        <SidebarBox boxTitle="hindsite"/>
+        <SidebarBox boxTitle="Notes"/>
+        <SidebarBox boxTitle="Quick Tags"/>
       </div>
     );
   }
