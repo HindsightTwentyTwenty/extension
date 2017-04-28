@@ -22,6 +22,10 @@ class SidebarBox extends Component{
   }
 
   switchOpen(){
+    /* in order to open new tab need to send message to the background script since the injection
+    has no ability to make the calls to the chrome APIs*/
+     chrome.runtime.sendMessage({greeting: "openApp"});
+
     if(this.state.open){
       this.setState({
         open: false,
@@ -34,7 +38,7 @@ class SidebarBox extends Component{
   }
 
   boxState(){
-    var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}> {this.props.boxTitle} </div>;
+    var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>    {this.props.boxTitle} </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}> {this.props.boxTitle} </div>

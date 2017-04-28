@@ -58,7 +58,7 @@ class LoginPage extends Component {
 		var emailplaceholder = <div><i class="fa fa-envelope-o" aria-hidden="true"></i><p>email</p></div>
     return (
       <div className="popup-main-form electric-blue">
-				<img className="logo" src="../../assets/img/logo-light.png" onMouseDown={()=>{window.close()}}/>
+				<img className="logo" src="../../../chrome/assets/img/logo-light.png" onMouseDown={()=>{window.close()}}/>
 				<h2 className="popup-header-text">hindsite</h2>
 				<div className="login-error"> {this.props.currentUser.invalid_login ? 'Invalid Username or Password' : ''}</div>
 				<div className = 'popup-form-group'>

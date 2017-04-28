@@ -5,6 +5,18 @@ var md5="";
 var url = 'https://hindsite2020.herokuapp.com/';
 var tabAlarmName = 'tabAlarm';
 
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    if (request.greeting == "openApp"){
+      console.log("got message, opening tab?");
+      chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
+      });
+    }
+  });
+
 
 /* execute the injection script on icon press */
 chrome.browserAction.onClicked.addListener(function(tab) {

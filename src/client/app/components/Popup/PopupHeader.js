@@ -17,8 +17,16 @@ class PopupHeader extends Component {
 
   openTab () {
     if(this.props.currentUser.token.length){
-      chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
-      });
+      //<a href="https://www.thesitewizard.com/" target="_blank">thesitewizard.com</a>
+      console.log("URL", chrome.extension.getURL('/app/main.html'));
+      var extension_url = chrome.extension.getURL('/app/main.html');
+
+      var win = window.open(extension_url, '_blank');
+      win.focus();
+
+      // window.open(extension_url);
+      //chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
+      //});
     }
   }
 
