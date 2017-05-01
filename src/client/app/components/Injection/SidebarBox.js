@@ -22,10 +22,6 @@ class SidebarBox extends Component{
   }
 
   switchOpen(){
-    /* in order to open new tab need to send message to the background script since the injection
-    has no ability to make the calls to the chrome APIs*/
-     chrome.runtime.sendMessage({greeting: "openApp"});
-
     if(this.state.open){
       this.setState({
         open: false,

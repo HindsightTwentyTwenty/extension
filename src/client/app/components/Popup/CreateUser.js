@@ -6,6 +6,8 @@ import * as UserActions from '../../actions/User/UserActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
 import * as types from '../../constants/ActionTypes';
+import * as urls from '../../constants/GlobalConstants';
+
 
 const ERROR_COLOR = '#ff0000';
 
@@ -109,9 +111,10 @@ class CreateUser extends Component {
 	}
 
   render () {
+		var logo_url =  urls.IMG_URL + "logo-light.png";
     return (
 			<div className="popup-main-form electric-blue">
-				<img className="logo" src="../../assets/img/logo-light.png"/>
+				<img className="logo" src={logo_url}/>
         <h2 className="popup-header-text">Create Account</h2>
 				<div className="login-error" id="main-error">{this.state ? this.state.main_error_message : ''}</div>
 				<div className = 'login-form-group'>

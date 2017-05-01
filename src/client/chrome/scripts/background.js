@@ -2,16 +2,15 @@ var closed = false;
 var token = "";
 var encrypt_key="";
 var md5="";
-var url = 'https://hindsite2020.herokuapp.com/';
+// var url = 'https://hindsite2020.herokuapp.com/';
+var url = 'http://127.0.0.1:8000/';
+
 var tabAlarmName = 'tabAlarm';
+var open = false;
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
     if (request.greeting == "openApp"){
-      console.log("got message, opening tab?");
       chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
       });
     }
@@ -21,7 +20,11 @@ chrome.runtime.onMessage.addListener(
 /* execute the injection script on icon press */
 chrome.browserAction.onClicked.addListener(function(tab) {
   //file path is relative to the root of chrome
-  chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
+  if(!open){
+    chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
+  }else{
+
+  }
 });
 
 chrome.alarms.create(tabAlarmName, {

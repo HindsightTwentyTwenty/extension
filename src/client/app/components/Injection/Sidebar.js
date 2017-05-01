@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 
 import SidebarBox from './SidebarBox';
+import TagBox from './TagBox';
 import PopupMenu from '../Popup/PopupMenu.js';
 import PopupHeader from '../Popup/PopupHeader.js';
 import PopupBody from '../Popup/PopupBody.js';
@@ -33,7 +34,7 @@ class Sidebar extends Component{
 				case PopupConstants.Received: // Display Page
 					return (
             <div className="sidebar">
-              <SidebarBox boxTitle="hindsite"/>
+              <TagBox boxTitle="hindsite"/>
               <SidebarBox boxTitle="Notes"/>
               <SidebarBox boxTitle="Quick Tags"/>
             </div>
@@ -62,13 +63,14 @@ class Sidebar extends Component{
 				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
             <div className="sidebar">
-              <SidebarBox boxTitle="hindsite"/>
+              <TagBox boxTitle="hindsite"/>
               <SidebarBox boxTitle="Notes"/>
               <SidebarBox boxTitle="Quick Tags"/>
             </div>
 					);
 			}
 		} else { // Not Logged In
+      console.log("Popup status", this.props.popupStatus);
 			switch (this.props.popupStatus) {
 				case PopupConstants.SignIn:
 					return (
@@ -89,6 +91,7 @@ class Sidebar extends Component{
             </div>
           );
 				default:
+          console.log("LOADING????");
 					return (
 						<div className="sidebar">
 							<PopupHeader/>

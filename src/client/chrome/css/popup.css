@@ -165,6 +165,7 @@ $custom-black: #55524d;
 
 .logo{
   height: 40px;
+  width:50px;
   border: black;
   display: block;
   margin: 0 auto;
