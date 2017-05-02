@@ -14,7 +14,7 @@ import Popup from '../../app/components/Popup/Popup.js';
 
 import '../css/app.css';
 import '../css/popup.css';
-// import '../css/bootstrap.min.css';
+// import '../css/bootstrap.css';
 
 const store = createStore(
   rootReducer,
@@ -91,17 +91,19 @@ const store = createStore(
 
 
 /* add in the css to the head of the body, need to do this programmatically */
+// var link = document.createElement("link");
+// link.href = "../css/bootstrap.min.css";
+// link.type = "text/css";
+// link.rel = "stylesheet";
+// document.getElementsByTagName("head")[0].appendChild(link);
+
 var link = document.createElement("link");
 link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
 link.type = "text/css";
 link.rel = "stylesheet";
 document.getElementsByTagName("head")[0].appendChild(link);
 
-var link = document.createElement("link");
-link.href = "../css/bootstrap.min.css";
-link.type = "text/css";
-link.rel = "stylesheet";
-document.getElementsByTagName("head")[0].appendChild(link);
+
 
 const anchor = document.createElement('div');
 anchor.id = 'sbr-anchor';

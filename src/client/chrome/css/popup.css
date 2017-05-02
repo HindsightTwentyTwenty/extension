@@ -381,3 +381,9 @@ $custom-black: #55524d;
   width:inherit;
   height:250px;
 }
+
+/* outermost box */
+.sidebar{
+  position: fixed;
+  z-index: 2000;
+}
