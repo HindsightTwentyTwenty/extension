@@ -12,8 +12,8 @@ import * as GlobalConstants from '../../app/constants/GlobalConstants.js'
 import Sidebar from '../../app/components/Injection/Sidebar.js';
 import Popup from '../../app/components/Popup/Popup.js';
 
-// import '../css/app.css';
-// import '../css/popup.css';
+import '../css/app.css';
+import '../css/popup.css';
 // import '../css/bootstrap.css';
 
 const store = createStore(

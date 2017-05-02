@@ -55,6 +55,7 @@ $custom-black: #55524d;
 .popup-main-form h2 {
   text-align: center;
   margin-top: 0;
+  background-color: $base-color;
 }
 
 .popup-body p{
