@@ -74,26 +74,26 @@ class Sidebar extends Component{
 			switch (this.props.popupStatus) {
 				case PopupConstants.SignIn:
 					return (
-            <div className="sidebar">
+            <div className="login-sidebar">
               <LoginPage/>
             </div>
           );
 				case PopupConstants.SignUp:
 					return (
-            <div className="sidebar">
+            <div className="login-sidebar">
               <CreateUser/>
             </div>
           );
 				case PopupConstants.ForgotMyPassword:
 					return (
-            <div className="sidebar">
+            <div className="login-sidebar">
               <ForgotMyPassword/>
             </div>
           );
 				default:
           console.log("LOADING????");
 					return (
-						<div className="sidebar">
+						<div className="login-sidebar">
 							<PopupHeader/>
 							<Loading/>
 						</div>
@@ -105,23 +105,17 @@ class Sidebar extends Component{
   render() {
     return (
       <div >
+      <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" media="screen"/>
+      <link rel="stylesheet" type="text/css" href="../../css/popup.css" media="screen"/>
+      <link href="https://fonts.googleapis.com/css?family=Lora|Raleway" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
       {this.renderContent()}
       <script src="../../js/jquery-1.12.4.min.js"></script>
       <script src="../../js/bootstrap.min.js"></script>
     </div>
     );
   }
-
-  // render(){
-  //   return(
-  //     <div className="sidebar">
-  //       <SidebarBox boxTitle="hindsite"/>
-  //       <SidebarBox boxTitle="Notes"/>
-  //       <SidebarBox boxTitle="Quick Tags"/>
-  //     </div>
-  //   );
-  // }
-
 }
 
 let mapStateToProps = (state) => ({

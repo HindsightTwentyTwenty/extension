@@ -140,7 +140,6 @@ $custom-black: #55524d;
 .popup-main-form{
   padding: 5px;
   color: $base-white;
-  background-color: $base-color;
 }
 
 .popup-main-btn{

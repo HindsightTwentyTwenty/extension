@@ -19,7 +19,17 @@ chrome.runtime.onMessage.addListener(
 
 /* execute the injection script on icon press */
 chrome.browserAction.onClicked.addListener(function(tab) {
-  //file path is relative to the root of chrome
+  // chrome.windows.create({
+  //                 url: 'http://www.google.com',
+  //                 tabId: tab.id,
+  //                 type: 'panel',
+  //                 focused: true,
+  //                 width: 300
+  //                 // incognito, top, left, ...
+  //             });
+
+
+  // file path is relative to the root of chrome
   if(!open){
     chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
   }else{

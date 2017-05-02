@@ -5,6 +5,8 @@ import { bindActionCreators} from 'redux';
 import * as UserActions from '../../actions/User/UserActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
+import * as urls from '../../constants/GlobalConstants';
+
 
 class ForgotMyPassword extends Component {
 
@@ -23,7 +25,7 @@ class ForgotMyPassword extends Component {
   render() {
     return (
       <div className="popup-main-form electric-blue">
-        <img className="logo" src="../../assets/img/logo-light.png"/>
+        <img className="logo" src={urls.LOGO_URL}/>
         <h2 className="popup-header-text">Forgot Password?</h2>
         <p className="forgot-password-text">Enter your email below to receive password reset instructions.</p>
 				<div className = 'popup-form-group'>

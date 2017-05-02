@@ -43,14 +43,14 @@ class TagBox extends Component{
 
   boxState(){
     /* in order to get imgs from the chrome app must access the imgs on the backend using IMG_URL constant + img path */
-    var logo_url =  urls.IMG_URL + "logo-light.png";
+    // var logo_url =  urls.IMG_URL + "logo-light.png";
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
-                            <img className="logo" src={logo_url} onMouseDown={this.openApp.bind(this)}/>
+                            <img className="logo" src={urls.LOGO_URL} onMouseDown={this.openApp.bind(this)}/>
                           </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
-                                <img className="logo" src={logo_url} onMouseDown={this.openApp.bind(this)}/>
+                                <img className="logo" src={urls.LOGO_URL} onMouseDown={this.openApp.bind(this)}/>
                               </div>
                               <div className="sidebar-box-content"></div>
                             </div>;
