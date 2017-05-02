@@ -1298,12 +1298,16 @@ hr{
   width: 100%;
   height: 100%;
   position: absolute;
+  overflow-x: scroll;
+  overflow-y: scroll;
   background-color: $light-grey;
 }
 
 .analytics-boxes {
   height: calc(100% - 50px);
   width: 95%;
+  min-width: 800px;
+  min-height: 520px;
   top: 50px;
   margin-left: 2.5%;
   position: absolute;
@@ -1345,8 +1349,10 @@ hr{
 
 .page-visits {
   background-color: $base-white;
-  height: 30%;
+  height: calc(30% - 10px);
   width: 100%;
+  min-width: 800px;
+  min-height: 146px;
   padding: 10px;
   border-radius: 5px;
   margin: 0 auto;
@@ -1356,8 +1362,10 @@ hr{
 
 .top-domains {
   background-color: $base-white;
-  height: 30%;
+  height: calc(30% - 10px);
   width: 60%;
+  min-width: 480px;
+  min-height: 146px;
   float: left;
   border-radius: 5px;
   margin: 0 auto;
@@ -1366,6 +1374,22 @@ hr{
   position: relative;
   display: inline-block;
   white-space: nowrap;
+}
+
+.top-pages {
+  background-color: $base-white;
+  height: calc(30% - 10px);
+  width: calc(40% - 8px);
+  min-width: 312px;
+  min-height: 146px;
+  float: right;
+  border-radius: 5px;
+  padding-top: 10px;
+  margin: 0 auto;
+  margin-top: 8px;
+  margin-left: 8px;
+  text-align: left;
+  position: relative;
 }
 
 .title-info-left {
@@ -1396,9 +1420,25 @@ hr{
   color: $hindsite-black;
 }
 
-.five-list {
-  height: 95%;
-  width: calc(50% - 50px);
+.left-five-list {
+  height: 90%;
+  width: calc(50% - 10px);
+  margin-top: 2.5%;
+  margin-right: 20px;
+  color: $hindsite-black;
+}
+
+.right-five-list {
+  height: 90%;
+  width: calc(50% - 10px);
+  float: right;
+  margin-top: 2.5%;
+  color: $hindsite-black;
+}
+
+.page-five-list {
+  height: 90%;
+  width: 90%;
   margin-top: 2.5%;
   margin-right: 30px;
   color: $hindsite-black;
@@ -1406,7 +1446,18 @@ hr{
 
 .list-element {
   height: 17%;
-  line-height: 17%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-element > a {
+  color: $hindsite-black;
+}
+
+.list-element > a:hover {
+  color: $dark-grey;
+  text-decoration: underline;
 }
 
 .analytics-btn-dropdown {

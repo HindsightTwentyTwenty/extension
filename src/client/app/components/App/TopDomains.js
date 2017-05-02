@@ -32,7 +32,7 @@ class TopDomains extends Component {
             cx={cx}
             cy={cy}
             innerRadius={innerRadius}
-            outerRadius={outerRadius}
+            outerRadius={outerRadius+2}
             startAngle={startAngle}
             endAngle={endAngle}
             fill={fill}
@@ -57,7 +57,7 @@ class TopDomains extends Component {
             cx={cx}
             cy={cy}
             innerRadius={innerRadius}
-            outerRadius={outerRadius}
+            outerRadius={outerRadius+2}
             startAngle={startAngle}
             endAngle={endAngle}
             fill={fill}
@@ -102,20 +102,7 @@ class TopDomains extends Component {
   }
 
   onPieEnter(data, index) {
-    switch (this.props.analytics.range.length) {
-      case 'day':
-        this.props.analytics_actions.activeUserDomain(index)
-        break;
-      case 'week':
-        this.props.analytics_actions.activeUserDomain(index)
-        break;
-      case 'month':
-        this.props.analytics_actions.activeUserDomain(index)
-        break;
-      default:
-        this.props.analytics_actions.activeUserDomain(this.props.analytics.user_domains.month[index].name)
-        break;
-    }
+    this.props.analytics_actions.activeUserDomain(index)
   }
 
   getDomains() {
@@ -134,7 +121,7 @@ class TopDomains extends Component {
   firstfivelist(domains) {
     if (domains.length > 0) {
       return (
-        <div className="five-list" style={{float: 'left'}}>
+        <div className="left-five-list" style={{float: 'left'}}>
           <div className="list-element">{'1. ' + domains[0].name}</div>
           {domains[1] ?
             <div className="list-element">{'2. ' + domains[1].name}</div> :
@@ -166,9 +153,9 @@ class TopDomains extends Component {
   secondfivelist(domains) {
     if (domains.length > 0) {
       return (
-        <div className="five-list" style={{float: 'right'}}>
+        <div className="right-five-list">
           {domains[0] ?
-            <div className="list-element">{'6. ' + domains[0].name}</div> :
+            <div className="list-element" >{'6. ' + domains[0].name}</div> :
             <div className="list-element">{' '}</div>
           }
           {domains[1] ?
