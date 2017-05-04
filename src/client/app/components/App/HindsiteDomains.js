@@ -2,88 +2,33 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ResponsiveContainer, PieChart, Pie, Sector, Cell } from 'recharts';
 import * as UserActions from '../../actions/User/UserActions.js';
 import * as AnalyticsActions from '../../actions/Analytics/AnalyticsActions.js';
 import {COLORS} from '../../constants/AnalyticsConstants.js';
 
-class TopDomains extends Component {
+class HindsiteDomains extends Component {
 
   constructor(props) {
     super(props);
   }
 
-  renderActive(props) {
-    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload } = props;
-
-    if (payload.name.length < ((innerRadius*2-5)/6 - 2)) {
-      return (
-        <g>
-          <text
-            x={cx}
-            y={cy}
-            dy={8}
-            textAnchor="middle"
-            fill={'#55524D'}
-            >
-            {payload.name}
-          </text>
-          <Sector
-            cx={cx}
-            cy={cy}
-            innerRadius={innerRadius}
-            outerRadius={outerRadius+2}
-            startAngle={startAngle}
-            endAngle={endAngle}
-            fill={fill}
-          />
-        </g>
-      );
-    } else {
-      return (
-        <g>
-          <text
-            x={cx}
-            y={cy}
-            dy={8}
-            textLength={innerRadius*2-5}
-            lengthAdjust="spacingAndGlyphs"
-            textAnchor="middle"
-            fill={'#55524D'}
-            >
-            {payload.name}
-          </text>
-          <Sector
-            cx={cx}
-            cy={cy}
-            innerRadius={innerRadius}
-            outerRadius={outerRadius+2}
-            startAngle={startAngle}
-            endAngle={endAngle}
-            fill={fill}
-          />
-        </g>
-      );
-    }
-};
-
   sectionHeader() {
     switch (this.props.analytics.range.length) {
       case 'day':
         return (
-          <h4>Today&#39;s</h4>
+          <h4>Today&#39;s Top Domains on hindsite</h4>
         );
       case 'week':
         return (
-          <h4>This Week&#39;s</h4>
+          <h4>This Week&#39;s Top Domains on hindsite</h4>
         );
       case 'month':
         return (
-          <h4>This Month&#39;s</h4>
+          <h4>This Month&#39;s Top Domains on hindsite</h4>
         );
       default:
         return (
-          <h4>This Week&#39;s</h4>
+          <h4>This Week&#39;s Top Domains on hindsite</h4>
         );
       }
   }
@@ -101,20 +46,16 @@ class TopDomains extends Component {
       }
   }
 
-  onPieEnter(data, index) {
-    this.props.analytics_actions.activeUserDomain(index)
-  }
-
   getDomains() {
     switch (this.props.analytics.range.length) {
       case 'day':
-        return this.props.analytics.user_domains.day;
+        return this.props.analytics.hindsite_domains.day;
       case 'week':
-        return this.props.analytics.user_domains.week;
+        return this.props.analytics.hindsite_domains.week;
       case 'month':
-        return this.props.analytics.user_domains.month;
+        return this.props.analytics.hindsite_domains.month;
       default:
-        return this.props.analytics.user_domains.week;
+        return this.props.analytics.hindsite_domains.week;
       }
   }
 
@@ -144,7 +85,7 @@ class TopDomains extends Component {
     } else {
       return (
         <div className="none-visited">
-          You haven&#39;t visited any pages yet {this.range()}.
+          Not enough data yet {this.range()}.
         </div>
       )
     }
@@ -181,35 +122,13 @@ class TopDomains extends Component {
 
   render() {
     return (
-      <div className="top-domains">
-        <div className="title-info-left">
-          <div className="analytics-title">
-            {this.sectionHeader()}
-            <h4>&nbsp;Top Domains</h4>
-          </div>
-          <div className="top-list">
-            {this.firstfivelist(this.getDomains().slice(0, 5))}
-            {this.secondfivelist(this.getDomains().slice(5, 10))}
-          </div>
+      <div className="hindsite-domains">
+        <div className="analytics-title">
+          {this.sectionHeader()}
         </div>
-        <div className="piechart-right">
-          <ResponsiveContainer height="100%" width="100%">
-            <PieChart onMouseEnter={this.onPieEnter.bind(this)}>
-              <Pie
-                activeIndex={this.props.analytics.current_user_domain}
-                activeShape={this.renderActive}
-                data={this.getDomains()}
-                innerRadius={'55%'}
-                outerRadius={'80%'}
-                fill="#8884d8"
-                paddingAngle={1}
-              >
-                {
-                  this.getDomains().map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-                }
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
+        <div className="top-list">
+          {this.firstfivelist(this.getDomains().slice(0, 5))}
+          {this.secondfivelist(this.getDomains().slice(5, 10))}
         </div>
       </div>
     );
@@ -227,4 +146,4 @@ let mapDispatchToProps = (dispatch) => ({
     analytics_actions: bindActionCreators(AnalyticsActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopDomains);
+export default connect(mapStateToProps, mapDispatchToProps)(HindsiteDomains);

@@ -1360,7 +1360,7 @@ hr{
   position: relative;
 }
 
-.top-domains {
+.user-domains {
   background-color: $base-white;
   height: calc(30% - 10px);
   width: 60%;
@@ -1388,6 +1388,20 @@ hr{
   margin: 0 auto;
   margin-top: 8px;
   margin-left: 8px;
+  text-align: left;
+  position: relative;
+}
+
+.hindsite-domains {
+  background-color: $base-white;
+  height: calc(30% - 10px);
+  width: calc(40% - 8px);
+  min-width: 312px;
+  min-height: 146px;
+  float: left; border-radius: 5px;
+  padding-top: 10px;
+  margin: 0 auto;
+  margin-top: 8px;
   text-align: left;
   position: relative;
 }

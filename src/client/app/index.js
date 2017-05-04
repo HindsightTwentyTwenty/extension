@@ -90,6 +90,11 @@ let store = createStore(
         week: [],
         month: []
       },
+      hindsite_domains: {
+        day: [],
+        week: [],
+        month: []
+      },
       user_pages: {
         day: [],
         week: [],

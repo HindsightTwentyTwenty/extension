@@ -10,6 +10,7 @@ export function receiveAnalytics(json) {
     type: types.RECEIVE_ANALYTICS,
     page_visits: json.page_visits,
     user_domains: json.user_domains,
+    hindsite_domains: json.hindsite_domains,
     user_pages: json.user_pages
   }
 }
