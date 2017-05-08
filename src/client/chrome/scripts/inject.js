@@ -7,16 +7,10 @@ import rootReducer from '../../app/reducers/rootReducer';
 import thunkMiddleware from 'redux-thunk';
 import ShadowDOM from 'react-shadow';
 
-
 import * as PopupConstants from '../../app/constants/PopupConstants.js'
 import * as GlobalConstants from '../../app/constants/GlobalConstants.js'
 
 import Sidebar from '../../app/components/Injection/Sidebar.js';
-import Popup from '../../app/components/Popup/Popup.js';
-
-// import '../css/app.css';
-// import '../css/popup.css';
-// import '../css/bootstrap.css';
 
 const store = createStore(
   rootReducer,
@@ -92,7 +86,9 @@ const store = createStore(
 );
 
 
-/* add in the css to the head of the body, need to do this programmatically */
+/* add in the css to the head of the body, need to do this programmatically
+this is only non-hindsite css currently
+ */
 var link = document.createElement("link");
 link.href = "https://fonts.googleapis.com/css?family=Lora|Raleway";
 link.type = "text/css";
@@ -117,10 +113,11 @@ const anchor = document.createElement('div');
 anchor.id = 'sbr-anchor';
 document.body.insertBefore(anchor, document.body.childNodes[0]);
 
-ReactDOM.render(
-  <ShadowDOM include={[
 
-                        GlobalConstants.BOOTSTRAP_CSS_URL,
+/* add the stylesheets at the top of the ShadowDom so the styles dont affect the
+rest of the page */
+ReactDOM.render(
+  <ShadowDOM include={[ GlobalConstants.BOOTSTRAP_CSS_URL,
                         GlobalConstants.POPUP_CSS_URL,
                         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                       ]}>
