@@ -3,6 +3,10 @@
 export const BASE_URL = "http://127.0.0.1:8000/";
 export const IMG_URL = BASE_URL + "static/img/";
 export const LOGO_URL = BASE_URL + "static/img/logo-light.png";
+export const POPUP_CSS_URL = BASE_URL + "static/css/popup.css";
+export const APP_CSS_URL = BASE_URL + "static/css/app.css";
+export const BOOTSTRAP_CSS_URL = BASE_URL + "static/css/bootstrap.min.css";
+
 
 export const MAX_DISPLAY_CATS = 9;
 export const DEFAULT_CAT_COLOR = {name: 'canteloupe', code: '#F8A055'};

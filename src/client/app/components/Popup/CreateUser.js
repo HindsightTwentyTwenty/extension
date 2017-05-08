@@ -38,6 +38,7 @@ class CreateUser extends Component {
 	}
 
 	markCorrect(element){
+		console.log("marking this correct: ", element);
 		document.getElementById(element).style.borderBottom = '1.5px solid #FAFAFA';
 		document.getElementById(element).style.color = '#FAFAFA';
 	}
