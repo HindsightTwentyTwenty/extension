@@ -4,6 +4,8 @@ import fetch from 'isomorphic-fetch';
 import ApiUtils from './../ApiUtils.js';
 
 const analyticsEndpoint = urls.BASE_URL + 'analytics/';
+const addProcrastinationEndpoint = urls.BASE_URL + 'addprocrastination/';
+const removeProcrastinationEndpoint = urls.BASE_URL + 'removeprocrastination/';
 
 export function receiveAnalytics(json) {
   return {
@@ -11,7 +13,8 @@ export function receiveAnalytics(json) {
     page_visits: json.page_visits,
     user_domains: json.user_domains,
     hindsite_domains: json.hindsite_domains,
-    user_pages: json.user_pages
+    user_pages: json.user_pages,
+    productivity: json.productivity
   }
 }
 
@@ -53,11 +56,40 @@ export function changeRange(period, new_type) {
   }
 }
 
-export function activeUserDomain(domain) {
+export function addProcrastination(domain, token) {
   return dispatch => {
-    dispatch({
-      type: types.CHANGE_USER_DOMAIN,
-      user_domain: domain
+    return fetch(addProcrastinationEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      method: "POST",
+      body: JSON.stringify({domain: domain})
     })
+    .then(response => response.json())
+    .then(json => dispatch({
+      type: types.UPDATE_PROCRASTINATION,
+      sites: json.procrastination_sites
+    }))
+  }
+}
+
+export function removeProcrastination(domain, token) {
+  return dispatch => {
+    return fetch(removeProcrastinationEndpoint, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      method: "POST",
+      body: JSON.stringify({domain: domain})
+    })
+    .then(response => response.json())
+    .then(json => dispatch({
+      type: types.UPDATE_PROCRASTINATION,
+      sites: json.procrastination_sites
+    }))
   }
 }

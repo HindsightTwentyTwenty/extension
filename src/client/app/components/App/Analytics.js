@@ -7,6 +7,7 @@ import PageVisits from './PageVisits.js';
 import UserDomains from './UserDomains.js';
 import TopPages from './TopPages.js';
 import HindsiteDomains from './HindsiteDomains.js';
+import Productivity from './Productivity.js';
 import * as UserActions from '../../actions/User/UserActions.js';
 import * as AnalyticsActions from '../../actions/Analytics/AnalyticsActions.js';
 
@@ -29,6 +30,7 @@ class Analytics extends Component {
           <UserDomains/>
           <TopPages/>
           <HindsiteDomains/>
+          <Productivity/>
         </div>
       </div>
     )

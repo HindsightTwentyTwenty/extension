@@ -1323,12 +1323,29 @@ hr{
   color: $hindsite-black;
 }
 
+.sub-title {
+  display: flex;
+  height: 15%;
+  color: $hindsite-black;
+  margin-bottom: 5px;
+  text-decoration: underline;
+}
+
+.pie-title {
+  height: 11%;
+  color: $hindsite-black;
+  text-align: center;
+}
+
 .range-selector {
   margin-top: 0.5%;
   margin-right: 2.5%;
   float: right;
   background-color: $base-white;
   border-radius: 5px;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
 }
 
 .nav-pills>li>a {
@@ -1358,6 +1375,9 @@ hr{
   margin: 0 auto;
   text-align: left;
   position: relative;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
 }
 
 .user-domains {
@@ -1374,6 +1394,9 @@ hr{
   position: relative;
   display: inline-block;
   white-space: nowrap;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
 }
 
 .top-pages {
@@ -1390,6 +1413,9 @@ hr{
   margin-left: 8px;
   text-align: left;
   position: relative;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
 }
 
 .hindsite-domains {
@@ -1404,6 +1430,28 @@ hr{
   margin-top: 8px;
   text-align: left;
   position: relative;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
+}
+
+.productivity {
+  background-color: $base-white;
+  height: calc(30% - 10px);
+  width: 60%;
+  min-width: 480px;
+  min-height: 146px;
+  float: right;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 8px;
+  text-align: left;
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
 }
 
 .title-info-left {
@@ -1426,12 +1474,158 @@ hr{
   display: inline-block;
 }
 
+.domain-pie-top {
+  height: 83%;
+}
+.domain-pie-bottom {
+  height: 13%;
+  bottom: 4px;
+  text-align: center;
+  color: $hindsite-black;
+}
+
+.prod-left {
+  height: 100%;
+  width: 45%;
+  float: left;
+  padding-top: 10px;
+}
+
+.prod-right {
+  margin-top: 10px;
+  height: 100%;
+  width: 55%;
+  float: right;
+  display: inline-block;
+}
+
+.procrastination-sites {
+  height: calc(87% - 25px);
+  width: calc(100% - 50px);
+  margin-left: 50px;
+  margin-top: -5px;
+}
+
+.add-procrastination {
+  height: 20%;
+  width: calc(100% - 25px);
+  padding-bottom: 3px;
+  max-width: 165px;
+  color: $hindsite-black;
+  display: inline-flex;
+}
+
+.input-margin {
+  margin-right: 3px;
+}
+
+.input-xs {
+  height: 99%;
+  padding: 2px 5px;
+  font-size: 12px;
+  line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
+  border-radius: 3px;
+}
+
+.input-xs-http {
+  height: 99%;
+  padding: 2px 5px;
+  font-size: 9px;
+  line-height: 1.2;
+  border-radius: 3px;
+}
+
+.fa-caution-modify {
+  color: $red;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.fa-info-modify {
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.fa-plus-modify {
+  font-size: 1.6em;
+  line-height: 1;
+}
+
+.fa-plus-modify:hover {
+  color: $secondary-color;
+}
+
+.prod-inner-left {
+  width: 50%;
+  height: 87%;
+  float: left;
+}
+
+.prod-inner-right {
+  width: 50%;
+  height: 87%;
+  float: right;
+}
+
+.prod-inner-bottom {
+  width: 60%;
+  height: 10%;
+  bottom: 4px;
+  color: $hindsite-black;
+  position: absolute;
+  text-align: center;
+}
+
+.productivity-color {
+  color: $secondary-color;
+}
+
+.procrastination-color {
+  color: #7E66DA;
+}
+
+.sites {
+  height: 62%;
+  width: calc(100% - 5px);
+  margin-left: 5px;
+  max-width: 175px;
+  display: grid;
+  overflow-y: scroll;
+  color: $hindsite-black;
+}
+
+.site {
+  display: flex;
+  max-width: 154px;
+}
+
+.site-name {
+  width: calc(100% - 20px);
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.hindsite-top-list {
+  height: 87%;
+  margin-left: 50px;
+  width: calc(90% - 50px);
+  display: inline-block;
+}
+
 .none-visited {
   height: 95%;
   line-height: 95%;
   margin-top: 2.5%;
   margin-right: 30px;
   color: $hindsite-black;
+}
+
+.trash {
+  float: right;
+}
+
+.trash:hover {
+  color: $red;
 }
 
 .left-five-list {

@@ -100,7 +100,19 @@ let store = createStore(
         week: [],
         month: []
       },
-      current_user_domain: null
+      productivity: {
+        procrastination_sites: [],
+        visits: {
+          day: [],
+          week: [],
+          month: []
+        },
+        minutes: {
+          day: [],
+          week: [],
+          month: []
+        }
+      }
     },
     lookbackNav: {
       selection: 0,

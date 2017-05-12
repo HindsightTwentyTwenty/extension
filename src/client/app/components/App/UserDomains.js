@@ -7,27 +7,23 @@ import * as UserActions from '../../actions/User/UserActions.js';
 import * as AnalyticsActions from '../../actions/Analytics/AnalyticsActions.js';
 import {COLORS} from '../../constants/AnalyticsConstants.js';
 
+function getState () {
+  return {
+    current_user_domain: null
+  }
+}
+
 class UserDomains extends Component {
 
   constructor(props) {
     super(props);
+    this.state = getState()
   }
 
   renderActive(props) {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload } = props;
-
-    if (payload.name.length < ((innerRadius*2-5)/6 - 2)) {
       return (
         <g>
-          <text
-            x={cx}
-            y={cy}
-            dy={8}
-            textAnchor="middle"
-            fill={'#55524D'}
-            >
-            {payload.name}
-          </text>
           <Sector
             cx={cx}
             cy={cy}
@@ -39,54 +35,28 @@ class UserDomains extends Component {
           />
         </g>
       );
-    } else {
-      return (
-        <g>
-          <text
-            x={cx}
-            y={cy}
-            dy={8}
-            textLength={innerRadius*2-5}
-            lengthAdjust="spacingAndGlyphs"
-            textAnchor="middle"
-            fill={'#55524D'}
-            >
-            {payload.name}
-          </text>
-          <Sector
-            cx={cx}
-            cy={cy}
-            innerRadius={innerRadius}
-            outerRadius={outerRadius+2}
-            startAngle={startAngle}
-            endAngle={endAngle}
-            fill={fill}
-          />
-        </g>
-      );
-    }
-};
+  };
 
-sectionHeader() {
-  switch (this.props.analytics.range.length) {
-    case 'day':
-      return (
-        <h4>Today&#39;s Top Domains</h4>
-      );
-    case 'week':
-      return (
-        <h4>This Week&#39;s Top Domains</h4>
-      );
-    case 'month':
-      return (
-        <h4>This Month&#39;s Top Domains</h4>
-      );
-    default:
-      return (
-        <h4>This Week&#39;s Top Domains</h4>
-      );
-    }
-}
+  sectionHeader() {
+    switch (this.props.analytics.range.length) {
+      case 'day':
+        return (
+          <h4>Today&#39;s Top Domains</h4>
+        );
+      case 'week':
+        return (
+          <h4>This Week&#39;s Top Domains</h4>
+        );
+      case 'month':
+        return (
+          <h4>This Month&#39;s Top Domains</h4>
+        );
+      default:
+        return (
+          <h4>This Week&#39;s Top Domains</h4>
+        );
+      }
+  }
 
   range() {
     switch (this.props.analytics.range.length) {
@@ -102,7 +72,7 @@ sectionHeader() {
   }
 
   onPieEnter(data, index) {
-    this.props.analytics_actions.activeUserDomain(index)
+    this.setState({current_user_domain: index})
   }
 
   getDomains() {
@@ -116,6 +86,14 @@ sectionHeader() {
       default:
         return this.props.analytics.user_domains.week;
       }
+  }
+
+  currentDomain() {
+    if (this.state.current_user_domain != null) {
+      return this.getDomains()[this.state.current_user_domain]['name'];
+    } else {
+      return "";
+    }
   }
 
   firstfivelist(domains) {
@@ -192,23 +170,30 @@ sectionHeader() {
           </div>
         </div>
         <div className="piechart-right">
-          <ResponsiveContainer height="100%" width="100%">
-            <PieChart onMouseEnter={this.onPieEnter.bind(this)}>
-              <Pie
-                activeIndex={this.props.analytics.current_user_domain}
-                activeShape={this.renderActive}
-                data={this.getDomains()}
-                innerRadius={'55%'}
-                outerRadius={'80%'}
-                fill="#8884d8"
-                paddingAngle={1}
-              >
-                {
-                  this.getDomains().map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-                }
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
+          <div className="domain-pie-top">
+            <ResponsiveContainer height="100%" width="100%">
+              <PieChart onMouseEnter={this.onPieEnter.bind(this)}>
+                <Pie
+                  activeIndex={this.state.current_user_domain}
+                  activeShape={this.renderActive}
+                  data={this.getDomains()}
+                  innerRadius={'60%'}
+                  outerRadius={'85%'}
+                  fill="#8884d8"
+                  paddingAngle={1}
+                >
+                  {
+                    this.getDomains().map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                  }
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="domain-pie-bottom">
+            <span>
+              {this.currentDomain()}
+            </span>
+          </div>
         </div>
       </div>
     );

@@ -126,7 +126,7 @@ class HindsiteDomains extends Component {
         <div className="analytics-title">
           {this.sectionHeader()}
         </div>
-        <div className="top-list">
+        <div className="hindsite-top-list">
           {this.firstfivelist(this.getDomains().slice(0, 5))}
           {this.secondfivelist(this.getDomains().slice(5, 10))}
         </div>
