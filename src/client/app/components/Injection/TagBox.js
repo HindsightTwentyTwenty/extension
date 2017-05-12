@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as urls from '../../constants/GlobalConstants';
+import TagSelection from './TagSelection.js';
 
 
 
@@ -52,7 +53,9 @@ class TagBox extends Component{
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                                 <img className="logo" src={urls.LOGO_URL} onMouseDown={this.openApp.bind(this)}/>
                               </div>
-                              <div className="sidebar-box-content"></div>
+                              <div className="sidebar-box-content">
+                                <TagSelection/>
+                              </div>
                             </div>;
 
     if(this.state.open){

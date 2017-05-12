@@ -13,7 +13,8 @@
     "matches": ["http://*/*", "https://*/*", "<all_urls>"],
     "js": ["scripts/content.js",
         "js/jquery-1.12.4.min.js",
-        "js/bootstrap.min.js"
+        "js/bootstrap.min.js",
+        "./public/sidebar.entry.js"
     ],
     "run_at": "document_end"
   }],

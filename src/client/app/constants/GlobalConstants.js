@@ -6,6 +6,8 @@ export const LOGO_URL = BASE_URL + "static/img/logo-light.png";
 export const POPUP_CSS_URL = BASE_URL + "static/css/popup.css";
 export const APP_CSS_URL = BASE_URL + "static/css/app.css";
 export const BOOTSTRAP_CSS_URL = BASE_URL + "static/css/bootstrap.min.css";
+export const BOOTSTRAP_JS_URL = BASE_URL + "static/js/vendor/bootstrap.min.js";
+export const JQUERY_URL = BASE_URL + "static/js/vendor/jquery-1.11.2.min.js";
 
 
 export const MAX_DISPLAY_CATS = 9;

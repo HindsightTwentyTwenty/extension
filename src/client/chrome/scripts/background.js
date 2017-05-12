@@ -17,24 +17,42 @@ chrome.runtime.onMessage.addListener(
   });
 
 
+
+
 /* execute the injection script on icon press */
 chrome.browserAction.onClicked.addListener(function(tab) {
-  // chrome.windows.create({
-  //                 url: 'http://www.google.com',
-  //                 tabId: tab.id,
-  //                 type: 'panel',
-  //                 focused: true,
-  //                 width: 300
-  //                 // incognito, top, left, ...
-  //             });
 
 
   // file path is relative to the root of chrome
+  // if(!open){
+  //   chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
+  // }else{
+  //
+  // }
   if(!open){
-    chrome.tabs.executeScript(null, {file: "./public/sidebar.entry.js"});
+    console.log("not open1");
+    // document.getElementById('sbr-anchor').show();
+    open = true;
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {greeting: "openSidebar"}, function(response) {
+        console.log("sending not open");
+      });
+    });
+    // chrome.runtime.sendMessage({greeting: "openSidebar"});
+
   }else{
+    console.log("open");
+    // document.getElementById('sbr-anchor').hide();
+    open = false;
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {greeting: "closeSidebar"}, function(response) {
+        console.log("sending open");
+      });
+    });
+    // chrome.runtime.sendMessage({greeting: "closeSidebar"});
 
   }
+
 });
 
 chrome.alarms.create(tabAlarmName, {

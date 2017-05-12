@@ -58,7 +58,7 @@ class LoginPage extends Component {
   render () {
 		var emailplaceholder = <div><i class="fa fa-envelope-o" aria-hidden="true"></i><p>email</p></div>;
     return (
-      <div className="popup-main-form electric-blue">
+      <div className="popup-main-form">
 				<img className="logo" src={urls.LOGO_URL} onMouseDown={()=>{window.close()}}/>
 				<h2 className="popup-header-text">hindsite</h2>
 				<div className="login-error"> {this.props.currentUser.invalid_login ? 'Invalid Username or Password' : ''}</div>
@@ -67,7 +67,7 @@ class LoginPage extends Component {
 	        <input type="password" className="login-form form-control" id="password" placeholder="&#xf13e;  password" onChange={this.updatePassword.bind(this)} onKeyPress={this.LoginOnEnter.bind(this)}/>
 				</div>
 				<div className ="popup-button-group">
-				<button className="btn popup-main-btn watermelon" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>
+				<button className="popup-main-btn btn" type="button" onClick={this.loginUser.bind(this)}>Sign In</button>
 				<button className="link-text-btn" onClick={this.forgotMyPassword.bind(this)}>Forgot Password?</button>
 					<button className="link-text-btn" onClick={this.createUserAccount.bind(this)}>New to hindsite? Sign up here.</button>
 				</div>

@@ -27,13 +27,19 @@ class Sidebar extends Component{
 
   }
 
+  hideApp(){
+    console.log("hiding app");
+    $('outer-sidebar').hide();
+
+  }
+
   renderContent() {
     console.log("Props in popup", this.props);
 		if(this.props.currentUser.token.length != 0){ //Logged In
 			switch (this.props.popupStatus){
 				case PopupConstants.Received: // Display Page
 					return (
-            <div className="sidebar">
+            <div className="sidebar" id="outer-sidebar">
               <TagBox boxTitle="hindsite"/>
               <SidebarBox boxTitle="Notes"/>
               <SidebarBox boxTitle="Quick Tags"/>
@@ -91,7 +97,6 @@ class Sidebar extends Component{
             </div>
           );
 				default:
-          console.log("LOADING????");
 					return (
 						<div className="login-sidebar">
 							<PopupHeader/>
@@ -101,22 +106,37 @@ class Sidebar extends Component{
 			}
 		}
 	}
-  //
-  // <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" media="screen"/>
-  // <link rel="stylesheet" type="text/css" href="../../css/popup.css" media="screen"/>
-  // <link href="https://fonts.googleapis.com/css?family=Lora|Raleway" rel="stylesheet"/>
-  // <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet"/>
-  // <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
   render() {
+    var open = true;
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        if (request.greeting == "openSidebar"){
+          console.log("GOT OPEN MSG");
+          $('outer-sidebar').show();
+          // document.getElementById('outer-sidebar').s
+          }
+        else if (request.greeting == "closeSidebar"){
+          // this.hideApp();
+          open = false;
+          console.log("GOT CLOSE MSG");
+          // $('outer-sidebar').css('display', 'inline-block');
+          // $('outer-sidebar').hide();
+
+          // var sidebar_out = document.getElementById('outer-sidebar');
+          // sidebar_out.style.color = "red";
+
+
+          }
+      });
+      if(!open){
+        console.log("here here");
+        this.hideApp();
+      }
+
     return (
       <div >
-
-
           {this.renderContent()}
-      <script src="../../js/jquery-1.12.4.min.js"></script>
-      <script src="../../js/bootstrap.min.js"></script>
-    </div>
+      </div>
     );
   }
 }
