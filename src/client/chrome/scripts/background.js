@@ -143,6 +143,8 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         );
       });
     });
+    console.log("new tab", tab);
+
     closed = false;
   }
 });
