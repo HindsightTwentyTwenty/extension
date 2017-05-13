@@ -28,7 +28,16 @@ export function receiveTrackingOffPopupInfo(json, url, title){
   }
 }
 
-export function getPopupInfo(url, title, token, count){
+export function getPopupInfo(token, count){
+  console.log("token", token);
+  var url = "";
+  var title = "";
+  chrome.storage.local.get(null, function(items) {
+    console.log("response in popup", items);
+    url = items['taburl'];
+    title = items['tabtitle'];
+
+
   console.log("GET POPUP INFO CALLED", url, title, token, count);
   return dispatch => {
     return fetch(popupInfoEndpoint, {
@@ -58,7 +67,7 @@ export function getPopupInfo(url, title, token, count){
                if(json.tracking){
                  // Try again as page might be loading if under max count
                  if(count < 5){
-                   setTimeout(function() { dispatch(getPopupInfo(url, title, token, count + 1)); }, 1000);
+                   setTimeout(function() { dispatch(getPopupInfo( token, count + 1)); }, 1000);
                  } else {
                    dispatch(updatePopupStatus(PopupConstants.Error));
                  }
@@ -78,6 +87,7 @@ export function getPopupInfo(url, title, token, count){
          }
        )
   }
+});
 }
 
 export function updatePopupStatus(status){

@@ -23,7 +23,18 @@ import * as PopupConstants from '../../constants/PopupConstants.js';
 class Sidebar extends Component{
   constructor(props){
     super(props);
-    chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveFromChrome);
+
+    // chrome.storage.local.get({"pageurl","pagetitle"}, this.props.user_actions.receiveFromChrome);
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        console.log("LISTENING, message", request);
+        if (request.greeting == "tabInfoStored"){
+
+        }
+      });
+
+      chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
+
     console.log("token", this.props.currentUser.token);
     //this.props.popup_actions.getPopupInfo(url, title, token, count)
   }
@@ -109,6 +120,10 @@ class Sidebar extends Component{
 	}
   render() {
 
+
+
+
+
     var open = true;
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -136,6 +151,7 @@ class Sidebar extends Component{
       }
 
     return (
+
       <div >
           {this.renderContent()}
       </div>

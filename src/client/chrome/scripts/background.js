@@ -142,6 +142,14 @@ if(md5 == "" || encrypt_key == ""){
 //listens when a tab is opened, page is visited
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if(token && changeInfo.status == 'complete' && tab.title){
+      //store the current page's url and title for the popup
+      console.log("storing tab in storage");
+      chrome.storage.local.set({"taburl":tab.url, "tabtitle":tab.title}, function(){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+          console.log("sent message");
+          chrome.tabs.sendMessage(tabs[0].id, {greeting: "tabInfoStored"}, function(response) {});
+        });
+      });
       var imageData;
       chrome.tabs.captureVisibleTab(function(dataString){
         imageData = dataString;

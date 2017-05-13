@@ -52,6 +52,7 @@ export function endErrorMessage(json){
 
 /* get items from chrome storage- token, encrypt key, md5 */
 export function receiveFromChrome(token_response) {
+  console.log("token_response", token_response);
   var token = token_response['hindsite-token'];
   return dispatch => {
     if(token){
@@ -63,7 +64,19 @@ export function receiveFromChrome(token_response) {
      ),
       dispatch(checkCurrentPage(token)),
       dispatch(getUserInfo(token))
-    }else {
+    }
+    // if(token_response['hindsite-token'] && token_response['taburl'] && token_response['tabtitle'] ){
+    //   console.log("got token and urls");
+    //   dispatch(
+    //     {
+    //      type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
+    //      token: token
+    //    }
+    //  ),
+    //   dispatch(checkCurrentPage(token, taburl, tabtitle)),
+    //   dispatch(getUserInfo(token))
+    // }
+    else {
       dispatch(PopupActions.updatePopupStatus(PopupConstants.SignIn))
     }
     if(token_response['md5'] && token_response['ekey']){
@@ -79,31 +92,32 @@ export function receiveFromChrome(token_response) {
 
 export function checkCurrentPage(token){
   console.log("check current page");
-  var taburl = "";
-  var tabtitle = "";
-  chrome.runtime.sendMessage({greeting: "tabInfo"}, function(response) {});
-  chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      console.log("REQUESTS", request);
-      if(request.greeting == "tabInfoResponse"){
-        taburl = request.taburl;
-        tabtitle = request.tabtitle;
-        console.log("dispatching....");
-         sendResponse({farewell: "tabInfoReceived"});
-      }
-    });
-    console.log("OUTSIDE LISTENER");
+  // var taburl = "";
+  // var tabtitle = "";
+  // chrome.runtime.sendMessage({greeting: "tabInfo"}, function(response) {});
+  // chrome.runtime.onMessage.addListener(
+  //   function(request, sender, sendResponse) {
+  //     console.log("REQUESTS", request);
+  //     if(request.greeting == "tabInfoResponse"){
+  //       taburl = request.taburl;
+  //       tabtitle = request.tabtitle;
+  //       console.log("dispatching....");
+  //        sendResponse({farewell: "tabInfoReceived"});
+  //     }
+  //   });
+  //   console.log("OUTSIDE LISTENER");
     return dispatch => {
       console.log("IN DISPATCH OMG");
-        if(Url.isUrlBlacklisted(taburl)){
-          console.log("url blacklisted");
-          // Display message to navigate to a different page
-          return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
-        } else {
+      //TODO: gam HANDLE BLACKLISTING
+        // if(Url.isUrlBlacklisted(taburl)){
+        //   console.log("url blacklisted");
+        //   // Display message to navigate to a different page
+        //   return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
+        // } else {
           console.log("dispatching popup");
           // fetch category information to display in the popup
-          return dispatch(PopupActions.getPopupInfo(taburl, tabtitle, token, 0))
-        }
+          return dispatch(PopupActions.getPopupInfo(token, 0))
+        // }
     }
 
 }
