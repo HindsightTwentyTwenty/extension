@@ -14,7 +14,29 @@ chrome.runtime.onMessage.addListener(
       chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
       });
     }
-  });
+    if(request.greeting == "tabInfo"){
+      console.log("tabinfo request areceived");
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        var tab = tabs[0];
+        console.log("sending back taburl", tab.url);
+        console.log("sending back tabtitle", tab.title);
+        // sendResponse({taburl: tab.url, tabtitle: tab.title});
+        sendResponse({greeting: "beepbeep"});
+        chrome.tabs.sendMessage(tab.id, {greeting: "tabInfoResponse", taburl: tab.url, tabtitle: tab.title}, function(response) {
+          console.log("sending not open");
+        });
+        console.log("send response");
+      });
+    }
+  }
+);
+
+
+// console.log("tabinfo request areceived");
+// chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+//   console.log("NEW TAB");
+//   var tab = tabs[0];
+// });
 
 
 

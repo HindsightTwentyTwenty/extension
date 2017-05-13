@@ -18,6 +18,7 @@ function userReducer(state = {user_name:"", first_name:"", last_name:"", email:"
     case types.NO_USER_ERROR:
       return {...state, invalid_login:false}
     case types.RECEIVE_USER_TOKEN_FROM_CHROME:
+      console.log("receiving user token", action.token);
       if(action.token != null && action.token != null){
         return { ...state, token:action.token, invalid_login:false}
       } else {

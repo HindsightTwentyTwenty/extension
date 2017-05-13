@@ -29,6 +29,7 @@ export function receiveTrackingOffPopupInfo(json, url, title){
 }
 
 export function getPopupInfo(url, title, token, count){
+  console.log("GET POPUP INFO CALLED", url, title, token, count);
   return dispatch => {
     return fetch(popupInfoEndpoint, {
           headers: {

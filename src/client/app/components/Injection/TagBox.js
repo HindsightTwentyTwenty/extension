@@ -4,7 +4,7 @@ import { bindActionCreators} from 'redux';
 import * as urls from '../../constants/GlobalConstants';
 import TagSelection from './TagSelection.js';
 import * as PopupConstants from '../../constants/PopupConstants.js';
-import * as PopupActions from '../../actions/PopupActions.js';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
 
 
 

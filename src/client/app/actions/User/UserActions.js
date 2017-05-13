@@ -78,22 +78,33 @@ export function receiveFromChrome(token_response) {
 }
 
 export function checkCurrentPage(token){
-  return dispatch => {
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      var tab = tabs[0];
-      console.log("tab from chrome", tab);
-
-      if(Url.isUrlBlacklisted(tab.url)){
-        // Display message to navigate to a different page
-        return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
-
-      } else {
-        // fetch category information to display in the popup
-        return dispatch(PopupActions.getPopupInfo(tab.url, tab.title, token, 0))
+  console.log("check current page");
+  var taburl = "";
+  var tabtitle = "";
+  chrome.runtime.sendMessage({greeting: "tabInfo"}, function(response) {});
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log("REQUESTS", request);
+      if(request.greeting == "tabInfoResponse"){
+        taburl = request.taburl;
+        tabtitle = request.tabtitle;
+        console.log("dispatching....");
+         sendResponse({farewell: "tabInfoReceived"});
       }
-
     });
-  }
+    console.log("OUTSIDE LISTENER");
+    return dispatch => {
+      console.log("IN DISPATCH OMG");
+        if(Url.isUrlBlacklisted(taburl)){
+          console.log("url blacklisted");
+          // Display message to navigate to a different page
+          return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
+        } else {
+          console.log("dispatching popup");
+          // fetch category information to display in the popup
+          return dispatch(PopupActions.getPopupInfo(taburl, tabtitle, token, 0))
+        }
+    }
 
 }
 
