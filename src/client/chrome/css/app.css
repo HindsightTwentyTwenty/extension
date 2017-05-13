@@ -1499,6 +1499,15 @@ hr{
   display: inline-block;
 }
 
+.prod-none-visited {
+  height: 95%;
+  width: 50%;
+  float: right;
+  line-height: 95%;
+  margin-top: 9%;
+  color: $hindsite-black;
+}
+
 .procrastination-sites {
   height: calc(87% - 25px);
   width: calc(100% - 50px);

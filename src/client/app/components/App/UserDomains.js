@@ -89,6 +89,10 @@ class UserDomains extends Component {
   }
 
   currentDomain() {
+    if (this.state.current_user_domain >= this.getDomains().length) {
+      return "";
+    }
+
     if (this.state.current_user_domain != null) {
       return this.getDomains()[this.state.current_user_domain]['name'];
     } else {

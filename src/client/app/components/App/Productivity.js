@@ -221,30 +221,26 @@ class Productivity extends Component {
     return html;
   }
 
+  prodRight() {
+    var visits = 0;
 
-  render() {
-    return (
-      <div className="productivity">
-        <div className="prod-left">
-          <div className="analytics-title">
-            {this.sectionHeader()}
-          </div>
-          <div className="procrastination-sites">
-            <h5 className="sub-title">Procrasination Domains:</h5>
-            <div className="add-procrastination">
-              <div className="input-group input-margin">
-                <span className="input-group-addon input-xs-http">https://</span>
-                <input type="text" className="form-control input-xs" placeholder="facebook.com"
-                    onKeyPress={this.keyPressed.bind(this)} ref={node => {this.input = node}}
-                    onChange={this.updateField.bind(this)}/>
-              </div>
-              {this.getButton()}
-            </div>
-            <div className="sites">
-              {this.procrastinationSites()}
-            </div>
-          </div>
-        </div>
+    switch (this.props.analytics.range.length) {
+      case 'day':
+        visits = this.props.analytics.user_domains.day.length;
+        break;
+      case 'week':
+         visits = this.props.analytics.user_domains.week.length;
+         break;
+      case 'month':
+        visits = this.props.analytics.user_domains.month.length;
+        break;
+      default:
+        visits = 0;
+        break;
+    }
+
+    if (visits > 0) {
+      return (
         <div className="prod-right">
           <div className="prod-inner-left">
             <div className="pie-title">
@@ -301,6 +297,41 @@ class Productivity extends Component {
             <span>&nbsp;procrastination</span>
           </div>
         </div>
+      );
+    } else {
+      return (
+        <div className="prod-none-visited">
+          You haven&#39;t visited any pages yet {this.range()}.
+        </div>
+      )
+    }
+  }
+
+
+  render() {
+    return (
+      <div className="productivity">
+        <div className="prod-left">
+          <div className="analytics-title">
+            {this.sectionHeader()}
+          </div>
+          <div className="procrastination-sites">
+            <h5 className="sub-title">Procrasination Domains:</h5>
+            <div className="add-procrastination">
+              <div className="input-group input-margin">
+                <span className="input-group-addon input-xs-http">https://</span>
+                <input type="text" className="form-control input-xs" placeholder="facebook.com"
+                    onKeyPress={this.keyPressed.bind(this)} ref={node => {this.input = node}}
+                    onChange={this.updateField.bind(this)}/>
+              </div>
+              {this.getButton()}
+            </div>
+            <div className="sites">
+              {this.procrastinationSites()}
+            </div>
+          </div>
+        </div>
+        {this.prodRight()}
       </div>
     );
   }

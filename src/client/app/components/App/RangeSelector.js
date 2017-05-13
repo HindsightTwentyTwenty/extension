@@ -24,15 +24,12 @@ class RangeSelector extends Component {
       <ul className="nav nav-pills range-selector">
         <li role="presentation" className={this.getClassName('day')}><a onClick={() => {
           this.props.analytics_actions.changeRange('day', '');
-          this.props.analytics_actions.activeUserDomain(null);
         }}>Day</a></li>
         <li role="presentation" className={this.getClassName('week')}><a onClick={() => {
           this.props.analytics_actions.changeRange('week', 'current');
-          this.props.analytics_actions.activeUserDomain(null);
         }}>Week</a></li>
         <li role="presentation" className={this.getClassName('month')}><a onClick={() => {
           this.props.analytics_actions.changeRange('month', '');
-          this.props.analytics_actions.activeUserDomain(null);
         }}>Month</a></li>
       </ul>
     )
