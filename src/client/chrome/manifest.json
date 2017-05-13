@@ -1,16 +1,17 @@
 {
- "version": "0.0.6",
+ "version": "0.0.5",
  "name": "hindsite",
  "manifest_version": 2,
  "description": "hindsite chrome extension",
  "browser_action": {
-   "default_title": "hindsite"
-  },
+   "default_title": "hindsite",
+   "default_popup": "/popup.html"
+ },
  "background": {
   "scripts": ["scripts/background.js"]
 },
 "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+    "matches": ["http://*/*", "https://*/*"],
     "js": ["scripts/content.js"],
     "run_at": "document_end"
   }],
@@ -26,9 +27,6 @@
    "https://hindsite2020.herokuapp.com/*",
    "storage",
    "alarms",
-   "<all_urls>",
-   "http://*/",
-   "https://*/",
-   "activeTab"
+   "<all_urls>"
  ]
 }
