@@ -26,8 +26,6 @@
    "https://hindsite2020.herokuapp.com/*",
    "storage",
    "alarms",
-   "<all_urls>",
-   "http://*/",
-   "activeTab"
+   "<all_urls>"
  ]
 }
