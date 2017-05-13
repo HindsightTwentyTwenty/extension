@@ -1,12 +1,12 @@
-$base-color: #628AD7;
-$secondary-color: #53D1C8;
-$accent-color: #FFDD43;
-
-$light-grey: #e1e1e1;
-$dark-grey: #a2a2a2;
-$base-white: #fafafa;
-
-$site-font: 'Raleway', sans-serif;
+$banana: #FFDB5C;
+$electric-blue: #4897D8;
+$electric-blue-dark: #2B82CA;
+$lime: #77f200;
+$watermelon: #FA6E59;
+$canteloupe: #F8A055;
+$base-white: #FAFAFA;
+$watermelon-dark: #F95339;
+$canteloupe-dark: #F68828;
 
 .html {
   height: auto;
@@ -15,9 +15,9 @@ $site-font: 'Raleway', sans-serif;
 .popup-content {
    width:400px;
    max-height: 300px;
-   background-color: $base-color;
-   color: $base-color;
-   font-family: $site-font;
+   background-color: $base-white;
+   color: $electric-blue;
+   font-family: 'Raleway';
    font-weight: normal;
    vertical-align: middle;
 }
@@ -32,7 +32,7 @@ $site-font: 'Raleway', sans-serif;
   float: left;
   &:hover{
     cursor: pointer;
-    color: $accent-color;
+    color: $banana;
     font-weight: bold;
   }
 }
@@ -87,9 +87,9 @@ $site-font: 'Raleway', sans-serif;
   font-family: Raleway, FontAwesome;
   &:focus{
     box-shadow: none;
-    border-bottom: $accent-color 1.5px solid;
+    border-bottom: $banana 1.5px solid;
     &::-webkit-input-placeholder {
-      color: $accent-color;
+      color: $banana;
     }
   }
   &::-webkit-input-placeholder {
@@ -107,12 +107,12 @@ $site-font: 'Raleway', sans-serif;
   height: 40px;
   margin-bottom: 3%;
   color: $base-white;
-  background-color: $dark-grey;
+  background-color: $electric-blue-dark;
   font-family: Raleway, FontAwesome;
   &:focus{
     box-shadow: none;
     &::-webkit-input-placeholder {
-      color: $base-color;
+      color: $electric-blue;
     }
   }
   &::-webkit-input-placeholder {
@@ -150,7 +150,7 @@ $site-font: 'Raleway', sans-serif;
   border:none;
   margin-bottom: 5%;
   &:hover{
-    color: $accent-color;
+    color: $banana;
   }
 }
 
@@ -166,6 +166,10 @@ $site-font: 'Raleway', sans-serif;
   height: 30px;
 }
 
+.electric-blue{
+  background: $electric-blue
+}
+
 .zero-margin{
   margin: 0;
 }
@@ -173,7 +177,7 @@ $site-font: 'Raleway', sans-serif;
 .popup-header-text{
   font-size: 30px;
   margin-left: 2%;
-  color: $accent-color;
+  color: $banana;
   font-family: 'Poiret One', cursive;
   height: 35px;
 }
@@ -184,14 +188,14 @@ $site-font: 'Raleway', sans-serif;
   display: flex;
   padding: 0 7px;
   align-items: center;
-  background-color: $dark-grey;
+  background-color: $electric-blue-dark;
   justify-content: space-between;
 }
 
 .popup-menu {
   display: flex;
   align-items: center;
-  background-color: $secondary-color;
+  background-color: $watermelon-dark;
   justify-content: space-around;
   padding: 5px 15px;
 }
@@ -200,12 +204,12 @@ $site-font: 'Raleway', sans-serif;
   color: $base-white;
   font-size: medium;
   &.selected {
-    color: $accent-color;
+    color: $banana;
     font-weight: bold;
   }
   &:hover{
     cursor: pointer;
-    color: $accent-color;
+    color: $banana;
   }
 }
 
@@ -239,7 +243,7 @@ $site-font: 'Raleway', sans-serif;
   margin: 0 auto;
   width: 89%;
   margin-bottom: 5px;
-  background-color: $dark-grey;
+  background-color: $electric-blue-dark;
 }
 
 .color-square {
@@ -250,7 +254,7 @@ $site-font: 'Raleway', sans-serif;
 }
 
 .current-session {
-  background-color: $dark-grey;
+  background-color: $electric-blue-dark;
   margin: 10px 0;
   border-radius: 3px;
   padding-bottom: 5px;
@@ -269,28 +273,28 @@ $site-font: 'Raleway', sans-serif;
 .duration-btn {
   width: auto;
   padding: 3px 5px;
-  background-color: $dark-grey;
+  background-color: $electric-blue-dark;
   margin: 5px;
   display: inline-flex;
   &:hover{
     cursor: pointer;
-    color: $accent-color;
+    color: $banana;
     font-weight: bold;
   }
   &.active{
-    color: $secondary-color;
+    color: $watermelon;
   }
 }
 
 .session-btn {
   width: auto;
   padding: 0 15px;
-  background-color: $secondary-color;
+  background-color: $watermelon;
   margin: 5px auto;
   display: flex;
   &:hover{
     cursor: pointer;
-    color: $accent-color;
+    color: $banana;
     font-weight: bold;
   }
 }
@@ -314,7 +318,7 @@ $site-font: 'Raleway', sans-serif;
 #fa-error{
   font-size: xx-large;
   margin: 3%;
-  color: $secondary-color;
+  color: $watermelon;
 }
 
 #logo-text-wrap{
@@ -329,9 +333,9 @@ $site-font: 'Raleway', sans-serif;
 }
 
 #go-to-link{
-  color: $accent-color;
+  color: $banana;
   &:hover{
-    color: $secondary-color;
+    color: $watermelon;
     cursor: pointer;
   }
 }

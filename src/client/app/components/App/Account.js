@@ -26,8 +26,6 @@ class Account extends Component {
   }
 
   changeMyPassword() {
-    var changePasswordBtn = document.getElementById("changePwdBtn");
-    changePasswordBtn.className += " btn-selected";
     this.props.user_actions.changeMyPasswordToggle(PasswordConstants.Open);
   }
 
@@ -102,10 +100,10 @@ class Account extends Component {
             { this.displayUserInfo() }
             <div id="account-options">
               <div>
-                <div className="btn" onClick={this.logoutUser.bind(this)}>Log Out</div>
+                <button className="btn btn-primary account-button" onClick={this.logoutUser.bind(this)}>Log Out</button>
               </div>
               <div>
-                <div className="btn" id="changePwdBtn" onClick={this.changeMyPassword.bind(this)}>Change Password</div>
+                <button className="btn btn-primary account-button" onClick={this.changeMyPassword.bind(this)}>Change Password</button>
                 { this.changeMyPasswordFields() }
               </div>
             </div>
