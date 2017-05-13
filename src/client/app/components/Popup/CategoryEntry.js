@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
-import * as PopupActions from '../../actions/Popup/PopupActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 
 class CategoryEntry extends Component {
@@ -70,7 +69,6 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = (dispatch) => ({
-    popup_actions: bindActionCreators(PopupActions, dispatch),
     category_actions: bindActionCreators(CategoryActions, dispatch)
 })
 

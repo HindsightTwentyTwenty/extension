@@ -24,7 +24,8 @@ class Sidebar extends Component{
   constructor(props){
     super(props);
     chrome.storage.local.get("hindsite-token", this.props.user_actions.receiveFromChrome);
-
+    console.log("token", this.props.currentUser.token);
+    //this.props.popup_actions.getPopupInfo(url, title, token, count)
   }
 
   hideApp(){
@@ -93,20 +94,21 @@ class Sidebar extends Component{
 				case PopupConstants.ForgotMyPassword:
 					return (
             <div className="login-sidebar">
-              <ForgotMyPassword/>
+              <Loading/>
             </div>
           );
 				default:
+          console.log("loading here......");
 					return (
 						<div className="login-sidebar">
-							<PopupHeader/>
-							<Loading/>
+              <LoginPage/>
 						</div>
 					);
 			}
 		}
 	}
   render() {
+
     var open = true;
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {

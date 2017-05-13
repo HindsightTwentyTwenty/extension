@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as urls from '../../constants/GlobalConstants';
 import TagSelection from './TagSelection.js';
+import * as PopupConstants from '../../constants/PopupConstants.js';
+import * as PopupActions from '../../actions/PopupActions.js';
+
+
 
 
 
@@ -22,10 +26,12 @@ class TagBox extends Component{
   constructor(props){
     super(props);
     this.state = getState();
+    // this.props.popup_actions.getPopupInfo();
   }
 
   switchOpen(){
     if(this.state.open){
+      console.log("tag box props", this.props);
       this.setState({
         open: false,
       })
@@ -57,17 +63,14 @@ class TagBox extends Component{
                                 <TagSelection/>
                               </div>
                             </div>;
-
     if(this.state.open){
       return sidebarBoxContent;
     }else{
       return sidebarBoxHeader;
     }
   }
+
   render(){
-
-
-
     return(
       <div className="sidebar-box">
         {this.boxState()}
@@ -82,6 +85,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    popup_actions: bindActionCreators(PopupActions, dispatch)
   }
 }
 

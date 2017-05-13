@@ -11,8 +11,9 @@ class TagSelection extends Component{
   constructor(props){
     super(props);
     this.state = getState();
-    console.log("props");
-    console.log(this.props.currentPage.title);
+    // console.log("props");
+    console.log("props",this.props);
+    console.log(this.props);
   }
 
   render(){
