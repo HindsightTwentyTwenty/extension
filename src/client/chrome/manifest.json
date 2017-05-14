@@ -16,7 +16,6 @@
     "run_at": "document_end"
   }],
  "icons": {
-   "16": "assets/img/icon-16.png",
    "48": "assets/img/logo-48.png",
    "128": "assets/img/logo-128.png"
  },

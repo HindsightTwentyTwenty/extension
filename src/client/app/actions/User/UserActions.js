@@ -17,6 +17,7 @@ const changePasswordEndpoint = urls.BASE_URL + 'change/';
 const userInfoEndpoint = urls.BASE_URL + 'userinfo/';
 const trackingEndpoint = urls.BASE_URL + 'tracking/';
 
+
 const unauthorizedCode = "403";
 
 var curr_token = ""
@@ -182,13 +183,15 @@ export function receivePageInfo(json) {
 
 export function loginUser(username, password){
   return dispatch => {
+    var d = new Date()
+    var offset = d.getTimezoneOffset() / 60;
     return fetch(loginUserEndpoint, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: "POST",
-      body: JSON.stringify({"email": username, "password": password})
+      body: JSON.stringify({"email": username, "password": password, "offset": offset})
     })
     .then(response =>
       response.json().then(json => ({
@@ -242,6 +245,8 @@ export function forgotMyPasswordEmailSubmit(email){
 
 export function createNewUser(email, password_1, password_2, first_name, last_name){
   return dispatch => {
+    var d = new Date()
+    var offset = d.getTimezoneOffset() / 60;
     return fetch(urls.BASE_URL + 'users/', {
       headers: {
         'Accept': 'application/json',
@@ -252,7 +257,8 @@ export function createNewUser(email, password_1, password_2, first_name, last_na
                             "password": password_1,
                             "first_name": first_name,
                             "last_name": last_name,
-                            "confirm_password": password_2
+                            "confirm_password": password_2,
+                            "offset": offset
                           })
     })
     .then(response =>

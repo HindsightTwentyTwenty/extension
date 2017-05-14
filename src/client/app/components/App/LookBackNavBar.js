@@ -75,6 +75,13 @@ class LookBackNavBar extends Component {
               }
               this.switchLookBackSelection(LookBackSections.Manage);
             }}>manage</button>
+            <button id="nav-bar-button-3" className="nav-bar-button" type="button" onClick={() => {
+              if(this.props.currentDomainDisplayed.clicked){
+                  this.props.lookback_actions.toggleDomainClicked();
+                  this.props.lookback_actions.setCurrentPage({});
+              }
+              this.switchLookBackSelection(LookBackSections.Analytics);
+            }}>analytics</button>
           </div>
         </div>
         <div className="site-title">
