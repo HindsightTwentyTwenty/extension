@@ -91,7 +91,7 @@ export function receiveFromChrome(token_response) {
 }
 
 export function checkCurrentPage(token){
-  console.log("check current page");
+  console.log("NEW MESSAGE check current page");
   // var taburl = "";
   // var tabtitle = "";
   // chrome.runtime.sendMessage({greeting: "tabInfo"}, function(response) {});
@@ -107,16 +107,15 @@ export function checkCurrentPage(token){
   //   });
   //   console.log("OUTSIDE LISTENER");
     return dispatch => {
-      console.log("IN DISPATCH OMG");
       //TODO: gam HANDLE BLACKLISTING
-        // if(Url.isUrlBlacklisted(taburl)){
+        // if(Url.isUrlValid(taburl)){
         //   console.log("url blacklisted");
         //   // Display message to navigate to a different page
         //   return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
         // } else {
-          console.log("dispatching popup");
+          console.log("sending to getPageInfo");
           // fetch category information to display in the popup
-          return dispatch(PopupActions.getPopupInfo(token, 0))
+          return dispatch(PopupActions.getPageInfo())
         // }
     }
 
@@ -149,10 +148,10 @@ export function logoutUser(token) {
 
 export function sendCurrentPage(token) {
   return dispatch => {
-    console.log("starting send current page");
+    console.log("sendCurrentPage(token)");
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
-      if(tab.title && !Url.isUrlBlacklisted(tab.url)){
+      if(tab.title && !Url.isUrlValid(tab.url)){
         chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
           var lastError = chrome.runtime.lastError;
           if (lastError) {
@@ -178,7 +177,6 @@ export function sendCurrentPage(token) {
           ))
           .then(
             ({ status, json }) => {
-              console.log("status - json", status, json);
               if(status == 204){
                 dispatch(PopupActions.updatePopupStatus(PopupConstants.Blacklist));
               } else {
@@ -227,7 +225,6 @@ export function loginUser(username, password){
         if(status == 401){
           dispatch(receiveLoginError(json['message']));
         } else {
-          console.log("LOGIN JSON", json);
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
@@ -369,7 +366,6 @@ export function getUserInfo(token){
     .then(
       ({ status, json }) => {
         if(status == 200){
-          console.log("User Info", json)
           dispatch(receiveUserInfo(json))
         }
       }

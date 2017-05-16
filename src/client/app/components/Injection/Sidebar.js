@@ -25,17 +25,16 @@ class Sidebar extends Component{
     super(props);
 
     // chrome.storage.local.get({"pageurl","pagetitle"}, this.props.user_actions.receiveFromChrome);
-    chrome.runtime.onMessage.addListener(
-      function(request, sender, sendResponse) {
-        console.log("LISTENING, message", request);
-        if (request.greeting == "tabInfoStored"){
-
-        }
-      });
+    // chrome.runtime.onMessage.addListener(
+    //   function(request, sender, sendResponse) {
+    //     console.log("LISTENING, message", request);
+    //     if (request.greeting == "tabInfoStored"){
+    //
+    //     }
+    //   });
 
       chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
 
-    console.log("token", this.props.currentUser.token);
     //this.props.popup_actions.getPopupInfo(url, title, token, count)
   }
 
@@ -46,7 +45,6 @@ class Sidebar extends Component{
   }
 
   renderContent() {
-    console.log("Props in popup", this.props);
 		if(this.props.currentUser.token.length != 0){ //Logged In
 			switch (this.props.popupStatus){
 				case PopupConstants.Received: // Display Page
@@ -146,7 +144,6 @@ class Sidebar extends Component{
           }
       });
       if(!open){
-        console.log("here here");
         this.hideApp();
       }
 
