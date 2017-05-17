@@ -33,7 +33,7 @@ class Sidebar extends Component{
     //     }
     //   });
 
-      chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
+      chrome.storage.local.get(["taburl", "tabtitle", "hindsite-token"], this.props.user_actions.receiveFromChrome);
 
     //this.props.popup_actions.getPopupInfo(url, title, token, count)
   }

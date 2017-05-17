@@ -16,6 +16,8 @@ const activePageInfoEndpoint = urls.BASE_URL + "activepage/";
 const changePasswordEndpoint = urls.BASE_URL + 'change/';
 const userInfoEndpoint = urls.BASE_URL + 'userinfo/';
 const trackingEndpoint = urls.BASE_URL + 'tracking/';
+const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
+
 
 const unauthorizedCode = "403";
 
@@ -59,23 +61,12 @@ export function receiveFromChrome(token_response) {
       dispatch(
         {
          type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-         token: token
+         token: token,
        }
      ),
-      dispatch(checkCurrentPage(token)),
+      dispatch(streamlinePageInfo(token_response)),
       dispatch(getUserInfo(token))
     }
-    // if(token_response['hindsite-token'] && token_response['taburl'] && token_response['tabtitle'] ){
-    //   console.log("got token and urls");
-    //   dispatch(
-    //     {
-    //      type: types.RECEIVE_USER_TOKEN_FROM_CHROME,
-    //      token: token
-    //    }
-    //  ),
-    //   dispatch(checkCurrentPage(token, taburl, tabtitle)),
-    //   dispatch(getUserInfo(token))
-    // }
     else {
       dispatch(PopupActions.updatePopupStatus(PopupConstants.SignIn))
     }
@@ -90,36 +81,83 @@ export function receiveFromChrome(token_response) {
   }
 }
 
-export function checkCurrentPage(token){
-  console.log("NEW MESSAGE check current page");
-  // var taburl = "";
-  // var tabtitle = "";
-  // chrome.runtime.sendMessage({greeting: "tabInfo"}, function(response) {});
-  // chrome.runtime.onMessage.addListener(
-  //   function(request, sender, sendResponse) {
-  //     console.log("REQUESTS", request);
-  //     if(request.greeting == "tabInfoResponse"){
-  //       taburl = request.taburl;
-  //       tabtitle = request.tabtitle;
-  //       console.log("dispatching....");
-  //        sendResponse({farewell: "tabInfoReceived"});
-  //     }
-  //   });
-  //   console.log("OUTSIDE LISTENER");
+export function streamlinePageInfo(items){
+    var url = items['taburl'];
+    var title = items['tabtitle'];
+    var token = items['hindsite-token'];
+    console.log("urlTWO", url);
+    console.log("title", title);
+    console.log("token", token);
+
     return dispatch => {
-      //TODO: gam HANDLE BLACKLISTING
-        // if(Url.isUrlValid(taburl)){
-        //   console.log("url blacklisted");
-        //   // Display message to navigate to a different page
-        //   return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
-        // } else {
-          console.log("sending to getPageInfo");
-          // fetch category information to display in the popup
-          return dispatch(PopupActions.getPageInfo())
-        // }
-    }
+      fetch(popupInfoEndpoint, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': 'Token ' + token
+             },
+             method: "POST",
+             body: JSON.stringify({url: url})
+           }
+         ).then(response =>
+            response.json().then(json => ({
+              status: response.status,
+              json
+            })
+          ))
+          .then(
+            ({ status, json }) => {
+              switch(status){
+                case 200:
+                   dispatch(receivePopupInfo(json));
+                   break;
+                case 404:
+                   // Page Not found in backend. Check if tracking is on
+                   if(json.tracking){
+                     // Try again as page might be loading if under max count
+                     //#TODO: get COUNT working, thinking about how to check if this is NEW PAGE INFO 
+                     if(count < 5){
+                       setTimeout(function() { dispatch(getPopupInfo(url, title, token, count + 1)); }, 1000);
+                     } else {
+                       dispatch(PopupActions.updatePopupStatus(PopupConstants.Error));
+                     }
+                   } else {
+                     // Set current Page to page recevied from chrome anyways
+                     dispatch(receiveTrackingOffPopupInfo(json, url, title));
+                   }
+                   break;
+                case 201:
+                   // User has blacklisted this url
+                   dispatch(PopupActions.updatePopupStatus(PopupConstants.Blacklist));
+                   break;
+                default:
+                   dispatch(PopupActions.updatePopupStatus(PopupConstants.Error));
+                   break;
+              }
+            }
+          )
+        }
+
+    console.log("ended streamline");
+
+    //TODO: gam HANDLE BLACKLISTING
+      // if(Url.isUrlValid(taburl)){
+      //   console.log("url blacklisted");
+      //   // Display message to navigate to a different page
+      //   return dispatch(PopupActions.updatePopupStatus(PopupConstants.NoContent))
 
 }
+
+export function receivePopupInfo(json){
+  console.log("receivePopupInfo(json)1");
+  return {
+      type: types.RECEIVE_POPUP_INFO,
+      categories: json.categories,
+      page: json.page,
+      tracking_on: json.tracking
+  }
+}
+
 
 export function logoutUser(token) {
   return dispatch => {
