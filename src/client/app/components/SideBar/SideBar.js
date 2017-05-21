@@ -23,13 +23,7 @@ import * as PopupConstants from '../../constants/PopupConstants.js';
 class Sidebar extends Component{
   constructor(props){
     super(props);
-
-    // chrome.storage.local.get({"pageurl","pagetitle"}, this.props.user_actions.receiveFromChrome);
-    chrome.storage.local.get(["taburl", "tabtitle", "hindsite-token"], this.props.user_actions.receiveFromChrome);
-
-
-
-    //this.props.popup_actions.getPopupInfo(url, title, token, count)
+    chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
   }
 
   hideApp(){
@@ -101,7 +95,6 @@ class Sidebar extends Component{
             </div>
           );
 				default:
-          console.log("loading here......");
 					return (
 						<div className="login-sidebar">
               <LoginPage/>
@@ -111,44 +104,7 @@ class Sidebar extends Component{
 		}
 	}
   render() {
-    chrome.runtime.onMessage.addListener(
-      function(request, sender, sendResponse) {
-        console.log("LISTENING, message", request);
-        if (request.greeting == "tabInfoStored"){
-          chrome.storage.local.get(["taburl", "tabtitle", "hindsite-token"], this.props.user_actions.receiveFromChrome);
-        }
-      });
-
-
-
-
-    var open = true;
-    chrome.runtime.onMessage.addListener(
-      function(request, sender, sendResponse) {
-        if (request.greeting == "openSidebar"){
-          console.log("GOT OPEN MSG");
-          $('outer-sidebar').show();
-          // document.getElementById('outer-sidebar').s
-          }
-        else if (request.greeting == "closeSidebar"){
-          // this.hideApp();
-          open = false;
-          console.log("GOT CLOSE MSG");
-          // $('outer-sidebar').css('display', 'inline-block');
-          // $('outer-sidebar').hide();
-
-          // var sidebar_out = document.getElementById('outer-sidebar');
-          // sidebar_out.style.color = "red";
-
-
-          }
-      });
-      if(!open){
-        this.hideApp();
-      }
-
     return (
-
       <div >
           {this.renderContent()}
       </div>

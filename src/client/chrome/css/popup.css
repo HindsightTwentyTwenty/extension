@@ -344,3 +344,62 @@ background-color: #FFCCCC;
     cursor: pointer;
   }
 }
+
+/* SIDEBAR CSS */
+.sidebar{
+  z-index: 200;
+  position: fixed;
+}
+
+.sidebar-box{
+  width: 300px;
+  margin: 5px 10px;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.5);
+
+}
+
+.sidebar-box-header{
+  background-color: #628AD7;
+  color: #fafafa;
+  width:inherit;
+  height: 50px;
+  line-height: 45px;
+  padding-left: 10px;
+  font-size: large;
+  position: relative;
+  display: flex;
+}
+
+.sidebar-box-content{
+  background-color: #fafafa;
+  /*color: $custom-black;*/
+  width:inherit;
+  height:250px;
+}
+
+/* outermost box */
+.sidebar{
+  position: fixed;
+  z-index: 1100000091;
+  right: 0px;
+  top: 0px;
+  /*display: none;*/
+}
+
+.login-sidebar{
+  width:400px;
+  max-height: 300px;
+  position: fixed;
+  z-index: 2000;
+}
+
+/* tag selection box */
+#tag-selection-wrapper{
+  background-color: #fafafa;
+  height: inherit;
+}
+
+#hindsite{
+  width: 321px;
+  height: 505px;
+}
