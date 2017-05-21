@@ -8,6 +8,11 @@ $base-white: #FAFAFA;
 $watermelon-dark: #F95339;
 $canteloupe-dark: #F68828;
 
+body {
+overflow-x: hidden;
+background-color: #FFCCCC;
+}
+
 .html {
   height: auto;
 }
