@@ -64,7 +64,7 @@ export function receiveFromChrome(token_response) {
          token: token,
        }
      ),
-      dispatch(streamlinePageInfo(token_response)),
+      dispatch(streamlinePageInfo(token_response['taburl'], token_response['tabtitle'],token_response['hindsite-token'], 0)),
       dispatch(getUserInfo(token))
     }
     else {
@@ -81,10 +81,7 @@ export function receiveFromChrome(token_response) {
   }
 }
 
-export function streamlinePageInfo(items){
-    var url = items['taburl'];
-    var title = items['tabtitle'];
-    var token = items['hindsite-token'];
+export function streamlinePageInfo(url, title, token, count){
     console.log("urlTWO", url);
     console.log("title", title);
     console.log("token", token);
@@ -115,7 +112,7 @@ export function streamlinePageInfo(items){
                    // Page Not found in backend. Check if tracking is on
                    if(json.tracking){
                      // Try again as page might be loading if under max count
-                     //#TODO: get COUNT working, thinking about how to check if this is NEW PAGE INFO 
+                     //#TODO: get COUNT working, thinking about how to check if this is NEW PAGE INFO
                      if(count < 5){
                        setTimeout(function() { dispatch(getPopupInfo(url, title, token, count + 1)); }, 1000);
                      } else {

@@ -38,7 +38,6 @@ function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAUL
       return {...state, cats: newCategoryList};
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
     case types.RECEIVE_POPUP_INFO:
-      console.log("REDUCER RECEIVE_POPUP_INFO");
       var categoryObject = {};
       action.categories.map(function(category) {
         categoryObject[category.pk] = category;

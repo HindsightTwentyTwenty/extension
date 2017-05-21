@@ -25,15 +25,9 @@ class Sidebar extends Component{
     super(props);
 
     // chrome.storage.local.get({"pageurl","pagetitle"}, this.props.user_actions.receiveFromChrome);
-    // chrome.runtime.onMessage.addListener(
-    //   function(request, sender, sendResponse) {
-    //     console.log("LISTENING, message", request);
-    //     if (request.greeting == "tabInfoStored"){
-    //
-    //     }
-    //   });
+    chrome.storage.local.get(["taburl", "tabtitle", "hindsite-token"], this.props.user_actions.receiveFromChrome);
 
-      chrome.storage.local.get(["taburl", "tabtitle", "hindsite-token"], this.props.user_actions.receiveFromChrome);
+
 
     //this.props.popup_actions.getPopupInfo(url, title, token, count)
   }
@@ -117,7 +111,13 @@ class Sidebar extends Component{
 		}
 	}
   render() {
-
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        console.log("LISTENING, message", request);
+        if (request.greeting == "tabInfoStored"){
+          chrome.storage.local.get(["taburl", "tabtitle", "hindsite-token"], this.props.user_actions.receiveFromChrome);
+        }
+      });
 
 
 

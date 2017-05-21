@@ -143,7 +143,7 @@ if(md5 == "" || encrypt_key == ""){
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if(token && changeInfo.status == 'complete' && tab.title){
       //store the current page's url and title for the popup
-      console.log("storing tab in storage");
+      console.log("storing tab in storage: ", tab.url);
       chrome.storage.local.set({"taburl":tab.url, "tabtitle":tab.title}, function(){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           console.log("sent message");

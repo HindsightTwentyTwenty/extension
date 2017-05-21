@@ -4,7 +4,8 @@
  "manifest_version": 2,
  "description": "hindsite chrome extension",
  "browser_action": {
-   "default_title": "hindsite"
+   "default_title": "hindsite",
+   "default_popup":"app/popup.html"
   },
  "background": {
   "scripts": ["scripts/background.js"]
