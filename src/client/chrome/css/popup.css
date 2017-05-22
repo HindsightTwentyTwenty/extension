@@ -8,6 +8,17 @@ $base-white: #FAFAFA;
 $watermelon-dark: #F95339;
 $canteloupe-dark: #F68828;
 
+$base-color: #628AD7;
+$secondary-color: #53D1C8;
+$accent-color: #FFDD43;
+
+$hindsite-black: #55524D ;
+$light-grey: #e1e1e1 ;
+$dark-grey: #a2a2a2 ;
+$base-white: #fafafa ;
+
+$site-font: 'Raleway', sans-serif;
+
 body {
 overflow-x: hidden;
 background-color: #FFCCCC;
@@ -77,6 +88,8 @@ background-color: #FFCCCC;
   margin: 3%;
   margin-bottom: 7%;
 }
+
+
 
 .login-form {
   border: none;
@@ -375,6 +388,7 @@ background-color: #FFCCCC;
   /*color: $custom-black;*/
   width:inherit;
   height:250px;
+  display: flex;
 }
 
 /* outermost box */
@@ -397,9 +411,65 @@ background-color: #FFCCCC;
 #tag-selection-wrapper{
   background-color: #fafafa;
   height: inherit;
+  width: 300px;
 }
 
 #hindsite{
   width: 321px;
   height: 505px;
+}
+
+#popup-header-logo{
+  margin: 5px 0px 0px 0px;
+}
+
+.row{
+  padding: 0px 15px;
+  display: flex;
+  align-items: center;
+}
+
+#row-url-entry{
+  margin-top: 8px;
+}
+
+#favicon-url-entry{
+  margin: 0px 8px 0px 8px;
+  height: 37px;
+}
+
+#title-url-entry{
+  font-size: large;
+  width: 210px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: $hindsite-black;
+}
+
+#title-url-entry{
+  font-size: large;
+  width: 210px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: $hindsite-black;
+
+  border: none;
+  border-radius: 0px;
+  background: transparent;
+  box-shadow: none;
+  margin: 0px;
+  font-family: Raleway, FontAwesome;
+  &:focus{
+    box-shadow: none;
+    border-bottom: $banana 1.5px solid;
+  }
+  &::-webkit-input-placeholder {
+    color: $hindsite-black;
+  }
+}
+
+#edit-icon{
+  color: $hindsite-black;
 }

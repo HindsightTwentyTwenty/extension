@@ -26,7 +26,6 @@ class TagBox extends Component{
   constructor(props){
     super(props);
     this.state = getState();
-    // this.props.popup_actions.getPopupInfo();
   }
 
   switchOpen(){
@@ -43,21 +42,22 @@ class TagBox extends Component{
   }
 
   openApp(){
-    /* in order to open new tab need to send message to the background script since the injection
-    has no ability to make the calls to the chrome APIs*/
-     chrome.runtime.sendMessage({greeting: "openApp"});
+      if(this.props.currentUser.token.length){
+        chrome.tabs.create({'url': chrome.extension.getURL('/app/main.html')}, function(tab){
+        });
+      }
   }
 
   boxState(){
     /* in order to get imgs from the chrome app must access the imgs on the backend using IMG_URL constant + img path */
     // var logo_url =  urls.IMG_URL + "logo-light.png";
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
-                            <img className="logo" src={urls.LOGO_URL} onMouseDown={this.openApp.bind(this)}/>
+                            <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
                           </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
-                                <img className="logo" src={urls.LOGO_URL} onMouseDown={this.openApp.bind(this)}/>
+                                <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
                               </div>
                               <div className="sidebar-box-content">
                                 <TagSelection/>
@@ -81,6 +81,8 @@ class TagBox extends Component{
 }
 
 let mapStateToProps = (state) => ({
+    currentUser : state.currentUser,
+		currentPage : state.currentPage
 })
 
 let mapDispatchToProps = (dispatch) => {
