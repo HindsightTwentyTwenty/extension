@@ -20,8 +20,7 @@ $base-white: #fafafa ;
 $site-font: 'Raleway', sans-serif;
 
 body {
-overflow-x: hidden;
-background-color: #FFCCCC;
+  overflow-x: hidden;
 }
 
 .html {
@@ -430,12 +429,15 @@ background-color: #FFCCCC;
 }
 
 #row-url-entry{
-  margin-top: 8px;
+  padding: 5px 0px;
+  background-color: $light-grey;
+  width: 300px;
+  margin: 0px;
 }
 
 #favicon-url-entry{
-  margin: 0px 8px 0px 8px;
-  height: 37px;
+  margin: 0px -3px 0px 8px;
+  height: 32px;
 }
 
 #title-url-entry{
@@ -447,7 +449,7 @@ background-color: #FFCCCC;
   color: $hindsite-black;
 }
 
-#title-url-entry{
+.sidebar-form{
   font-size: large;
   width: 210px;
   text-overflow: ellipsis;
@@ -463,13 +465,47 @@ background-color: #FFCCCC;
   font-family: Raleway, FontAwesome;
   &:focus{
     box-shadow: none;
-    border-bottom: $banana 1.5px solid;
+    border-bottom: $accent-color 1.5px solid;
   }
   &::-webkit-input-placeholder {
     color: $hindsite-black;
   }
 }
 
+#searchbar{
+  border-bottom: $hindsite-black 1.5px solid;
+  margin-left: 10px;
+}
+
+#row-searchbar{
+  justify-content: center;
+}
+
+#search-icon{
+  color: $hindsite-black;
+  &:hover{
+    color: $accent-color;
+  }
+}
+
 #edit-icon{
   color: $hindsite-black;
+}
+
+#categories-wrapper{
+  margin: 15px;
+  height: 130px;
+}
+
+.category-bar{
+  border-radius: 25px;
+  max-width: 175px;
+  margin: 1px 3px;
+  display: inline-block;
+  height: 29px;
+  text-align: center;
+  background-color: $base-white;
+  line-height: 29px;
+  padding: 0px 14px;
+  width: inherit;
 }

@@ -10,19 +10,20 @@ class CategoryBar extends Component {
   constructor(props) {
     super(props);
     this.categoryInfo = this.props.categoryInfo;
+    console.log("BAR props", this.props);
   }
 
   render() {
     var catColor = this.props.categoryInfo.color;
-    var catStyle = this.props.checked ? {"backgroundColor" : catColor} : {"border" : "solid 2px " + catColor};
+    var catStyle = false ? {"backgroundColor" : catColor, "color": "#FAFAFA"} : {"border" : "solid 2px " + catColor,"color": catColor };
     return (
       <div
         style={catStyle}
-        className={'category-bar'}
+        className='category-bar hide-overflow'
         onClick={() => {
           this.props.category_actions.toggleCategory( this.props.currentPage.url, this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);
         }}>
-        <label htmlFor='categoryBar' className={'category-bar-label hide-overflow'}> {this.props.categoryInfo.title} </label>
+        {this.props.categoryInfo.title}
       </div>
     )
   }
