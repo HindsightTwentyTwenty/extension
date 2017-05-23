@@ -89,7 +89,7 @@ class TagSelection extends Component{
 
   getCategories(){
     var padding_pixels = 42;
-    var box_width = 270;
+    var box_width = 320;
     var max_rows = 4;
 
     var curr_row_pixels = 0;
@@ -101,7 +101,7 @@ class TagSelection extends Component{
 
     if (categories != null) {
       for(var key in categories) {
-        var cat_length = (categories[key].title.length * 6) + padding_pixels;
+        var cat_length = (categories[key].title.length * 8) + padding_pixels;
         if((curr_row_pixels + cat_length) < box_width){
           curr_row_cat_num.push(key);
           curr_row_pixels += cat_length;

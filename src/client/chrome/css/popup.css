@@ -358,14 +358,14 @@ body {
 }
 
 /* SIDEBAR CSS */
-.sidebar{
+/*.sidebar{
   z-index: 200;
   position: fixed;
-}
+}*/
 
 .sidebar-box{
-  width: 300px;
-  margin: 5px 10px;
+  width: 350px;
+  margin-bottom: 5px;
   box-shadow: 0px 3px 15px rgba(0,0,0,0.5);
 
 }
@@ -410,12 +410,12 @@ body {
 #tag-selection-wrapper{
   background-color: #fafafa;
   height: inherit;
-  width: 300px;
+  width: 350px;
 }
 
 #hindsite{
-  width: 321px;
-  height: 505px;
+  width: 350px;
+  height: 417px;
 }
 
 #popup-header-logo{
@@ -431,7 +431,7 @@ body {
 #row-url-entry{
   padding: 5px 0px;
   background-color: $light-grey;
-  width: 300px;
+  width: 350px;
   margin: 0px;
 }
 
@@ -442,7 +442,7 @@ body {
 
 #title-url-entry{
   font-size: large;
-  width: 210px;
+  width: 290px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
