@@ -37,6 +37,35 @@ body {
    font-family: 'Raleway', sans-serif;
 }
 
+.btn {
+  border-radius: 0px;
+  margin: 4px;
+  color: $base-white;
+  background-color: $base-color;
+  outline: $base-color 3px solid;
+
+  &:hover{
+    color: $base-color;
+    background-color: transparent;
+  }
+  &:active{
+    color: $base-color;
+    background-color: transparent;
+    background: transparent;
+    outline: $base-color 3px solid;
+  }
+}
+
+/*
+keeps the hover look on a btn when selected
+just add this class to the element using +=
+remove this class using removeClass as defined in App.js
+*/
+.btn-selected{
+  color: $base-color;
+  background-color: transparent;
+}
+
 .vertical-center{
   align-self: center;
 }
