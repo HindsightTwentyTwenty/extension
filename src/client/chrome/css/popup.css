@@ -386,7 +386,7 @@ body {
   background-color: #fafafa;
   /*color: $custom-black;*/
   width:inherit;
-  height:250px;
+  height:300px;
   display: flex;
 }
 
@@ -415,7 +415,7 @@ body {
 
 #hindsite{
   width: 350px;
-  height: 417px;
+  height: 465px;
 }
 
 #popup-header-logo{
@@ -494,7 +494,8 @@ body {
 
 #categories-wrapper{
   margin: 15px;
-  height: 130px;
+  height: 144px;
+  overflow: hidden;
 }
 
 .category-bar{
@@ -508,4 +509,5 @@ body {
   line-height: 29px;
   padding: 0px 14px;
   width: inherit;
+  cursor: pointer;
 }

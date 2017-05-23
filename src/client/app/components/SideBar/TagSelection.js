@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import CategoryBubble from '../SideBar/CategoryBubble.js';
 import CategoryBar from '../Bars/CategoryBar.js'
 
 
@@ -51,9 +50,8 @@ class TagSelection extends Component{
     }
   }
 
+  /* get each of the little category labels */
   getCategoryBars(cat_keys) {
-    //CHECK THE check
-    //          var checked = (key in currentPageCategories);
     let result = [];
     var currentPageCategories = this.props.currentPage.categories;
     var categories = this.props.categories.cats;
@@ -64,36 +62,14 @@ class TagSelection extends Component{
       result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title}/>)
     }
     return result;
-    // return <CategoryBar categoryInfo={category} checked={checked} key={category.title}/>;
   }
 
-  // newCategoryRow(){
-  //   <div classname="row" id="category-row">
-  // }
-
-  endBracket(){
-    return <div></div>;
-  }
-
-  // getCategories(){
-  //
-  // }
-
-  getRow(cat_keys){
-    return(
-      <div classname="row" id="category-row">
-        {this.getCategoryBars(cat_keys)}
-      </div>
-    )
-  }
 
   getCategories(){
     var padding_pixels = 42;
-    var box_width = 320;
-    var max_rows = 4;
-
+    var box_width = (320 * 4);
     var curr_row_pixels = 0;
-    var curr_total_rows = 1;
+
 
     var curr_row_cat_num = [];
     var categories = this.props.categories.cats;
@@ -101,7 +77,7 @@ class TagSelection extends Component{
 
     if (categories != null) {
       for(var key in categories) {
-        var cat_length = (categories[key].title.length * 8) + padding_pixels;
+        var cat_length = (categories[key].title.length * 6) + padding_pixels;
         if((curr_row_pixels + cat_length) < box_width){
           curr_row_cat_num.push(key);
           curr_row_pixels += cat_length;
@@ -109,13 +85,6 @@ class TagSelection extends Component{
           console.log("word length", categories[key].title.length);
           console.log("cat_length", cat_length);
           console.log("curr_row_pixels", curr_row_pixels);
-        }else if(curr_total_rows < (max_rows + 1)){
-          console.log("pushing this array", curr_row_cat_num);
-          result.push(this.getRow(curr_row_cat_num));
-          curr_row_cat_num = [];
-          curr_row_cat_num.push(key);
-          curr_total_rows++;
-          curr_row_pixels = cat_length;
         }else{
           break;
         }
@@ -123,66 +92,63 @@ class TagSelection extends Component{
     }else{
       return <div> Create a category to add to the page </div>;
     }
-    result.push(this.getRow(curr_row_cat_num));
+    result.push(this.getCategoryBars(curr_row_cat_num));
     return result;
 
   }
 
-  oldgetCategories(){
-    //#TODO gam- put all the current selected categories first
-    var padding_pixels = 42;
-    var box_width = 270;
-    var max_rows = 4;
 
-    var curr_row_pixels = 0;
-    var curr_total_rows = 1;
-    console.log("categories", this.props.categories.cats);
-    var categories = this.props.categories.cats;
-    //need to know how long this is, then know if you can add it
-
-    if (categories != null) {
-      let result = []
-      var curr_row = [];
-      // var curr_row = <div classname="row" id="category-row">;
-      var currentPageCategories = this.props.currentPage.categories;
-
-      // result.push(<div classname="row" id="category-row">;);
-      for(var key in categories) {
-        var cat_length = (categories[key].title.length * 3) + padding_pixels;
-        //check not over the row count, nor the pixel count
-
-        if((curr_row_pixels + cat_length) < box_width){
-          var checked = (key in currentPageCategories);
-          curr_row.push(this.getCategoryBar(categories[key], checked));
-          //result.push(this.getCategoryBar(categories[key], checked));
-          curr_row_pixels += curr_row_pixels + cat_length;
-
-        }else if(curr_total_rows < (max_rows + 1)){
-          // curr_row += </div>;
-          result.push(<div> + curr_row + </div>);
-          // result.push(</div><div classname="row" id="category-row">;);
-          // curr_row = </div><div classname="row" id="category-row">;
-          var checked = (key in currentPageCategories);
-          result.push(this.getCategoryBar(categories[key], checked));
-          curr_total_rows += 1;
-          curr_row_pixels = cat_length;
-        }else{
-          break;
-        }
-      }
-      // curr_row += </div>;
-      result.push(<div> + curr_row + </div>);
-      // result.push(this.endBracket());
-      return(result);
-    }
-    else{
-      return <div>you have not made any categories yet</div>;
-    }
-  }
+  //#TODO gam - delete, this makes rows happens
+  // getRow(cat_keys){
+  //   return(
+  //     <div classname="row" id="category-row">
+  //       {this.getCategoryBars(cat_keys)}
+  //     </div>
+  //   )
+  // }
+  //
+  // oldgetCategories(){
+  //   var padding_pixels = 42;
+  //   var box_width = 320;
+  //   var max_rows = 4;
+  //
+  //   var curr_row_pixels = 0;
+  //   var curr_total_rows = 1;
+  //
+  //   var curr_row_cat_num = [];
+  //   var categories = this.props.categories.cats;
+  //   let result = [];
+  //
+  //   if (categories != null) {
+  //     for(var key in categories) {
+  //       var cat_length = (categories[key].title.length * 8) + padding_pixels;
+  //       if((curr_row_pixels + cat_length) < box_width){
+  //         curr_row_cat_num.push(key);
+  //         curr_row_pixels += cat_length;
+  //         console.log("title", categories[key].title);
+  //         console.log("word length", categories[key].title.length);
+  //         console.log("cat_length", cat_length);
+  //         console.log("curr_row_pixels", curr_row_pixels);
+  //       }else if(curr_total_rows < (max_rows + 1)){
+  //         console.log("pushing this array", curr_row_cat_num);
+  //         result.push(this.getRow(curr_row_cat_num));
+  //         curr_row_cat_num = [];
+  //         curr_row_cat_num.push(key);
+  //         curr_total_rows++;
+  //         curr_row_pixels = cat_length;
+  //       }else{
+  //         break;
+  //       }
+  //     }
+  //   }else{
+  //     return <div> Create a category to add to the page </div>;
+  //   }
+  //   result.push(this.getRow(curr_row_cat_num));
+  //   return result;
+  //
+  // }
 
   render(){
-    // <CategoryBar categoryInfo={this.props.categories.cats[39]} checked="true" key={this.props.categories.cats[39].title}/>
-
     return(
       <div id="tag-selection-wrapper">
           <div className="row" id="row-url-entry">
