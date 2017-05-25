@@ -35,16 +35,23 @@ class CategoriesContainer extends Component {
   }
 
   getCategoryBar(category, checked) {
-    return <CategoryBar categoryInfo={category} checked={checked} key={category.title}/>;
+    return <CategoryBar categoryInfo={category} checked={checked} key={category.title} onSelect={this.props.onSelect}/>;
   }
 
   getCategories() {
     var categories = this.props.categories.cats;
     if (categories != null && this.props.numCats) {
-      let result = []
-      var currentPageCategories = this.props.currentPage.categories;
+      let result = [];
       for(var key in categories) {
-        var checked = (key in currentPageCategories);
+        if(this.props.useCase === "search"){
+          var checked = this.props.currentSearchCategories.searchCats.has(categories[key].title);
+        }
+        // switch(this.props.useCase){
+        //   case "search":
+        //     var checked = this.props.currentSearchCategories.searchCats.has(categories[key].title);
+        //   case "categorize":
+        //     var checked = key in currentCategories;
+        // }
         result.push(this.getCategoryBar(categories[key], checked));
       }
       return result.slice(this.state.startIndex, this.state.endIndex);
@@ -77,7 +84,7 @@ class CategoriesContainer extends Component {
   render() {
     var rightArrowClassName = this.state.startIndex == 0 ? 'fa fa-angle-left fa-3x arrow-btn' : 'fa fa-angle-left fa-3x arrow-btn';
     return (
-      <div>
+      <div className="categories-container-wrapper">
         <div className='paginate-cats'>
           <div className='change-page-btn' onClick={()=> {this.decrementPage()}}>
             <i className={rightArrowClassName} aria-hidden="true"></i>
@@ -89,7 +96,7 @@ class CategoriesContainer extends Component {
             <i className="fa fa-angle-right fa-3x arrow-btn" aria-hidden="true"></i>
           </div>
         </div>
-        <p>Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>
+        <p className="text-center">Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>
       </div>
     )
   };
@@ -99,6 +106,7 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     categories: state.categories,
+    currentSearchCategories : state.currentSearchCategories
 })
 
 export default connect(mapStateToProps, null)(CategoriesContainer);

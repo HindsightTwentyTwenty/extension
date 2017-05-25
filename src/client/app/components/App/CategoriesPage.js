@@ -6,6 +6,7 @@ import SidebarComponent from '../Bars/SidebarComponent.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SearchTile from './SearchTile.js';
 import CategoryAutoSuggest from './CategoryAutoSuggest.js';
+import CategoriesContainer from '../Popup/CategoriesContainer.js';
 
 function getState(){
   return{
@@ -22,11 +23,8 @@ class CategoriesPage extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.categoriesAndPages.showStarred  &&
-      this.state.displayWelcomeMessage) {
-      this.setState({displayWelcomeMessage: false});
-    } else if (this.props.currentSearchCategories.searchCats &&
-      this.props.currentSearchCategories.searchCats.length &&
+    if (this.props.currentSearchCategories.searchCats &&
+      this.props.currentSearchCategories.searchCats.size &&
       this.state.displayWelcomeMessage) {
       this.setState({displayWelcomeMessage: false});
     }
@@ -37,14 +35,15 @@ class CategoriesPage extends Component {
     var categoriesPages = this.props.categoriesAndPages.catsToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
-    if (this.state.displayWelcomeMessage) {
+    if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.length == 0) {
       return (
         <div className="welcome-message">
           <h4>Select categories from the sidebar to see your categorized pages.</h4>
           <h4>Use the <i className='fa fa-pencil'/> and <i className='fa fa-trash'/> to edit and delete your categories.</h4>
         </div>
       )
-    } else if (categoriesPages && Object.keys(categoriesPages).length) {
+    }
+    else if (categoriesPages && Object.keys(categoriesPages).length) {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
@@ -63,30 +62,20 @@ class CategoriesPage extends Component {
             }
           }
         }
-      } else if (showStarred) {
-        for (var pagePk in starred) {
-          if (!pageSet.has(pagePk)) {
-            result.push(<SearchTile key={pagePk}
-              source="categories"
-              page={starred[pagePk]}
-              domain={starred[pagePk].domain}
-              visited={starred[pagePk].last_visited}/>)
-            pageSet.add(pagePk);
-          }
-        }
       }
       return result
     }
   }
 
+
   render() {
     var searchResults = this.fetchPages();
     return (
       <div className="categories-page">
-        <SidebarComponent/>
         <div className="category-select">
-					<CategoryAutoSuggest categories={this.props.categories}/>
+					<CategoryAutoSuggest categories={this.props.categories} onSelect={this.props.category_actions.updateSearchCategories}/>
 				</div>
+        <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.updateSearchCategory} useCase={"search"}/>
         <div className="search-results-container">
           {searchResults}
         </div>

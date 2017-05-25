@@ -81,6 +81,14 @@ remove this class using removeClass as defined in App.js
   align-self: center;
 }
 
+.categories-container-wrapper{
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  height: 175px;
+}
+
 .app-container{
   height:50px;
 }
@@ -91,6 +99,10 @@ remove this class using removeClass as defined in App.js
 
 #lookback-content{
   height: 100%;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .page-url-bar {
@@ -423,7 +435,7 @@ remove this class using removeClass as defined in App.js
 .categories-page {
   height: 92.5vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 /* TIMELINE CSS */
@@ -855,7 +867,7 @@ hr{
   width: 80px;
   margin: 5px;
   height: 35px;
-  color: $base-white;
+  color: $dark-grey;
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
@@ -1259,6 +1271,8 @@ hr{
   width: 100%;
   margin: 0 auto;
   max-width: 400px;
+  margin: 1% auto;
+  padding: 1%;
 }
 
 .domain-details{

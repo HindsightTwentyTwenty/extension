@@ -47,7 +47,7 @@ let store = createStore(
       showStarred: false
     },
     currentSearchCategories: {
-      searchCats: []
+      searchCats: new Set()
     },
     sessions: {
       ongoingSession: false,

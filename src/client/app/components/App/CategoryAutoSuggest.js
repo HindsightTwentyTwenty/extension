@@ -8,7 +8,7 @@ import Select from 'react-select';
 function getState () {
   return {
     searchable: true,
-    selectValue: '',
+    selectValue: [],
     clearable: true,
   }
 }
@@ -21,10 +21,28 @@ class CategoryAutoSuggest extends Component {
   }
 
   handleCategoryChange(newValue) {
-    this.setState({
-    			selectValue: newValue
-    });
+    this.props.onSelect(newValue);
+    this.setState({selectValue: newValue});
+    // var values = [];
+
+    // this.props.currentSearchCategories.searchCats.forEach(
+    //     function(searchCat){
+    //       console.log(searchCat);
+    //       values.push(searchCat)});
+    //   this.setState({selectValue: values});
+
   }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.currentSearchCategories.searchCats != nextProps.currentSearchCategories.searchCats){
+      var value = [];
+      nextProps.currentSearchCategories.searchCats.forEach(
+        function(searchCat){
+          value.push(searchCat)});
+      this.setState({selectValue: value});
+    }
+  }
+
 
 	getCategoryOptions() {
     var options = [];
@@ -45,7 +63,8 @@ class CategoryAutoSuggest extends Component {
         options={ this.getCategoryOptions() }
         onChange={ this.handleCategoryChange.bind(this)}
         noResultsText= ""
-        placeholder="Add Category..."
+        placeholder="Type tag"
+        multi={true}
       />
     )
   }
@@ -53,7 +72,7 @@ class CategoryAutoSuggest extends Component {
 }
 
 let mapStateToProps = (state) => ({
-
+  currentSearchCategories : state.currentSearchCategories
 })
 
 let mapDispatchToProps = (dispatch) => ({
