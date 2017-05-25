@@ -48,20 +48,15 @@ class TagSelection extends Component{
     });
   }
 
-
-
   submitSearch(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
-      console.log("ENTERING SEARCH");
       var search_term = event.target.value;
       if(event.target.value.trim() != ""){
         this.props.lookback_actions.clearSearchResults();
         this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), "", "", this.props.currentUser.token);
-        // this.pageSelectionChange(1);
       }
     }
-    //this.state.category_selection, this.state.sort_selection
   }
 
   /* get each of the little category labels */

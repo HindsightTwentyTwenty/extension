@@ -18,13 +18,13 @@ $dark-grey: #a2a2a2 ;
 $base-white: #fafafa ;
 
 /* rainbow selection colors */
-$h-red: #DB3535 ;
+/*$h-red: #DB3535 ;
 $h-orange: #EE6953 ;
 $h-yellow: #F7AC2F ;
 $h-teal: #34CCBB ;
 $h-green: #339882 ;
 $h-blue: #3F80D9 ;
-$h-purple: #6454C9 ;
+$h-purple: #6454C9 ;*/
 
 $site-font: 'Raleway', sans-serif;
 
@@ -280,7 +280,28 @@ body {
   display: inline-flex;
   width: 25px;
   height: 25px;
-  margin: 7px;
+  margin: 7px 7px 14px 7px;
+
+  &:hover{
+    width: 27px;
+    border: .5px solid $hindsite-black;
+  }
+
+  &.selected {
+    width: 27px;
+    border: .5px solid $hindsite-black;
+  }
+
+  /*&:visited{
+    width: 27px;
+    border: .5px solid $hindsite-black;
+  }*/
+
+  &:visited{
+    width: 27px;
+    border: .5px solid $hindsite-black;
+  }
+
 }
 
 .current-session {
@@ -632,6 +653,9 @@ body {
   padding: 5px;
   cursor: pointer;
   font-size: larger;
+  &:hover{
+    color: $accent-color;
+  }
 }
 
 #btn-new-cat-cancel{
@@ -644,10 +668,7 @@ body {
   color: $base-white;
 }
 
-#category-create-btns{
+.category-create-btns{
   display: flex;
   justify-content: center;
-  &:hover{
-    color: $accent-color;
-  }
 }

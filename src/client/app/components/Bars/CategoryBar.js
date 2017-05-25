@@ -20,7 +20,6 @@ class CategoryBar extends Component {
     super(props);
     this.categoryInfo = this.props.categoryInfo;
     this.state = getState();
-    console.log("BAR props", this.props);
   }
 
   componentDidMount(){
