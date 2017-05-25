@@ -428,7 +428,7 @@ body {
 /* outermost box */
 .sidebar{
   width: 350px;
-  height: 465px;
+  height: inherit;
 }
 
 .login-sidebar{
