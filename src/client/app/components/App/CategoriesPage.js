@@ -35,11 +35,10 @@ class CategoriesPage extends Component {
     var categoriesPages = this.props.categoriesAndPages.catsToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
-    if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.length == 0) {
+    if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.size == 0) {
       return (
         <div className="welcome-message">
-          <h4>Select categories from the sidebar to see your categorized pages.</h4>
-          <h4>Use the <i className='fa fa-pencil'/> and <i className='fa fa-trash'/> to edit and delete your categories.</h4>
+          <h4>Select or enter a tag to get started.</h4>
         </div>
       )
     }

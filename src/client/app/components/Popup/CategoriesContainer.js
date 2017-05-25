@@ -46,12 +46,6 @@ class CategoriesContainer extends Component {
         if(this.props.useCase === "search"){
           var checked = this.props.currentSearchCategories.searchCats.has(categories[key].title);
         }
-        // switch(this.props.useCase){
-        //   case "search":
-        //     var checked = this.props.currentSearchCategories.searchCats.has(categories[key].title);
-        //   case "categorize":
-        //     var checked = key in currentCategories;
-        // }
         result.push(this.getCategoryBar(categories[key], checked));
       }
       return result.slice(this.state.startIndex, this.state.endIndex);

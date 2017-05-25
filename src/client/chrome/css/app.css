@@ -426,7 +426,7 @@ remove this class using removeClass as defined in App.js
   width: 100%;
   height: 97%;
   margin: 0 auto;
-  overflow: auto;
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -707,10 +707,8 @@ remove this class using removeClass as defined in App.js
 }
 
 .welcome-message {
-  text-align: center;
   margin: auto;
-  top: 40%;
-  position: relative;
+  height: 5%;
 }
 
 .hidden {
