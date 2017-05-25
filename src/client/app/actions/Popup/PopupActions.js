@@ -9,12 +9,20 @@ const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const newSessionEndpoint = urls.BASE_URL + "addsession/";
 const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
 
-export function receivePopupInfo(json){
+export function changePopupCatState(state){
+  return{
+    type: types.CHANGE_POPUP_CAT_STATE,
+    cat_state: state
+  }
+}
+
+export function receivePopupInfo(json, faviconUrl){
   return {
     type: types.RECEIVE_POPUP_INFO,
     categories: json.categories,
     page: json.page,
-    tracking_on: json.tracking
+    tracking_on: json.tracking,
+    favicon: faviconUrl
   }
 }
 
@@ -28,7 +36,7 @@ export function receiveTrackingOffPopupInfo(json, url, title){
   }
 }
 
-export function getPopupInfo(url, title, token, count){
+export function getPopupInfo(url, title, token, count, favicon){
   return dispatch => {
     return fetch(popupInfoEndpoint, {
           headers: {
@@ -50,14 +58,14 @@ export function getPopupInfo(url, title, token, count){
          ({ status, json }) => {
            switch(status){
              case 200:
-               dispatch(receivePopupInfo(json));
+               dispatch(receivePopupInfo(json, favicon));
                break;
              case 404:
                // Page Not found in backend. Check if tracking is on
                if(json.tracking){
                  // Try again as page might be loading if under max count
                  if(count < 5){
-                   setTimeout(function() { dispatch(getPopupInfo(url, title, token, count + 1)); }, 1000);
+                   setTimeout(function() { dispatch(getPopupInfo(url, title, token, count + 1, favicon)); }, 1000);
                  } else {
                    dispatch(updatePopupStatus(PopupConstants.Error));
                  }

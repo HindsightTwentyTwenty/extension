@@ -90,7 +90,7 @@ export function checkCurrentPage(token){
 
       } else {
         // fetch category information to display in the popup
-        return dispatch(PopupActions.getPopupInfo(tab.url, tab.title, token, 0))
+        return dispatch(PopupActions.getPopupInfo(tab.url, tab.title, token, 0, tab.favIconUrl))
       }
 
     });

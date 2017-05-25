@@ -18,7 +18,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         url: currentPage.url,
         categories: categoryObject,
         star: currentPage.star,
-        title: currentPage.title
+        title: currentPage.title,
+        favIconUrl:action.favicon
       }
     case types.RECEIVE_PAGE_INFO:
       // Used on login to get page info
