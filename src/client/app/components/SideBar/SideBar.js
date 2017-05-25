@@ -26,11 +26,11 @@ class Sidebar extends Component{
     chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
   }
 
-  hideApp(){
-    console.log("hiding app");
-    $('outer-sidebar').hide();
-
-  }
+  // hideApp(){
+  //   console.log("hiding app");
+  //   $('outer-sidebar').hide();
+  //
+  // }
 
   renderContent() {
 		if(this.props.currentUser.token.length != 0){ //Logged In
@@ -74,7 +74,6 @@ class Sidebar extends Component{
 					);
 			}
 		} else { // Not Logged In
-      console.log("Popup status", this.props.popupStatus);
 			switch (this.props.popupStatus) {
 				case PopupConstants.SignIn:
 					return (
