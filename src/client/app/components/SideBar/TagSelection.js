@@ -1,12 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
+import Select from 'react-select';
+
+
 import CategoryBar from '../Bars/CategoryBar.js'
+import CategoryCreator from '../Sidebar/CategoryCreator.js'
+import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
+
 
 
 function getState(){
   return{
-    pageTitle: ""
+    pageTitle: "",
+    category_selection: "",
+    create_selected: false
   }
 }
 
@@ -32,22 +42,26 @@ class TagSelection extends Component{
   }
 
   editPageTitle(event){
-    console.log("editing page title", event.target.value);
     document.getElementById("edit-icon").style.display='block';
     this.setState({
       pageTitle: event.target.value
     });
   }
 
-  enterSearch(event){
-    console.log("entering search", event.target.value);
-  }
+
 
   submitSearch(event){
     var keycode = event.keyCode || event.which;
     if(keycode == '13') {
       console.log("ENTERING SEARCH");
+      var search_term = event.target.value;
+      if(event.target.value.trim() != ""){
+        this.props.lookback_actions.clearSearchResults();
+        this.props.lookback_actions.searchTerm(search_term, moment(this.state.start_date).tz("UTC").format(), moment(this.state.end_date).tz("UTC").format(), "", "", this.props.currentUser.token);
+        // this.pageSelectionChange(1);
+      }
     }
+    //this.state.category_selection, this.state.sort_selection
   }
 
   /* get each of the little category labels */
@@ -75,16 +89,12 @@ class TagSelection extends Component{
     var categories = this.props.categories.cats;
     let result = [];
 
-    if (categories != null) {
+    if (this.props.categories.cats && categories != null) {
       for(var key in categories) {
         var cat_length = (categories[key].title.length * 6) + padding_pixels;
         if((curr_row_pixels + cat_length) < box_width){
           curr_row_cat_num.push(key);
           curr_row_pixels += cat_length;
-          console.log("title", categories[key].title);
-          console.log("word length", categories[key].title.length);
-          console.log("cat_length", cat_length);
-          console.log("curr_row_pixels", curr_row_pixels);
         }else{
           break;
         }
@@ -148,6 +158,81 @@ class TagSelection extends Component{
   //
   // }
 
+    getCategoryOptions() {
+      var options = [];
+
+      Object.keys(this.props.categories.cats).map(function(pk) {
+        var category = this.props.categories.cats[pk];
+        options.push({ value: category.title, label: category.title })
+      }, this);
+      return options;
+    }
+
+    addNewCategory(categoryTitle){
+        this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+          for (var key in this.props.categories.cats) {
+            if (categoryTitle == this.props.categories.cats[key].title) {
+              this.props.category_actions.toggleCategory(this.props.currentPage.url,
+                this.props.categories.cats[key], true, this.props.currentUser.token);
+              break;
+            }
+          }
+      });
+    }
+
+    handleCategoryChange(category_option) {
+      var category_title = "";
+      // console.log("selected category title", category_option);
+      if(category_option){
+        category_title = category_option.value;
+        this.addNewCategory(category_title);
+
+      }
+    }
+
+  createNewCategory(){
+    console.log("create category");
+    this.props.popup_actions.changePopupCatState("create");
+    // this.setState({
+    //   create_selected: true
+    // })
+  }
+
+  getCategoryContent(){
+    console.log("create selected", this.state.create_selected);
+    if(this.props.cat_state == "create"){
+      console.log("returning creator");
+      return(
+        <div>
+          <CategoryCreator />
+        </div>
+      )
+    }else{
+      return(
+        <div>
+          <div className="category-select">
+            <Select
+              name="sidebar-form"
+              value={ this.state.category_selection }
+              options={ this.getCategoryOptions() }
+              onChange={ this.handleCategoryChange.bind(this)}
+              noResultsText= "no results found"
+              placeholder="find tag"
+            />
+          </div>
+          <div id="categories-wrapper">
+            {this.getCategories()}
+          </div>
+          <div className="row" id="row-tag-bottom" >
+            <div id="new-cat-button" onClick={this.createNewCategory.bind(this)}>
+              <i className="fa fa-plus" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  }
+
   render(){
     return(
       <div id="tag-selection-wrapper">
@@ -156,14 +241,7 @@ class TagSelection extends Component{
             <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/>
             <i id="edit-icon" className="fa fa-2x fa-pencil-square-o" aria-hidden="true" style={{display:"none"}}></i>
           </div>
-          <div className="row" id="row-searchbar">
-            <input type="text" className="sidebar-form login-form form-control" id="searchbar" onChange={this.enterSearch.bind(this)} onKeyPress={this.submitSearch.bind(this)}/>
-            <i id="search-icon" className="fa fa-2x fa-search" aria-hidden="true"></i>
-          </div>
-          <div id="categories-wrapper">
-            {this.getCategories()}
-
-          </div>
+          {this.getCategoryContent()}
       </div>
     );
   }
@@ -173,11 +251,15 @@ class TagSelection extends Component{
 let mapStateToProps = (state) => ({
   currentPage : state.currentPage,
   categories: state.categories,
-  currentUser : state.currentUser
+  currentUser : state.currentUser,
+  cat_state : state.popupSelection.cat_state
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    lookback_actions: bindActionCreators(LookbackActions, dispatch),
+    category_actions: bindActionCreators(CategoryActions, dispatch),
+    popup_actions: bindActionCreators(PopupActions, dispatch)
   }
 }
 

@@ -9,6 +9,13 @@ const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const newSessionEndpoint = urls.BASE_URL + "addsession/";
 const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
 
+export function changePopupCatState(state){
+  return{
+    type: types.CHANGE_POPUP_CAT_STATE,
+    cat_state: state
+  }
+}
+
 export function receivePopupInfo(json, faviconUrl){
   return {
     type: types.RECEIVE_POPUP_INFO,
