@@ -7,6 +7,7 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SearchTile from './SearchTile.js';
 import CategoryAutoSuggest from './CategoryAutoSuggest.js';
 import CategoriesContainer from '../Popup/CategoriesContainer.js';
+import * as PageDataActions from '../../actions/User/PageDataActions.js';
 
 function getState(){
   return{
@@ -20,6 +21,9 @@ class CategoriesPage extends Component {
     super(props);
     this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+    // this.props.categoriesAndPages.pkToPages.map(function(pk){
+    //   this.pagedata_actions.getImage(this.props.currentUser.md5, this.props.currentUser.ekey, this.props.categoriesAndPages.pkToPages[pk]);
+    // })
   }
 
   componentDidUpdate() {
@@ -42,7 +46,7 @@ class CategoriesPage extends Component {
         </div>
       )
     }
-    else if (categoriesPages && Object.keys(categoriesPages).length) {
+    else {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
@@ -54,8 +58,7 @@ class CategoriesPage extends Component {
                 result.push(<SearchTile key={pagePk}
                   source="categories"
                   page={categoriesPages[searchCat][pagePk]}
-                  domain={categoriesPages[searchCat][pagePk].domain}
-                  visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+                  />)
                 pageSet.add(pagePk);
               }
             }
@@ -90,10 +93,9 @@ let mapStateToProps = (state) => ({
     currentUser : state.currentUser
 })
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    category_actions: bindActionCreators(CategoryActions, dispatch)
-  }
-}
+let mapDispatchToProps = (dispatch) => ({
+    category_actions: bindActionCreators(CategoryActions, dispatch),
+    pagedata_actions: bindActionCreators(PageDataActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage);

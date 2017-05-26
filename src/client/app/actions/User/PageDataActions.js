@@ -35,5 +35,33 @@ export function getIframeHTML(url, md5, ekey){
          dispatch(receiveDecrypted(text))
        })
   }
-
 }
+
+  export function getImage(md5, ekey, page){
+    return dispatch => {
+        return fetch(page.preview, {
+              headers: {
+                 'Content-Type': 'image/jpeg',
+                 'x-amz-server-side-encryption-customer-algorithm': 'AES256',
+                 'x-amz-server-side-encryption-customer-key': ekey,
+                 'x-amz-server-side-encryption-customer-key-MD5': md5
+               },
+               method: "GET"
+             }
+           )
+           .then(response => response.blob())
+           .then(blob => {
+             var objectURL = URL.createObjectURL(blob);
+             dispatch(setPreview(page, objectURL));
+          });
+    }
+
+  }
+
+  export function setPreview(page, objectURL){
+    return {
+      type: types.SET_PREVIEW,
+      page: page,
+      objectURL: objectURL
+    }
+  }

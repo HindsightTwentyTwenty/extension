@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes';
 
 function pageObject(page) {
+
   return {
     "pk": page.pk,
     "title": page.title,
@@ -11,6 +12,7 @@ function pageObject(page) {
     "domain": page.domain,
     "last_visited": page.last_visited,
     "s3": page.s3,
+    "preview": page.preview
   };
 }
 
@@ -48,18 +50,27 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
       return {...state, catsToPages: catsToPagesDict};
     case types.RECEIVE_CATEGORIES_AND_PAGES:
       var catsToPagesDict = {};
+      var pkToPagesDict = {};
       action.json.categories.map(function(category) {
-        var pagesToCatsDict = {};
+        var pagePKList = [];
         category.pages.map(function(page) {
-          pagesToCatsDict[page.pk] = pageObject(page);
+          // pagesToCatsDict[page.pk] = pageObject(page);
+          pageList.append(page.pk);
+          if(! (page.pk in pkToPagesDict)){
+            pkToPagesDict[page.pk] = pageObject(page);
+          }
         });
-        catsToPagesDict[category.title] = pagesToCatsDict;
+        catsToPagesDict[category.title] = pagePKList;
       });
       var starredPagesToCatsDict = {};
       action.json.starred.map(function(page) {
         starredPagesToCatsDict[page.pk] = pageObject(page);
       });
-      return {...state, catsToPages: catsToPagesDict, starred: starredPagesToCatsDict};
+      return {...state, catsToPages: catsToPagesDict, pkToPages: pkToPages, starred: starredPagesToCatsDict};
+    case types.SET_PREVIEW:
+      var pkToPagesDict= Object.assign({}, state.pkToPages);
+      pkToPagesDict[action.page.pk].preview = objectURL;
+      return {...state, pkToPages: pkToPagesDict};
     case types.TOGGLE_SHOW_STARRED:
       return {...state, showStarred: !state.showStarred};
     default:

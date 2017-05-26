@@ -4,7 +4,7 @@ import * as LookBackConstants from '../constants/LookBackConstants';
 function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
   switch(action.type){
     case types.RECEIVE_DECRYPTED:
-      return {...state, s3_decrypted:action.html}
+      return {...state, s3_decrypted: action.html}
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
       return { ...state, url: action.url, categories: {}, start: false, title: action.title, created: "", visited: "" }
     case types.RECEIVE_POPUP_INFO:
