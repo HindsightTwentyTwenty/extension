@@ -18,6 +18,8 @@ $dark-grey: #a2a2a2 ;
 $base-white: #fafafa ;
 
 /* rainbow selection colors */
+$h-red: #DB3535 ;
+$h-green: #339882 ;
 /*$h-red: #DB3535 ;
 $h-orange: #EE6953 ;
 $h-yellow: #F7AC2F ;
@@ -713,13 +715,34 @@ body {
 }
 
 #note-text-edit{
-  height:200px;
+  height:220px;
   width: 310px;
-
+  color: $hindsite-black;
+  font-size: initial;
+  padding: 5px 9px;
 }
 
 #note-text-edit-options{
   display: flex;
   color: $hindsite-black;
-  height:60px;
+  height:40px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.icon-hover{
+  &:hover{
+    color:$base-color;
+    cursor: pointer;
+  }
+}
+
+#icon-canceledit{
+  color: $h-red;
+  margin: 0px 4px;
+}
+
+#icon-saveedit{
+  color: $h-green;
+  margin: 0px 4px;
 }
