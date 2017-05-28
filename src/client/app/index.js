@@ -39,8 +39,7 @@ let store = createStore(
       start_date:"",
       end_date:""
     },
-    currentDomainDisplayed:{
-    },
+    currentDomainDisplayed:{},
     categoriesAndPages:{
       catsToPages: {},
       starred: {},
@@ -115,9 +114,10 @@ let store = createStore(
         }
       }
     },
-    lookbackNav: {
-      selection: 0,
-      searchTerm: ""
+    appNav: {
+      menuSelection: 0,
+      searchTerm: "",
+      categoriesView:"select"
     },
     popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
     search: {

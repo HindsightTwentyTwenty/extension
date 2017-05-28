@@ -199,7 +199,7 @@ class TagSelection extends Component{
       console.log("returning creator");
       return(
         <div>
-          <CategoryCreator />
+          <CategoryCreator onClose={this.props.popup_actions.changePopupCatState()} />
         </div>
       )
     }else{

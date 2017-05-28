@@ -4,7 +4,7 @@ import currentPageReducer from './CurrentPageReducer.js';
 import categoryReducer from './CategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
 import timeReducer from './TimeReducer.js';
-import lookBackNavReducer from './LookBackNavReducer.js';
+import navReducer from './NavReducer.js';
 import lookBackReducer from './lookBackReducer.js';
 import searchCategoryReducer from './SearchCategoryReducer.js';
 import categoryPagesReducer from './CategoryPagesReducer.js';
@@ -32,7 +32,7 @@ const appReducer = combineReducers({
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
   currentDomain: lookBackReducer,
-  lookbackNav: lookBackNavReducer,
+  appNav: navReducer,
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,
   currentDomainDisplayed: lookBackReducer,

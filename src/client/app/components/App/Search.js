@@ -193,7 +193,7 @@ class Search extends Component {
             <div className="row">
               <div className="input-group advanced-search">
                 <i className="fa fa-search" aria-hidden="true"></i>
-                <input id="search-input-bar" type="text" className="advanced-search-bar" defaultValue={this.props.lookbackNav.searchTerm} placeholder="Search..." onKeyPress={this.searchBarInput.bind(this)} />
+                <input id="search-input-bar" type="text" className="advanced-search-bar" defaultValue={this.props.appNav.searchTerm} placeholder="Search..." onKeyPress={this.searchBarInput.bind(this)} />
               </div>
             </div>
             </div>
@@ -264,7 +264,7 @@ class Search extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  lookbackNav: state.lookbackNav,
+  appNav: state.appNav,
   categories: state.categories,
   currentUser: state.currentUser,
   search: state.search

@@ -3,7 +3,6 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
-
 import * as PopupActions from '../../actions/Popup/PopupActions.js'
 import * as CategoryActions from '../../actions/Category/CategoryActions.js'
 
@@ -23,14 +22,13 @@ class CategoryCreator extends Component {
     this.setState({
       cat_title : ""
     });
-    this.props.popup_actions.changePopupCatState("select");
+    this.props.onClose("select");
   }
 
 
   changeEditColor(color) {
-    console.log("color",color);
     document.getElementById(color.name).style.width = 27;
-    document.getElementById(color.name).style.border = ".5px solid $hindsite-black";
+    document.getElementById(color.name).style.border = "1px solid $hindsite-black";
     this.props.category_actions.setEditCatColor(color);
   }
 

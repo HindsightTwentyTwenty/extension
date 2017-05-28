@@ -1,7 +1,7 @@
 import * as types from '../../constants/ActionTypes';
 import fetch from 'isomorphic-fetch';
 import * as urls from '../../constants/GlobalConstants';
-import * as NavActions from '../LookBackNav/LookBackNavActions.js';
+import * as NavActions from './NavActions.js';
 import * as LookBackConstants from '../../constants/LookBackConstants.js';
 import * as SearchConstants from '../../constants/SearchConstants.js';
 import moment from 'moment';

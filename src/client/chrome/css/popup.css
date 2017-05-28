@@ -260,7 +260,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 335px;
+  width: 75%;
 }
 
 .colors-container {
@@ -550,6 +550,7 @@ body {
   padding: 0px 14px;
   width: inherit;
   cursor: pointer;
+  margin: 1%;
 }
 
 #new-cat-button{
@@ -576,7 +577,7 @@ body {
   display: flex;
   padding: 0px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 #category-create{

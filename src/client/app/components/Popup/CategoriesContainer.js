@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import CategoryBar from '../Bars/CategoryBar';
+import CategoryCreator from '../Sidebar/CategoryCreator.js'
+import * as NavActions from '../../actions/App/NavActions.js';
+
 
 function getState(){
   return{
@@ -74,6 +77,9 @@ class CategoriesContainer extends Component {
     }
   }
 
+  switchView(){
+    this.props.nav_actions.switchCategoryView('create');
+  }
 
   render() {
     var rightArrowClassName = this.state.startIndex == 0 ? 'fa fa-angle-left fa-3x arrow-btn' : 'fa fa-angle-left fa-3x arrow-btn';
@@ -90,6 +96,11 @@ class CategoriesContainer extends Component {
             <i className="fa fa-angle-right fa-3x arrow-btn" aria-hidden="true"></i>
           </div>
         </div>
+        <div className="row" id="row-tag-bottom">
+          <div id="new-cat-button" onClick={()=> {this.switchView()}}>
+            <i className="fa fa-plus" aria-hidden="true"></i>
+          </div>
+        </div>
         <p className="text-center">Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>
       </div>
     )
@@ -103,4 +114,8 @@ let mapStateToProps = (state) => ({
     currentSearchCategories : state.currentSearchCategories
 })
 
-export default connect(mapStateToProps, null)(CategoriesContainer);
+let mapDispatchToProps = (dispatch) => ({
+  nav_actions: bindActionCreators(NavActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer);
