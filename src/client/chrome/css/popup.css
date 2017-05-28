@@ -61,6 +61,13 @@ body {
   }
 }
 
+#hindsite{
+  /*min-width: 400px;*/
+  height: inherit;
+  width: inherit;
+  /*min-height: 452px;*/
+}
+
 .float-right{
   float:right;
 }
@@ -427,7 +434,7 @@ body {
 
 /* outermost box */
 .sidebar{
-  width: 350px;
+  width: inherit;
   height: inherit;
 }
 
@@ -664,4 +671,14 @@ body {
 .category-create-btns{
   display: flex;
   justify-content: center;
+}
+
+/* LOGIN css */
+.login-wrapper{
+  width: 400px;
+  height: 345px;
+}
+
+.signup-wrapper{
+  width: 400px;
 }

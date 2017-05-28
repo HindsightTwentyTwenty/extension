@@ -77,25 +77,25 @@ class Sidebar extends Component{
 			switch (this.props.popupStatus) {
 				case PopupConstants.SignIn:
 					return (
-            <div className="login-sidebar">
-              <LoginPage/>
+            <div className="login-wrapper">
+                <LoginPage/>
             </div>
           );
 				case PopupConstants.SignUp:
 					return (
-            <div className="login-sidebar">
+            <div className="singup-wrapper">
               <CreateUser/>
             </div>
           );
 				case PopupConstants.ForgotMyPassword:
 					return (
-            <div className="login-sidebar">
+            <div className="login-wrapper">
               <Loading/>
             </div>
           );
 				default:
 					return (
-						<div className="login-sidebar">
+						<div className="login-wrapper">
               <LoginPage/>
 						</div>
 					);
