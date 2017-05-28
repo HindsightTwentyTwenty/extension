@@ -23,7 +23,7 @@ class SearchTile extends Component {
   }
 
   componentWillMount() {
-    
+    this.props.pagedata_actions.getImage(this.props.currentUser.md5, this.props.currentUser.ekey, this.props.page);
     /* reset the iframe box to a loading page until async call for decryption is made */
     this.props.pagedata_actions.receiveDecrypted("loading");
   }
@@ -105,7 +105,7 @@ class SearchTile extends Component {
           <i className="fa fa-eye" aria-hidden="true"></i>
         </button>
         <div>
-          <img src={this.props.page.preview}/>
+          <img id="tile-screenshot" src={this.props.page.preview}/>
           <a target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
           <div>
             {domain}

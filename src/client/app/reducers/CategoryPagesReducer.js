@@ -52,24 +52,24 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
       var catsToPagesDict = {};
       var pkToPagesDict = {};
       action.json.categories.map(function(category) {
-        var pagePKList = [];
+        var pageList = [];
         category.pages.map(function(page) {
           // pagesToCatsDict[page.pk] = pageObject(page);
-          pageList.append(page.pk);
+          pageList.push(page.pk);
           if(! (page.pk in pkToPagesDict)){
             pkToPagesDict[page.pk] = pageObject(page);
           }
         });
-        catsToPagesDict[category.title] = pagePKList;
+        catsToPagesDict[category.title] = pageList;
       });
       var starredPagesToCatsDict = {};
       action.json.starred.map(function(page) {
         starredPagesToCatsDict[page.pk] = pageObject(page);
       });
-      return {...state, catsToPages: catsToPagesDict, pkToPages: pkToPages, starred: starredPagesToCatsDict};
+      return {...state, catsToPages: catsToPagesDict, pkToPages: pkToPagesDict, starred: starredPagesToCatsDict};
     case types.SET_PREVIEW:
       var pkToPagesDict= Object.assign({}, state.pkToPages);
-      pkToPagesDict[action.page.pk].preview = objectURL;
+      pkToPagesDict[action.page.pk].preview = action.objectURL;
       return {...state, pkToPages: pkToPagesDict};
     case types.TOGGLE_SHOW_STARRED:
       return {...state, showStarred: !state.showStarred};

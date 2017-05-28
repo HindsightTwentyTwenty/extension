@@ -64,9 +64,6 @@ export function fetchCategoriesAndPages(token){
         type: types.RECEIVE_CATEGORIES_AND_PAGES,
         json: json
       }))
-      .then(response => {
-        dispatch(setPreview(page, objectURL));
-      })
   }
 }
 

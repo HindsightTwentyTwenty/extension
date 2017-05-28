@@ -44,7 +44,8 @@ let store = createStore(
     categoriesAndPages:{
       catsToPages: {},
       starred: {},
-      showStarred: false
+      showStarred: false,
+      pkToPages: {}
     },
     currentSearchCategories: {
       searchCats: new Set()

@@ -37,6 +37,7 @@ class CategoriesPage extends Component {
   fetchPages() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     var categoriesPages = this.props.categoriesAndPages.catsToPages;
+    var pkToPages = this.props.categoriesAndPages.pkToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
     if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.size == 0) {
@@ -52,12 +53,13 @@ class CategoriesPage extends Component {
       let searchCatSet = new Set(currentSearchCategories);
       if (searchCatSet.size) {
         for (let searchCat of searchCatSet.values()) {
-          for (var pagePk in categoriesPages[searchCat]) {
+          for (var i in categoriesPages[searchCat]) {
+            var pagePk = categoriesPages[searchCat][i]
             if (!pageSet.has(pagePk)) {
               if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
                 result.push(<SearchTile key={pagePk}
                   source="categories"
-                  page={categoriesPages[searchCat][pagePk]}
+                  page={pkToPages[pagePk]}
                   />)
                 pageSet.add(pagePk);
               }

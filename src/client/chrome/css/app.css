@@ -1314,3 +1314,7 @@ hr{
   justify-content: center;
   text-overflow: ellipsis;
 }
+
+#tile-screenshot{
+  height: 150px;
+}
