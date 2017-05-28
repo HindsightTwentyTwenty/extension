@@ -16,6 +16,13 @@ export function changePopupCatState(state){
   }
 }
 
+export function changePopupBoxState(state){
+  return{
+    type: types.CHANGE_POPUP_BOX_STATE,
+    box_state: state
+  }
+}
+
 export function receivePopupInfo(json, faviconUrl){
   return {
     type: types.RECEIVE_POPUP_INFO,

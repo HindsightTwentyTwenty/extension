@@ -118,7 +118,10 @@ let store = createStore(
       selection: 0,
       searchTerm: ""
     },
-    popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
+    popupSelection: {
+      cat_state: "",
+      box_state: ""
+    }, //Categories
     search: {
       results: [],
       dom: "",

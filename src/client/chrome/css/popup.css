@@ -438,12 +438,12 @@ body {
   height: inherit;
 }
 
-.login-sidebar{
+/*.login-sidebar{
   width:400px;
   max-height: 300px;
   position: fixed;
   z-index: 2000;
-}
+}*/
 
 /* tag selection box */
 #tag-selection-wrapper{

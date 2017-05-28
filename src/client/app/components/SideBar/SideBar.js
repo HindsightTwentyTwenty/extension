@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 
-import SidebarBox from './SidebarBox';
+import NotesBox from './NotesBox.js';
 import TagBox from './TagBox';
 import PopupMenu from '../Popup/PopupMenu.js';
 import PopupHeader from '../Popup/PopupHeader.js';
@@ -38,9 +38,8 @@ class Sidebar extends Component{
 				case PopupConstants.Received: // Display Page
 					return (
             <div className="sidebar" id="outer-sidebar">
-              <TagBox boxTitle="hindsite"/>
-              <SidebarBox boxTitle="Notes"/>
-              <SidebarBox boxTitle="Quick Tags"/>
+              <TagBox/>
+              <NotesBox/>
             </div>
 		      );
 				case PopupConstants.NoContent:
@@ -67,9 +66,8 @@ class Sidebar extends Component{
 				default: // Still Loading Page or Page Does Not Exist in Backend
 					return (
             <div className="sidebar">
-              <TagBox boxTitle="hindsite"/>
-              <SidebarBox boxTitle="Notes"/>
-              <SidebarBox boxTitle="Quick Tags"/>
+              <TagBox/>
+              <NotesBox/>
             </div>
 					);
 			}
@@ -114,7 +112,7 @@ class Sidebar extends Component{
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
 		currentPage : state.currentPage,
-    popupStatus: state.popupStatus
+    popupStatus: state.popupStatus,
 })
 
 let mapDispatchToProps = (dispatch) => {
