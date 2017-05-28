@@ -120,7 +120,7 @@ let store = createStore(
     },
     popupSelection: {
       cat_state: "",
-      box_state: ""
+      box_state: "tag"
     }, //Categories
     search: {
       results: [],
