@@ -47,11 +47,13 @@ class TagBox extends Component{
   boxState(){
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                             <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+                            <i className="fa fa-3x fa-caret-left icon-caret" aria-hidden="true"></i>
                           </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                                 <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+                                <i className="fa fa-3x fa-caret-down icon-caret" aria-hidden="true"></i>
                               </div>
                               <div className="sidebar-box-content">
                                 <TagSelection/>

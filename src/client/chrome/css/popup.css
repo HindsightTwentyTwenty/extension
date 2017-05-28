@@ -409,6 +409,11 @@ body {
   position: relative;
   display: flex;
   cursor: pointer;
+  justify-content: space-between;
+}
+
+.icon-caret{
+  margin: 0px 20px;
 }
 
 .sidebar-box-content{
@@ -669,6 +674,12 @@ body {
   justify-content: center;
 }
 
+.caret{
+
+}
+
+
+
 /* LOGIN css */
 .login-wrapper{
   width: 400px;
@@ -677,4 +688,38 @@ body {
 
 .signup-wrapper{
   width: 400px;
+}
+
+/* editnote css */
+#editnote-wrapper{
+  width: 350px;
+  height: inherit;
+  padding: 20px;
+}
+
+#note-editing-box{
+  height: 260px;
+}
+
+.textarea-custom{
+  resize: none;
+  border: none;
+  background-color: transparent;
+
+  &:focus, &:hover{
+    outline: none;
+    background-color: white;
+  }
+}
+
+#note-text-edit{
+  height:200px;
+  width: 310px;
+
+}
+
+#note-text-edit-options{
+  display: flex;
+  color: $hindsite-black;
+  height:60px;
 }

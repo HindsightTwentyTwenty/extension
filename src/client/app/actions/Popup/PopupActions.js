@@ -8,6 +8,7 @@ import * as PopupConstants from '../../constants/PopupConstants.js';
 const pageInfoEndpoint = urls.BASE_URL + "checkcategories/";
 const newSessionEndpoint = urls.BASE_URL + "addsession/";
 const popupInfoEndpoint = urls.BASE_URL + "popupinfo/";
+const editNoteEndpoint = urls.BASE_URL + "updatenote/";
 
 export function changePopupCatState(state){
   return{
@@ -24,12 +25,14 @@ export function changePopupBoxState(state){
 }
 
 export function receivePopupInfo(json, faviconUrl){
+  console.log("receive popup info", json);
   return {
     type: types.RECEIVE_POPUP_INFO,
     categories: json.categories,
     page: json.page,
     tracking_on: json.tracking,
-    favicon: faviconUrl
+    favicon: faviconUrl,
+    note: json.note
   }
 }
 
@@ -140,5 +143,31 @@ export function addSession(token, sessionTitle, sessionStart, sessionEnd) {
           end: json.end
         }
       }))
+  }
+}
+
+/* edit and receive back confirmation of Note on page */
+export function receiveUpdateNote(json){
+  return {
+    type: types.RECEIVE_UPDATED_NOTE,
+    note: json.note
+  }
+}
+
+/* edit and receive back confirmation of Note on page */
+export function editNote(token, url, title, note) {
+  return dispatch => {
+    return fetch(editNoteEndpoint, {
+          headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': "Token " + token
+           },
+           method: "POST",
+           body: JSON.stringify({url: url, note: note, title: title})
+         }
+       )
+      .then(response => response.json())
+      .then(json => dispatch(receiveUpdateNote(json)))
   }
 }

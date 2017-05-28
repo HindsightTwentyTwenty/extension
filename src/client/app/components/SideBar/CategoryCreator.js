@@ -48,7 +48,7 @@ class CategoryCreator extends Component {
     document.getElementById(color.name).style.width = "27px";
     document.getElementById(color.name).style.height = "27px";
     document.getElementById(color.name).style.border = ".5px solid #55524D";
-    
+
     this.props.category_actions.setEditCatColor(color);
     this.setState({curr_selected_color: color.name});
   }
@@ -83,24 +83,6 @@ class CategoryCreator extends Component {
       cat_title : event.target.value
     });
   }
-  /*
-  $h-red: #DB3535 ;
-  $h-orange: #EE6953 ;
-  $h-yellow: #F7AC2F ;
-  $h-teal: #34CCBB ;
-  $h-green: #339882 ;
-  $h-blue: #3F80D9 ;
-  $h-purple: #6454C9 ;
-  */
-  // getColorChoices(){
-  //   // var colors = [ #DB3535, #EE6953, #F7AC2F, #34CCBB, #339882, #3F80D9, #6454C9 ];
-  //
-  //   var results = [];
-  //
-  //   for(var color in colors){
-  //
-  //   }
-  // }
 
   render () {
       return (

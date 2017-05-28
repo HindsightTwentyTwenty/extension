@@ -32,7 +32,8 @@ let store = createStore(
       visited: "",
       categories: {},
       star: false,
-      preview: ""
+      preview: "",
+      note: ""
     },
     currentTabs:[],
     currentTime:{
