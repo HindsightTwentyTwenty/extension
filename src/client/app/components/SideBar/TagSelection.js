@@ -68,7 +68,7 @@ class TagSelection extends Component{
     for( var key in cat_keys){
       var index = cat_keys[key];
       var checked = (index in currentPageCategories);
-      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title}/>)
+      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title} onSelect={this.props.category_actions.toggleCategory}/>)
     }
     return result;
   }
@@ -199,7 +199,7 @@ class TagSelection extends Component{
       console.log("returning creator");
       return(
         <div>
-          <CategoryCreator onClose={this.props.popup_actions.changePopupCatState()} />
+          <CategoryCreator onClose={this.props.popup_actions.changePopupCatState} />
         </div>
       )
     }else{

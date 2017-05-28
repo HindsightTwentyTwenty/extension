@@ -8,6 +8,8 @@ import SearchTile from './SearchTile.js';
 import CategoryAutoSuggest from './CategoryAutoSuggest.js';
 import CategoriesContainer from '../Popup/CategoriesContainer.js';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
+import * as NavActions from '../../actions/App/NavActions.js'
+import CategoryCreator from '../SideBar/CategoryCreator.js';
 
 function getState(){
   return{
@@ -21,9 +23,6 @@ class CategoriesPage extends Component {
     super(props);
     this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
-    // this.props.categoriesAndPages.pkToPages.map(function(pk){
-    //   this.pagedata_actions.getImage(this.props.currentUser.md5, this.props.currentUser.ekey, this.props.categoriesAndPages.pkToPages[pk]);
-    // })
   }
 
   componentDidUpdate() {
@@ -74,6 +73,13 @@ class CategoriesPage extends Component {
 
   render() {
     var searchResults = this.fetchPages();
+    if (this.props.appNav.categoriesView == "create"){
+      return(
+        <div className="categories-page">
+          <CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/>
+        </div>
+      )
+    }
     return (
       <div className="categories-page">
         <div className="category-select">
@@ -92,12 +98,14 @@ let mapStateToProps = (state) => ({
     categories: state.categories,
     categoriesAndPages: state.categoriesAndPages,
     currentSearchCategories : state.currentSearchCategories,
-    currentUser : state.currentUser
+    currentUser : state.currentUser,
+    appNav: state.appNav
 })
 
 let mapDispatchToProps = (dispatch) => ({
     category_actions: bindActionCreators(CategoryActions, dispatch),
-    pagedata_actions: bindActionCreators(PageDataActions, dispatch)
+    pagedata_actions: bindActionCreators(PageDataActions, dispatch),
+    nav_actions: bindActionCreators(NavActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage);

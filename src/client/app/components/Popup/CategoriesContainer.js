@@ -77,8 +77,8 @@ class CategoriesContainer extends Component {
     }
   }
 
-  switchView(){
-    this.props.nav_actions.switchCategoryView('create');
+  switchCategoryView(){
+    this.props.nav_actions.switchCategoryView("create");
   }
 
   render() {
@@ -97,7 +97,7 @@ class CategoriesContainer extends Component {
           </div>
         </div>
         <div className="row" id="row-tag-bottom">
-          <div id="new-cat-button" onClick={()=> {this.switchView()}}>
+          <div id="new-cat-button" onClick={()=> {this.switchCategoryView()}}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </div>
         </div>

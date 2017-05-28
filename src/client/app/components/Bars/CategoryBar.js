@@ -66,8 +66,7 @@ class CategoryBar extends Component {
         className='category-bar hide-overflow'
         id={this.props.categoryInfo.title}
         onClick={() => {
-          this.props.category_actions.toggleCategory( this.props.currentPage.url, this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);
-        }}
+            this.props.onSelect(this.props.currentPage.url, this.props.categoryInfo, !this.props.checked, this.props.currentUser.token)}}
         onMouseOver={this.hoverOnButton.bind(this)}
         onMouseLeave={this.exitHoverOnButton.bind(this)}
         >
