@@ -288,24 +288,11 @@ body {
   width: 25px;
   height: 25px;
   margin: 7px 7px 14px 7px;
+  cursor: pointer;
 
   &:hover{
     width: 27px;
-    border: .5px solid $hindsite-black;
-  }
-
-  &.selected {
-    width: 27px;
-    border: .5px solid $hindsite-black;
-  }
-
-  /*&:visited{
-    width: 27px;
-    border: .5px solid $hindsite-black;
-  }*/
-
-  &:visited{
-    width: 27px;
+    height: 27px;
     border: .5px solid $hindsite-black;
   }
 
@@ -471,13 +458,13 @@ body {
 }
 
 #favicon-url-entry{
-  margin: 0px -3px 0px 8px;
+  margin: 0px 12px 0px 8px;
   height: 32px;
 }
 
 #title-url-entry{
   font-size: large;
-  width: 290px;
+  width: 260px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -611,12 +598,21 @@ body {
   margin-left: 40px;
 }
 
-#new-cat-form{
-  display: inline;
-  /*justify-content: center;*/
+#new-cat-entry{
+  justify-content: center;
   padding: 0px 40px;
   height: 179px;
   width: inherit;
+}
+
+#text-choose-color{
+  font-size: larger;
+  color: $hindsite-black;
+  margin: 6px 2px 0px 2px;
+}
+
+.text-sidebar{
+  color: $hindsite-black;
 }
 
 #input-newcat{
