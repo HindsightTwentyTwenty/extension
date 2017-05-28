@@ -15,11 +15,9 @@ class EditNote extends Component{
   constructor(props){
     super(props);
     this.state = getState();
-    console.log("EDIT NOTE PROPS", this.props);
   }
 
   saveNote(){
-    console.log("saving note");
     this.props.popup_actions.editNote(
       this.props.currentUser.token,
       this.props.currentPage.url,
@@ -31,7 +29,6 @@ class EditNote extends Component{
   changeNote(event){
     var new_note =  event.target.value;
     this.setState({note: new_note});
-    console.log("new note", new_note);
   }
 
   startEditingNote(){
@@ -54,7 +51,6 @@ class EditNote extends Component{
   }
 
   toolBar(){
-    console.log("state", this.state);
     if(!this.state.editing){
       return(
         <div id = "note-text-edit-options">

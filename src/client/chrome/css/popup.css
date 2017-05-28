@@ -718,7 +718,7 @@ body {
   height:220px;
   width: 310px;
   color: $hindsite-black;
-  font-size: initial;
+  font-size: small;
   padding: 5px 9px;
 }
 

@@ -8,7 +8,6 @@ import EditNote from '../Sidebar/EditNote.js'
 class NotesBox extends Component{
   constructor(props){
     super(props);
-    console.log('NOTES PROPS', this.props)
   }
 
   switchOpen(){

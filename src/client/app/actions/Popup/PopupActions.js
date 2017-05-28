@@ -25,7 +25,6 @@ export function changePopupBoxState(state){
 }
 
 export function receivePopupInfo(json, faviconUrl){
-  console.log("receive popup info", json);
   return {
     type: types.RECEIVE_POPUP_INFO,
     categories: json.categories,
