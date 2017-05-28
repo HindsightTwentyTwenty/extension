@@ -70,7 +70,50 @@ let store = createStore(
       change_password:false,
       md5:"",
       ekey:"",
-      tracking_on:false
+      tracking_on:true
+    },
+    analytics: {
+      range: {
+        length: 'week',
+        type: 'current'
+      },
+      page_visits: {
+        day: [],
+        week: {
+          current: [],
+          last: [],
+          average: []
+        },
+        month: []
+      },
+      user_domains: {
+        day: [],
+        week: [],
+        month: []
+      },
+      hindsite_domains: {
+        day: [],
+        week: [],
+        month: []
+      },
+      user_pages: {
+        day: [],
+        week: [],
+        month: []
+      },
+      productivity: {
+        procrastination_sites: [],
+        visits: {
+          day: [],
+          week: [],
+          month: []
+        },
+        minutes: {
+          day: [],
+          week: [],
+          month: []
+        }
+      }
     },
     lookbackNav: {
       selection: 0,

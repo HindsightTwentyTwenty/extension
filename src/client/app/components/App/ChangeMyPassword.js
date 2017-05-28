@@ -30,11 +30,7 @@ class ChangeMyPassword extends Component {
     }
   }
 
-
-
 	closePasswordFields(){
-		var changePasswordBtn = document.getElementById("changePwdBtn");
-    changePasswordBtn.removeClass("btn-selected");
 		this.props.user_actions.changeMyPasswordToggle(PasswordConstants.Close);
 	}
 
@@ -50,8 +46,8 @@ class ChangeMyPassword extends Component {
               <input type="password" className="form-control" id="confirm_password" placeholder="Confirm New Password" onChange={this.updateField.bind(this)} />
             </div>
             <div id="password-change-buttons">
-							<button className="btn" onClick={this.closePasswordFields.bind(this)}>Cancel</button>
-            	<button className="btn" onClick={this.changePassword.bind(this)}>Submit</button>
+							<button className="btn btn-primary account-button" onClick={this.closePasswordFields.bind(this)}>Cancel</button>
+            	<button className="btn btn-primary account-button" onClick={this.changePassword.bind(this)}>Submit</button>
             </div>
           </div>
         </div>
