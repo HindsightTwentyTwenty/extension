@@ -79,13 +79,21 @@ class CategoriesPage extends Component {
           <CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/>
         </div>
       )
+    }else if(this.props.appNav.categoriesView == "edit"){
+      return(
+        <div className="categories-page">
+          <CategoryEditor onClose={this.props.nav_actions.switchCategoryView}/>
+        </div>
+      )
     }
     return (
       <div className="categories-page">
-        <div className="category-select">
-					<CategoryAutoSuggest categories={this.props.categories} onSelect={this.props.category_actions.updateSearchCategories}/>
-				</div>
-        <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.updateSearchCategory} useCase={"search"}/>
+        <div className="category-navigation">
+          <div className="category-select">
+  					<CategoryAutoSuggest categories={this.props.categories} onSelect={this.props.category_actions.updateSearchCategories}/>
+  				</div>
+          <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.updateSearchCategory} useCase={"search"}/>
+        </div>
         <div className="search-results-container">
           {searchResults}
         </div>

@@ -78,29 +78,25 @@ class CategoriesContainer extends Component {
   }
 
   render() {
-    var rightArrowClassName = this.state.startIndex == 0 ? 'fa fa-angle-left fa-3x arrow-btn' : 'fa fa-angle-left fa-3x arrow-btn';
+    var leftArrowClass = this.state.startIndex == 0 ? <div className='change-page-btn'><i className='fa fa-angle-left fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.incrementPage()}}><i className='fa fa-angle-left fa-3x arrow-btn' aria-hidden="true"></i></div>
+    var rightArrowClass = this.state.endIndex == this.props.numCats ? <div className='change-page-btn'><i className='fa fa-angle-right fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.incrementPage()}}><i className='fa fa-angle-right fa-3x arrow-btn' aria-hidden="true"></i></div>;
     return (
       <div className="categories-container-wrapper">
         <div className='paginate-cats'>
-          <div className='change-page-btn' onClick={()=> {this.decrementPage()}}>
-            <i className={rightArrowClassName} aria-hidden="true"></i>
-          </div>
+          {leftArrowClass}
           <div className ='categories-container'>
             {this.getCategories()}
           </div>
-          <div className="change-page-btn" onClick={()=> {this.incrementPage()}}>
-            <i className="fa fa-angle-right fa-3x arrow-btn" aria-hidden="true"></i>
-          </div>
+          {rightArrowClass}
         </div>
         <div className="row" id="row-tag-bottom">
-          <div id="new-cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("create")}}>
+          <div className="cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("create")}}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </div>
-          <div id="new-cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("edit")}}>
-            <i class="fa fa-pencil" aria-hidden="true"></i>
+          <div className="cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("edit")}}>
+            <i className="fa fa-pencil" aria-hidden="true"></i>
           </div>
         </div>
-        <p className="text-center">Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>
       </div>
     )
   };

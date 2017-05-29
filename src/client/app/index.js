@@ -117,7 +117,8 @@ let store = createStore(
     appNav: {
       menuSelection: 0,
       searchTerm: "",
-      categoriesView:"select"
+      categoriesView: "select",
+      editCatPK: 0
     },
     popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
     search: {

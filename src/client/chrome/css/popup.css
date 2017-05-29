@@ -505,10 +505,6 @@ body {
   margin-left: 10px;
 }*/
 
-.category-select{
-  width: 80%;
-}
-
 .Select-control {
     background-color: $base-white;
     border-color: none;
@@ -553,7 +549,7 @@ body {
   margin: 1%;
 }
 
-#new-cat-button{
+.cat-button{
   border-radius: 25px;
   max-width: 175px;
   display: inline-block;
@@ -566,6 +562,7 @@ body {
   cursor: pointer;
   border: 2px solid $hindsite-black;
   color: $hindsite-black;
+  margin: 1%;
   &:hover{
     color: $base-white;
     background-color: $hindsite-black;

@@ -72,12 +72,17 @@ remove this class using removeClass as defined in App.js
 
 .categories-container-wrapper{
   justify-content: center;
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   display: flex;
-  height: 200px;
+  max-height: 200px;
+  margin: 0 auto;
+  height: 150px;
 }
 
+#category-navigation{
+  min-width: 545px;
+}
 .app-container{
   height:50px;
 }
@@ -460,9 +465,14 @@ start-time-label .end-time-label{
   position: relative;
   left:4px;
 }
+
+.arrow-btn-disabled{
+  color: $light-grey;
+}
+
 .arrow-btn:hover{
   color: $hover-color;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .timeline-label-row{
@@ -615,6 +625,7 @@ start-time-label .end-time-label{
   display: flex;
   justify-content: space-between;
   background-color: $base-color;
+  min-width: 730px;
 }
 
 .nav-menu-bar {
@@ -1281,11 +1292,9 @@ hr{
 }
 
 .category-select{
-  width: 100%;
-  margin: 0 auto;
+  width: 90%;
+  margin: .5% auto;
   max-width: 400px;
-  margin: 1% auto;
-  padding: 1%;
 }
 
 .domain-details{
@@ -1419,6 +1428,10 @@ hr{
   color: $hindsite-black;
   background-color: $base-white;
   border-color: $light-grey;
+}
+
+.btn-disabled{
+
 }
 
 .page-visits {
