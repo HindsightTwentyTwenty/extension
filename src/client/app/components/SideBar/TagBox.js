@@ -18,26 +18,22 @@ basic functionality:
 */
 function getState(){
   return{
-    open: false
     }
 }
 
 class TagBox extends Component{
   constructor(props){
     super(props);
+    console.log("tag props", this.props);
     this.state = getState();
   }
 
   switchOpen(){
-    if(this.state.open){
-      console.log("tag box props", this.props);
-      this.setState({
-        open: false,
-      })
+    /* close box if clicked and open, otherwise open box */
+    if(this.props.box_state == 'tag'){
+      this.props.popup_actions.changePopupBoxState('closed');
     }else{
-      this.setState({
-        open: true,
-      })
+      this.props.popup_actions.changePopupBoxState('tag');
     }
   }
 
@@ -49,21 +45,21 @@ class TagBox extends Component{
   }
 
   boxState(){
-    /* in order to get imgs from the chrome app must access the imgs on the backend using IMG_URL constant + img path */
-    // var logo_url =  urls.IMG_URL + "logo-light.png";
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                             <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+                            <i className="fa fa-3x fa-caret-left icon-caret" aria-hidden="true"></i>
                           </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                                 <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+                                <i className="fa fa-3x fa-caret-down icon-caret" aria-hidden="true"></i>
                               </div>
                               <div className="sidebar-box-content">
                                 <TagSelection/>
                               </div>
                             </div>;
-    if(this.state.open){
+    if(this.props.box_state == 'tag'){
       return sidebarBoxContent;
     }else{
       return sidebarBoxHeader;
@@ -82,7 +78,8 @@ class TagBox extends Component{
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
-		currentPage : state.currentPage
+		currentPage : state.currentPage,
+    box_state: state.popupSelection.box_state,
 })
 
 let mapDispatchToProps = (dispatch) => {

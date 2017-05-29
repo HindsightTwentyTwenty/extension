@@ -18,6 +18,8 @@ $dark-grey: #a2a2a2 ;
 $base-white: #fafafa ;
 
 /* rainbow selection colors */
+$h-red: #DB3535 ;
+$h-green: #339882 ;
 /*$h-red: #DB3535 ;
 $h-orange: #EE6953 ;
 $h-yellow: #F7AC2F ;
@@ -59,6 +61,13 @@ body {
     color: $banana;
     font-weight: bold;
   }
+}
+
+#hindsite{
+  /*min-width: 400px;*/
+  height: inherit;
+  width: inherit;
+  /*min-height: 452px;*/
 }
 
 .float-right{
@@ -281,24 +290,11 @@ body {
   width: 25px;
   height: 25px;
   margin: 7px 7px 14px 7px;
+  cursor: pointer;
 
   &:hover{
     width: 27px;
-    border: .5px solid $hindsite-black;
-  }
-
-  &.selected {
-    width: 27px;
-    border: .5px solid $hindsite-black;
-  }
-
-  /*&:visited{
-    width: 27px;
-    border: .5px solid $hindsite-black;
-  }*/
-
-  &:visited{
-    width: 27px;
+    height: 27px;
     border: .5px solid $hindsite-black;
   }
 
@@ -415,6 +411,11 @@ body {
   position: relative;
   display: flex;
   cursor: pointer;
+  justify-content: space-between;
+}
+
+.icon-caret{
+  margin: 0px 20px;
 }
 
 .sidebar-box-content{
@@ -427,16 +428,16 @@ body {
 
 /* outermost box */
 .sidebar{
-  width: 350px;
-  height: 465px;
+  width: inherit;
+  height: inherit;
 }
 
-.login-sidebar{
+/*.login-sidebar{
   width:400px;
   max-height: 300px;
   position: fixed;
   z-index: 2000;
-}
+}*/
 
 /* tag selection box */
 #tag-selection-wrapper{
@@ -464,13 +465,13 @@ body {
 }
 
 #favicon-url-entry{
-  margin: 0px -3px 0px 8px;
+  margin: 0px 12px 0px 8px;
   height: 32px;
 }
 
 #title-url-entry{
   font-size: large;
-  width: 290px;
+  width: 260px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -604,12 +605,21 @@ body {
   margin-left: 40px;
 }
 
-#new-cat-form{
-  display: inline;
-  /*justify-content: center;*/
+#new-cat-entry{
+  justify-content: center;
   padding: 0px 40px;
   height: 179px;
   width: inherit;
+}
+
+#text-choose-color{
+  font-size: larger;
+  color: $hindsite-black;
+  margin: 6px 2px 0px 2px;
+}
+
+.text-sidebar{
+  color: $hindsite-black;
 }
 
 #input-newcat{
@@ -664,4 +674,75 @@ body {
 .category-create-btns{
   display: flex;
   justify-content: center;
+}
+
+.caret{
+
+}
+
+
+
+/* LOGIN css */
+.login-wrapper{
+  width: 400px;
+  height: 345px;
+}
+
+.signup-wrapper{
+  width: 400px;
+}
+
+/* editnote css */
+#editnote-wrapper{
+  width: 350px;
+  height: inherit;
+  padding: 20px;
+}
+
+#note-editing-box{
+  height: 260px;
+}
+
+.textarea-custom{
+  resize: none;
+  border: none;
+  background-color: transparent;
+
+  &:focus, &:hover{
+    outline: none;
+    background-color: white;
+  }
+}
+
+#note-text-edit{
+  height:220px;
+  width: 310px;
+  color: $hindsite-black;
+  font-size: small;
+  padding: 5px 9px;
+}
+
+#note-text-edit-options{
+  display: flex;
+  color: $hindsite-black;
+  height:40px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.icon-hover{
+  &:hover{
+    color:$base-color;
+    cursor: pointer;
+  }
+}
+
+#icon-canceledit{
+  color: $h-red;
+  margin: 0px 4px;
+}
+
+#icon-saveedit{
+  color: $h-green;
+  margin: 0px 4px;
 }
