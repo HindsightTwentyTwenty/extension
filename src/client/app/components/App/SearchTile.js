@@ -78,6 +78,22 @@ class SearchTile extends Component {
     }
   }
 
+  getCategories() {
+    var categories = this.props.page.categories;
+    var result = [];
+    var numCatsShown = this.props.page.categories.length < GlobalConstants.MAX_DISPLAY_CATS ? this.props.page.categories.length : GlobalConstants.MAX_DISPLAY_CATS;
+      for(var i = 0; i < numCatsShown; i++) {
+        result.push(<div
+          className='category-bar hide-overflow'
+          id={categories[i].title}
+          style={{"backgroundColor" : categories[i].color , "color": "white" , "border" : "solid 2px " + categories[i].color}}
+          >
+          {categories[i].title}
+        </div>);
+    }
+    return result;
+  }
+
   render() {
     var modal = (this.state.iframe_show) ?
         <div className="modal-base" id="iframe-modal">
@@ -95,21 +111,20 @@ class SearchTile extends Component {
         </div>
     : ''
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
-    var visited = this.props.visited ? <p><Timestamp time={this.props.visited} format="full"/></p> : '';
-    var domain = this.props.domain ? <p>{this.props.domain}</p> : '';
+    // var visited = this.props.page.last_visited ? <p><Timestamp time={this.props.visited} format="full"/></p> : '';
+    var domain = this.props.page.domain ? <p>{this.props.page.domain}</p> : '';
     return (
       <div id="search-tile">
         {modal}
         {hider}
-        <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
-          <i className="fa fa-eye" aria-hidden="true"></i>
-        </button>
         <div>
-          <img id="tile-screenshot" src={this.props.page.preview}/>
-          <a target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
+          <div className="tile-screenshot-wrapper">
+            <img className="tile-screenshot" src={this.props.page.preview}/>
+          </div>
+          <a target="_blank" href={this.props.page.url}><p className="tile-title">{this.props.page.title}</p></a>
+          {domain}
           <div>
-            {domain}
-            {visited}
+            {this.getCategories()}
           </div>
         </div>
       </div>

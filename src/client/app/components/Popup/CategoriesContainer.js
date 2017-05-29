@@ -77,10 +77,6 @@ class CategoriesContainer extends Component {
     }
   }
 
-  switchCategoryView(){
-    this.props.nav_actions.switchCategoryView("create");
-  }
-
   render() {
     var rightArrowClassName = this.state.startIndex == 0 ? 'fa fa-angle-left fa-3x arrow-btn' : 'fa fa-angle-left fa-3x arrow-btn';
     return (
@@ -97,8 +93,11 @@ class CategoriesContainer extends Component {
           </div>
         </div>
         <div className="row" id="row-tag-bottom">
-          <div id="new-cat-button" onClick={()=> {this.switchCategoryView()}}>
+          <div id="new-cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("create")}}>
             <i className="fa fa-plus" aria-hidden="true"></i>
+          </div>
+          <div id="new-cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("edit")}}>
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </div>
         </div>
         <p className="text-center">Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>

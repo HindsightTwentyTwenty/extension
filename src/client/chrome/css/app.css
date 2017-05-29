@@ -942,6 +942,7 @@ hr{
   width: 300px;
   margin: 10px;
   padding: 10px;
+  text-align: center;
 }
 /* Search Component */
 #search-container {
@@ -1329,8 +1330,24 @@ hr{
   text-overflow: ellipsis;
 }
 
-#tile-screenshot{
+.tile-screenshot{
+  display: block;
+  margin: 0 auto;
+  height: 200px;
+}
+
+.tile-screenshot-wrapper{
   height: 150px;
+  overflow: hidden;
+}
+
+.tile-title{
+  font-size: medium;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 95%;
+  margin-top: 2%;
 }
 /*Analytics Page*/
 
