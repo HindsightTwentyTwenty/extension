@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 
 import * as PopupActions from '../../actions/Popup/PopupActions.js'
-import EditNote from '../Sidebar/EditNote.js'
+import EditNote from '../SideBar/EditNote.js'
 
 class NotesBox extends Component{
   constructor(props){

@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import CategoryBar from '../Bars/CategoryBar';
+import CategoryCreator from '../SideBar/CategoryCreator.js'
+import * as NavActions from '../../actions/App/NavActions.js';
+
 
 function getState(){
   return{
@@ -35,16 +38,17 @@ class CategoriesContainer extends Component {
   }
 
   getCategoryBar(category, checked) {
-    return <CategoryBar categoryInfo={category} checked={checked} key={category.title}/>;
+    return <CategoryBar categoryInfo={category} checked={checked} key={category.title} onSelect={this.props.onSelect}/>;
   }
 
   getCategories() {
     var categories = this.props.categories.cats;
     if (categories != null && this.props.numCats) {
-      let result = []
-      var currentPageCategories = this.props.currentPage.categories;
+      let result = [];
       for(var key in categories) {
-        var checked = (key in currentPageCategories);
+        if(this.props.useCase === "search"){
+          var checked = this.props.currentSearchCategories.searchCats.has(categories[key].title);
+        }
         result.push(this.getCategoryBar(categories[key], checked));
       }
       return result.slice(this.state.startIndex, this.state.endIndex);
@@ -73,23 +77,32 @@ class CategoriesContainer extends Component {
     }
   }
 
-
   render() {
-    var rightArrowClassName = this.state.startIndex == 0 ? 'fa fa-angle-left fa-3x arrow-btn' : 'fa fa-angle-left fa-3x arrow-btn';
+    var leftArrowClass = this.state.startIndex == 0 ? <div className='change-page-btn'><i className='fa fa-angle-left fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.decrementPage()}}><i className='fa fa-angle-left fa-3x arrow-btn' aria-hidden="true"></i></div>
+    var rightArrowClass = this.state.endIndex == this.props.numCats ? <div className='change-page-btn'><i className='fa fa-angle-right fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.incrementPage()}}><i className='fa fa-angle-right fa-3x arrow-btn' aria-hidden="true"></i></div>;
+    var editButtonStyle = this.props.appNav.categoriesView == "edit-select" ? {"color": '#fafafa', "backgroundColor": '#55524D'} : {};
     return (
-      <div>
+      <div className="categories-container-wrapper">
         <div className='paginate-cats'>
-          <div className='change-page-btn' onClick={()=> {this.decrementPage()}}>
-            <i className={rightArrowClassName} aria-hidden="true"></i>
-          </div>
+          {leftArrowClass}
           <div className ='categories-container'>
             {this.getCategories()}
           </div>
-          <div className="change-page-btn" onClick={()=> {this.incrementPage()}}>
-            <i className="fa fa-angle-right fa-3x arrow-btn" aria-hidden="true"></i>
+          {rightArrowClass}
+        </div>
+        <div className="row" id="row-tag-bottom">
+          <div className="cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("create")}}>
+            <i className="fa fa-plus" aria-hidden="true"></i>
+          </div>
+          <div className="cat-button" style={editButtonStyle} onClick={()=> {
+            if(this.props.appNav.categoriesView == "select"){
+              this.props.nav_actions.switchCategoryView("edit-select");
+            }else{
+              this.props.nav_actions.switchCategoryView("select");
+            }}}>
+            <i className="fa fa-pencil" aria-hidden="true"></i>
           </div>
         </div>
-        <p>Showing categories {this.state.startIndex+1} through {this.state.endIndex} of {this.props.numCats}</p>
       </div>
     )
   };
@@ -99,6 +112,12 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     categories: state.categories,
+    currentSearchCategories : state.currentSearchCategories,
+    appNav: state.appNav
 })
 
-export default connect(mapStateToProps, null)(CategoriesContainer);
+let mapDispatchToProps = (dispatch) => ({
+  nav_actions: bindActionCreators(NavActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer);

@@ -39,7 +39,7 @@ class DomainDisplay extends Component {
             this.props.lookback_actions.setCurrentPage({});
           }}}>
             <div className="domain-details">
-                <div className="row flex-row">
+                <div className="row flex-row flex-center">
                   <div>
                     {favicon}
                   </div>

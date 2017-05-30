@@ -40,15 +40,15 @@ let store = createStore(
       start_date:"",
       end_date:""
     },
-    currentDomainDisplayed:{
-    },
+    currentDomainDisplayed:{},
     categoriesAndPages:{
       catsToPages: {},
       starred: {},
-      showStarred: false
+      showStarred: false,
+      pkToPages: {}
     },
     currentSearchCategories: {
-      searchCats: []
+      searchCats: new Set()
     },
     sessions: {
       ongoingSession: false,
@@ -115,9 +115,12 @@ let store = createStore(
         }
       }
     },
-    lookbackNav: {
-      selection: 0,
-      searchTerm: ""
+    appNav: {
+      menuSelection: 0,
+      searchTerm: "",
+      categoriesView: "select",
+      editCatPK: 0,
+      modalView: "info"
     },
     popupSelection: {
       cat_state: "",

@@ -21,7 +21,7 @@ class PopupCategories extends Component {
       return <ColorPicker/>;
     }
     else if (Object.keys(this.props.categories.cats).length) {
-      return <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length}/>;
+      return <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.toggleCategory} useCase={"categorize"}/>;
     }
   }
 

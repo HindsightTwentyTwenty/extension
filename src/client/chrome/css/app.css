@@ -70,6 +70,24 @@ remove this class using removeClass as defined in App.js
   align-self: center;
 }
 
+.categories-container-wrapper{
+  justify-content: center;
+  width: 90%;
+  flex-direction: column;
+  display: flex;
+  max-height: 200px;
+  margin: 0 auto;
+  height: 150px;
+}
+
+#category-navigation{
+  min-width: 545px;
+  max-height: 250px;
+}
+
+.category-views{
+  width: 60%;
+}
 .app-container{
   height:50px;
 }
@@ -80,6 +98,10 @@ remove this class using removeClass as defined in App.js
 
 #lookback-content{
   height: 100%;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .page-url-bar {
@@ -208,7 +230,7 @@ remove this class using removeClass as defined in App.js
 }
 
 .url{
-  color: $accent-color;
+  color: $base-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -379,6 +401,15 @@ remove this class using removeClass as defined in App.js
 .flex-row{
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center{
   justify-content: center;
   align-items: center;
 }
@@ -402,17 +433,32 @@ start-time-label .end-time-label{
 }
 
 .search-results-container {
+  background-color: $light-grey;
   width: 100%;
   height: 97%;
-  margin: 5px auto;
-  overflow: auto;
+  margin: 0 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .categories-page {
   height: 92.5vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
+
+#categories-view{
+  width: 60%;
+}
+
+.btn-delete-cat{
+  font-size: x-large;
+  margin-left: 1%;
+  cursor: pointer
+}
+
 #graph-plus-buttons{
   display: flex;
   width: 100%;
@@ -444,9 +490,14 @@ start-time-label .end-time-label{
   position: relative;
   left:4px;
 }
+
+.arrow-btn-disabled{
+  color: $light-grey;
+}
+
 .arrow-btn:hover{
   color: $hover-color;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .timeline-label-row{
@@ -599,6 +650,7 @@ start-time-label .end-time-label{
   display: flex;
   justify-content: space-between;
   background-color: $base-color;
+  min-width: 730px;
 }
 
 .nav-menu-bar {
@@ -678,10 +730,8 @@ start-time-label .end-time-label{
 }
 
 .welcome-message {
-  text-align: center;
   margin: auto;
-  top: 40%;
-  position: relative;
+  height: 5%;
 }
 
 .hidden {
@@ -865,7 +915,7 @@ hr{
   width: 80px;
   margin: 5px;
   height: 35px;
-  color: $base-white;
+  color: $dark-grey;
   line-height: 32px;
   text-align: center;
   padding: 0 6px;
@@ -922,6 +972,14 @@ hr{
   text-align: center;
 }
 
+#search-tile{
+  background-color: $base-white;
+  height: 300px;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
 /* Search Component */
 #search-container {
   margin: 15px auto;
@@ -1062,15 +1120,19 @@ hr{
   position: absolute;
   background-color: $modal-background;
   z-index: 110;
+  margin: 0 auto;
   top: 5%;
-  left: 7%;
-  width:86%;
+  left: 2.5%;
+  right: 2.5%;
+  width:90%;
   height:90%;
+  min-width: 775px;
 }
 
-.iframe-close-button{
+.modal-close-button{
   float: right;
   margin: 0 3%;
+  font-size: large;
   color: $base-color;
   &:hover {
     color: $accent-color;
@@ -1127,6 +1189,31 @@ hr{
   margin-top:30%;
   font-size:large;
   color:$hindsite-black;
+}
+
+#detail-screenshot-wrapper{
+  width: 350px;
+  height: 225px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+#detail-screenshot{
+  display: block;
+  height: 250px;
+}
+
+#detail-text-wrap{
+  width: 350px;
+  margin: 0 auto;
+}
+
+#detail-title{
+  font-size: large;
+}
+
+.app-editnote{
+  width: 100%;
 }
 
 #page-selector-container{
@@ -1197,7 +1284,7 @@ hr{
 
 #iframe-msg{
   text-align: center;
-  margin-top: -10px;
+  margin-top: 10px;
   color: $hindsite-black;
 }
 
@@ -1259,8 +1346,8 @@ hr{
 }
 
 .category-select{
-  width: 100%;
-  margin: 0 auto;
+  width: 90%;
+  margin: .5% auto;
   max-width: 400px;
 }
 
@@ -1306,6 +1393,55 @@ hr{
   text-overflow: ellipsis;
 }
 
+.tile-screenshot{
+  display: block;
+  margin: 0 auto;
+  height: 200px;
+  opacity: 1;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.tile-screenshot-wrapper{
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tile-screenshot-wrapper:hover .tile-screenshot {
+  opacity: 0.3;
+}
+
+.tile-screenshot-wrapper:hover .text-overlay {
+  opacity: 1;
+}
+
+.text-overlay {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.text-overlay-btn {
+  color: $hover-color;
+  font-size: 45px;
+  padding: 16px 32px;
+}
+
+.tile-title{
+  font-size: medium;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 95%;
+  margin-top: 2%;
+}
 /*Analytics Page*/
 
 .analytics {
@@ -1362,6 +1498,20 @@ hr{
   box-shadow: 0 0 2px #b2b2b2;
 }
 
+#modal-content{
+  height: 90%;
+}
+
+.modal-selector {
+  margin: 1% auto;
+  width: 128px;
+  background-color: $base-white;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 2px #b2b2b2;
+  -webkit-box-shadow: 0 0 2px #b2b2b2;
+  box-shadow: 0 0 2px #b2b2b2;
+}
+
 .nav-pills>li>a {
   color: $dark-grey;
 }
@@ -1376,6 +1526,10 @@ hr{
   color: $hindsite-black;
   background-color: $base-white;
   border-color: $light-grey;
+}
+
+.btn-disabled{
+
 }
 
 .page-visits {
@@ -1710,5 +1864,5 @@ hr{
   user-select: none;
   background-image: none;
   border: 1px solid $light-grey;
-  border-radius: 4px;
+  border-radius: 4px
 }

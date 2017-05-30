@@ -269,7 +269,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 335px;
+  width: 75%;
 }
 
 .colors-container {
@@ -506,10 +506,6 @@ body {
   margin-left: 10px;
 }*/
 
-.category-select{
-  width: 80%;
-}
-
 .Select-control {
     background-color: $base-white;
     border-color: none;
@@ -551,9 +547,10 @@ body {
   padding: 0px 14px;
   width: inherit;
   cursor: pointer;
+  margin: 1%;
 }
 
-#new-cat-button{
+.cat-button{
   border-radius: 25px;
   max-width: 175px;
   display: inline-block;
@@ -566,6 +563,7 @@ body {
   cursor: pointer;
   border: 2px solid $hindsite-black;
   color: $hindsite-black;
+  margin: 1%;
   &:hover{
     color: $base-white;
     background-color: $hindsite-black;
@@ -577,7 +575,7 @@ body {
   display: flex;
   padding: 0px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 #category-create{
@@ -591,8 +589,9 @@ body {
 }
 
 .exit-icon{
-  margin: 10px 10px 10px 319px;
+  float: right;
   cursor: pointer;
+  margin: 1%;
   color: $hindsite-black;
   &:hover{
     color: $accent-color;
@@ -697,6 +696,7 @@ body {
   width: 350px;
   height: inherit;
   padding: 20px;
+  margin: 0 auto;
 }
 
 #note-editing-box{
