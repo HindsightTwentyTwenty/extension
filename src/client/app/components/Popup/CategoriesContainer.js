@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import CategoryBar from '../Bars/CategoryBar';
-import CategoryCreator from '../Sidebar/CategoryCreator.js'
+import CategoryCreator from '../SideBar/CategoryCreator.js'
 import * as NavActions from '../../actions/App/NavActions.js';
 
 

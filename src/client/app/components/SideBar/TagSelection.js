@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 
 import CategoryBar from '../Bars/CategoryBar.js'
-import CategoryCreator from '../Sidebar/CategoryCreator.js'
+import CategoryCreator from '../SideBar/CategoryCreator.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
