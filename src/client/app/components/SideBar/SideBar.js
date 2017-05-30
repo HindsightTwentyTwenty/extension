@@ -51,8 +51,9 @@ class Sidebar extends Component{
         case PopupConstants.Error:
 					return (
             <div className="sidebar">
-							<PopupHeader/>
-							<Error/>
+              <div className="login-wrapper">
+							      <Error/>
+              </div>
 						</div>
 					);
           case PopupConstants.Blacklist:
@@ -88,7 +89,7 @@ class Sidebar extends Component{
 				case PopupConstants.ForgotMyPassword:
 					return (
             <div className="login-wrapper">
-              <Loading/>
+              <ForgotMyPassword/>
             </div>
           );
 				default:

@@ -1,15 +1,23 @@
 import * as types from '../constants/ActionTypes';
 import * as GlobalConstants from '../constants/GlobalConstants';
 
-function popupCategoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
+function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false}, action){
   switch(action.type){
     case types.SET_EDIT_CAT_COLOR:
       return {...state, editCatColor: action.color}
     case types.TOGGLE_COLOR_PICKER:
       return {...state, showColorPicker: action.showColorPicker}
+    case types.ADD_PAGE_CATEGORY:
+      var categoryObject = state.cats;
+      console.log("ADD_PAGE_CATEGORY index", state.cats, action.category)
+      var index = categoryObject.indexOf(action.category.pk);
+      console.log('index', index);
+      categoryObject.splice(index, 1);
+      categoryObject.unshift(action.category)
+      return{...state, cats:categoryObject};
+
     case types.UPDATE_CATEGORY:
-      console.log("UPDATE_CATEGORY");
       var newCategoryList = Object.assign({}, state.cats);
       var pk = action.pk;
       var title = action.title;

@@ -9,6 +9,7 @@ import CategoryCreator from '../Sidebar/CategoryCreator.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 
 
 
@@ -61,7 +62,6 @@ class TagSelection extends Component{
 
   /* get each of the little category labels */
   getCategoryBars(cat_keys) {
-    console.log('getCategoryBars', this.props);
     let result = [];
     var currentPageCategories = this.props.currentPage.categories;
     var categories = this.props.categories.cats;
@@ -74,7 +74,7 @@ class TagSelection extends Component{
           checked = true;
         }
       }
-      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title}/>)
+      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title} id={categories[index].title}/>)
     }
     return result;
   }
@@ -108,57 +108,6 @@ class TagSelection extends Component{
 
   }
 
-
-  //#TODO gam - delete, this makes rows happens
-  // getRow(cat_keys){
-  //   return(
-  //     <div classname="row" id="category-row">
-  //       {this.getCategoryBars(cat_keys)}
-  //     </div>
-  //   )
-  // }
-  //
-  // oldgetCategories(){
-  //   var padding_pixels = 42;
-  //   var box_width = 320;
-  //   var max_rows = 4;
-  //
-  //   var curr_row_pixels = 0;
-  //   var curr_total_rows = 1;
-  //
-  //   var curr_row_cat_num = [];
-  //   var categories = this.props.categories.cats;
-  //   let result = [];
-  //
-  //   if (categories != null) {
-  //     for(var key in categories) {
-  //       var cat_length = (categories[key].title.length * 8) + padding_pixels;
-  //       if((curr_row_pixels + cat_length) < box_width){
-  //         curr_row_cat_num.push(key);
-  //         curr_row_pixels += cat_length;
-  //         console.log("title", categories[key].title);
-  //         console.log("word length", categories[key].title.length);
-  //         console.log("cat_length", cat_length);
-  //         console.log("curr_row_pixels", curr_row_pixels);
-  //       }else if(curr_total_rows < (max_rows + 1)){
-  //         console.log("pushing this array", curr_row_cat_num);
-  //         result.push(this.getRow(curr_row_cat_num));
-  //         curr_row_cat_num = [];
-  //         curr_row_cat_num.push(key);
-  //         curr_total_rows++;
-  //         curr_row_pixels = cat_length;
-  //       }else{
-  //         break;
-  //       }
-  //     }
-  //   }else{
-  //     return <div> Create a category to add to the page </div>;
-  //   }
-  //   result.push(this.getRow(curr_row_cat_num));
-  //   return result;
-  //
-  // }
-
     getCategoryOptions() {
       var options = [];
 
@@ -170,25 +119,21 @@ class TagSelection extends Component{
     }
 
     addNewCategory(categoryTitle){
-      console.log("this.props.categories.cats", this.props.categories.cats);
-        // this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-          // for (var key in this.props.categories.cats) {
-            // if (categoryTitle == this.props.categories.cats[key].title) {
-              this.props.category_actions.toggleCategory(this.props.currentPage.url,
-                categoryTitle, true, this.props.currentUser.token);
-              // this.props.category_actions.moveCategoryToFront(categoryTitle);
-            // }
-          // }
-      // });
+      for (var key in this.props.categories.cats) {
+        if (categoryTitle == this.props.categories.cats[key].title) {
+          this.props.category_actions.toggleCategory(this.props.currentPage.url,
+            this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
+          document.getElementById(this.props.categories.cats[key].title).checked = true;
+          break;
+        }
+      }
     }
 
     handleCategoryChange(category_option) {
       var category_title = "";
-      // console.log("selected category title", category_option);
       if(category_option){
         category_title = category_option.value;
         this.addNewCategory(category_title);
-        this.getCategories();
       }
     }
 
@@ -266,7 +211,8 @@ let mapDispatchToProps = (dispatch) => {
   return {
     lookback_actions: bindActionCreators(LookbackActions, dispatch),
     category_actions: bindActionCreators(CategoryActions, dispatch),
-    popup_actions: bindActionCreators(PopupActions, dispatch)
+    popup_actions: bindActionCreators(PopupActions, dispatch),
+    user_actions: bindActionCreators(UserActions, dispatch)
   }
 }
 

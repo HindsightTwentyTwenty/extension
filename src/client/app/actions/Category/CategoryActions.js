@@ -78,12 +78,9 @@ export function moveCategoryToFront(cat){
 }
 
 export function toggleCategory(pageUrl, category, addOrDelete, token, pageTitle){
+  console.log("toggleCategory", category, pageTitle);
   var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
-    dispatch({
-      type: dispatchType,
-      category: category
-    })
     var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;
     return fetch(endpoint, {
             headers: {
@@ -101,6 +98,12 @@ export function toggleCategory(pageUrl, category, addOrDelete, token, pageTitle)
         json: json,
         categoryTitle: category.title
       }))
+      .then(
+        dispatch({
+          type: dispatchType,
+          category: category
+        })
+      )
   }
 }
 
