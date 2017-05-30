@@ -165,7 +165,7 @@ class TagSelection extends Component{
             {this.getCategories()}
           </div>
           <div className="row" id="row-tag-bottom" >
-            <div className="cat-button" onClick={this.createNewCategory.bind(this)}>
+              <div className="cat-button" id="popup-cat-button" onClick={this.createNewCategory.bind(this)}>
               <i className="fa fa-plus" aria-hidden="true"></i>
             </div>
           </div>

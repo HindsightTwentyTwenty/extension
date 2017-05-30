@@ -518,20 +518,14 @@ body {
   justify-content: center;
 }
 
-/*#search-icon{
-  color: $hindsite-black;
-  &:hover{
-    color: $accent-color;
-  }
-}*/
 
 #edit-icon{
   color: $hindsite-black;
 }
 
 #categories-wrapper{
-  margin: 15px;
-  height: 144px;
+  margin: 15px 15px 0px 15px;
+  height: 154px;
   overflow: hidden;
 }
 
@@ -568,6 +562,13 @@ body {
     color: $base-white;
     background-color: $hindsite-black;
   }
+}
+
+#popup-cat-button{
+  margin: 0px 0px 0px 276px;
+}
+#close-row{
+  height: 40px;
 }
 
 #row-tag-bottom{

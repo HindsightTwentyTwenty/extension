@@ -61,8 +61,8 @@ class CategoryCreator extends Component {
             break;
           }
         }
-        this.closeCreate();
     });
+    this.closeCreate();
 
   }
 
@@ -86,7 +86,7 @@ class CategoryCreator extends Component {
   render () {
       return (
         <div id="category-create">
-          <div className="row-createcategory">
+          <div className="row-createcategory" id="close-row">
             <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeCreate.bind(this)}></i>
           </div>
           <div className="row-createcategory">

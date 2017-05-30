@@ -82,7 +82,7 @@ class Sidebar extends Component{
           );
 				case PopupConstants.SignUp:
 					return (
-            <div className="singup-wrapper">
+            <div className="signup-wrapper">
               <CreateUser/>
             </div>
           );
