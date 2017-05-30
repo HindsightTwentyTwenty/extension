@@ -27,7 +27,6 @@ class PageBar extends Component {
           if(this.props.currentPage == undefined || (this.props.page.url !== this.props.currentPage.url)){
             if(this.props.currentPage === LookBackConstants.DEFAULT_IMG){
               this.props.lookback_actions.setCurrentPage(this.props.page, this.props.visited, this.props.preview);
-
             }else{
               this.props.lookback_actions.getImage(this.props.preview, this.props.currentUser.md5, this.props.currentUser.ekey, this.props.page, this.props.visited);
             }

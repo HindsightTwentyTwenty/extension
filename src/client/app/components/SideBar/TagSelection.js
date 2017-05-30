@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 
 import CategoryBar from '../Bars/CategoryBar.js'
-import CategoryCreator from '../Sidebar/CategoryCreator.js'
+import CategoryCreator from '../SideBar/CategoryCreator.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
@@ -145,7 +145,7 @@ class TagSelection extends Component{
     if(this.props.cat_state == "create"){
       return(
         <div>
-          <CategoryCreator />
+          <CategoryCreator onClose={this.props.popup_actions.changePopupCatState} />
         </div>
       )
     }else if(this.props.categories.cats){
@@ -165,7 +165,7 @@ class TagSelection extends Component{
             {this.getCategories()}
           </div>
           <div className="row" id="row-tag-bottom" >
-            <div id="new-cat-button" onClick={this.createNewCategory.bind(this)}>
+            <div className="cat-button" onClick={this.createNewCategory.bind(this)}>
               <i className="fa fa-plus" aria-hidden="true"></i>
             </div>
           </div>

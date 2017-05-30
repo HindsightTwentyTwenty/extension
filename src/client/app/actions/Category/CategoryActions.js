@@ -163,12 +163,21 @@ export function clearSearchCategories() {
   }
 }
 
-export function updateSearchCategory(categoryTitle, addOrDelete) {
-  var dispatchType = addOrDelete ? types.ADD_SEARCH_CATEGORY : types.REMOVE_SEARCH_CATEGORY;
+export function updateSearchCategories(newSearchCategories) {
   return dispatch => {
     dispatch({
-      type: dispatchType,
-      categoryTitle: categoryTitle,
+      type: types.UPDATE_SEARCH_CATEGORIES,
+      newSearchCategories: newSearchCategories,
+    })
+  }
+}
+
+export function updateSearchCategory(url, categoryInfo, checked) {
+  return dispatch => {
+    dispatch({
+      type: types.UPDATE_SEARCH_CATEGORY,
+      title: categoryInfo.title,
+      checked: checked
     })
   }
 }

@@ -7,7 +7,6 @@ import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SelectedDomainBar from '../Bars/SelectedDomainBar.js';
 import { Creatable } from 'react-select';
-
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import Datetime from 'react-datetime';

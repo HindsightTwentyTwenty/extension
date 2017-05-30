@@ -4,23 +4,24 @@ const searchCategory = (state, action) => {
   switch (action.type) {
     case types.CLEAR_SEARCH_CATEGORIES:
       return {searchCats: []};
-    case types.ADD_SEARCH_CATEGORY:
-      return {searchCats: state.searchCats.concat([action.categoryTitle])};
-    case types.REMOVE_SEARCH_CATEGORY:
-      var newCategoryList = [];
-      var currentCategories = state.searchCats;
-      for(var i = 0; i < currentCategories.length; i++) {
-        if (currentCategories[i] !== action.categoryTitle) {
-          newCategoryList.push(currentCategories[i]);
-        }
+    case types.UPDATE_SEARCH_CATEGORIES:
+      var catSet = new Set();
+      action.newSearchCategories.forEach(function(cat){catSet.add(cat.value)});
+      return {searchCats: catSet};
+    case types.UPDATE_SEARCH_CATEGORY:
+      var catSet = new Set(state.searchCats);
+      if(action.checked){
+        catSet.add(action.title);
+      }else{
+        catSet.delete(action.title);
       }
-      return {searchCats: newCategoryList};
+      return {searchCats: catSet}
     default:
       return state
   }
 }
 
-function searchCategoryReducer(state = {searchCats: []}, action){
+function searchCategoryReducer(state = {searchCats: new Set()}, action){
   return searchCategory(state, action);
 }
 

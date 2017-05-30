@@ -5,7 +5,7 @@ import {render} from 'react-dom';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as StarActions from '../../actions/Star/StarActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
-import * as IFrameActions from '../../actions/User/IFrameActions.js';
+import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
 const Timestamp = require('react-timestamp');
@@ -27,7 +27,7 @@ class PageUrlBar extends Component {
 
   componentWillMount() {
     /* reset the iframe box to a loading page until async call for decryption is made */
-    this.props.iframe_actions.receiveDecrypted("loading");
+    this.props.pagedata_actions.receiveDecrypted("loading");
   }
 
   //WC SPRING TODO: REWORK TO USE CATEGORY ENTRY COMPONENT, JUST CHANGE CSS
@@ -107,7 +107,7 @@ class PageUrlBar extends Component {
   closeIframe(event){
     this.setState({ iframehider_show: false });
     this.setState({ iframe_show: false });
-    this.props.iframe_actions.receiveDecrypted("loading");
+    this.props.pagedata_actions.receiveDecrypted("loading");
 
   }
 
@@ -116,9 +116,9 @@ class PageUrlBar extends Component {
     /* only try to get the dom if not a 404 message */
     if(this.props.page.s3 != "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
       if(this.props.origin == "search" ){
-        this.props.iframe_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+        this.props.pagedata_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
       }else{
-        this.props.iframe_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
+        this.props.pagedata_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
       }
     }
   }
@@ -229,7 +229,7 @@ let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch),
   star_actions: bindActionCreators(StarActions, dispatch),
   category_actions: bindActionCreators(CategoryActions, dispatch),
-  iframe_actions: bindActionCreators(IFrameActions, dispatch)
+  pagedata_actions: bindActionCreators(PageDataActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as LookBackNavActions from '../../actions/LookBackNav/LookBackNavActions.js';
+import * as NavActions from '../../actions/App/NavActions.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as LookBackSections from '../../constants/LookBackConstants.js'
 import moment from 'moment';
@@ -26,14 +26,14 @@ class LookBackNavBar extends Component {
 
 
 
-  switchLookBackSelection(newLookBackSelection){
-    if(newLookBackSelection != this.props.lookbackNav.selection){
-      this.props.lookback_nav_actions.switchLookBackSelection(newLookBackSelection, "")
+  switchMenuSelection(newMenuSelection){
+    if(newMenuSelection != this.props.appNav.menuSelection){
+      this.props.nav_actions.switchMenuSelection(newMenuSelection, "")
     }
   }
 
   searchForm() {
-    if (this.props.lookbackNav.selection == LookBackSections.Search){
+    if (this.props.appNav.menuSelection == LookBackSections.Search){
       return (
         <div>
         <button id="nav-bar-button-3" className="nav-bar-button nav-bar-button-selected" type="button" disabled>advanced search</button>
@@ -59,35 +59,35 @@ class LookBackNavBar extends Component {
                   this.props.lookback_actions.toggleDomainClicked();
                   this.props.lookback_actions.setCurrentPage({});
               }
-              this.switchLookBackSelection(LookBackSections.LookBack);
+              this.switchMenuSelection(LookBackSections.LookBack);
             }}>timeline</button>
             <button id="nav-bar-button-1" className="nav-bar-button" type="button" onClick={() => {
               if(this.props.currentDomainDisplayed.clicked){
                   this.props.lookback_actions.toggleDomainClicked();
                   this.props.lookback_actions.setCurrentPage({});
               }
-              this.switchLookBackSelection(LookBackSections.Categories);
+              this.switchMenuSelection(LookBackSections.Categories);
             }}>categories</button>
             <button id="nav-bar-button-2" className="nav-bar-button" type="button" onClick={() => {
               if(this.props.currentDomainDisplayed.clicked){
                   this.props.lookback_actions.toggleDomainClicked();
                   this.props.lookback_actions.setCurrentPage({});
               }
-              this.switchLookBackSelection(LookBackSections.Manage);
+              this.switchMenuSelection(LookBackSections.Manage);
             }}>manage</button>
             <button id="nav-bar-button-3" className="nav-bar-button" type="button" onClick={() => {
               if(this.props.currentDomainDisplayed.clicked){
                   this.props.lookback_actions.toggleDomainClicked();
                   this.props.lookback_actions.setCurrentPage({});
               }
-              this.switchLookBackSelection(LookBackSections.Analytics);
+              this.switchMenuSelection(LookBackSections.Analytics);
             }}>analytics</button>
           </div>
         </div>
         <div className="site-title">
               <div className="popup-header"
                 onClick={() => {
-                  this.switchLookBackSelection(LookBackSections.LookBack);
+                  this.switchMenuSelection(LookBackSections.LookBack);
                 }}>
                 <img className="logo site-logo"  src="../../assets/img/logo-light.png"/>
                 <p className="popup-header-text">hindsite</p>
@@ -99,14 +99,14 @@ class LookBackNavBar extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  lookbackNav: state.lookbackNav,
+  appNav: state.appNav,
   currentUser : state.currentUser,
   currentDomainDisplayed: state.currentDomainDisplayed
 })
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    lookback_nav_actions: bindActionCreators(LookBackNavActions, dispatch),
+    nav_actions: bindActionCreators(NavActions, dispatch),
     lookback_actions: bindActionCreators(LookbackActions, dispatch)
   }
 }

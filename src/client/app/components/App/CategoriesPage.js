@@ -3,12 +3,19 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import SidebarComponent from '../Bars/SidebarComponent.js';
-import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import SearchTile from './SearchTile.js';
+import CategoryAutoSuggest from './CategoryAutoSuggest.js';
+import CategoriesContainer from '../Popup/CategoriesContainer.js';
+import * as PageDataActions from '../../actions/User/PageDataActions.js';
+import * as NavActions from '../../actions/App/NavActions.js'
+import CategoryCreator from '../SideBar/CategoryCreator.js';
+import CategoryEditor from '../SideBar/CategoryEditor.js';
+
 
 function getState(){
   return{
-    displayWelcomeMessage: true
+    displayWelcomeMessage: true,
   }
 }
 
@@ -21,11 +28,8 @@ class CategoriesPage extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.categoriesAndPages.showStarred  &&
-      this.state.displayWelcomeMessage) {
-      this.setState({displayWelcomeMessage: false});
-    } else if (this.props.currentSearchCategories.searchCats &&
-      this.props.currentSearchCategories.searchCats.length &&
+    if (this.props.currentSearchCategories.searchCats &&
+      this.props.currentSearchCategories.searchCats.size &&
       this.state.displayWelcomeMessage) {
       this.setState({displayWelcomeMessage: false});
     }
@@ -34,55 +38,63 @@ class CategoriesPage extends Component {
   fetchPages() {
     var currentSearchCategories = this.props.currentSearchCategories.searchCats;
     var categoriesPages = this.props.categoriesAndPages.catsToPages;
+    var pkToPages = this.props.categoriesAndPages.pkToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
-    if (this.state.displayWelcomeMessage) {
+    if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.size == 0) {
       return (
         <div className="welcome-message">
-          <h4>Select categories from the sidebar to see your categorized pages.</h4>
-          <h4>Use the <i className='fa fa-pencil'/> and <i className='fa fa-trash'/> to edit and delete your categories.</h4>
+          <h4>Select or enter a tag to get started.</h4>
         </div>
       )
-    } else if (categoriesPages && Object.keys(categoriesPages).length) {
+    }
+    else {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
       if (searchCatSet.size) {
         for (let searchCat of searchCatSet.values()) {
-          for (var pagePk in categoriesPages[searchCat]) {
+          for (var i in categoriesPages[searchCat]) {
+            var pagePk = categoriesPages[searchCat][i]
             if (!pageSet.has(pagePk)) {
               if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
-                result.push(<PageUrlBar key={pagePk}
+                result.push(<SearchTile key={pagePk}
                   source="categories"
-                  page={categoriesPages[searchCat][pagePk]}
-                  domain={categoriesPages[searchCat][pagePk].domain}
-                  visited={categoriesPages[searchCat][pagePk].last_visited}/>)
+                  page={pkToPages[pagePk]}
+                  />)
                 pageSet.add(pagePk);
               }
             }
           }
         }
-      } else if (showStarred) {
-        for (var pagePk in starred) {
-          if (!pageSet.has(pagePk)) {
-            result.push(<PageUrlBar key={pagePk}
-              source="categories"
-              page={starred[pagePk]}
-              domain={starred[pagePk].domain}
-              visited={starred[pagePk].last_visited}/>)
-            pageSet.add(pagePk);
-          }
-        }
       }
-      return result
+      if(result == []){
+        <div className="welcome-message">
+          <h4>No pages found with this tag.</h4>
+        </div>
+      }
+      else{
+        return result;
+      }
     }
   }
 
+
   render() {
     var searchResults = this.fetchPages();
+    if (this.props.appNav.categoriesView == "create"){
+      var categoriesView = <div className="categories-view"><CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/></div>;
+    }else if(this.props.appNav.categoriesView == "edit"){
+      var categoriesView = <div className="categories-view"><CategoryEditor onClose={this.props.nav_actions.switchCategoryView}/></div>;
+    }else{
+      var categoriesView = <div><div className="category-select"><CategoryAutoSuggest categories={this.props.categories} onSelect={this.props.category_actions.updateSearchCategories}/></div>
+      <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.updateSearchCategory} useCase={"search"}/></div>
+    }
     return (
       <div className="categories-page">
-        <SidebarComponent/>
+        <div id="category-navigation">
+          {categoriesView}
+        </div>
         <div className="search-results-container">
           {searchResults}
         </div>
@@ -95,13 +107,14 @@ let mapStateToProps = (state) => ({
     categories: state.categories,
     categoriesAndPages: state.categoriesAndPages,
     currentSearchCategories : state.currentSearchCategories,
-    currentUser : state.currentUser
+    currentUser : state.currentUser,
+    appNav: state.appNav
 })
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    category_actions: bindActionCreators(CategoryActions, dispatch)
-  }
-}
+let mapDispatchToProps = (dispatch) => ({
+    category_actions: bindActionCreators(CategoryActions, dispatch),
+    pagedata_actions: bindActionCreators(PageDataActions, dispatch),
+    nav_actions: bindActionCreators(NavActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage);

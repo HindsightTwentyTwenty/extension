@@ -47,13 +47,6 @@ function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.D
       var newCategory = action.category_added;
       newCategoryList[newCategory.pk] = newCategory;
       return {...state, cats: newCategoryList};
-    // case types.MOVE_CAT_TO_TOP:
-    //   console.log("MOVE_CAT_TO_TOP", action);
-    //   console.log("cats", state.cats);
-    //   console.log("new cat", action.cat);
-    //   categoryObject = state.cats;
-    //   var index = categoryObject.indexOf(action.cat);
-    //   categoryObject.unshift(action.cat)
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
     case types.RECEIVE_POPUP_INFO:
       console.log("in cat reducer, receive popup info", action);
