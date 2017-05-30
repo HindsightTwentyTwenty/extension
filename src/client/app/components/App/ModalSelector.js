@@ -5,14 +5,14 @@ import { bindActionCreators} from 'redux';
 import * as NavActions from '../../actions/App/NavActions.js';
 
 
-class RangeSelector extends Component {
+class ModalSelector extends Component {
 
   constructor(props) {
     super(props);
   }
 
   getClassName(view) {
-    if (this.props.appNav.modalView.length == view) {
+    if (this.props.appNav.modalView == view) {
       return "active";
     }
   }
@@ -41,4 +41,4 @@ let mapDispatchToProps = (dispatch) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RangeSelector);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalSelector);

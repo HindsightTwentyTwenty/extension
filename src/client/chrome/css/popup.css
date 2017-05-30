@@ -696,6 +696,7 @@ body {
   width: 350px;
   height: inherit;
   padding: 20px;
+  margin: 0 auto;
 }
 
 #note-editing-box{

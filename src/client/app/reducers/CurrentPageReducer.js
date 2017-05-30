@@ -70,7 +70,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           categories: categoryObject,
           created: action.page.created,
           visited: action.visited,
-          preview: action.preview
+          preview: action.preview,
+          note: action.note
         }
       }
       if(action.page.star == undefined){

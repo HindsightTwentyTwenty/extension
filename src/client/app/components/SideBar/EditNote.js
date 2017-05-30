@@ -68,11 +68,14 @@ class EditNote extends Component{
   }
 
   render(){
+    var style = this.props.useCase == "onApp" ? {"width": "100%"} : {};
+    var background = this.props.currentPage.notes
     return(
-      <div id="editnote-wrapper">
+      <div id='editnote-wrapper' style={style}>
         <div id ="note-editing-box" >
           <textarea
               className="textarea-custom"
+              style={style}
               type="text"
               id="note-text-edit"
               defaultValue={this.props.currentPage.note}

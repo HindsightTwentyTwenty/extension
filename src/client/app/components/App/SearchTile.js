@@ -6,6 +6,7 @@ import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
+import EditNote from '../SideBar/EditNote.js'
 import Loading from '../Popup/Loading.js';
 import ModalSelector from './ModalSelector.js';
 const Timestamp = require('react-timestamp');
@@ -77,10 +78,13 @@ class SearchTile extends Component {
     }
   }
 
-  getCategories() {
+  getCategories(all) {
     var categories = this.props.page.categories;
     var result = [];
     var numCatsShown = this.props.page.categories.length < GlobalConstants.MAX_DISPLAY_CATS ? this.props.page.categories.length : GlobalConstants.MAX_DISPLAY_CATS;
+    if(all){
+      numCatsShown = this.props.page.categories.length;
+    }
       for(var i = 0; i < numCatsShown; i++) {
         result.push(<div
           className='category-bar hide-overflow'
@@ -93,8 +97,32 @@ class SearchTile extends Component {
     return result;
   }
 
+  getDetailView(){
+    var visited = this.props.page.last_visited ? <p>last visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
+
+    return(
+      <div className="flex-col">
+        <div className="flex-row">
+          <div id='detail-screenshot-wrapper'>
+            <a href={this.props.page.url} target="_blank"><img id='detail-screenshot' src={this.props.page.preview}/></a>
+          </div>
+          <div id='detail-text-wrap'>
+            <a href={this.props.page.url} target="_blank"><p id='detail-title' className="hide-overflow">{this.props.page.title}&nbsp;<i className="fa fa-external-link" aria-hidden="true"></i></p></a>
+            <p>{this.props.page.domain}</p>
+            {visited}
+            <div>
+              {this.getCategories(true)}
+            </div>
+          </div>
+        </div>
+        <div>
+          <EditNote useCase="onApp"/>
+        </div>
+      </div>
+    )
+  }
   render() {
-    var modalContent = this.props.appNav.modalView == "info" ? '' : <div id="modal-content">{this.getIframe()}<div id="iframe-msg">This is a snapshot of this page at the time you visited it, some aspects may not render correctly.</div></div>;
+    var modalContent = this.props.appNav.modalView == "info" ? <div id="modal-content">{this.getDetailView()}</div> : <div id="modal-content">{this.getIframe()}<div id="iframe-msg">This is a snapshot of this page at the time you visited it, some aspects may not render correctly.</div></div>;
     var modal = (this.state.detail_view_show) ?
         <div className="modal-base">
           <div className="i-modal-header">
@@ -120,10 +148,10 @@ class SearchTile extends Component {
               <i className="fa fa-play-circle text-overlay-btn" aria-hidden="true" onClick={this.openDetailView.bind(this)}></i>
             </div>
           </div>
-          <a target="_blank" href={this.props.page.url}><p className="tile-title">{this.props.page.title}</p></a>
+          <a target="_blank" href={this.props.page.url}><p className="tile-title">{this.props.page.title}&nbsp;<i className="fa fa-external-link" aria-hidden="true"></i></p></a>
           {domain}
           <div>
-            {this.getCategories()}
+            {this.getCategories(false)}
           </div>
         </div>
       </div>

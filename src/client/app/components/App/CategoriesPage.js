@@ -68,7 +68,14 @@ class CategoriesPage extends Component {
           }
         }
       }
-      return result
+      if(result == []){
+        <div className="welcome-message">
+          <h4>No pages found with this tag.</h4>
+        </div>
+      }
+      else{
+        return result;
+      }
     }
   }
 
