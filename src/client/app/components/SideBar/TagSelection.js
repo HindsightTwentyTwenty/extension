@@ -27,7 +27,7 @@ class TagSelection extends Component{
   }
 
   componentDidMount(){
-    console.log("props", this.props);
+    console.log("TAG SELECTION props", this.props);
     this.setState({
       pageTitle:this.props.currentPage.title
     })
@@ -61,13 +61,19 @@ class TagSelection extends Component{
 
   /* get each of the little category labels */
   getCategoryBars(cat_keys) {
+    console.log('getCategoryBars', this.props);
     let result = [];
     var currentPageCategories = this.props.currentPage.categories;
     var categories = this.props.categories.cats;
 
     for( var key in cat_keys){
       var index = cat_keys[key];
-      var checked = (index in currentPageCategories);
+      var checked = false
+      for(var key in currentPageCategories){
+        if (categories[index].title == currentPageCategories[key].title){
+          checked = true;
+        }
+      }
       result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title}/>)
     }
     return result;
@@ -84,7 +90,7 @@ class TagSelection extends Component{
     var categories = this.props.categories.cats;
     let result = [];
 
-    if (this.props.categories.cats && categories != null) {
+    if (this.props.categories && categories != null) {
       for(var key in categories) {
         var cat_length = (categories[key].title.length * 6) + padding_pixels;
         if((curr_row_pixels + cat_length) < box_width){
@@ -164,15 +170,15 @@ class TagSelection extends Component{
     }
 
     addNewCategory(categoryTitle){
-        this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-          for (var key in this.props.categories.cats) {
-            if (categoryTitle == this.props.categories.cats[key].title) {
+      console.log("this.props.categories.cats", this.props.categories.cats);
+        // this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+          // for (var key in this.props.categories.cats) {
+            // if (categoryTitle == this.props.categories.cats[key].title) {
               this.props.category_actions.toggleCategory(this.props.currentPage.url,
-                this.props.categories.cats[key], true, this.props.currentUser.token);
-              break;
-            }
-          }
-      });
+                categoryTitle, true, this.props.currentUser.token);
+            // }
+          // }
+      // });
     }
 
     handleCategoryChange(category_option) {
@@ -222,12 +228,23 @@ class TagSelection extends Component{
     }
   }
 
+  getTitle(){
+    if(this.props.currentPage.title){
+        return(    <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/>
+      );
+    }else{
+      return(
+        <div>Loading..</div>
+      )
+    }
+  }
+
   render(){
     return(
       <div id="tag-selection-wrapper">
           <div className="row" id="row-url-entry">
             <img id="favicon-url-entry" src={this.props.currentPage.favIconUrl} />
-            <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/>
+            {this.getTitle()}
             <i id="edit-icon" className="fa fa-2x fa-pencil-square-o" aria-hidden="true" style={{display:"none"}}></i>
           </div>
           {this.getCategoryContent()}

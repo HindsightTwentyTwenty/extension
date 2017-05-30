@@ -29,6 +29,7 @@ class TagBox extends Component{
   }
 
   switchOpen(){
+    console.log("tag props", this.props);
     /* close box if clicked and open, otherwise open box */
     if(this.props.box_state == 'tag'){
       this.props.popup_actions.changePopupBoxState('closed');

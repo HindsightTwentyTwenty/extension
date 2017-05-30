@@ -8,9 +8,11 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
       return { ...state, url: action.url, categories: {}, start: false, title: action.title, created: "", visited: "" }
     case types.RECEIVE_POPUP_INFO:
+      console.log("RECEIVE_POPUP_INFO", action.page);
       // Used in regular popup flow
       var currentPage = action.page;
       var categoryObject = {};
+      console.log("cats on RECEIVE", currentPage.categories);
       currentPage.categories.map(function(category) {
         categoryObject[category.pk] = category;
       })
@@ -41,10 +43,12 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.UPDATE_CURRENT_STAR: //WC TODO: USE TOGGLE STAR INSTEAD???
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:
+      console.log("adding page category...");
       var newCategoryList = Object.assign({}, state.categories);
       newCategoryList[action.category.pk] = action.category;
       return {...state, categories: newCategoryList};
     case types.DELETE_PAGE_CATEGORY:
+      console.log("deleting page category...");
       var newCategoryList = Object.assign({}, state.categories);
       var pk = action.category.pk;
       if (newCategoryList[pk]) {
