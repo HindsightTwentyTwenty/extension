@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as LookBackConstants from '../constants/LookBackConstants';
 
-function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: ""}, action){
+function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: "", note:""}, action){
   switch(action.type){
     case types.RECEIVE_DECRYPTED:
       return {...state, s3_decrypted: action.html}
@@ -19,8 +19,11 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         categories: categoryObject,
         star: currentPage.star,
         title: currentPage.title,
-        favIconUrl:action.favicon
+        favIconUrl:action.favicon,
+        note: currentPage.note
       }
+    case types.RECEIVE_UPDATED_NOTE:
+      return{...state, note:action.note}
     case types.RECEIVE_PAGE_INFO:
       // Used on login to get page info
       var categoryObject = {};

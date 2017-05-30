@@ -32,7 +32,8 @@ let store = createStore(
       visited: "",
       categories: {},
       star: false,
-      preview: ""
+      preview: "",
+      note: ""
     },
     currentTabs:[],
     currentTime:{
@@ -120,7 +121,10 @@ let store = createStore(
       categoriesView: "select",
       editCatPK: 0
     },
-    popupSelection: PopupConstants.POPUP_MENU_ITEMS[0].id, //Categories
+    popupSelection: {
+      cat_state: "",
+      box_state: "tag"
+    }, //Categories
     search: {
       results: [],
       dom: "",

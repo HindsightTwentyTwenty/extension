@@ -181,28 +181,22 @@ class TagSelection extends Component{
       if(category_option){
         category_title = category_option.value;
         this.addNewCategory(category_title);
-
+        this.getCategories();
       }
     }
 
   createNewCategory(){
-    console.log("create category");
     this.props.popup_actions.changePopupCatState("create");
-    // this.setState({
-    //   create_selected: true
-    // })
   }
 
   getCategoryContent(){
-    console.log("create selected", this.state.create_selected);
     if(this.props.cat_state == "create"){
-      console.log("returning creator");
       return(
         <div>
           <CategoryCreator onClose={this.props.popup_actions.changePopupCatState} />
         </div>
       )
-    }else{
+    }else if(this.props.categories.cats){
       return(
         <div>
           <div className="category-select">
