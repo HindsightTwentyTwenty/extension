@@ -128,7 +128,7 @@ export function editCategory(pk, oldTitle, updatedTitle, updatedColor, token) {
         'Authorization': 'Token ' + token
       },
       method: "POST",
-      body: JSON.stringify({old: oldTitle, updated: updatedTitle, color: updatedColor})
+      body: JSON.stringify({pk: pk, updated: updatedTitle, color: updatedColor})
     })
   }
 }

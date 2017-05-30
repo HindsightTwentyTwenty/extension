@@ -589,8 +589,9 @@ body {
 }
 
 .exit-icon{
-  margin: 10px 10px 10px 319px;
+  float: right;
   cursor: pointer;
+  margin: 1%;
   color: $hindsite-black;
   &:hover{
     color: $accent-color;

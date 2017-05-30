@@ -78,8 +78,9 @@ class CategoriesContainer extends Component {
   }
 
   render() {
-    var leftArrowClass = this.state.startIndex == 0 ? <div className='change-page-btn'><i className='fa fa-angle-left fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.incrementPage()}}><i className='fa fa-angle-left fa-3x arrow-btn' aria-hidden="true"></i></div>
+    var leftArrowClass = this.state.startIndex == 0 ? <div className='change-page-btn'><i className='fa fa-angle-left fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.decrementPage()}}><i className='fa fa-angle-left fa-3x arrow-btn' aria-hidden="true"></i></div>
     var rightArrowClass = this.state.endIndex == this.props.numCats ? <div className='change-page-btn'><i className='fa fa-angle-right fa-3x arrow-btn-disabled' aria-hidden="true"></i></div> : <div className="change-page-btn" onClick={()=> {this.incrementPage()}}><i className='fa fa-angle-right fa-3x arrow-btn' aria-hidden="true"></i></div>;
+    var editButtonStyle = this.props.appNav.categoriesView == "edit-select" ? {"color": '#fafafa', "backgroundColor": '#55524D'} : {};
     return (
       <div className="categories-container-wrapper">
         <div className='paginate-cats'>
@@ -93,7 +94,12 @@ class CategoriesContainer extends Component {
           <div className="cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("create")}}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </div>
-          <div className="cat-button" onClick={()=> {this.props.nav_actions.switchCategoryView("edit")}}>
+          <div className="cat-button" style={editButtonStyle} onClick={()=> {
+            if(this.props.appNav.categoriesView == "select"){
+              this.props.nav_actions.switchCategoryView("edit-select");
+            }else{
+              this.props.nav_actions.switchCategoryView("select");
+            }}}>
             <i className="fa fa-pencil" aria-hidden="true"></i>
           </div>
         </div>
@@ -106,7 +112,8 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     categories: state.categories,
-    currentSearchCategories : state.currentSearchCategories
+    currentSearchCategories : state.currentSearchCategories,
+    appNav: state.appNav
 })
 
 let mapDispatchToProps = (dispatch) => ({

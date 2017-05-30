@@ -8,7 +8,8 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js'
 
 function getState(){
   return{
-    cat_title : ""
+    cat_title : "",
+    edited: false
   }
 }
 
@@ -16,11 +17,19 @@ class CategoryEditor extends Component {
   constructor(props) {
     super(props);
     this.categoryColors = GlobalConstants.CAT_COLORS;
+    this.category = this.props.categories.cats[this.props.appNav.editCatPK];
+    this.state = getState();
+    this.setState({
+      cat_title : this.category.title,
+      edited: false
+    });
+    console.log(this.state);
   }
 
-  closeCreate(){
+  closeEdit(){
     this.setState({
-      cat_title : this.props.categories
+      cat_title : "",
+      edited: false
     });
     this.props.onClose("select");
   }
@@ -30,18 +39,6 @@ class CategoryEditor extends Component {
     document.getElementById(color.name).style.width = 27;
     document.getElementById(color.name).style.border = "1px solid $hindsite-black";
     this.props.category_actions.setEditCatColor(color);
-  }
-
-  addNewCategory(){
-      this.props.category_actions.pushCategory(this.state.cat_title, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-        for (var key in this.props.categories.cats) {
-          if (this.state.cat_title == this.props.categories.cats[key].title) {
-            this.props.category_actions.toggleCategory(this.props.currentPage.url,
-              this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
-            break;
-          }
-        }
-    });
   }
 
   getColors() {
@@ -57,38 +54,31 @@ class CategoryEditor extends Component {
 
   logNewCatTitle(event){
     this.setState({
-      cat_title : event.target.value
+      cat_title : event.target.value,
+      edited: true
     });
   }
-  /*
-  $h-red: #DB3535 ;
-  $h-orange: #EE6953 ;
-  $h-yellow: #F7AC2F ;
-  $h-teal: #34CCBB ;
-  $h-green: #339882 ;
-  $h-blue: #3F80D9 ;
-  $h-purple: #6454C9 ;
-  */
-  // getColorChoices(){
-  //   // var colors = [ #DB3535, #EE6953, #F7AC2F, #34CCBB, #339882, #3F80D9, #6454C9 ];
-  //
-  //   var results = [];
-  //
-  //   for(var color in colors){
-  //
-  //   }
-  // }
+
+  editCategory(){
+    var newTitle = this.state.edited ? this.state.cat_title : this.category.title;
+    this.props.category_actions.editCategory(this.category.pk, this.category.title, newTitle, this.props.categories.editCatColor.code, this.props.currentUser.token);
+    this.closeEdit();
+  }
+
+  deleteCategory(){
+    this.props.category_actions.deleteCategory(this.category.pk, this.category.title, this.props.currentUser.token);
+  }
 
   render () {
       return (
         <div id="category-create">
           <div className="row-createcategory">
-            <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeCreate.bind(this)}></i>
+            <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeEdit.bind(this)}></i>
           </div>
           <div className="row-createcategory">
-            <p id="label-newtag">new tag:</p>
+            <p id="label-newtag">edit tag:</p>
             <div id="new-cat-form">
-              <input type="text" className="login-form form-control" id="input-newcat" onChange={this.logNewCatTitle.bind(this)}/>
+              <input type="text" className="login-form form-control" id="input-newcat" defaultValue={this.category.title} onChange={this.logNewCatTitle.bind(this)}/>
               <div className="row-createcategory">
                 <p>choose color:</p>
               </div>
@@ -96,8 +86,9 @@ class CategoryEditor extends Component {
                 {this.getColors()}
               </div>
               <div className="row-createcategory category-create-btns" >
-                <div className="btn-new-cat" id="btn-new-cat-cancel" onClick={this.closeCreate.bind(this)}>cancel</div>
-                <div className="btn-new-cat" id="btn-new-cat-save" onClick={this.addNewCategory.bind(this)}>save</div>
+                <div className="btn-new-cat" id="btn-new-cat-cancel" onClick={this.closeEdit.bind(this)}>cancel</div>
+                <div className="btn-new-cat" id="btn-new-cat-save" onClick={this.editCategory.bind(this)}>save</div>
+                <div className="btn-delete-cat" onClick={this.deleteCategory.bind(this)}><i className="fa fa-trash-o" aria-hidden="true"></i></div>
               </div>
             </div>
           </div>
@@ -110,7 +101,8 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     cat_state : state.popupSelection.cat_state,
-    categories : state.categories
+    categories : state.categories,
+    appNav : state.appNav
 })
 
 let mapDispatchToProps = (dispatch) => {
@@ -120,4 +112,4 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryCreator);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryEditor);

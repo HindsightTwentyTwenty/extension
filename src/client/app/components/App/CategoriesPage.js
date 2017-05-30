@@ -10,6 +10,8 @@ import CategoriesContainer from '../Popup/CategoriesContainer.js';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as NavActions from '../../actions/App/NavActions.js'
 import CategoryCreator from '../SideBar/CategoryCreator.js';
+import CategoryEditor from '../SideBar/CategoryEditor.js';
+
 
 function getState(){
   return{
@@ -74,25 +76,17 @@ class CategoriesPage extends Component {
   render() {
     var searchResults = this.fetchPages();
     if (this.props.appNav.categoriesView == "create"){
-      return(
-        <div className="categories-page">
-          <CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/>
-        </div>
-      )
+      var categoriesView = <div className="categories-view"><CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/></div>;
     }else if(this.props.appNav.categoriesView == "edit"){
-      return(
-        <div className="categories-page">
-          <CategoryEditor onClose={this.props.nav_actions.switchCategoryView}/>
-        </div>
-      )
+      var categoriesView = <div className="categories-view"><CategoryEditor onClose={this.props.nav_actions.switchCategoryView}/></div>;
+    }else{
+      var categoriesView = <div><div className="category-select"><CategoryAutoSuggest categories={this.props.categories} onSelect={this.props.category_actions.updateSearchCategories}/></div>
+      <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.updateSearchCategory} useCase={"search"}/></div>
     }
     return (
       <div className="categories-page">
-        <div className="category-navigation">
-          <div className="category-select">
-  					<CategoryAutoSuggest categories={this.props.categories} onSelect={this.props.category_actions.updateSearchCategories}/>
-  				</div>
-          <CategoriesContainer numCats={Object.keys(this.props.categories.cats).length} onSelect={this.props.category_actions.updateSearchCategory} useCase={"search"}/>
+        <div id="category-navigation">
+          {categoriesView}
         </div>
         <div className="search-results-container">
           {searchResults}

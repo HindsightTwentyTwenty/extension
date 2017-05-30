@@ -82,6 +82,11 @@ remove this class using removeClass as defined in App.js
 
 #category-navigation{
   min-width: 545px;
+  max-height: 250px;
+}
+
+.category-views{
+  width: 60%;
 }
 .app-container{
   height:50px;
@@ -434,6 +439,17 @@ start-time-label .end-time-label{
   display: flex;
   flex-direction: column;
 }
+
+#categories-view{
+  width: 60%;
+}
+
+.btn-delete-cat{
+  font-size: x-large;
+  margin-left: 1%;
+  cursor: pointer
+}
+
 #graph-plus-buttons{
   display: flex;
   width: 100%;

@@ -23,3 +23,12 @@ export function switchCategoryView(newView){
     })
   }
 }
+
+export function setEditCat(editCatPK){
+  return dispatch => {
+    dispatch({
+      type: types.SET_EDIT_CAT,
+      editCatPK: editCatPK
+    })
+  }
+}

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
+import * as NavActions from '../../actions/App/NavActions.js'
 var classNames = require('classnames');
 
 function getState(){
@@ -60,13 +61,20 @@ class CategoryBar extends Component {
   }
 
   render() {
+    var lineStyle = this.props.appNav.categoriesView == "edit-select" ? "dotted 2px " : "solid 2px ";
     return (
       <div
-        style={{"backgroundColor" : this.state.backgroundColor , "color": this.state.textColor , "border" : "solid 2px " + this.state.lineColor}}
+        style={{"backgroundColor" : this.state.backgroundColor , "color": this.state.textColor , "border" : lineStyle + this.state.lineColor}}
         className='category-bar hide-overflow'
         id={this.props.categoryInfo.title}
         onClick={() => {
-            this.props.onSelect(this.props.currentPage.url, this.props.categoryInfo, !this.props.checked, this.props.currentUser.token)}}
+          if(this.props.appNav.categoriesView == "edit-select"){
+            this.props.nav_actions.switchCategoryView("edit");
+            this.props.nav_actions.setEditCat(this.props.categoryInfo.pk);
+          }else{
+            this.props.onSelect(this.props.currentPage.url, this.props.categoryInfo, !this.props.checked, this.props.currentUser.token);
+          }
+        }}
         onMouseOver={this.hoverOnButton.bind(this)}
         onMouseLeave={this.exitHoverOnButton.bind(this)}
         >
@@ -78,11 +86,13 @@ class CategoryBar extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
-    currentUser : state.currentUser
+    currentUser : state.currentUser,
+    appNav : state.appNav
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  category_actions: bindActionCreators(CategoryActions, dispatch)
+  category_actions: bindActionCreators(CategoryActions, dispatch),
+  nav_actions: bindActionCreators(NavActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryBar);
