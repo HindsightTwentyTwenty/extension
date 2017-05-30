@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as LookBackSections from '../constants/LookBackConstants.js'
 
-function NavReducer(state = {selection: 0, searchTerm: "", categoriesView: "select", editCatPK: 0}, action){
+function NavReducer(state = {selection: 0, searchTerm: "", categoriesView: "select", editCatPK: 0, modalView: "info"}, action){
   switch(action.type){
     case types.SWITCH_MENU_SELECTION:
 
@@ -18,6 +18,8 @@ function NavReducer(state = {selection: 0, searchTerm: "", categoriesView: "sele
       return {...state, categoriesView: action.newView}
     case types.SET_EDIT_CAT:
       return {...state, editCatPK: action.editCatPK}
+    case types.CHANGE_MODAL_VIEW:
+      return {...state, modalView: action.newView}
     default:
         return state;
   }

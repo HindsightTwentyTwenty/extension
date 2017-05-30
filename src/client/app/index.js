@@ -119,7 +119,8 @@ let store = createStore(
       menuSelection: 0,
       searchTerm: "",
       categoriesView: "select",
-      editCatPK: 0
+      editCatPK: 0,
+      modalView: "info"
     },
     popupSelection: {
       cat_state: "",

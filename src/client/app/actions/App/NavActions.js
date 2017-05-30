@@ -32,3 +32,12 @@ export function setEditCat(editCatPK){
     })
   }
 }
+
+export function changeModalView(newView){
+  return dispatch => {
+    dispatch({
+      type: types.CHANGE_MODAL_VIEW,
+      newView: newView
+    })
+  }
+}

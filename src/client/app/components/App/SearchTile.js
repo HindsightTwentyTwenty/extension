@@ -7,11 +7,12 @@ import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
+import ModalSelector from './ModalSelector.js';
 const Timestamp = require('react-timestamp');
 
 function getState() {
   return {
-    iframe_show:false,
+    detail_view_show:false,
     iframehider_show:false,
   }
 }
@@ -28,15 +29,15 @@ class SearchTile extends Component {
     this.props.pagedata_actions.receiveDecrypted("loading");
   }
 
-  openIframe(event){
+  openDetailView(event){
     this.getDom();
-    this.setState({ iframehider_show: true });
-    this.setState({ iframe_show: true });
+    this.setState({ detail_hider: true });
+    this.setState({ detail_view_show: true });
   }
 
-  closeIframe(event){
-    this.setState({ iframehider_show: false });
-    this.setState({ iframe_show: false });
+  closeDetailView(event){
+    this.setState({ detail_hider_show: false });
+    this.setState({ detail_view_show: false });
     this.props.pagedata_actions.receiveDecrypted("loading");
 
   }
@@ -54,8 +55,6 @@ class SearchTile extends Component {
   }
 
   getIframe(){
-    console.log("props:", this.props);
-    console.log("current page", this.props.currentPage);
     if(this.props.page.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
       /* this page is not an encrypted page, so just send back link to "bad page" message */
       return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
@@ -95,22 +94,19 @@ class SearchTile extends Component {
   }
 
   render() {
-    var modal = (this.state.iframe_show) ?
-        <div className="modal-base" id="iframe-modal">
+    var modalContent = this.props.appNav.modalView == "info" ? '' : <div id="modal-content">{this.getIframe()}<div id="iframe-msg">This is a snapshot of this page at the time you visited it, some aspects may not render correctly.</div></div>;
+    var modal = (this.state.detail_view_show) ?
+        <div className="modal-base">
           <div className="i-modal-header">
-              <a className="go-to-site-btn" href={this.props.page.url} target="_blank">
-                go to page <i className="fa fa-arrow-circle-o-right fa-lg" aria-hidden="true"></i>
-              </a>
-              <div className="iframe-close-button " onClick={this.closeIframe.bind(this)}>
-                <i className="fa fa-times fa-lg" aria-hidden="true"></i>
-              </div>
-              <div id="iframe-title">{this.props.page.title}</div>
+            <div className="modal-close-button " onClick={this.closeDetailView.bind(this)}>
+              <i className="fa fa-times fa-lg" aria-hidden="true"></i>
+            </div>
+            <ModalSelector/>
           </div>
-            {this.getIframe()}
-            <div id="iframe-msg">This is a snapshot of this page at the time you visited it, some aspects may not render correctly.</div>
+          {modalContent}
         </div>
     : ''
-    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
+    var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeDetailView.bind(this)} id="iframe-hider"></div>: ''
     // var visited = this.props.page.last_visited ? <p><Timestamp time={this.props.visited} format="full"/></p> : '';
     var domain = this.props.page.domain ? <p>{this.props.page.domain}</p> : '';
     return (
@@ -120,6 +116,9 @@ class SearchTile extends Component {
         <div>
           <div className="tile-screenshot-wrapper">
             <img className="tile-screenshot" src={this.props.page.preview}/>
+            <div className="text-overlay">
+              <i className="fa fa-play-circle text-overlay-btn" aria-hidden="true" onClick={this.openDetailView.bind(this)}></i>
+            </div>
           </div>
           <a target="_blank" href={this.props.page.url}><p className="tile-title">{this.props.page.title}</p></a>
           {domain}
@@ -137,7 +136,8 @@ let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
     search_items: state.search,
     categories: state.categories,
-    categoriesAndPages: state.categoriesAndPages
+    categoriesAndPages: state.categoriesAndPages,
+    appNav: state.appNav
 })
 
 let mapDispatchToProps = (dispatch) => ({
