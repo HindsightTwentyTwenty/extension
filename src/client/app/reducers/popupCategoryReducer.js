@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as GlobalConstants from '../constants/GlobalConstants';
 
-function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
+function popupCategoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false}, action){
   switch(action.type){
     case types.SET_EDIT_CAT_COLOR:
@@ -39,6 +39,13 @@ function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAUL
       var newCategory = action.category_added;
       newCategoryList[newCategory.pk] = newCategory;
       return {...state, cats: newCategoryList};
+    // case types.MOVE_CAT_TO_TOP:
+    //   console.log("MOVE_CAT_TO_TOP", action);
+    //   console.log("cats", state.cats);
+    //   console.log("new cat", action.cat);
+    //   categoryObject = state.cats;
+    //   var index = categoryObject.indexOf(action.cat);
+    //   categoryObject.unshift(action.cat)
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
     case types.RECEIVE_POPUP_INFO:
       console.log("in cat reducer, receive popup info", action);
@@ -53,4 +60,4 @@ function categoryReducer(state = {cats: {}, editCatColor: GlobalConstants.DEFAUL
   }
 }
 
-export default categoryReducer;
+export default popupCategoryReducer;

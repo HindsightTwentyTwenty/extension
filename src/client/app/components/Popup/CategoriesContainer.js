@@ -98,7 +98,7 @@ class CategoriesContainer extends Component {
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
-    categories: state.categories,
+    categories: state.popupCategories,
 })
 
 export default connect(mapStateToProps, null)(CategoriesContainer);

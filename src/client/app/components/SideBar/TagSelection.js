@@ -176,6 +176,7 @@ class TagSelection extends Component{
             // if (categoryTitle == this.props.categories.cats[key].title) {
               this.props.category_actions.toggleCategory(this.props.currentPage.url,
                 categoryTitle, true, this.props.currentUser.token);
+              // this.props.category_actions.moveCategoryToFront(categoryTitle);
             // }
           // }
       // });
@@ -256,7 +257,7 @@ class TagSelection extends Component{
 
 let mapStateToProps = (state) => ({
   currentPage : state.currentPage,
-  categories: state.categories,
+  categories: state.popupCategories,
   currentUser : state.currentUser,
   cat_state : state.popupSelection.cat_state
 })

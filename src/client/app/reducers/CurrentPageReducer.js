@@ -43,9 +43,9 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.UPDATE_CURRENT_STAR: //WC TODO: USE TOGGLE STAR INSTEAD???
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:
-      console.log("adding page category...");
       var newCategoryList = Object.assign({}, state.categories);
       newCategoryList[action.category.pk] = action.category;
+      console.log("ADD_PAGE_CATEGORY", newCategoryList);
       return {...state, categories: newCategoryList};
     case types.DELETE_PAGE_CATEGORY:
       console.log("deleting page category...");
