@@ -31,7 +31,6 @@ const appReducer = combineReducers({
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
-  currentDomain: lookBackReducer,
   appNav: navReducer,
   categoriesAndPages: categoryPagesReducer,
   currentUser: userReducer,

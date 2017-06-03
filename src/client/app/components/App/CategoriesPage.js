@@ -25,6 +25,8 @@ class CategoriesPage extends Component {
     super(props);
     this.state = getState();
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
+    // this.props.category_actions.clearSearchCategories();
+    this.props.nav_actions.switchCategoryView("select");
   }
 
   componentDidUpdate() {

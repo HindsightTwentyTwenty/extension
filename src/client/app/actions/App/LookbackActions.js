@@ -108,7 +108,7 @@ export function searchTerm(search_term, start_time, end_time, category_selection
   }
   return dispatch => {
     return [
-      dispatch(NavActions.switchLookBackSelection(LookBackConstants.Search, search_term)),
+      dispatch(NavActions.switchMenuSelection(LookBackConstants.Search, search_term)),
       fetch(searchEndpoint, {
           headers: {
              'Accept': 'application/json',
