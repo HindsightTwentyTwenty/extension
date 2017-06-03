@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 
-import * as PopupActions from '../../actions/Popup/PopupActions.js'
+import * as PopupActions from '../../actions/Popup/PopupActions.js';
+import RichTextEditor from 'react-rte';
 
 function getState(){
   return{
-    note : "",
-    editing: false
+    editing: false,
+    note: RichTextEditor.createEmptyValue()
   }
 }
 
@@ -22,7 +23,7 @@ class EditNote extends Component{
       this.props.currentUser.token,
       this.props.currentPage.url,
       this.props.currentPage.title,
-      this.state.note
+      // t.toString('html')
     );
   }
 

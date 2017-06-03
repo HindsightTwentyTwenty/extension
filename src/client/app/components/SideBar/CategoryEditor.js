@@ -23,7 +23,16 @@ class CategoryEditor extends Component {
       cat_title : this.category.title,
       edited: false
     });
-    console.log(this.state);
+  }
+
+  componentDidMount(){
+    var default_color = this.props.categories.editCatColor.name;
+    document.getElementById(default_color).style.width = "27px";
+    document.getElementById(default_color).style.height = "27px";
+    document.getElementById(default_color).style.border = ".5px solid #55524D";
+    this.setState({
+      curr_selected_color : default_color
+    })
   }
 
   closeEdit(){
@@ -36,9 +45,18 @@ class CategoryEditor extends Component {
 
 
   changeEditColor(color) {
-    document.getElementById(color.name).style.width = 27;
-    document.getElementById(color.name).style.border = "1px solid $hindsite-black";
+    var old_color = this.state.curr_selected_color
+    /* reset old color */
+    document.getElementById(old_color).style.width = "25px";
+    document.getElementById(old_color).style.height = "25px";
+    document.getElementById(old_color).style.border = "none";
+    /* set new color attributes */
+    document.getElementById(color.name).style.width = "27px";
+    document.getElementById(color.name).style.height = "27px";
+    document.getElementById(color.name).style.border = ".5px solid #55524D";
+
     this.props.category_actions.setEditCatColor(color);
+    this.setState({curr_selected_color: color.name});
   }
 
   getColors() {
@@ -77,10 +95,10 @@ class CategoryEditor extends Component {
           </div>
           <div className="row-createcategory">
             <p id="label-newtag">edit tag:</p>
-            <div id="new-cat-form">
-              <input type="text" className="login-form form-control" id="input-newcat" defaultValue={this.category.title} onChange={this.logNewCatTitle.bind(this)}/>
+            <div id="new-cat-entry">
+                <input type="text" className="login-form form-control" id="input-newcat" defaultValue={this.category.title} onChange={this.logNewCatTitle.bind(this)}/>
               <div className="row-createcategory">
-                <p>choose color:</p>
+                <p id="text-choose-color">choose color:</p>
               </div>
               <div className="row-createcategory category-create-btns" id="color-swatch-row">
                 {this.getColors()}
