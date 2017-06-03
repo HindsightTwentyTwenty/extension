@@ -52,12 +52,35 @@ class CategoryCreator extends Component {
     this.setState({curr_selected_color: color.name});
   }
 
-  addNewCategory(){
+  // addNewCategory(){
+  //   console.log("in addnewcategory()");
+  //   console.log("this is the empty thing", this.state.cat_title.trim());
+  //   console.log("this is the length", this.state.cat_title.trim().length);
+  //   if(this.state.cat_title && (this.state.cat_title.trim().length != 0)){
+  //     console.log("ADDING NEW CATEGORY");
+  //       // this.props.category_actions.pushCategory(this.state.cat_title, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+  //         for (var key in this.props.categories.cats) {
+  //           if (this.state.cat_title == this.props.categories.cats[key].title) {
+  //             console.log("in addnewcategory(), toggling");
+  //             this.props.category_actions.toggleCategory(this.props.currentPage.url,
+  //               this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
+  //             break;
+  //           }
+  //         }
+  //     // });
+  //   }
+  //   this.closeCreate();
+  //
+  // }
 
-    if(this.state.cat_title && (this.state.cat_title.trim().length == 0)){
+  createNewCategory(){
+    console.log("in createnewwww()");
+    if(this.state.cat_title && (this.state.cat_title.trim().length != 0)){
+      console.log("ADDING NEW CATEGORY");
         this.props.category_actions.pushCategory(this.state.cat_title, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
           for (var key in this.props.categories.cats) {
             if (this.state.cat_title == this.props.categories.cats[key].title) {
+              console.log("in addnewcategory(), toggling");
               this.props.category_actions.toggleCategory(this.props.currentPage.url,
                 this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
               break;
@@ -66,7 +89,6 @@ class CategoryCreator extends Component {
       });
     }
     this.closeCreate();
-
   }
 
   getColors() {
@@ -104,7 +126,7 @@ class CategoryCreator extends Component {
                 </div>
                 <div className="row-createcategory category-create-btns" >
                   <div className="btn-new-cat" id="btn-new-cat-cancel" onClick={this.closeCreate.bind(this)}>cancel</div>
-                  <div className="btn-new-cat" id="btn-new-cat-save" onClick={this.addNewCategory.bind(this)}>save</div>
+                  <div className="btn-new-cat" id="btn-new-cat-save" onClick={this.createNewCategory.bind(this)}>save</div>
                 </div>
             </div>
           </div>

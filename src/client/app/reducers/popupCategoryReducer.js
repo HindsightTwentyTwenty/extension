@@ -10,10 +10,12 @@ function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.D
       return {...state, showColorPicker: action.showColorPicker}
     case types.ADD_PAGE_CATEGORY:
       var categoryObject = state.cats;
-      console.log("ADD_PAGE_CATEGORY index", state.cats, action.category)
-      var index = categoryObject.indexOf(action.category.pk);
+      console.log("ADD_PAGE_CATEGORY currstate, pk", state.cats, action.category.pk)
+      var index = categoryObject.indexOf(action.category) - 1;
       console.log('index', index);
+      console.log('before splicing', categoryObject);
       categoryObject.splice(index, 1);
+      console.log('after splicing', categoryObject);
       categoryObject.unshift(action.category)
       return{...state, cats:categoryObject};
 

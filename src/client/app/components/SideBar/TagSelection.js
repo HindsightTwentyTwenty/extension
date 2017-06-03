@@ -31,7 +31,6 @@ class TagSelection extends Component{
   }
 
   componentDidMount(){
-    console.log("TAG SELECTION props", this.props);
     this.setState({
       pageTitle:this.props.currentPage.title
     })
@@ -92,6 +91,8 @@ class TagSelection extends Component{
     var curr_row_cat_num = [];
     var categories = this.props.categories.cats;
     let result = [];
+    console.log("this is returned to getCategories", this.props.categories);
+    console.log("and these are the page categories", this.props.currentPage.categories);
 
     if (this.props.categories && categories != null) {
       for(var key in categories) {

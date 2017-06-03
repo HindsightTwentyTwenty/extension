@@ -23,7 +23,6 @@ class CategoryEditor extends Component {
       cat_title : this.category.title,
       edited: false
     });
-    console.log(this.state);
   }
 
   closeEdit(){

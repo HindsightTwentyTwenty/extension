@@ -26,11 +26,6 @@ class Sidebar extends Component{
     chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
   }
 
-  // hideApp(){
-  //   console.log("hiding app");
-  //   $('outer-sidebar').hide();
-  //
-  // }
 
   renderContent() {
 		if(this.props.currentUser.token.length != 0){ //Logged In
@@ -57,7 +52,6 @@ class Sidebar extends Component{
 						</div>
 					);
           case PopupConstants.Blacklist:
-            console.log("BLACKLIST")
   					return (
               <div className="sidebar">
   							<PopupHeader/>

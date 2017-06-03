@@ -24,12 +24,10 @@ function getState(){
 class TagBox extends Component{
   constructor(props){
     super(props);
-    console.log("tag props", this.props);
     this.state = getState();
   }
 
   switchOpen(){
-    console.log("tag props", this.props);
     /* close box if clicked and open, otherwise open box */
     if(this.props.box_state == 'tag'){
       this.props.popup_actions.changePopupBoxState('closed');
@@ -50,9 +48,6 @@ class TagBox extends Component{
     <i className="fa fa-3x fa-caret-left icon-caret" aria-hidden="true"></i>
     <i className="fa fa-3x fa-caret-down icon-caret" aria-hidden="true"></i>
     */
-    // <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
-    // <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
-
 
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                             Tags
