@@ -22,13 +22,11 @@ class NotesBox extends Component{
   boxState(){
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                               Notes
-                              <i className="fa fa-3x fa-caret-left icon-caret" aria-hidden="true"></i>
                           </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
                                   Notes
-                                  <i className="fa fa-3x fa-caret-down icon-caret" aria-hidden="true"></i>
                               </div>
                               <div className="sidebar-box-content">
                                 <EditNote/>
