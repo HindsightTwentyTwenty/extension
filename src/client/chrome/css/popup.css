@@ -48,6 +48,21 @@ body {
    vertical-align: middle;
 }
 
+.app-header{
+  margin-right: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: $base-white;
+  width: 35%;
+  float: left;
+  &:hover{
+    cursor: pointer;
+    color: $banana;
+    font-weight: bold;
+  }
+}
+
 .popup-header {
   flex-direction: column;
   display: flex;
@@ -64,10 +79,8 @@ body {
 }
 
 #hindsite{
-  /*min-width: 400px;*/
   height: inherit;
   width: inherit;
-  /*min-height: 452px;*/
 }
 
 .float-right{
