@@ -62,7 +62,7 @@ class EditNote extends Component{
       return(
         <div id = "note-text-edit-options">
           <i className="fa fa-2x fa-times icon-hover" id='icon-canceledit' aria-hidden="true" onClick={this.cancelEdit.bind(this)}></i>
-          <i className="fa fa-2x fa-check-square-o icon-hover" id='icon-saveedit' aria-hidden="true" onClick={this.stopEditingNote.bind(this)}></i>
+          <i className="fa fa-2x fa-check-square-o icon-hover" id='icon-savedit' aria-hidden="true" onClick={this.stopEditingNote.bind(this)}></i>
         </div>
       )
     }

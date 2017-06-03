@@ -576,7 +576,7 @@ body {
 }
 
 #popup-cat-button{
-  margin: 0px 0px 0px 276px;
+  margin: 0px 0px 0px 150px;
 }
 #close-row{
   height: 40px;
@@ -587,7 +587,7 @@ body {
   display: flex;
   padding: 0px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 #category-create{
@@ -755,7 +755,32 @@ body {
   margin: 0px 4px;
 }
 
-#icon-saveedit{
+#icon-savedit{
   color: $h-green;
   margin: 0px 4px;
+  padding-top: 4px;
+}
+
+/* TRACKING CSS */
+#tracking-toggle-wrapper {
+  float: right;
+  line-height: 47px;
+}
+
+#tracking-explanation {
+  color: $hindsite-black;
+  margin-right: 3px;
+}
+
+#tracking-toggle-label {
+  color: $hindsite-black;
+  vertical-align: middle;
+  font-size: smaller;
+}
+
+.react-toggle--checked .react-toggle-track {
+    background-color: rgb(51, 152, 130);
+    &:hover{
+      background-color: rgb(51, 152, 130);
+    }
 }

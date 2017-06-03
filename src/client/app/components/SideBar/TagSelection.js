@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import Select from 'react-select';
+import ReactTooltip from 'react-tooltip';
+import Toggle from 'react-toggle'
+import 'react-toggle/style.css';
 
 
 import CategoryBar from '../Bars/CategoryBar.js'
@@ -141,6 +144,10 @@ class TagSelection extends Component{
     this.props.popup_actions.changePopupCatState("create");
   }
 
+  toggleChange(event) {
+    this.props.user_actions.toggleTracking(event.target.checked, this.props.currentUser.token);
+  }
+
   getCategoryContent(){
     if(this.props.cat_state == "create"){
       return(
@@ -165,6 +172,17 @@ class TagSelection extends Component{
             {this.getCategories()}
           </div>
           <div className="row" id="row-tag-bottom" >
+              <div id="tracking-toggle-wrapper">
+                <ReactTooltip place="left" effect="solid" />
+                <i className="fa fa-question-circle fa-lg"
+                   id="tracking-explanation"
+                   data-tip="Keep on to save browsing history" aria-hidden="true"></i>
+                <span id="tracking-toggle-label">Autosave: </span>
+                <Toggle id="tracking-toggle"
+                  onChange={ this.toggleChange.bind(this) }
+                  className={ "popup-tracking-toggle"}
+                  checked={ this.props.currentUser.tracking_on }/>
+              </div>
               <div className="cat-button" id="popup-cat-button" onClick={this.createNewCategory.bind(this)}>
               <i className="fa fa-plus" aria-hidden="true"></i>
             </div>
