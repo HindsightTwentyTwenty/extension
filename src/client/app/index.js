@@ -21,7 +21,7 @@ let store = createStore(
       urls: []
     },
     popupCategories: {
-      cats: {},
+      cats: [],
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false
     },

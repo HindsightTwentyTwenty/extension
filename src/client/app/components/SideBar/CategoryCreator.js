@@ -79,6 +79,7 @@ class CategoryCreator extends Component {
       console.log("ADDING NEW CATEGORY");
         this.props.category_actions.pushCategory(this.state.cat_title, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
           for (var key in this.props.categories.cats) {
+            console.log('now looking through keys, this is the key:', this.props.categories.cats[key].title);
             if (this.state.cat_title == this.props.categories.cats[key].title) {
               console.log("in addnewcategory(), toggling");
               this.props.category_actions.toggleCategory(this.props.currentPage.url,
