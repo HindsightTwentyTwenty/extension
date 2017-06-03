@@ -181,36 +181,22 @@ class PageUrlBar extends Component {
         </div>
     : ''
     var hider = (this.state.iframehider_show ) ? <div className="hider" onClick={this.closeIframe.bind(this)} id="iframe-hider"></div>: ''
-    var visited = this.props.visited ? <p><Timestamp time={this.props.visited} format="full"/></p> : '';
-    var domain = this.props.domain ? <p>{this.props.domain}</p> : '';
+    var visited = this.props.visited ? <p className="bar-text"><Timestamp time={this.props.visited} format="full"/></p> : '';
+    var domain = this.props.domain ? <p className="bar-text">{this.props.domain}</p> : '';
     var starred = this.props.page.star ? 'fa fa-star fa-2x star-categories starred' :
     'fa fa-star-o fa-2x star-categories';
     return (
       <div className="page-url-bar">
         {modal}
         {hider}
-        <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
-          <i className="fa fa-eye" aria-hidden="true"></i>
-        </button>
         <div className="bar-text-col">
-          <a className="url" target="_blank" href={this.props.page.url}>{this.props.page.title}</a>
-          <div>
-            {domain}
-            {visited}
-          </div>
+          <a className="url" target="_blank" href={this.props.page.url}><h4>{this.props.page.title}</h4> <i className="fa fa-external-link" aria-hidden="true"></i></a>      {domain}
+          {visited}
         </div>
-        <div className='url-categories-col vertical-center'>
-          <div className='url-bar-input'>
-            <div className='color-square-small' onClick={this.toggleColorPicker.bind(this)}
-            style={{"backgroundColor" : this.state.editColor}}/>
-            {this.getCategoryEntry()}
-            <div className='url-bar-star-div' onClick={this.toggleStar.bind(this)}>
-              <i className={starred}></i>
-            </div>
-          </div>
-          <div className='url-bar-categories'>
-            {this.getCategoriesOrColors()}
-          </div>
+        <div>
+          <button className="iframe-open-button" onClick={this.openIframe.bind(this)}>
+            <i className="fa fa-eye" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     )
