@@ -57,6 +57,7 @@ class Sidebar extends Component{
 						</div>
 					);
           case PopupConstants.Blacklist:
+            console.log("BLACKLIST")
   					return (
               <div className="sidebar">
   							<PopupHeader/>

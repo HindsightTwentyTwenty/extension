@@ -50,14 +50,27 @@ class TagBox extends Component{
     <i className="fa fa-3x fa-caret-left icon-caret" aria-hidden="true"></i>
     <i className="fa fa-3x fa-caret-down icon-caret" aria-hidden="true"></i>
     */
-    
+    // <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+    // <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+
+
     var sidebarBoxHeader= <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
-                            <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+                            Tags
+                            <div className="popup-header" onMouseDown={this.openApp.bind(this)}>
+                                <img className="header-height logo"  src="../../assets/img/logo-light.png"/>
+                                <div id="logo-text-wrap">
+                                  <p id="go-to-timeline">to timeline</p>
+                                </div>
+                            </div>
                           </div>;
 
     var sidebarBoxContent=  <div>
                               <div className="sidebar-box-header" onClick={this.switchOpen.bind(this)}>
-                                <img className="logo" id="popup-header-logo" src="../../assets/img/logo-light.png" onMouseDown={this.openApp.bind(this)}/>
+                                Tags
+                                <div className="popup-header" onMouseDown={this.openApp.bind(this)}>
+                                    <img className="header-height logo"  src="../../assets/img/logo-light.png"/>
+                                      <p id="go-to-timeline">to timeline</p>
+                                </div>
                               </div>
                               <div className="sidebar-box-content">
                                 <TagSelection/>

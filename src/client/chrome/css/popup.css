@@ -49,13 +49,13 @@ body {
 }
 
 .popup-header {
-  margin-right: 15px;
+  flex-direction: column;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   color: $base-white;
-  width: 35%;
-  float: left;
+  width: 69px;
+  margin-top: 2px;
+  margin-right: 5px;
   &:hover{
     cursor: pointer;
     color: $banana;
@@ -374,9 +374,11 @@ body {
 }
 
 #go-to-timeline{
-  margin-left: 3px;
+  /*margin-left: 3px;
   margin-top: 0px;
-  padding-bottom: 5px;
+  padding-bottom: 5px;*/
+  font-size: small;
+  line-height: 16px;
 }
 
 #go-to-link{
@@ -388,10 +390,6 @@ body {
 }
 
 /* SIDEBAR CSS */
-/*.sidebar{
-  z-index: 200;
-  position: fixed;
-}*/
 
 .sidebar-box{
   width: 350px;
@@ -405,7 +403,7 @@ body {
   color: #fafafa;
   width:inherit;
   height: 50px;
-  line-height: 45px;
+  line-height: 50px;
   padding-left: 10px;
   font-size: large;
   position: relative;
@@ -721,6 +719,7 @@ body {
   color: $hindsite-black;
   font-size: small;
   padding: 5px 9px;
+  background-color: white;
 }
 
 #note-text-edit-options{

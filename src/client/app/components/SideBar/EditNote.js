@@ -34,19 +34,20 @@ class EditNote extends Component{
   startEditingNote(){
     if(!this.state.editing){
       this.setState({editing: true});
-      document.getElementById("note-text-edit").style.backgroundColor = 'white';
+      document.getElementById("note-text-edit").style.border = '1px solid #a2a2a2';
     }
   }
 
   stopEditingNote(){
     this.setState({editing: false});
-    document.getElementById("note-text-edit").style.backgroundColor = '#fafafa';
+    document.getElementById("note-text-edit").style.border = '0px';
     this.saveNote();
   }
 
   cancelEdit(){
     this.setState({editing: false});
-    document.getElementById("note-text-edit").style.backgroundColor = '#fafafa';
+    // document.getElementById("note-text-edit").style.backgroundColor = '#fafafa';
+    document.getElementById("note-text-edit").style.border = '0px';
     document.getElementById("note-text-edit").value = this.props.currentPage.note;
   }
 
@@ -71,7 +72,7 @@ class EditNote extends Component{
     var style = this.props.useCase == "onApp" ? {"width": "100%"} : {};
     var background = this.props.currentPage.notes
     return(
-      <div id='editnote-wrapper' style={style}>
+      <div id='editnote-wrapper' style={style} >
         <div id ="note-editing-box" >
           <textarea
               className="textarea-custom"
