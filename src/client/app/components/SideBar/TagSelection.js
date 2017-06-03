@@ -74,7 +74,7 @@ class TagSelection extends Component{
           checked = true;
         }
       }
-      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title} id={categories[index].title}/>)
+      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title} id={categories[index].title} onSelect={this.props.category_actions.toggleCategory}/>)
     }
     return result;
   }
@@ -175,9 +175,9 @@ class TagSelection extends Component{
   }
 
   getTitle(){
+    /*TODO- gam, title edit         return(    <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/> */
     if(this.props.currentPage.title){
-        return(    <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/>
-      );
+      return <div id="title-url-entry" >{this.props.currentPage.title}</div>
     }else{
       return(
         <div>Loading..</div>
