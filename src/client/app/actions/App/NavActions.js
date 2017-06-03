@@ -41,3 +41,11 @@ export function changeModalView(newView){
     })
   }
 }
+
+export function toggleDetailView(){
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_DETAIL_VIEW,
+    })
+  }
+}

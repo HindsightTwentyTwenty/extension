@@ -87,7 +87,8 @@ class CategoryBar extends Component {
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
-    appNav : state.appNav
+    appNav : state.appNav,
+    currentSearchCategories : state.currentSearchCategories
 })
 
 let mapDispatchToProps = (dispatch) => ({

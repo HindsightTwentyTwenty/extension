@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as LookBackSections from '../constants/LookBackConstants.js'
 
-function NavReducer(state = {selection: 0, searchTerm: "", categoriesView: "select", editCatPK: 0, modalView: "info"}, action){
+function NavReducer(state = {selection: 0, searchTerm: "", categoriesView: "select", editCatPK: 0, modalView: "info", showDetails: false}, action){
   switch(action.type){
     case types.SWITCH_MENU_SELECTION:
       // Handle Selected Highlighting in the Navbar
@@ -18,6 +18,8 @@ function NavReducer(state = {selection: 0, searchTerm: "", categoriesView: "sele
       return {...state, editCatPK: action.editCatPK}
     case types.CHANGE_MODAL_VIEW:
       return {...state, modalView: action.newView}
+    case types.TOGGLE_DETAIL_VIEW:
+      return {...state, showDetails: !state.showDetails}
     default:
         return state;
   }
