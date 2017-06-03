@@ -2,8 +2,6 @@ import React, { PropTypes, Component } from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
-import * as LookbackActions from '../../actions/App/LookbackActions.js';
-import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as NavActions from '../../actions/App/NavActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
@@ -85,17 +83,11 @@ class SearchTile extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage: state.currentPage,
     currentUser : state.currentUser,
-    search_items: state.search,
-    categories: state.categories,
-    categoriesAndPages: state.categoriesAndPages,
     appNav: state.appNav
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  lookback_actions: bindActionCreators(LookbackActions, dispatch),
-  category_actions: bindActionCreators(CategoryActions, dispatch),
   pagedata_actions: bindActionCreators(PageDataActions, dispatch),
   nav_actions: bindActionCreators(NavActions, dispatch)
 })
