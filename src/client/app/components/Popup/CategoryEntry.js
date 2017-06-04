@@ -64,7 +64,7 @@ class CategoryEntry extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    categories : state.categories,
+    categories : state.popupCategories,
     currentPage : state.currentPage,
     currentUser : state.currentUser
 })

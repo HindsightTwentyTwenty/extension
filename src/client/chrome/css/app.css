@@ -1410,23 +1410,6 @@ hr{
   margin: 0 auto;
 }
 
-
-#tracking-toggle-wrapper {
-  float: right;
-  line-height: 55px;
-}
-
-#tracking-explanation {
-  color: $base-white;
-  margin-right: 3px;
-}
-
-#tracking-toggle-label {
-  color: $base-white;
-  vertical-align: middle;
-  font-size: 1.33333333em;
-}
-
 .popup-tracking-toggle {
   vertical-align: middle;
 }

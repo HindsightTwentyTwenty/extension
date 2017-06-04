@@ -122,7 +122,7 @@ class CategoriesPage extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    categories: state.categories,
+    categories: state.popupCategories,
     categoriesAndPages: state.categoriesAndPages,
     currentSearchCategories : state.currentSearchCategories,
     currentUser : state.currentUser,

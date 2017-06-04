@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import Select from 'react-select';
+import ReactTooltip from 'react-tooltip';
+import Toggle from 'react-toggle'
+import 'react-toggle/style.css';
 
 
 import CategoryBar from '../Bars/CategoryBar.js'
@@ -9,6 +12,7 @@ import CategoryCreator from '../SideBar/CategoryCreator.js'
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as PopupActions from '../../actions/Popup/PopupActions.js';
+import * as UserActions from '../../actions/User/UserActions.js';
 
 
 
@@ -27,7 +31,6 @@ class TagSelection extends Component{
   }
 
   componentDidMount(){
-    console.log("props", this.props);
     this.setState({
       pageTitle:this.props.currentPage.title
     })
@@ -67,8 +70,13 @@ class TagSelection extends Component{
 
     for( var key in cat_keys){
       var index = cat_keys[key];
-      var checked = (index in currentPageCategories);
-      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title} onSelect={this.props.category_actions.toggleCategory}/>)
+      var checked = false
+      for(var key in currentPageCategories){
+        if (categories[index].title == currentPageCategories[key].title){
+          checked = true;
+        }
+      }
+      result.push(<CategoryBar categoryInfo={categories[index]} checked={checked} key={categories[index].title} id={categories[index].title} onSelect={this.props.category_actions.toggleCategory}/>)
     }
     return result;
   }
@@ -84,7 +92,7 @@ class TagSelection extends Component{
     var categories = this.props.categories.cats;
     let result = [];
 
-    if (this.props.categories.cats && categories != null) {
+    if (this.props.categories && categories != null) {
       for(var key in categories) {
         var cat_length = (categories[key].title.length * 6) + padding_pixels;
         if((curr_row_pixels + cat_length) < box_width){
@@ -102,57 +110,6 @@ class TagSelection extends Component{
 
   }
 
-
-  //#TODO gam - delete, this makes rows happens
-  // getRow(cat_keys){
-  //   return(
-  //     <div classname="row" id="category-row">
-  //       {this.getCategoryBars(cat_keys)}
-  //     </div>
-  //   )
-  // }
-  //
-  // oldgetCategories(){
-  //   var padding_pixels = 42;
-  //   var box_width = 320;
-  //   var max_rows = 4;
-  //
-  //   var curr_row_pixels = 0;
-  //   var curr_total_rows = 1;
-  //
-  //   var curr_row_cat_num = [];
-  //   var categories = this.props.categories.cats;
-  //   let result = [];
-  //
-  //   if (categories != null) {
-  //     for(var key in categories) {
-  //       var cat_length = (categories[key].title.length * 8) + padding_pixels;
-  //       if((curr_row_pixels + cat_length) < box_width){
-  //         curr_row_cat_num.push(key);
-  //         curr_row_pixels += cat_length;
-  //         console.log("title", categories[key].title);
-  //         console.log("word length", categories[key].title.length);
-  //         console.log("cat_length", cat_length);
-  //         console.log("curr_row_pixels", curr_row_pixels);
-  //       }else if(curr_total_rows < (max_rows + 1)){
-  //         console.log("pushing this array", curr_row_cat_num);
-  //         result.push(this.getRow(curr_row_cat_num));
-  //         curr_row_cat_num = [];
-  //         curr_row_cat_num.push(key);
-  //         curr_total_rows++;
-  //         curr_row_pixels = cat_length;
-  //       }else{
-  //         break;
-  //       }
-  //     }
-  //   }else{
-  //     return <div> Create a category to add to the page </div>;
-  //   }
-  //   result.push(this.getRow(curr_row_cat_num));
-  //   return result;
-  //
-  // }
-
     getCategoryOptions() {
       var options = [];
 
@@ -164,29 +121,30 @@ class TagSelection extends Component{
     }
 
     addNewCategory(categoryTitle){
-        this.props.category_actions.pushCategory(categoryTitle, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-          for (var key in this.props.categories.cats) {
-            if (categoryTitle == this.props.categories.cats[key].title) {
-              this.props.category_actions.toggleCategory(this.props.currentPage.url,
-                this.props.categories.cats[key], true, this.props.currentUser.token);
-              break;
-            }
-          }
-      });
+      for (var key in this.props.categories.cats) {
+        if (categoryTitle == this.props.categories.cats[key].title) {
+          this.props.category_actions.toggleCategory(this.props.currentPage.url,
+            this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
+          document.getElementById(this.props.categories.cats[key].title).checked = true;
+          break;
+        }
+      }
     }
 
     handleCategoryChange(category_option) {
       var category_title = "";
-      // console.log("selected category title", category_option);
       if(category_option){
         category_title = category_option.value;
         this.addNewCategory(category_title);
-        this.getCategories();
       }
     }
 
   createNewCategory(){
     this.props.popup_actions.changePopupCatState("create");
+  }
+
+  toggleChange(event) {
+    this.props.user_actions.toggleTracking(event.target.checked, this.props.currentUser.token);
   }
 
   getCategoryContent(){
@@ -213,11 +171,33 @@ class TagSelection extends Component{
             {this.getCategories()}
           </div>
           <div className="row" id="row-tag-bottom" >
-            <div className="cat-button" onClick={this.createNewCategory.bind(this)}>
+              <div id="tracking-toggle-wrapper">
+                <ReactTooltip place="left" effect="solid" />
+                <i className="fa fa-question-circle fa-lg"
+                   id="tracking-explanation"
+                   data-tip="Keep on to save browsing history" aria-hidden="true"></i>
+                <span id="tracking-toggle-label">Autosave: </span>
+                <Toggle id="tracking-toggle"
+                  onChange={ this.toggleChange.bind(this) }
+                  className={ "popup-tracking-toggle"}
+                  checked={ this.props.currentUser.tracking_on }/>
+              </div>
+              <div className="cat-button" id="popup-cat-button" onClick={this.createNewCategory.bind(this)}>
               <i className="fa fa-plus" aria-hidden="true"></i>
             </div>
           </div>
         </div>
+      )
+    }
+  }
+
+  getTitle(){
+    /*TODO- gam, title edit         return(    <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/> */
+    if(this.props.currentPage.title){
+      return <div id="title-url-entry" >{this.props.currentPage.title}</div>
+    }else{
+      return(
+        <div>Loading..</div>
       )
     }
   }
@@ -227,7 +207,7 @@ class TagSelection extends Component{
       <div id="tag-selection-wrapper">
           <div className="row" id="row-url-entry">
             <img id="favicon-url-entry" src={this.props.currentPage.favIconUrl} />
-            <input type="text" className="login-form form-control sidebar-form" id="title-url-entry" defaultValue={this.props.currentPage.title} onMouseOver={this.hoverOnTitle.bind(this)} onMouseLeave={this.leaveHoverOnTitle.bind(this)} onChange={this.editPageTitle.bind(this)}/>
+            {this.getTitle()}
             <i id="edit-icon" className="fa fa-2x fa-pencil-square-o" aria-hidden="true" style={{display:"none"}}></i>
           </div>
           {this.getCategoryContent()}
@@ -239,7 +219,7 @@ class TagSelection extends Component{
 
 let mapStateToProps = (state) => ({
   currentPage : state.currentPage,
-  categories: state.categories,
+  categories: state.popupCategories,
   currentUser : state.currentUser,
   cat_state : state.popupSelection.cat_state
 })
@@ -248,7 +228,8 @@ let mapDispatchToProps = (dispatch) => {
   return {
     lookback_actions: bindActionCreators(LookbackActions, dispatch),
     category_actions: bindActionCreators(CategoryActions, dispatch),
-    popup_actions: bindActionCreators(PopupActions, dispatch)
+    popup_actions: bindActionCreators(PopupActions, dispatch),
+    user_actions: bindActionCreators(UserActions, dispatch)
   }
 }
 

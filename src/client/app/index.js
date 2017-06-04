@@ -20,8 +20,8 @@ let store = createStore(
   { blacklist: {
       urls: []
     },
-    categories: {
-      cats: {},
+    popupCategories: {
+      cats: [],
       editCatColor: GlobalConstants.DEFAULT_CAT_COLOR,
       showColorPicker: false
     },

@@ -119,7 +119,7 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     cat_state : state.popupSelection.cat_state,
-    categories : state.categories,
+    categories : state.popupCategories,
     appNav : state.appNav
 })
 
