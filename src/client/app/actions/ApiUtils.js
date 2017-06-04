@@ -1,6 +1,5 @@
 var ApiUtils = {
   checkStatus: function(response) {
-    console.log("Api Utils", response);
     if (response.status == 200){
       // Good response
       return response;

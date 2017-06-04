@@ -8,11 +8,9 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
       return { ...state, url: action.url, categories: {}, start: false, title: action.title, created: "", visited: "" }
     case types.RECEIVE_POPUP_INFO:
-      console.log("RECEIVE_POPUP_INFO", action.page);
       // Used in regular popup flow
       var currentPage = action.page;
       var categoryObject = {};
-      console.log("cats on RECEIVE", currentPage.categories);
       currentPage.categories.map(function(category) {
         categoryObject[category.pk] = category;
       })

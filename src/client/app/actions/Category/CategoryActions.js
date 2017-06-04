@@ -69,7 +69,6 @@ export function fetchCategoriesAndPages(token){
 
 
 export function toggleCategory(pageUrl, category, addOrDelete, token, pageTitle){
-  console.log("toggleCategory", category, pageTitle);
   var dispatchType = addOrDelete ? types.ADD_PAGE_CATEGORY : types.DELETE_PAGE_CATEGORY;
   return dispatch => {
     var endpoint = addOrDelete ? addPageCategoryEndpoint : deletePageCategoryEndpoint;

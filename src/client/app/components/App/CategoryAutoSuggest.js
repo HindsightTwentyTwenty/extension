@@ -23,14 +23,6 @@ class CategoryAutoSuggest extends Component {
   handleCategoryChange(newValue) {
     this.props.onSelect(newValue);
     this.setState({selectValue: newValue});
-    // var values = [];
-
-    // this.props.currentSearchCategories.searchCats.forEach(
-    //     function(searchCat){
-    //       console.log(searchCat);
-    //       values.push(searchCat)});
-    //   this.setState({selectValue: values});
-
   }
 
   componentWillReceiveProps(nextProps){

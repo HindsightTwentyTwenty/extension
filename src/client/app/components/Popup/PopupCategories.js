@@ -16,7 +16,6 @@ class PopupCategories extends Component {
   }
 
   getBody() {
-    console.log("this.state", this.props);
     if (this.props.categories.showColorPicker) {
       return <ColorPicker/>;
     }

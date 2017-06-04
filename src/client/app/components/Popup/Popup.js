@@ -27,7 +27,6 @@ class Popup extends Component {
   }
 
 	renderContent() {
-    console.log("Props in popup", this.props);
 		if(this.props.currentUser.token.length != 0){ //Logged In
 			switch (this.props.popupStatus){
 				case PopupConstants.Received: // Display Page

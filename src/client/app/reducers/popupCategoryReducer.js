@@ -11,18 +11,13 @@ function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.D
     case types.ADD_PAGE_CATEGORY:
       var categoryObject = [];
       categoryObject = state.cats;
-      console.log("ADD_PAGE_CATEGORY currstate, pk", categoryObject, action.category.pk)
       var num_cats = categoryObject.length;
       for( var p = 0; p < num_cats; p++){
-        console.log(" ADD_PAGE_CATEGORY p", p);
-        console.log(" ADD_PAGE_CATEGORY in foreach, the item is:", categoryObject[p], action.category.title)
          if(categoryObject[p].title === action.category.title){
-            console.log('YippeeeE!!!!!!!!!!!!!!!!')
             categoryObject.splice(p, 1);
             break;
          }
       };
-      console.log("ADD_PAGE_CATEGORY outside loop category is:", categoryObject)
       categoryObject.unshift(action.category)
       return{...state, cats:categoryObject};
 
