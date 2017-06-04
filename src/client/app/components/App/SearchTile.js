@@ -4,6 +4,7 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as NavActions from '../../actions/App/NavActions.js';
+import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import EditNote from '../SideBar/EditNote.js'
 import DetailModal from '../App/DetailModal.js'
@@ -25,17 +26,14 @@ class SearchTile extends Component {
   openDetailView(event){
     this.getDom();
     this.props.nav_actions.toggleDetailView();
+    this.props.lookback_actions.setCurrentPage(this.props.page);
   }
 
   /* async get the dom from s3 with decryption */
   getDom(){
     /* only try to get the dom if not a 404 message */
     if(this.props.page.s3 != "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
-      if(this.props.origin == "search" ){
-        this.props.pagedata_actions.getIframeHTML(this.props.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
-      }else{
-        this.props.pagedata_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
-      }
+      this.props.pagedata_actions.getIframeHTML(this.props.page.s3, this.props.currentUser.md5, this.props.currentUser.ekey);
     }
   }
 
@@ -84,12 +82,14 @@ class SearchTile extends Component {
 
 let mapStateToProps = (state) => ({
     currentUser : state.currentUser,
-    appNav: state.appNav
+    appNav: state.appNav,
+    currentPage: state.currentPage
 })
 
 let mapDispatchToProps = (dispatch) => ({
   pagedata_actions: bindActionCreators(PageDataActions, dispatch),
-  nav_actions: bindActionCreators(NavActions, dispatch)
+  nav_actions: bindActionCreators(NavActions, dispatch),
+  lookback_actions: bindActionCreators(LookbackActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchTile);
