@@ -82,7 +82,6 @@ export function checkCurrentPage(token){
   return dispatch => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
-      console.log("tab from chrome", tab);
 
       if(Url.isUrlBlacklisted(tab.url)){
         // Display message to navigate to a different page
@@ -110,10 +109,8 @@ export function logoutUser(token) {
     })
     .then(response => {
       if (response['status'] != unauthorizedCode){
-        // console.log("logout failure");
         //TODO Implement user message warning of error on logout
       } else {
-        // console.log("succesful logout")
         // clear store
         dispatch({
           type: types.USER_LOGOUT
@@ -125,7 +122,6 @@ export function logoutUser(token) {
 
 export function sendCurrentPage(token) {
   return dispatch => {
-    console.log("starting send current page");
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       var tab = tabs[0];
       if(tab.title && !Url.isUrlBlacklisted(tab.url)){
@@ -154,7 +150,6 @@ export function sendCurrentPage(token) {
           ))
           .then(
             ({ status, json }) => {
-              console.log("status - json", status, json);
               if(status == 204){
                 dispatch(PopupActions.updatePopupStatus(PopupConstants.Blacklist));
               } else {
@@ -205,7 +200,6 @@ export function loginUser(username, password){
         if(status == 401){
           dispatch(receiveLoginError(json['message']));
         } else {
-          console.log("LOGIN JSON", json);
           dispatch({
             type: types.RECEIVE_USER_TOKEN,
             token: json.token,
@@ -350,7 +344,6 @@ export function getUserInfo(token){
     .then(
       ({ status, json }) => {
         if(status == 200){
-          console.log("User Info", json)
           dispatch(receiveUserInfo(json))
         }
       }
@@ -361,7 +354,6 @@ export function getUserInfo(token){
 export function sendBackendTracking(tracking_on, token){
   return dispatch => {
     if(tracking_on){
-      console.log("tracking coming on. sending current page with it");
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         var tab = tabs[0];
         chrome.tabs.sendMessage(tab.id, {text: 'get_dom'}, function(dom){
@@ -383,7 +375,6 @@ export function sendBackendTracking(tracking_on, token){
             body: JSON.stringify({"tracking": tracking_on, "tab":tab.id, "title":tab.title, "domain":domain, "url":tab.url, "favIconUrl":tab.favIconUrl, "previousTabId": tab.openerTabId, "active": tab.active })
           })
           .then(response => {
-            console.log("tracking on response", response);
           })
         })
       })
@@ -398,7 +389,6 @@ export function sendBackendTracking(tracking_on, token){
         body: JSON.stringify({"tracking": tracking_on })
       })
       .then(response => {
-        console.log("tracking off response", response);
       })
     }
   }

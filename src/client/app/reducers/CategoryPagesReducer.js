@@ -36,7 +36,7 @@ function categoryPagesReducer(state = {catsToPages: {}, starred: {}, showStarred
       }
       return {...state, catsToPages: catsToPagesDict, starred: starredPagesToCatsDict};
     case types.REMOVE_CAT_FROM_PAGE:
-      var newPageInfo = action.json;
+      var newPageInfo = action.json
       var removedCat = action.categoryTitle;
       var catsToPagesDict = Object.assign({}, state.catsToPages);
       for (let cat in catsToPagesDict) {

@@ -26,11 +26,6 @@ class Sidebar extends Component{
     chrome.storage.local.get(["hindsite-token"], this.props.user_actions.receiveFromChrome);
   }
 
-  // hideApp(){
-  //   console.log("hiding app");
-  //   $('outer-sidebar').hide();
-  //
-  // }
 
   renderContent() {
 		if(this.props.currentUser.token.length != 0){ //Logged In
@@ -51,8 +46,9 @@ class Sidebar extends Component{
         case PopupConstants.Error:
 					return (
             <div className="sidebar">
-							<PopupHeader/>
-							<Error/>
+              <div className="login-wrapper">
+							      <Error/>
+              </div>
 						</div>
 					);
           case PopupConstants.Blacklist:
@@ -81,14 +77,14 @@ class Sidebar extends Component{
           );
 				case PopupConstants.SignUp:
 					return (
-            <div className="singup-wrapper">
+            <div className="signup-wrapper">
               <CreateUser/>
             </div>
           );
 				case PopupConstants.ForgotMyPassword:
 					return (
             <div className="login-wrapper">
-              <Loading/>
+              <ForgotMyPassword/>
             </div>
           );
 				default:

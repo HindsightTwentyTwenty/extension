@@ -23,7 +23,6 @@ class CategoryEditor extends Component {
       cat_title : this.category.title,
       edited: false
     });
-    console.log(this.state);
   }
 
   closeEdit(){
@@ -101,7 +100,7 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     cat_state : state.popupSelection.cat_state,
-    categories : state.categories,
+    categories : state.popupCategories,
     appNav : state.appNav
 })
 

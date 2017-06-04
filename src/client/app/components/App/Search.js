@@ -61,7 +61,6 @@ class Search extends Component {
 
   // After changing an advanced search item, reload the search results
   advancedSearchChange(start_date, end_date, category, sort){
-    console.log("Auto Search", moment(start_date).tz("UTC").format(), moment(end_date).tz("UTC").format(), category, sort);
     var search_term = document.getElementById("search-input-bar").value;
     this.props.lookback_actions.clearSearchResults();
     this.props.lookback_actions.searchTerm(search_term, moment(start_date).tz("UTC").format(), moment(end_date).tz("UTC").format(), category, sort, this.props.currentUser.token);
@@ -115,7 +114,6 @@ class Search extends Component {
   }
 
   handleCategoryChange(category_object) {
-    console.log("Cat changed:", category_object);
     var category = "";
     if(category_object){
       category = category_object.value

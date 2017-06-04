@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import analyticsReducer from './AnalyticsReducer.js';
 import currentPageReducer from './CurrentPageReducer.js';
-import categoryReducer from './CategoryReducer.js';
+import popupCategoryReducer from './popupCategoryReducer.js';
 import currentTabsReducer from './CurrentTabsReducer.js';
 import timeReducer from './TimeReducer.js';
 import navReducer from './NavReducer.js';
@@ -27,7 +27,6 @@ const appReducer = combineReducers({
   analytics: analyticsReducer,
   blacklist: blacklistReducer,
   currentSearchCategories: searchCategoryReducer,
-  categories: categoryReducer,
   currentPage: currentPageReducer,
   currentTabs: currentTabsReducer,
   currentTime: timeReducer,
@@ -38,6 +37,7 @@ const appReducer = combineReducers({
   currentDomainDisplayed: lookBackReducer,
   search: searchReducer,
   sessions: sessionsReducer,
+  popupCategories: popupCategoryReducer,
   popupSelection: popupSelectionReducer,
   popupStatus: popupNavReducer
 });

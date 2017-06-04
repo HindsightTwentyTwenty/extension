@@ -48,7 +48,7 @@ body {
    vertical-align: middle;
 }
 
-.popup-header {
+.app-header{
   margin-right: 15px;
   display: flex;
   justify-content: flex-start;
@@ -63,11 +63,24 @@ body {
   }
 }
 
+.popup-header {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  color: $base-white;
+  width: 69px;
+  margin-top: 2px;
+  margin-right: 5px;
+  &:hover{
+    cursor: pointer;
+    color: $banana;
+    font-weight: bold;
+  }
+}
+
 #hindsite{
-  /*min-width: 400px;*/
   height: inherit;
   width: inherit;
-  /*min-height: 452px;*/
 }
 
 .float-right{
@@ -374,9 +387,11 @@ body {
 }
 
 #go-to-timeline{
-  margin-left: 3px;
+  /*margin-left: 3px;
   margin-top: 0px;
-  padding-bottom: 5px;
+  padding-bottom: 5px;*/
+  font-size: small;
+  line-height: 16px;
 }
 
 #go-to-link{
@@ -388,10 +403,6 @@ body {
 }
 
 /* SIDEBAR CSS */
-/*.sidebar{
-  z-index: 200;
-  position: fixed;
-}*/
 
 .sidebar-box{
   width: 350px;
@@ -405,7 +416,7 @@ body {
   color: #fafafa;
   width:inherit;
   height: 50px;
-  line-height: 45px;
+  line-height: 50px;
   padding-left: 10px;
   font-size: large;
   position: relative;
@@ -518,26 +529,20 @@ body {
   justify-content: center;
 }
 
-/*#search-icon{
-  color: $hindsite-black;
-  &:hover{
-    color: $accent-color;
-  }
-}*/
 
 #edit-icon{
   color: $hindsite-black;
 }
 
 #categories-wrapper{
-  margin: 15px;
-  height: 144px;
+  margin: 15px 15px 0px 15px;
+  height: 154px;
   overflow: hidden;
 }
 
 .category-bar{
   border-radius: 25px;
-  max-width: 175px;
+  max-width: 150px;
   margin: 1px 3px;
   display: inline-block;
   height: 29px;
@@ -570,12 +575,19 @@ body {
   }
 }
 
+#popup-cat-button{
+  margin: 0px 0px 0px 150px;
+}
+#close-row{
+  height: 40px;
+}
+
 #row-tag-bottom{
   margin: 0px 15px;
   display: flex;
   padding: 0px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 #category-create{
@@ -720,6 +732,7 @@ body {
   color: $hindsite-black;
   font-size: small;
   padding: 5px 9px;
+  background-color: white;
 }
 
 #note-text-edit-options{
@@ -742,7 +755,32 @@ body {
   margin: 0px 4px;
 }
 
-#icon-saveedit{
+#icon-savedit{
   color: $h-green;
   margin: 0px 4px;
+  padding-top: 4px;
+}
+
+/* TRACKING CSS */
+#tracking-toggle-wrapper {
+  float: right;
+  line-height: 47px;
+}
+
+#tracking-explanation {
+  color: $hindsite-black;
+  margin-right: 3px;
+}
+
+#tracking-toggle-label {
+  color: $hindsite-black;
+  vertical-align: middle;
+  font-size: smaller;
+}
+
+.react-toggle--checked .react-toggle-track {
+    background-color: rgb(51, 152, 130);
+    &:hover{
+      background-color: rgb(51, 152, 130);
+    }
 }

@@ -16,7 +16,6 @@ class PopupCategories extends Component {
   }
 
   getBody() {
-    console.log("this.state", this.props);
     if (this.props.categories.showColorPicker) {
       return <ColorPicker/>;
     }
@@ -43,7 +42,7 @@ class PopupCategories extends Component {
 
 let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
-    categories: state.categories,
+    categories: state.popupCategories,
     currentUser : state.currentUser,
     popupSelection: state.popupSelection
 })

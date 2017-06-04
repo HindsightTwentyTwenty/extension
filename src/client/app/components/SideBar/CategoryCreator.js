@@ -52,18 +52,20 @@ class CategoryCreator extends Component {
     this.setState({curr_selected_color: color.name});
   }
 
-  addNewCategory(){
-      this.props.category_actions.pushCategory(this.state.cat_title, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
-        for (var key in this.props.categories.cats) {
-          if (this.state.cat_title == this.props.categories.cats[key].title) {
-            this.props.category_actions.toggleCategory(this.props.currentPage.url,
-              this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
-            break;
-          }
-        }
-        this.closeCreate();
-    });
 
+  createNewCategory(){
+    if(this.state.cat_title && (this.state.cat_title.trim().length != 0)){
+        this.props.category_actions.pushCategory(this.state.cat_title, this.props.categories.editCatColor.code, this.props.currentUser.token).then(() => {
+          for (var key in this.props.categories.cats) {
+            if (this.state.cat_title == this.props.categories.cats[key].title) {
+              this.props.category_actions.toggleCategory(this.props.currentPage.url,
+                this.props.categories.cats[key], true, this.props.currentUser.token, this.props.currentPage.title,);
+              break;
+            }
+          }
+      });
+    }
+    this.closeCreate();
   }
 
   getColors() {
@@ -86,7 +88,7 @@ class CategoryCreator extends Component {
   render () {
       return (
         <div id="category-create">
-          <div className="row-createcategory">
+          <div className="row-createcategory" id="close-row">
             <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeCreate.bind(this)}></i>
           </div>
           <div className="row-createcategory">
@@ -101,7 +103,7 @@ class CategoryCreator extends Component {
                 </div>
                 <div className="row-createcategory category-create-btns" >
                   <div className="btn-new-cat" id="btn-new-cat-cancel" onClick={this.closeCreate.bind(this)}>cancel</div>
-                  <div className="btn-new-cat" id="btn-new-cat-save" onClick={this.addNewCategory.bind(this)}>save</div>
+                  <div className="btn-new-cat" id="btn-new-cat-save" onClick={this.createNewCategory.bind(this)}>save</div>
                 </div>
             </div>
           </div>
@@ -114,7 +116,7 @@ let mapStateToProps = (state) => ({
     currentPage : state.currentPage,
     currentUser : state.currentUser,
     cat_state : state.popupSelection.cat_state,
-    categories : state.categories
+    categories : state.popupCategories
 })
 
 let mapDispatchToProps = (dispatch) => {

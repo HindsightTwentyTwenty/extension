@@ -37,7 +37,6 @@ export function getAnalytics(token){
     .then(
       ({ status, json }) => {
         if(status == 200){
-          console.log("Analytics", json)
           dispatch(receiveAnalytics(json))
         }
       }

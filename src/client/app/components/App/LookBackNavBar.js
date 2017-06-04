@@ -85,7 +85,7 @@ class LookBackNavBar extends Component {
           </div>
         </div>
         <div className="site-title">
-              <div className="popup-header"
+              <div className="app-header"
                 onClick={() => {
                   this.switchMenuSelection(LookBackSections.LookBack);
                 }}>
