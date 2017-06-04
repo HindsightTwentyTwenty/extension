@@ -49,3 +49,12 @@ export function toggleDetailView(){
     })
   }
 }
+
+export function setResultView(view){
+  return dispatch => {
+    dispatch({
+      type: types.SET_RESULT_VIEW,
+      view: view
+    })
+  }
+}

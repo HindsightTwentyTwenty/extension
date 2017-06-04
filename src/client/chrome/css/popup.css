@@ -710,7 +710,7 @@ body {
 
   &:focus, &:hover{
     outline: 1px solid $accent-color;
-    background-color: white;
+    background-color: $base-white;
   }
 }
 
