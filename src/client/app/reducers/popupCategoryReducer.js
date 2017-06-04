@@ -13,7 +13,6 @@ function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.D
       categoryObject = state.cats;
       console.log("ADD_PAGE_CATEGORY currstate, pk", categoryObject, action.category.pk)
       var num_cats = categoryObject.length;
-      //categoryObject.forEach(function(p){
       for( var p = 0; p < num_cats; p++){
         console.log(" ADD_PAGE_CATEGORY p", p);
         console.log(" ADD_PAGE_CATEGORY in foreach, the item is:", categoryObject[p], action.category.title)
@@ -24,12 +23,6 @@ function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.D
          }
       };
       console.log("ADD_PAGE_CATEGORY outside loop category is:", categoryObject)
-
-      // var index = categoryObject.indexOf(action.category) - 1;
-      // console.log('index', index);
-      // console.log('before splicing', categoryObject);
-      // // categoryObject.splice(index, 1);
-      // console.log('after splicing', categoryObject);
       categoryObject.unshift(action.category)
       return{...state, cats:categoryObject};
 
@@ -51,28 +44,22 @@ function popupCategoryReducer(state = {cats: [], editCatColor: GlobalConstants.D
       }
       return {...state, cats: newCategoryList};
     case types.RECEIVE_CATEGORIES:
-      console.log("RECEIVE_CATEGORIES", action.categories);
       var categoryObject = {};
       action.categories.map(function(category) {
         categoryObject[category.pk] = category;
       })
       return {...state, cats: categoryObject};
     case types.RECEIVE_PUSH_CATEGORY:
-      console.log("receive push category",action.category_added );
       var newCategoryList = Object.assign({}, state.cats);
       var newCategory = action.category_added;
       newCategoryList[newCategory.pk] = newCategory;
-      console.log("receive push category, cate new list", newCategoryList );
-
       return {...state, cats: newCategoryList};
     case types.RECEIVE_TRACKING_OFF_POPUP_INFO:
     case types.RECEIVE_POPUP_INFO:
-      console.log("in cat reducer, receive popup info", action);
       var categoryObject = [];
       for (var cat in action.categories){
         categoryObject.push(action.categories[cat])
       }
-      console.log("still in cat reducer, returned object", categoryObject)
       return {...state, cats: categoryObject};
     default:
       return state;

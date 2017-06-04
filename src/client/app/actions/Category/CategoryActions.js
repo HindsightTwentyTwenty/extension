@@ -67,15 +67,6 @@ export function fetchCategoriesAndPages(token){
   }
 }
 
-// export function moveCategoryToFront(cat){
-//   console.log("MOVE_CAT_TO_TOP");
-//   return dispatch => {
-//     dispatch({
-//       type: types.MOVE_CAT_TO_TOP,
-//       cat: cat
-//     })
-//   }
-// }
 
 export function toggleCategory(pageUrl, category, addOrDelete, token, pageTitle){
   console.log("toggleCategory", category, pageTitle);

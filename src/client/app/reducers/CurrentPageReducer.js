@@ -45,10 +45,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
     case types.ADD_PAGE_CATEGORY:
       var newCategoryList = Object.assign({}, state.categories);
       newCategoryList[action.category.pk] = action.category;
-      console.log("ADD_PAGE_CATEGORY currentPageReducer", newCategoryList);
       return {...state, categories: newCategoryList};
     case types.DELETE_PAGE_CATEGORY:
-      console.log("deleting page category... currentPageReducer");
       var newCategoryList = Object.assign({}, state.categories);
       var pk = action.category.pk;
       if (newCategoryList[pk]) {
