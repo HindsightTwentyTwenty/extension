@@ -26,20 +26,21 @@ class DetailModal extends Component {
   closeDetailView(event){
     this.props.pagedata_actions.receiveDecrypted("loading");
     this.props.nav_actions.changeModalView("info");
-    this.props.nav_actions.changeModalView("info");
     this.props.nav_actions.toggleDetailView();
+    this.props.lookback_actions.setCurrentPage();
   }
 
   getIframe(){
-    if(this.props.page.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
+    if(this.props.currentPage.s3 == "https://s3.us-east-2.amazonaws.com/hindsite-production/404_not_found.html"){
       /* this page is not an encrypted page, so just send back link to "bad page" message */
-      return(<iframe className="m-iframe" src={this.props.page.s3}></iframe>)
+      return(<iframe className="m-iframe" src={this.props.currentPage.s3}></iframe>)
     }
     /* if this page has no s3 page */
-    else if(this.props.page.s3 == "" && (this.props.orgin == "search" && this.props.s3 == "")){
-      return(<div className="iframe-msg-box">
-        <div className="iframe-error">Sorry, No html available for this page.</div>
-      </div>
+    else if(this.props.currentPages3 == "" && this.props.s3 == ""){
+      return(
+        <div className="iframe-msg-box">
+          <div className="iframe-error">Sorry, No html available for this page.</div>
+        </div>
       )
     }
     /* if the decryption hasn't finished yet, show loading */
@@ -53,40 +54,31 @@ class DetailModal extends Component {
     }
   }
 
-  getCategories(all) {
-    var categories = this.props.page.categories;
+  getCategories() {
+    var categories = this.props.currentPage.categories;
     var result = [];
-    var numCatsShown = this.props.page.categories.length < 6 ? this.props.page.categories.length : 6;
-    if(all){
-      numCatsShown = this.props.page.categories.length;
-    }
-      for(var i = 0; i < numCatsShown; i++) {
-        result.push(<div
-          className='category-bar hide-overflow'
-          id={categories[i].title}
-          style={{"backgroundColor" : categories[i].color , "color": "white" , "border" : "solid 2px " + categories[i].color}}
-          >
-          {categories[i].title}
-        </div>);
+    for(var pk in categories){
+      var cat = categories[pk];
+      result.push(<div className='category-bar hide-overflow' id={cat.title} style={{"backgroundColor" : cat.color , "color": "white" , "border" : "solid 2px " + cat.color}}>{cat.title}</div>);
     }
     return result;
   }
 
   getDetailView(){
-    var visited = this.props.page.last_visited ? <p>last visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
+    var visited = this.props.currentPage.last_visited ? <p>last visited: <Timestamp time={this.props.visited} format="full"/></p> : '';
 
     return(
       <div className="flex-col">
         <div className="flex-row">
           <div id='detail-screenshot-wrapper'>
-            <a href={this.props.page.url} target="_blank"><img id='detail-screenshot' src={this.props.page.preview}/></a>
+            <a href={this.props.currentPage.url} target="_blank"><img id='detail-screenshot' src={this.props.currentPage.preview}/></a>
           </div>
           <div id='detail-text-wrap'>
-            <a href={this.props.page.url} target="_blank"><p id='detail-title' className="hide-overflow">{this.props.page.title}&nbsp;<i className="fa fa-external-link" aria-hidden="true"></i></p></a>
-            <p>{this.props.page.domain}</p>
+            <a href={this.props.currentPage.url} target="_blank"><p id='detail-title' className="hide-overflow">{this.props.currentPage.title}&nbsp;<i className="fa fa-external-link" aria-hidden="true"></i></p></a>
+            <p>{this.props.currentPage.domain}</p>
             {visited}
             <div>
-              {this.getCategories(true)}
+              {this.getCategories()}
             </div>
           </div>
         </div>
@@ -118,19 +110,15 @@ class DetailModal extends Component {
 }
 
 let mapStateToProps = (state) => ({
-    currentPage: state.currentPage,
     currentUser : state.currentUser,
-    search_items: state.search,
-    categories: state.categories,
-    categoriesAndPages: state.categoriesAndPages,
-    appNav: state.appNav
+    appNav: state.appNav,
+    currentPage: state.currentPage
 })
 
 let mapDispatchToProps = (dispatch) => ({
   lookback_actions: bindActionCreators(LookbackActions, dispatch),
-  category_actions: bindActionCreators(CategoryActions, dispatch),
   pagedata_actions: bindActionCreators(PageDataActions, dispatch),
-  nav_actions: bindActionCreators(NavActions, dispatch)
+  nav_actions: bindActionCreators(NavActions, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailModal);
