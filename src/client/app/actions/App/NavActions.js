@@ -58,3 +58,12 @@ export function setResultView(view){
     })
   }
 }
+
+export function setDetailPage(page){
+  return dispatch => {
+    dispatch({
+      type: types.SET_DETAIL_PAGE,
+      page: page
+    })
+  }
+}

@@ -85,6 +85,7 @@ class CategoryEditor extends Component {
 
   deleteCategory(){
     this.props.category_actions.deleteCategory(this.category.pk, this.category.title, this.props.currentUser.token);
+    this.closeEdit();
   }
 
   render () {
