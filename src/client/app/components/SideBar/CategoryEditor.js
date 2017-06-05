@@ -26,12 +26,12 @@ class CategoryEditor extends Component {
   }
 
   componentDidMount(){
-    var default_color = this.props.categories.editCatColor.name;
-    document.getElementById(default_color).style.width = "27px";
-    document.getElementById(default_color).style.height = "27px";
-    document.getElementById(default_color).style.border = ".5px solid #55524D";
+    var current_color = this.category.color;
+    document.getElementById(current_color).style.width = "27px";
+    document.getElementById(current_color).style.height = "27px";
+    document.getElementById(current_color).style.border = ".5px solid #55524D";
     this.setState({
-      curr_selected_color : default_color
+      curr_selected_color : current_color
     })
   }
 
@@ -51,12 +51,12 @@ class CategoryEditor extends Component {
     document.getElementById(old_color).style.height = "25px";
     document.getElementById(old_color).style.border = "none";
     /* set new color attributes */
-    document.getElementById(color.name).style.width = "27px";
-    document.getElementById(color.name).style.height = "27px";
-    document.getElementById(color.name).style.border = ".5px solid #55524D";
+    document.getElementById(color.code).style.width = "27px";
+    document.getElementById(color.code).style.height = "27px";
+    document.getElementById(color.code).style.border = ".5px solid #55524D";
 
     this.props.category_actions.setEditCatColor(color);
-    this.setState({curr_selected_color: color.name});
+    this.setState({curr_selected_color: color.code});
   }
 
   getColors() {
@@ -65,7 +65,7 @@ class CategoryEditor extends Component {
       onClick={this.changeEditColor.bind(this, color)}
       style={{"backgroundColor" : color.code}}
       key={color.name}
-      id = {color.name}>
+      id={color.code}>
       </div>
     });
   }
@@ -90,9 +90,9 @@ class CategoryEditor extends Component {
   render () {
       return (
         <div id="category-create">
-          <div className="row-createcategory">
-            <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeEdit.bind(this)}></i>
-          </div>
+        <div className="row-createcategory" id="close-row">
+          <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeEdit.bind(this)}></i>
+        </div>
           <div className="row-createcategory">
             <p id="label-newtag">edit tag:</p>
             <div id="new-cat-entry">
