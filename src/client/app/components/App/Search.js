@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators} from 'redux';
 import PageUrlBar from '../Bars/PageUrlBar.js';
 import * as LookbackActions from '../../actions/App/LookbackActions.js';
+import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import * as SearchConstants from '../../constants/SearchConstants.js';
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
@@ -45,6 +46,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = getState();
+    this.props.category_actions.fetchCategories(this.props.currentUser.token);
   }
 
   searchBarInput(event){
@@ -105,7 +107,12 @@ class Search extends Component {
       var firstIndexDisplayed = (this.state.page_selection - 1) * SearchConstants.ResultsPerPage;
       var lastIndexDisplayed = firstIndexDisplayed + SearchConstants.ResultsPerPage;
       return this.props.search.results.slice(firstIndexDisplayed,lastIndexDisplayed).map(function(result) {
-        return <PageUrlBar s3={result.s3} origin="search" key={result.page.pk} page={result.page} domain={result.domain.base_url} visited={result.visited} visit_pk={result.pk}/>
+        var page = result.page;
+        page.s3 = result.s3;
+        page.preview = result.preview;
+        page.domain = result.domain.base_url;
+        page.visited = result.visited;
+        return <PageUrlBar key={result.page.pk} page={page}/>
       });
     } else {
       return <div id="no-search-results-message">No Results Were Found</div>
@@ -263,14 +270,15 @@ class Search extends Component {
 
 let mapStateToProps = (state) => ({
   appNav: state.appNav,
-  categories: state.categories,
+  categories: state.popupCategories,
   currentUser: state.currentUser,
   search: state.search
 })
 
 
 let mapDispatchToProps = (dispatch) => ({
-  lookback_actions: bindActionCreators(LookbackActions, dispatch)
+  lookback_actions: bindActionCreators(LookbackActions, dispatch),
+  category_actions: bindActionCreators(CategoryActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
