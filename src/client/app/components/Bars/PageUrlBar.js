@@ -4,6 +4,7 @@ import { bindActionCreators} from 'redux';
 import {render} from 'react-dom';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
 import * as NavActions from '../../actions/App/NavActions.js';
+import * as LookbackActions from '../../actions/App/LookbackActions.js';
 import * as GlobalConstants from '../../constants/GlobalConstants.js';
 import Loading from '../Popup/Loading.js';
 import DetailModal from '../App/DetailModal.js'
@@ -33,6 +34,7 @@ class PageUrlBar extends Component {
   openDetailView(event){
     this.getDom();
     this.props.nav_actions.toggleDetailView();
+    this.props.lookback_actions.setCurrentPage(this.props.page);
   }
 
   /* async get the dom from s3 with decryption */
@@ -72,7 +74,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
   pagedata_actions: bindActionCreators(PageDataActions, dispatch),
-  nav_actions: bindActionCreators(NavActions, dispatch)
+  nav_actions: bindActionCreators(NavActions, dispatch),
+  lookback_actions: bindActionCreators(LookbackActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUrlBar);

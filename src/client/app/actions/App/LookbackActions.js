@@ -14,7 +14,7 @@ const searchEndpoint = urls.BASE_URL + "search/";
 // TODO: date specifc GET requests
 // tabs->domains->page_visits->pages->categories
 
-export function getImage(url, md5, ekey, page, visited){
+export function getImage(url, md5, ekey){
   return dispatch => {
       return fetch(url, {
             headers: {
@@ -29,10 +29,16 @@ export function getImage(url, md5, ekey, page, visited){
          .then(response => response.blob())
          .then(blob => {
            var objectURL = URL.createObjectURL(blob);
-           dispatch(setCurrentPage(page, visited, objectURL));
+           dispatch(receivePreview(objectURL));
         });
   }
+}
 
+export function receivePreview(preview) {
+  return{
+    type: types.RECEIVE_PREVIEW,
+    preview: preview
+  }
 }
 
 export function changeStartDate(new_start_date) {
@@ -57,12 +63,10 @@ export function changeTimeframe(new_start_date, new_end_date) {
   }
 }
 
-export function setCurrentPage(page, visited, preview) {
+export function setCurrentPage(page) {
   return {
     type: types.SET_CURRENT_PAGE,
     page: page,
-    visited: visited,
-    preview: preview
   }
 }
 
