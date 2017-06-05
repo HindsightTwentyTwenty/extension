@@ -68,9 +68,10 @@ class LookBackNavBar extends Component {
               this.onMenuSelect();
             }}>timeline</button>
             <button id="nav-bar-button-1" className="nav-bar-button" type="button" onClick={() => {
+              this.props.category_actions.clearSearchCategories();
               this.switchMenuSelection(LookBackSections.Categories);
               this.onMenuSelect();
-            }}>categories</button>
+            }}>tags</button>
             <button id="nav-bar-button-3" className="nav-bar-button" type="button" onClick={() => {
               this.switchMenuSelection(LookBackSections.Analytics);
               this.onMenuSelect();
