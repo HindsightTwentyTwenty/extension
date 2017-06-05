@@ -29,7 +29,6 @@ class CategoriesPage extends Component {
   }
 
   componentWillMount(){
-    // this.props.category_actions.clearSearchCategories();
     this.props.nav_actions.switchCategoryView("select");
     this.numResults = 0;
     this.props.nav_actions.setResultView("tiles");
@@ -49,6 +48,7 @@ class CategoriesPage extends Component {
     var pkToPages = this.props.categoriesAndPages.pkToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
+    this.numResults = 0;
     if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.size == 0) {
       return (
         <div className="welcome-message">
@@ -60,7 +60,6 @@ class CategoriesPage extends Component {
       let result = [];
       var pageSet = new Set();
       let searchCatSet = new Set(currentSearchCategories);
-      this.numResults = 0;
       if (searchCatSet.size) {
         for (let searchCat of searchCatSet.values()) {
           for (var i in categoriesPages[searchCat]) {
@@ -98,7 +97,7 @@ class CategoriesPage extends Component {
       <div className="btn-results-view active" onClick={() => {this.props.nav_actions.setResultView("list")}}><i className="fa fa-th-list" aria-hidden="true"></i></div>
       <div className="btn-results-view" onClick={() => {this.props.nav_actions.setResultView("tiles");}}><i className="fa fa-th-large" aria-hidden="true"></i></div>
     </div> : '';
-    var idName = this.props.appNav == "list" ? "list-results-container" : "tile-results-container";
+    var idName = this.props.appNav.resultView === "list" ? "list-results-container" : "tile-results-container";
     if (this.props.appNav.categoriesView == "create"){
       var categoriesView = <div className="categories-view"><CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/></div>;
     }else if(this.props.appNav.categoriesView == "edit"){

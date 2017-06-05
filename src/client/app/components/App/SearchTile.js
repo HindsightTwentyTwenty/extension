@@ -37,14 +37,12 @@ class SearchTile extends Component {
     }
   }
 
-  getCategories(all) {
+  getCategories() {
     var categories = this.props.page.categories;
     var result = [];
     var numCatsShown = this.props.page.categories.length < 6 ? this.props.page.categories.length : 6;
-    if(all){
-      numCatsShown = this.props.page.categories.length;
-    }
-      for(var i = 0; i < numCatsShown; i++) {
+
+    for(var i = 0; i < numCatsShown; i++) {
         result.push(<div
           className='category-bar hide-overflow'
           id={categories[i].title}
@@ -66,13 +64,13 @@ class SearchTile extends Component {
           <div className="tile-screenshot-wrapper">
             <img className="tile-screenshot" src={this.props.page.preview}/>
             <div className="text-overlay">
-              <i className="fa fa-play-circle text-overlay-btn" aria-hidden="true" onClick={this.openDetailView.bind(this)}></i>
+              <i className="fa fa-eye text-overlay-btn" aria-hidden="true" onClick={this.openDetailView.bind(this)}></i>
             </div>
           </div>
           <a target="_blank" href={this.props.page.url}><p className="tile-title">{this.props.page.title}&nbsp;<i className="fa fa-external-link" aria-hidden="true"></i></p></a>
           {domain}
-          <div>
-            {this.getCategories(false)}
+          <div id="tile-category-container">
+            {this.getCategories()}
           </div>
         </div>
       </div>

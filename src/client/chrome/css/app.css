@@ -424,6 +424,7 @@ remove this class using removeClass as defined in App.js
 .flex-col{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .flex-center{
@@ -454,6 +455,7 @@ start-time-label .end-time-label{
   width: 100%;
   margin: 0 auto;
   overflow-y: auto;
+  height: 97%;
 }
 
 #tile-results-container {
@@ -465,6 +467,11 @@ start-time-label .end-time-label{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#tile-category-container{
+  height: 70px;
+  overflow-y: hidden;
 }
 
 .categories-page {
@@ -1541,6 +1548,8 @@ hr{
   -moz-box-shadow: 0 0 2px #b2b2b2;
   -webkit-box-shadow: 0 0 2px #b2b2b2;
   box-shadow: 0 0 2px #b2b2b2;
+  height: 38px;
+  line-height: 18px;
 }
 
 .nav-pills>li>a {

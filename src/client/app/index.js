@@ -122,7 +122,7 @@ let store = createStore(
       editCatPK: 0,
       modalView: "info",
       showDetails: false,
-      resultView: ""
+      resultView: "",
     },
     popupSelection: {
       cat_state: "",
