@@ -5,6 +5,7 @@ import { bindActionCreators} from 'redux';
 import SidebarComponent from '../Bars/SidebarComponent.js';
 import * as CategoryActions from '../../actions/Category/CategoryActions.js';
 import SearchTile from './SearchTile.js';
+import PageUrlBar from '../Bars/PageUrlBar.js';
 import CategoryAutoSuggest from './CategoryAutoSuggest.js';
 import CategoriesContainer from '../Popup/CategoriesContainer.js';
 import * as PageDataActions from '../../actions/User/PageDataActions.js';
@@ -27,6 +28,12 @@ class CategoriesPage extends Component {
     this.props.category_actions.fetchCategoriesAndPages(this.props.currentUser.token);
   }
 
+  componentWillMount(){
+    this.props.nav_actions.switchCategoryView("select");
+    this.numResults = 0;
+    this.props.nav_actions.setResultView("tiles");
+  }
+
   componentDidUpdate() {
     if (this.props.currentSearchCategories.searchCats &&
       this.props.currentSearchCategories.searchCats.size &&
@@ -41,6 +48,7 @@ class CategoriesPage extends Component {
     var pkToPages = this.props.categoriesAndPages.pkToPages;
     var starred = this.props.categoriesAndPages.starred;
     var showStarred = this.props.categoriesAndPages.showStarred;
+    this.numResults = 0;
     if (!this.props.currentSearchCategories.searchCats || this.props.currentSearchCategories.searchCats.size == 0) {
       return (
         <div className="welcome-message">
@@ -58,11 +66,15 @@ class CategoriesPage extends Component {
             var pagePk = categoriesPages[searchCat][i]
             if (!pageSet.has(pagePk)) {
               if (!showStarred || (showStarred && categoriesPages[searchCat][pagePk].star)) {
-                result.push(<SearchTile key={pagePk}
-                  source="categories"
-                  page={pkToPages[pagePk]}
-                  />)
+                if(this.props.appNav.resultView == "tiles"){
+                  result.push(<SearchTile key={pagePk}
+                    page={pkToPages[pagePk]}
+                    />);
+                }else if(this.props.appNav.resultView == "list"){
+                  result.push(<PageUrlBar key={pagePk} page={pkToPages[pagePk]}/>)
+                }
                 pageSet.add(pagePk);
+                this.numResults++;
               }
             }
           }
@@ -73,15 +85,19 @@ class CategoriesPage extends Component {
           <h4>No pages found with this tag.</h4>
         </div>
       }
-      else{
-        return result;
-      }
+      return result;
     }
   }
 
 
   render() {
     var searchResults = this.fetchPages();
+    var resultsNavBar = this.numResults > 0 ? <div id="results-nav-bar">
+      <p>{this.numResults} pages found</p>
+      <div className="btn-results-view active" onClick={() => {this.props.nav_actions.setResultView("list")}}><i className="fa fa-th-list" aria-hidden="true"></i></div>
+      <div className="btn-results-view" onClick={() => {this.props.nav_actions.setResultView("tiles");}}><i className="fa fa-th-large" aria-hidden="true"></i></div>
+    </div> : '';
+    var idName = this.props.appNav.resultView === "list" ? "list-results-container" : "tile-results-container";
     if (this.props.appNav.categoriesView == "create"){
       var categoriesView = <div className="categories-view"><CategoryCreator onClose={this.props.nav_actions.switchCategoryView}/></div>;
     }else if(this.props.appNav.categoriesView == "edit"){
@@ -95,7 +111,8 @@ class CategoriesPage extends Component {
         <div id="category-navigation">
           {categoriesView}
         </div>
-        <div className="search-results-container">
+        <div id={idName}>
+          {resultsNavBar}
           {searchResults}
         </div>
       </div>

@@ -41,3 +41,29 @@ export function changeModalView(newView){
     })
   }
 }
+
+export function toggleDetailView(){
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_DETAIL_VIEW,
+    })
+  }
+}
+
+export function setResultView(view){
+  return dispatch => {
+    dispatch({
+      type: types.SET_RESULT_VIEW,
+      view: view
+    })
+  }
+}
+
+export function setDetailPage(page){
+  return dispatch => {
+    dispatch({
+      type: types.SET_DETAIL_PAGE,
+      page: page
+    })
+  }
+}

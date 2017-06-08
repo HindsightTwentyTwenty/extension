@@ -115,22 +115,36 @@ remove this class using removeClass as defined in App.js
   padding: 6px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .bar-text-col{
-  height: 100%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;;
   color: $base-white;
   font-size: 12px;
   line-height: 15px;
-  width: 50%;
+  width: 90%;
+  margin-left: 1%;
 }
 
 .bar-text-col p{
   margin: 0;
+  color: $base-white;
+  font-size: 12px;
+  height: 10px;
+  line-height: 10px;
+}
+
+.bar-text-col h4{
+  font-size: 15px;
+  height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 5px;
 }
 
 .url-bar-form {
@@ -221,6 +235,7 @@ remove this class using removeClass as defined in App.js
   position: relative;
   padding-left: 10px;
 }
+
 .url-bar-category-button:hover{
   color: $accent-color;
 }
@@ -230,14 +245,16 @@ remove this class using removeClass as defined in App.js
 }
 
 .url{
-  color: $base-color;
+  color: $base-white;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 95%;
+  width: 80%;
   font-size: 15px;
+  display: flex;
+  flex-direction: row;
   &:hover {
-    color: $base-white;
+    color: $accent-color;
   }
 }
 
@@ -407,6 +424,7 @@ remove this class using removeClass as defined in App.js
 .flex-col{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .flex-center{
@@ -432,7 +450,15 @@ start-time-label .end-time-label{
   font-family: 'Poiret One', cursive;
 }
 
-.search-results-container {
+#list-results-container {
+  background-color: $light-grey;
+  width: 100%;
+  margin: 0 auto;
+  overflow-y: auto;
+  height: 97%;
+}
+
+#tile-results-container {
   background-color: $light-grey;
   width: 100%;
   height: 97%;
@@ -441,6 +467,11 @@ start-time-label .end-time-label{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#tile-category-container{
+  height: 70px;
+  overflow-y: hidden;
 }
 
 .categories-page {
@@ -453,6 +484,29 @@ start-time-label .end-time-label{
   width: 60%;
 }
 
+#results-nav-bar{
+  height: 25px;
+  background-color: $light-grey;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+#results-nav-bar p{
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.btn-results-view{
+  margin-right: 5px;
+  font-size: 16px;
+  &:active, &:hover{
+    color: $accent-color;
+  }
+}
 .btn-delete-cat{
   font-size: x-large;
   margin-left: 1%;
@@ -1141,8 +1195,9 @@ hr{
 
 .iframe-open-button{
   background: none;
-  color: $hindsite-black;
-  margin: 5px;
+  color: $base-white;
+  margin-top: 10px;
+  margin-right: 10px;
   font-size: x-large;
   border: none;
   outline: none;
@@ -1493,6 +1548,8 @@ hr{
   -moz-box-shadow: 0 0 2px #b2b2b2;
   -webkit-box-shadow: 0 0 2px #b2b2b2;
   box-shadow: 0 0 2px #b2b2b2;
+  height: 38px;
+  line-height: 18px;
 }
 
 .nav-pills>li>a {

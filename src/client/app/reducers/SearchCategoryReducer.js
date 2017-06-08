@@ -3,7 +3,8 @@ import * as types from '../constants/ActionTypes';
 const searchCategory = (state, action) => {
   switch (action.type) {
     case types.CLEAR_SEARCH_CATEGORIES:
-      return {searchCats: []};
+      var catSet = new Set();
+      return {searchCats: catSet};
     case types.UPDATE_SEARCH_CATEGORIES:
       var catSet = new Set();
       action.newSearchCategories.forEach(function(cat){catSet.add(cat.value)});

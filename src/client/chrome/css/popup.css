@@ -718,11 +718,11 @@ body {
 .textarea-custom{
   resize: none;
   border: none;
-  background-color: transparent;
+  background-color: white;
 
   &:focus, &:hover{
-    outline: none;
-    background-color: white;
+    outline: 1px solid $accent-color;
+    background-color: $base-white;
   }
 }
 

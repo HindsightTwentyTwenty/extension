@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as LookBackConstants from '../constants/LookBackConstants';
 
-function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: "", note:""}, action){
+function currentPageReducer(state = { url: "", categories: {}, star: false, title: "", created: "", visited: "", note:"", domain:"", preview:""}, action){
   switch(action.type){
     case types.RECEIVE_DECRYPTED:
       return {...state, s3_decrypted: action.html}
@@ -38,6 +38,8 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
         created: action.created,
         visited: action.visited
       }
+    case types.RECEIVE_PREVIEW:
+      return{...state, preview: action.preview}
     case types.UPDATE_CURRENT_STAR: //WC TODO: USE TOGGLE STAR INSTEAD???
       return {...state, star: !state.star};
     case types.ADD_PAGE_CATEGORY:
@@ -69,9 +71,10 @@ function currentPageReducer(state = { url: "", categories: {}, star: false, titl
           star: action.page.star,
           categories: categoryObject,
           created: action.page.created,
-          visited: action.visited,
-          preview: action.preview,
-          note: action.note
+          visited: action.page.visited,
+          preview: action.page.preview,
+          note: action.page.note,
+          domain: action.page.domain
         }
       }
       if(action.page.star == undefined){

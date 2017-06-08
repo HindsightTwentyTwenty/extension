@@ -46,7 +46,7 @@ class CategoriesContainer extends Component {
     if (categories != null && this.props.numCats) {
       let result = [];
       for(var key in categories) {
-        if(this.props.useCase === "search"){
+        if(this.props.useCase === "search" && this.props.currentSearchCategories.searchCats.size > 0){
           var checked = this.props.currentSearchCategories.searchCats.has(categories[key].title);
         }
         result.push(this.getCategoryBar(categories[key], checked));

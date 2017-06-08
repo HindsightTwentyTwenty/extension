@@ -25,6 +25,16 @@ class CategoryEditor extends Component {
     });
   }
 
+  componentDidMount(){
+    var current_color = this.category.color;
+    document.getElementById(current_color).style.width = "27px";
+    document.getElementById(current_color).style.height = "27px";
+    document.getElementById(current_color).style.border = ".5px solid #55524D";
+    this.setState({
+      curr_selected_color : current_color
+    })
+  }
+
   closeEdit(){
     this.setState({
       cat_title : "",
@@ -35,9 +45,18 @@ class CategoryEditor extends Component {
 
 
   changeEditColor(color) {
-    document.getElementById(color.name).style.width = 27;
-    document.getElementById(color.name).style.border = "1px solid $hindsite-black";
+    var old_color = this.state.curr_selected_color
+    /* reset old color */
+    document.getElementById(old_color).style.width = "25px";
+    document.getElementById(old_color).style.height = "25px";
+    document.getElementById(old_color).style.border = "none";
+    /* set new color attributes */
+    document.getElementById(color.code).style.width = "27px";
+    document.getElementById(color.code).style.height = "27px";
+    document.getElementById(color.code).style.border = ".5px solid #55524D";
+
     this.props.category_actions.setEditCatColor(color);
+    this.setState({curr_selected_color: color.code});
   }
 
   getColors() {
@@ -46,7 +65,7 @@ class CategoryEditor extends Component {
       onClick={this.changeEditColor.bind(this, color)}
       style={{"backgroundColor" : color.code}}
       key={color.name}
-      id = {color.name}>
+      id={color.code}>
       </div>
     });
   }
@@ -66,20 +85,21 @@ class CategoryEditor extends Component {
 
   deleteCategory(){
     this.props.category_actions.deleteCategory(this.category.pk, this.category.title, this.props.currentUser.token);
+    this.closeEdit();
   }
 
   render () {
       return (
         <div id="category-create">
-          <div className="row-createcategory">
-            <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeEdit.bind(this)}></i>
-          </div>
+        <div className="row-createcategory" id="close-row">
+          <i className="fa fa-2x fa-times exit-icon" aria-hidden="true" onClick={this.closeEdit.bind(this)}></i>
+        </div>
           <div className="row-createcategory">
             <p id="label-newtag">edit tag:</p>
-            <div id="new-cat-form">
-              <input type="text" className="login-form form-control" id="input-newcat" defaultValue={this.category.title} onChange={this.logNewCatTitle.bind(this)}/>
+            <div id="new-cat-entry">
+                <input type="text" className="login-form form-control" id="input-newcat" defaultValue={this.category.title} onChange={this.logNewCatTitle.bind(this)}/>
               <div className="row-createcategory">
-                <p>choose color:</p>
+                <p id="text-choose-color">choose color:</p>
               </div>
               <div className="row-createcategory category-create-btns" id="color-swatch-row">
                 {this.getColors()}
